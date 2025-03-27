@@ -67,7 +67,7 @@
 </head>
 
 <body class="index-page">
-    <header class="d-flex align-items-center header sticky-top" id="header">
+    <header class="d-flex align-items-center visually-hidden header sticky-top" id="header">
         <div class="container-fluid d-flex justify-content-between align-items-center position-relative"><a class="d-flex align-items-center me-auto logo me-xl-0" href="catalogo.html"><img src="assets/img/logo/Contornos_UrbanNoise-06.png"></a>
             <nav id="navmenu" class="navmenu"><i class="d-xl-none mobile-nav-toggle bi bi-list"></i></nav>
             <div class="header-social-links"><a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a><a href="#" class="facebook"><i class="bi bi-facebook"></i></a><a href="#" class="instagram"><i class="bi bi-instagram"></i></a><a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a></div>
@@ -75,7 +75,7 @@
     </header>
     <main class="main">
         <section id="hero" class="hero section" style="background: linear-gradient(black 6%, rgba(255,255,255,0)), url(&quot;assets/img/fondo/pexels-evgeniy-grozev-814830.webp&quot;) center / cover;height: 100vh;">
-            <div class="container h-100 position-relative" style="top: -50px;margin-top: -133px;">
+            <div class="container h-100 position-relative" style="top: -50px;margin-top: -67px;">
                 <h1><strong>Catalogo</strong></h1>
                 <div class="mb-4" style="border-style: none;color: var(--contrast-color);background: var(--background-color);height: auto;width: auto;"><input type="text" autofocus="" class="form-control" id="searchInput" placeholder="Busca tu modelo..." style="background-color:#000000;color:#ffffff;border:1px solid var(--default-color);height:auto;width:100%;caret-color:#ffffff;font-weight:bold;"></div>
                 <div class="row gy-5 gy-lg-0 row-cols-1 row-cols-md-2 row-cols-lg-3" id="blogPosts" style="margin-top: -15px;">
@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen" role="document">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-body" style="background:var(--background-color);">
                             <div class="carousel slide" data-bs-ride="false" id="modal-carousel" style="background: #000000;">
@@ -104,7 +104,7 @@
                             </div>
                             <div class="d-flex d-sm-flex d-md-flex justify-content-center justify-content-sm-center justify-content-md-center" style="margin: 10px;"><button class="btn btn-success" type="button" style="width: 100%;border-top-right-radius: 0px;border-bottom-right-radius: 0px;background: var(--default-color);color: var(--background-color);font-weight: bold;border-style: solid;border-color: var(--default-color);" onclick="sendWhatsAppMessage()">WhatsApp</button><button class="btn btn-outline-primary" type="button" style="width: 100%;border-top-left-radius: 0px;border-bottom-left-radius: 0px;color: var(--default-color);border-style: solid;border-color: var(--default-color);background: var(--background-color);" onclick="shareCatalog()">Compartir</button></div>
                         </div>
-                        <div class="modal-header" style="background:var(--background-color);color:var(--contrast-color);border-style:none;"><img class="img-fluid" src="assets/img/logo/Contornos_UrbanNoise-06.png" width="35" height="33" style="margin-right: 9px;">
+                        <div class="modal-header" style="background: var(--background-color);color: var(--contrast-color);border-style: none;border-top-left-radius: 0px;border-top-right-radius: 0px;"><img class="img-fluid" src="assets/img/logo/Contornos_UrbanNoise-06.png" width="35" height="33" style="margin-right: 9px;">
                             <h4 class="modal-title" style="margin-right: 5px;">Diseño:</h4>
                             <h4 class="modal-title" id="modal-title">Modal Title</h4><button class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
                         </div>
@@ -112,15 +112,7 @@
                 </div>
             </div>
         </section>
-    </main>
-    <footer id="footer" class="footer" style="background: var(--background-color);">
-        <div class="container">
-            <div class="text-center copyright"><img class="img-fluid" src="assets/img/logo/Contornos_UrbanNoise-06.png" width="47" height="45">
-                <p>© <span>Copyright&nbsp;&nbsp;</span><strong class="px-1 sitename">Urbannoise</strong><span>Todos los derechos reservados <strong>2025</strong></span></p>
-            </div>
-            <div class="d-flex justify-content-center social-links"><a href=""><i class="bi bi-twitter-x"></i></a><a href=""><i class="bi bi-facebook"></i></a><a href=""><i class="bi bi-instagram"></i></a><a href=""><i class="bi bi-linkedin"></i></a></div>
-        </div>
-    </footer><a class="d-flex justify-content-center align-items-center scroll-top" href="#" id="scroll-top"><i class="bi bi-arrow-up-short"></i></a>
+    </main><a class="d-flex justify-content-center align-items-center scroll-top" href="#" id="scroll-top"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader">
         <div class="line"></div>
     </div>
@@ -134,6 +126,7 @@
     <script src="assets/js/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/js/js/main.js"></script>
     <script src="assets/js/blogger.js"></script>
+    <script src="assets/js/compartir-whatsapp.js"></script>
     <script src="assets/js/compartir.js"></script>
     <script src="assets/js/search.js"></script>
     <script src="assets/js/whatsapp.js"></script>
