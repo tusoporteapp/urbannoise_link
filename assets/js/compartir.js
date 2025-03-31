@@ -1,20 +1,22 @@
 function shareCatalog() {
-    // Obtener la URL de la página actual
-    const pageUrl = window.location.href;
+  // Obtener el título del producto
+  const productTitle = document.querySelector("section .container h1")?.innerText || "Modelo sin título";
 
-    // Número de WhatsApp al que se enviará el mensaje (opcional, se puede compartir sin número)
-    const phoneNumber = ""; // Dejar vacío para que el usuario elija a quién enviarlo
+  // Obtener la URL COMPLETA actual (incluye parámetros, anclas, etc.)
+  const pageUrl = window.location.href;
 
-    // Crear el mensaje de WhatsApp
-    let message = `🔥 *¡Descubre UrbanNoise! 🔥*%0A%0A`;
-    message += `💥 Estilo, exclusividad y tendencia en un solo lugar.%0A`;
-    message += `Nuestra nueva colección ya está disponible, y sé que te encantará. *¡No te lo puedes perder!*%0A%0A`;
-    message += `🔗 *Explora nuestro catálogo aquí:* ${pageUrl}%0A%0A`;
-    message += `¡Cuéntame qué te parece y cuál es tu favorito! 😍`;
+  // Armar el mensaje con branding + producto + URL real
+  let message = `👊 Te comparto esto de la marca *UrbanNoise*.%0A%0A`;
+  message += `🚨 No es moda. Es actitud.%0A🔥 Esto es *UrbanNoise*%0A`;
+  message += `👕 Modelo: *${productTitle}*%0A%0A`;
+  message += `💥 Estilo, exclusividad y tendencia en un solo lugar.%0A`;
+  message += `*¡No te lo puedes perder!*%0A%0A`;
+  message += `🔗 *Descúbrelo aquí:* ${pageUrl}%0A%0A`;
+  message += `¿Cuál sería tu favorito? 😍`;
 
-    // Crear el enlace de WhatsApp
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  // Enlace WhatsApp sin número, para compartir
+  const whatsappUrl = `https://wa.me/?text=${message}`;
 
-    // Abrir el enlace en una nueva ventana
-    window.open(whatsappUrl, "_blank");
+  // Abrir en nueva pestaña
+  window.open(whatsappUrl, "_blank");
 }
