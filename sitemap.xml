@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/AcidWash/Harmony.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/AcidWash/london.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/AcidWash/polaroid.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/AcidWash/urbannoise.html</loc>
+    </url>
+    <url>
         <loc>https://urbannoise.cc/catalogo/Hombre/OverBurda/AllAccess.html</loc>
     </url>
     <url>
@@ -121,6 +133,9 @@
         <loc>https://urbannoise.cc/catalogo/Hombre/OverBurda/WRDWD.html</loc>
     </url>
     <url>
+        <loc>https://urbannoise.cc/Acid.Wash.html</loc>
+    </url>
+    <url>
         <loc>https://urbannoise.cc/app.html</loc>
     </url>
     <url>
@@ -130,7 +145,7 @@
         <loc>https://urbannoise.cc/</loc>
     </url>
     <url>
-        <loc>https://urbannoise.cc/index-1.html</loc>
+        <loc>https://urbannoise.cc/Over.Burda.html</loc>
     </url>
     <url>
         <loc>https://urbannoise.cc/tv.html</loc>
