@@ -13,6 +13,27 @@
         <loc>https://urbannoise.cc/catalogo/Hombre/AcidWash/urbannoise.html</loc>
     </url>
     <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_Busto.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_Club1960.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_Harmony.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_London.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_SkateOso.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_StayReal.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_UrbanNoise.html</loc>
+    </url>
+    <url>
         <loc>https://urbannoise.cc/catalogo/Hombre/OverBurda/AllAccess.html</loc>
     </url>
     <url>
@@ -133,7 +154,13 @@
         <loc>https://urbannoise.cc/catalogo/Hombre/OverBurda/WRDWD.html</loc>
     </url>
     <url>
-        <loc>https://urbannoise.cc/Acid.Wash.html</loc>
+        <loc>https://urbannoise.cc/Categorias/Acid.Wash.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/Categorias/Esqueletos.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/Categorias/Over.Burda.html</loc>
     </url>
     <url>
         <loc>https://urbannoise.cc/app.html</loc>
@@ -143,9 +170,6 @@
     </url>
     <url>
         <loc>https://urbannoise.cc/</loc>
-    </url>
-    <url>
-        <loc>https://urbannoise.cc/Over.Burda.html</loc>
     </url>
     <url>
         <loc>https://urbannoise.cc/tv.html</loc>
