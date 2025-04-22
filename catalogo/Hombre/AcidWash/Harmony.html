@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="../../../assets/css/vendor/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="../../../assets/css/css/main.css">
     <link rel="stylesheet" href="../../../assets/css/Articles-Cards-images.css">
+    <link rel="stylesheet" href="../../../assets/css/Lightbox-Gallery-No-Gutters-baguetteBox.min.css">
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
@@ -93,6 +94,18 @@
                             </div>
                             <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
                         </div>
+                        <section class="photo-gallery py-4 py-xl-5">
+                            <div class="container">
+                                <div class="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-xl-3 photos" data-bss-baguettebox="">
+                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva1.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva1.webp"></a></div>
+                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva2.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva2.webp"></a></div>
+                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva3.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva3.webp"></a></div>
+                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva4.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva4.webp"></a></div>
+                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva5.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva5.webp"></a></div>
+                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva6.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/acidwash/ref.harmony/Diapositiva6.webp"></a></div>
+                                </div>
+                            </div>
+                        </section>
                         <div class="d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-sm-center justify-content-md-center" style="padding-top: 10px;"><button class="btn btn-success" type="button" style="width: 100%;border-top-right-radius: 0px;border-bottom-right-radius: 0px;background: var(--default-color);color: var(--background-color);font-weight: bold;border-style: solid;border-color: var(--default-color);" onclick="sendWhatsAppMessage()">WhatsApp</button><button class="btn btn-outline-primary" type="button" style="width: 100%;border-top-left-radius: 0px;border-bottom-left-radius: 0px;color: var(--default-color);border-style: solid;border-color: var(--default-color);background: var(--background-color);" onclick="shareCatalog()">Compartir</button></div>
                     </div>
                     <div class="col-md-6 col-lg-6">
@@ -135,6 +148,8 @@
     <script src="../../../assets/js/js/main.js"></script>
     <script src="../../../assets/js/blogger.js"></script>
     <script src="../../../assets/js/compartir.js"></script>
+    <script src="../../../assets/js/Lightbox-Gallery-No-Gutters-baguetteBox.min.js"></script>
+    <script src="../../../assets/js/Lightbox-Gallery-No-Gutters-Lightbox-Gallery.js"></script>
     <script src="../../../assets/js/search.js"></script>
     <script src="../../../assets/js/WhatsApp%20Camisetas.js"></script>
 </body>
