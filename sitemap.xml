@@ -25,7 +25,19 @@
         <loc>https://urbannoise.cc/catalogo/Hombre/Buzos/London.html</loc>
     </url>
     <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Conjuntosytexturizados/Tex.Beige..html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Conjuntosytexturizados/Tex.Blanco.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Conjuntosytexturizados/Tex.Cafe.html</loc>
+    </url>
+    <url>
         <loc>https://urbannoise.cc/catalogo/Hombre/Conjuntosytexturizados/Tex.ClasicColors.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/catalogo/Hombre/Conjuntosytexturizados/Tex.Negro.html</loc>
     </url>
     <url>
         <loc>https://urbannoise.cc/catalogo/Hombre/Esqueletos/Esq_AirPort.html</loc>
@@ -172,10 +184,16 @@
         <loc>https://urbannoise.cc/catalogo/Mujer/ConjuntosYPantalones/PantalonCamel.html</loc>
     </url>
     <url>
+        <loc>https://urbannoise.cc/catalogo/Niños/Conjuntosytexturizados/Conj.Camisetas.html</loc>
+    </url>
+    <url>
         <loc>https://urbannoise.cc/Categorias/Acid.Wash.html</loc>
     </url>
     <url>
         <loc>https://urbannoise.cc/Categorias/Buzos.html</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/Categorias/ConjuntosyNiño.html</loc>
     </url>
     <url>
         <loc>https://urbannoise.cc/Categorias/ConjuntosyPantalones.html</loc>
@@ -203,6 +221,9 @@
     </url>
     <url>
         <loc>https://urbannoise.cc/</loc>
+    </url>
+    <url>
+        <loc>https://urbannoise.cc/niños.html</loc>
     </url>
     <url>
         <loc>https://urbannoise.cc/tv.html</loc>
