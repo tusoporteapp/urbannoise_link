@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="../../../assets/css/css/main.css">
     <link rel="stylesheet" href="../../../assets/css/Articles-Cards-images.css">
     <link rel="stylesheet" href="../../../assets/css/Lightbox-Gallery-No-Gutters-baguetteBox.min.css">
+    <link rel="stylesheet" href="../../../assets/css/tallas.css">
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
@@ -83,31 +84,29 @@
                         <h1>Off White VIP</h1>
                     </div>
                     <div class="col-md-6 col-xl-5 col-xxl-4">
-                        <div class="carousel slide carousel-dark" data-bs-ride="true" data-bs-interval="3000" data-bs-pause="false" id="carousel-1">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active"><img class="w-100 d-block" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva2.webp" alt="Slide Image"></div>
-                                <div class="carousel-item"><img class="w-100 d-block" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva1.webp" alt="Slide Image"></div>
-                                <div class="carousel-item"><img class="w-100 d-block" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva3.webp" alt="Slide Image"></div>
-                            </div>
-                            <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+                        <div class="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-xl-3 photos" data-bss-baguettebox="">
+                            <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva1.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva1.webp"></a></div>
+                            <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva2.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva2.webp"></a></div>
+                            <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva3.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva3.webp"></a></div>
                         </div>
-                        <section class="photo-gallery py-4 py-xl-5">
-                            <div class="container">
-                                <div class="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-xl-3 photos" data-bss-baguettebox="">
-                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva1.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva1.webp"></a></div>
-                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva2.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva2.webp"></a></div>
-                                    <div class="col-6 item" style="margin-top: 15px;"><a href="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva3.webp"><img class="img-fluid" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitevip/Diapositiva3.webp"></a></div>
-                                </div>
+                        <div class="alert alert-danger" role="alert" style="border-top-left-radius: 0px;border-top-right-radius: 0px;"><span><strong>IMPORTANTE&nbsp;</strong>Quedan pocas unidades.</span></div>
+                        <div>
+                            <div style="text-align: center;"><span>Tallas Disponibles</span></div>
+                            <div class="tallas-container" style="width: auto;margin: 5px;">
+                                <div class="talla disponible" style="width: 100%;height: 100%;"><span>S</span></div>
+                                <div class="talla disponible" style="width: 100%;height: 100%;"><span>M</span></div>
+                                <div class="talla disponible" style="width: 100%;height: 100%;"><span>L</span></div>
+                                <div class="talla disponible" style="width: 100%;height: 100%;"><span>XL</span></div>
                             </div>
-                        </section>
+                        </div>
                         <div class="d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-sm-center justify-content-md-center" style="padding-top: 10px;"><button class="btn btn-success" type="button" style="width: 100%;border-top-right-radius: 0px;border-bottom-right-radius: 0px;background: var(--default-color);color: var(--background-color);font-weight: bold;border-style: solid;border-color: var(--default-color);" onclick="sendWhatsAppMessage()">WhatsApp</button><button class="btn btn-outline-primary" type="button" style="width: 100%;border-top-left-radius: 0px;border-bottom-left-radius: 0px;color: var(--default-color);border-style: solid;border-color: var(--default-color);background: var(--background-color);" onclick="shareCatalog()">Compartir</button></div>
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <h1>DISEÑOS <strong>OVER.BURDA</strong></h1>
-                        <div data-bss-type="blog-loop" data-bss-perpage="39">
+                        <div data-bss-type="blog-loop" data-bss-perpage="40">
                             <div class="row gy-3" data-bss-type="blog-loop-base">
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
-                                    <div class="card"><a href="AirPort.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.airport/WEB.gif"></a></div>
+                                    <div class="card"><a href="AirPort.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.airport/Diapositiva2.jpg"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
                                     <div class="card"><a href="AllAccess.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.allaccess/Diapositiva4.webp"></a></div>
@@ -131,7 +130,7 @@
                                     <div class="card"><a href="BetterDaysAhead.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.betterdaysahead/Diapositiva2.webp"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
-                                    <div class="card"><a href="Boombox.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.boombox/WEB_GRIS.gif"></a></div>
+                                    <div class="card"><a href="Boombox.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.boombox/Diapositiva2.jpg"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
                                     <div class="card"><a href="CaritaFeliz.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.caritafeliz/Diapositiva4.webp"></a></div>
@@ -149,7 +148,7 @@
                                     <div class="card"><a href="Disrupting.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.disrupting/Diapositiva2.webp"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
-                                    <div class="card"><a href="DontSkip.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.dontskip/WEB.gif"></a></div>
+                                    <div class="card"><a href="DontSkip.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.dontskip/Diapositiva2.jpg"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
                                     <div class="card"><a href="EaglesNFL.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.eaglesnfl/Diapositiva2.webp"></a></div>
@@ -188,6 +187,9 @@
                                     <div class="card"><a href="MotorUrbanNoise.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.motorurbannoise/Diapositiva1.webp"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
+                                    <div class="card"><a href="Mythic%20Urban.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.mythicurban/Diapositiva2.jpg"></a></div>
+                                </div>
+                                <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
                                     <div class="card"><a href="OffWhiteM.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.offwhitem/Diapositiva2.webp"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
@@ -200,10 +202,13 @@
                                     <div class="card"><a href="OhThesePants.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.ohthosepants/Diapositiva2.webp"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
-                                    <div class="card"><a href="Basica.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.basica/WEB.gif"></a></div>
+                                    <div class="card"><a href="Basica.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.basica/Diapositiva3.jpg"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
                                     <div class="card"><a href="SaintsNewOrleans.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.saintsneworleans/Diapositiva2.webp"></a></div>
+                                </div>
+                                <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
+                                    <div class="card"><a href="Scarface.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.scarface/Diapositiva1.jpg"></a></div>
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
                                     <div class="card"><a href="SplatInsect.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.splatinsect/Diapositiva2.webp"></a></div>
@@ -219,9 +224,6 @@
                                 </div>
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
                                     <div class="card"><a href="WantedYosemiteSam.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.wantedyosemitesam/Diapositiva2.webp"></a></div>
-                                </div>
-                                <div class="col-6 col-sm-4 col-md-6 col-lg-5 col-xl-4" data-bss-type="blog-loop-item">
-                                    <div class="card"><a href="WhoGares.html"><img class="card-img-top" src="../../../assets/img/catalogo/CABALLERO/oversize/ref.whogares/Diapositiva2.webp"></a></div>
                                 </div>
                             </div>
                         </div>
