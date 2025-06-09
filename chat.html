@@ -77,16 +77,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ================================================================= -->
+    <!-- ======================= 1. ESTILOS DEL CHAT ===================== -->
+    <!-- ================================================================= -->
     <style>
-        /* Estilos personalizados para la aplicación */
+        /* Estilos generales para el cuerpo de la página */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Previene el scroll en el cuerpo de la página */
+            overflow: hidden; /* Previene el scroll en el cuerpo principal */
             font-family: 'Inter', sans-serif;
             background-color: #ffffff; 
         }
+        /* Contenedor principal del chat */
         .chat-container {
             width: 100%;
             height: 100%; /* Ocupa toda la altura en móviles */
@@ -94,19 +99,23 @@
             border: none;
             border-radius: 0;
         }
+        /* Área donde aparecen los mensajes */
         .chat-messages {
-            flex-grow: 1;
-            overflow-y: auto;
-            min-height: 0;
+            flex-grow: 1; /* Permite que esta área ocupe todo el espacio vertical disponible */
+            overflow-y: auto; /* Crea una barra de desplazamiento si los mensajes exceden la altura */
+            min-height: 0; /* Truco de Flexbox para asegurar que el scroll funcione en todos los navegadores */
         }
+        /* Estilos para el texto dentro de las burbujas de chat */
         .card-body p {
-            white-space: pre-wrap;
-            word-break: break-word;
+            white-space: pre-wrap; /* Respeta los saltos de línea y espacios en el texto */
+            word-break: break-word; /* Evita que el texto se salga de la burbuja */
         }
+        /* Estilo para los botones de acción */
         .message-buttons .btn {
             margin-top: 8px;
             margin-right: 8px;
         }
+        /* Animación de "escribiendo..." */
         .typing-indicator span {
             height: 10px;
             width: 10px;
@@ -122,7 +131,7 @@
             40% { transform: scale(1.0); }
         }
 
-        /* Estilos para pantallas más grandes (Tablets y Escritorio) */
+        /* Media Query para pantallas más grandes (Tablets y Escritorio) */
         @media (min-width: 768px) {
             body {
                 display: flex;
@@ -134,14 +143,24 @@
                 max-height: 800px;
                 max-width: 700px;
                 border: 1px solid #dee2e6;
-                border-radius: .5rem; /* Bootstrap .rounded-2 */
-                box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); /* Bootstrap .shadow-lg */
+                border-radius: .5rem; /* Equivalente a .rounded-2 de Bootstrap */
+                box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); /* Equivalente a .shadow-lg de Bootstrap */
+            }
+        }
+        
+        /* Media Query para que la letra sea más compacta en móviles */
+        @media (max-width: 767px) {
+            .card-body p {
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ================================================================= -->
+    <!-- =================== 2. ESTRUCTURA HTML DEL CHAT ================= -->
+    <!-- ================================================================= -->
     <div class="chat-container d-flex flex-column">
         <!-- Cabecera del Chat -->
         <div class="card-header text-white d-flex justify-content-between align-items-center p-3" style="background-color: #000000;">
@@ -150,14 +169,13 @@
         </div>
 
         <!-- Área de Mensajes -->
-        <div id="chat-messages" class="card-body p-4 chat-messages">
-            <!-- Los mensajes se agregarán aquí dinámicamente -->
+        <div id="chat-messages" class="card-body p-3 chat-messages">
+            <!-- Los mensajes del chat se insertarán aquí con JavaScript -->
         </div>
 
-        <!-- Indicador de "Escribiendo..." -->
-        <div id="typing-indicator" class="p-4 d-none">
-             <div class="d-flex align-items-start gap-3">
-                <img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Typing Indicator" class="rounded-circle" style="width: 40px; height: 40px; object-fit: contain;">
+        <!-- Indicador de "Escribiendo..." (oculto por defecto) -->
+        <div id="typing-indicator" class="p-3 d-none">
+             <div class="d-flex justify-content-start">
                 <div class="card bg-white border"><div class="card-body p-3"><div class="typing-indicator"><span></span><span></span><span></span></div></div></div>
             </div>
         </div>
@@ -173,20 +191,29 @@
         </div>
     </div>
 
-    <!-- Incluyendo Bootstrap 5 JS Bundle -->
+    <!-- Incluyendo el JavaScript de Bootstrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- ================================================================= -->
+    <!-- =================== 3. SCRIPT DEL CHATBOT ======================= -->
+    <!-- ================================================================= -->
     <script>
+        // --- CONSTANTES DEL DOM ---
+        // Guardamos las referencias a los elementos HTML para no tener que buscarlos cada vez.
         const chatForm = document.getElementById('chat-form');
         const userInput = document.getElementById('user-input');
         const chatMessages = document.getElementById('chat-messages');
         const sendButton = document.getElementById('send-button');
         const typingIndicator = document.getElementById('typing-indicator');
 
+        // --- CEREBRO DEL BOT (INSTRUCCIONES PARA GEMINI) ---
+        // Esta es la parte más importante. Aquí definimos la personalidad, reglas, conocimiento y comportamiento del bot.
+        // Gemini leerá esto en cada conversación para saber cómo actuar.
         const system_prompt = `
             Eres URBAN, el asistente de Urban Noise. Tu objetivo es conectar a los clientes con la marca de forma rápida y útil.
             REGLA PRINCIPAL: Tus respuestas deben ser cortas y directas. Utiliza el formato de botones [Texto](URL) SÓLO CUANDO SEA NECESARIO Y LÓGICO.
             
-            DEBES RESPONDER EXCLUSIVamente CON BASE EN LA SIGUIENTE INFORMACIÓN. No inventes datos. Si se te consulta algo fuera de la información provista, tu ÚNICA respuesta debe ser: "Sobre eso no sé. Puedes [Hablar con un agente](whatsapp:+573108720491) o [visitar la web](https://www.UrbanNoise.co)."
+            DEBES RESPONDER EXCLUSIVamente CON BASE EN LA SIGUIENTE INFORMACIÓN. No inventes datos. Si se te consulta algo fuera de la información provista, tu ÚNICA respuesta debe ser: "¡Buena pregunta! Para darte ese dato exacto, un agente te ayudará mejor. [Hablar con un agente](whatsapp:+573108720491)"
 
             **1. Saludos y Conversación General:**
             - Si el usuario te saluda con "hola", "buenas", "cómo estás" o algo similar, responde de forma amigable y corta, y luego pregunta en qué puedes ayudar. EJEMPLO: "¡Qué más! ¿Todo bien? Dime qué necesitas ver hoy." o "¡Hey! ¿Listo para ver lo nuevo?". NO ofrezcas botones en un saludo simple.
@@ -194,46 +221,68 @@
             **2. Web y Colecciones:**
             - **Pregunta General (sin género):** Si preguntan por "ropa", "novedades", "camisetas", "pantalones", etc., sin especificar género, PRIMERO pregunta: "¿Buscas para hombre o para mujer?".
             - **Categorías Hombre:** Si preguntan por "hombre", responde: "Claro, aquí tienes las categorías de hombre: [Acid Wash](https://www.urbannoise.co/hombre3/camiseta-oversize8/acid-wash/) [Burda Clásica](https://www.urbannoise.co/hombre3/camiseta-oversize8/burda-clasica/) [Galleta](https://www.urbannoise.co/hombre3/camiseta-oversize8/galleta/) [Esqueletos](https://www.urbannoise.co/hombre3/esqueletos/) [Buzos](https://www.urbannoise.co/hombre3/buzos-y-sacos/) [Conjuntos](https://www.urbannoise.co/hombre3/conjuntos1/) [Bermudas](https://www.urbannoise.co/hombre3/bermudas/)"
-              - **Camisetas Hombre (específico):** Si preguntan específicamente por "camisetas de hombre", responde: "Para hombre tenemos estas camisetas: [Acid Wash](https://www.urbannoise.co/hombre3/camiseta-oversize8/acid-wash/) [Burda Clásica](https://www.urbannoise.co/hombre3/camiseta-oversize8/burda-clasica/) [Galleta](https://www.urbannoise.co/hombre3/camiseta-oversize8/galleta/)"
-              - **Buzos o Sacos Hombre (específico):** Si preguntan por "buzos de hombre" o "sacos de hombre", responde: "Aquí están los buzos para hombre: [Ver Buzos y Sacos](https://www.urbannoise.co/hombre3/buzos-y-sacos/)"
             - **Categorías Mujer:** Si preguntan por "mujer", responde: "¡Por supuesto! Para mujer tenemos: [Buzos y Sacos](https://www.urbannoise.co/mujer1/buzos-y-sacos1/) [Conjuntos](https://www.urbannoise.co/mujer1/conjuntos/) [Pantalones](https://www.urbannoise.co/mujer1/pantalon/)"
-              - **Buzos o Sacos Mujer (específico):** Si preguntan por "buzos de mujer" o "sacos de mujer", responde: "Aquí están los buzos para mujer: [Ver Buzos y Sacos](https://www.urbannoise.co/mujer1/buzos-y-sacos1/)"
             - **Web principal:** "Puedes ver todo en la web principal: [UrbanNoise.co](https://www.UrbanNoise.co)"
 
-            **3. Redes Sociales:**
+            **3. MANEJO DE KEYWORDS DE CATEGORÍAS (REGLA IMPORTANTE):**
+            - Si el usuario escribe una palabra clave de una categoría, responde directamente con el botón correspondiente. Sé inteligente con las variaciones.
+            - **Keywords Hombre:**
+              - "acid wash", "acidwash", "acid": "¡Claro! Aquí tienes la colección Acid Wash: [Ver Acid Wash](https://www.urbannoise.co/hombre3/camiseta-oversize8/acid-wash/)"
+              - "burda", "burda clasica": "La colección Burda Clásica está aquí: [Ver Burda Clásica](https://www.urbannoise.co/hombre3/camiseta-oversize8/burda-clasica/)"
+              - "galleta": "Aquí tienes las camisetas Galleta: [Ver Galleta](https://www.urbannoise.co/hombre3/camiseta-oversize8/galleta/)"
+              - "esqueleto", "esqueletos": "Los esqueletos para hombre están aquí: [Ver Esqueletos](https://www.urbannoise.co/hombre3/esqueletos/)"
+              - "buzo hombre", "buzos hombre", "saco hombre", "sacos hombre": "Aquí están los buzos y sacos para hombre: [Ver Buzos y Sacos](https://www.urbannoise.co/hombre3/buzos-y-sacos/)"
+              - "conjunto hombre", "conjuntos hombre": "Los conjuntos para hombre: [Ver Conjuntos](https://www.urbannoise.co/hombre3/conjuntos1/)"
+              - "bermuda", "bermudas": "Las bermudas para hombre: [Ver Bermudas](https://www.urbannoise.co/hombre3/bermudas/)"
+            - **Keywords Mujer:**
+              - "buzo mujer", "buzos mujer", "saco mujer", "sacos mujer": "Los buzos y sacos para mujer: [Ver Buzos y Sacos](https://www.urbannoise.co/mujer1/buzos-y-sacos1/)"
+              - "conjunto mujer", "conjuntos mujer": "Claro, los conjuntos de mujer: [Ver Conjuntos](https://www.urbannoise.co/mujer1/conjuntos/)"
+              - "pantalon mujer", "pantalones mujer": "Los pantalones de mujer están aquí: [Ver Pantalones](https://www.urbannoise.co/mujer1/pantalon/)"
+
+            **4. Redes Sociales:**
             - **Instagram:** "Síguenos para no perderte de nada: [Ver Instagram](https://www.instagram.com/urban_noise_/)"
             - **TikTok:** "Nuestros últimos videos y tendencias: [Ver TikTok](https://www.tiktok.com/@urban_noise)"
 
-            **4. Soporte y Contacto:**
+            **5. Soporte y Contacto:**
             - **Contacto directo:** Si preguntan por un agente o contacto, responde: "Claro, habla con un agente directamente: [Contactar por WhatsApp](whatsapp:+573108720491)"
             - **Ubicación:** "Estamos en el C.C. El Gran San, Local 2268, Bogotá."
         `;
 
+        // --- HISTORIAL DEL CHAT (MEMORIA A CORTO PLAZO) ---
+        // Este array guarda la conversación actual para darle contexto a la IA. Se reinicia al recargar la página.
         let chatHistory = [
             { "role": "user", "parts": [{ "text": system_prompt }] },
             { "role": "model", "parts": [{"text": "Entendido. Soy URBAN. Directo y al grano. Listo para la comunidad Noise."}] }
         ];
 
+        // --- MANEJADOR DE EVENTOS PRINCIPAL ---
+        // Esta función se activa cuando el usuario envía un mensaje.
         chatForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Previene que la página se recargue
             const userMessage = userInput.value.trim();
-            if (!userMessage) return;
+            if (!userMessage) return; // No hacer nada si el mensaje está vacío
 
+            // Deshabilitar el input y el botón mientras se procesa la respuesta
             userInput.disabled = true;
             sendButton.disabled = true;
-            addMessage(userMessage, 'user');
-            userInput.value = '';
 
+            // Añadir el mensaje del usuario a la pantalla
+            addMessage(userMessage, 'user');
+            userInput.value = ''; // Limpiar el campo de texto
+
+            // Mostrar el indicador de "escribiendo..."
             typingIndicator.classList.remove('d-none');
             chatMessages.appendChild(typingIndicator);
             scrollToBottom();
 
             try {
+                // Añadir el mensaje del usuario al historial para que Gemini tenga contexto
                 chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
                 const payload = { contents: chatHistory };
-                const apiKey = "AIzaSyAPPw3GgpKEnEVkvNuCnWOcoM433yXQLhQ";
+                const apiKey = "AIzaSyAPPw3GgpKEnEVkvNuCnWOcoM433yXQLhQ"; // La API Key es gestionada por el entorno, no necesita llenarla.
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
+                // Realizar la llamada a la API de Gemini
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -245,6 +294,7 @@
                 const result = await response.json();
                 let botMessage = "No pude procesar esa solicitud. Intenta de nuevo.";
 
+                // Procesar y mostrar la respuesta del bot
                 if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
                     botMessage = result.candidates[0].content.parts[0].text;
                     chatHistory.push({ role: "model", parts: [{ text: botMessage }] });
@@ -252,23 +302,28 @@
                     botMessage = `Tu solicitud fue bloqueada. Intenta con otra pregunta.`;
                 }
                 
-                typingIndicator.classList.add('d-none');
-                addMessage(botMessage, 'bot');
+                typingIndicator.classList.add('d-none'); // Ocultar el indicador de "escribiendo..."
+                addMessage(botMessage, 'bot'); // Mostrar la respuesta del bot
+
             } catch (error) {
                 console.error("Error al contactar la API de Gemini:", error);
                 typingIndicator.classList.add('d-none');
                 addMessage(`Error técnico. Intenta de nuevo más tarde.`, 'bot-error');
             } finally {
+                // Volver a habilitar el input y el botón para que el usuario pueda escribir de nuevo
                 userInput.disabled = false;
                 sendButton.disabled = false;
                 userInput.focus();
             }
         });
 
+        // --- FUNCIÓN PARA "DIBUJAR" LOS MENSAJES EN PANTALLA ---
+        // Esta función crea el HTML para cada burbuja de chat, incluyendo los botones.
         function addMessage(text, sender) {
             const messageWrapper = document.createElement('div');
-            messageWrapper.className = `d-flex align-items-start gap-3 mb-3 ${sender === 'user' ? 'justify-content-end' : 'justify-content-start'}`;
+            messageWrapper.className = `d-flex mb-3 ${sender === 'user' ? 'justify-content-end' : 'justify-content-start'}`;
             
+            // Expresión regular para encontrar y transformar [Texto](URL) en botones
             const buttonRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
             let messageText = text.replace(/<|>/g, '');
             let buttonsHTML = '';
@@ -289,24 +344,19 @@
                 let style = url.startsWith('whatsapp:') ? 'background-color: #000000; border-color: #000000;' : '';
 
                 buttonsHTML += `<a href="${finalUrl}" target="_blank" class="${buttonClass}" style="${style}">${buttonText}</a> `;
-                return '';
+                return ''; // Elimina la sintaxis del botón del texto principal
             }).trim();
             
             const sanitizedText = messageText;
             let html = '';
 
-            const botIcon = `<img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Logo Urban Noise" style="width: 40px; height: 40px; object-fit: contain;">`;
-            const userIcon = `<div class="bg-white border rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-dark"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`;
-
             const messageContentHTML = `<p class="mb-0">${sanitizedText}</p><div class="message-buttons">${buttonsHTML}</div>`;
 
             if (sender === 'user') {
-                const card = `<div class="card text-white border-0" style="background-color: #000000; max-width: 80%;"><div class="card-body p-3 rounded-3"><p class="fw-bold mb-1">Tú</p><p class="mb-0">${text}</p></div></div>`;
-                html = card + userIcon;
+                html = `<div class="card text-white border-0" style="background-color: #000000; max-width: 80%;"><div class="card-body p-3 rounded-3"><p class="fw-bold mb-1">Tú</p><p class="mb-0">${text}</p></div></div>`;
             } else {
                 let cardClass = sender === 'bot-error' ? 'bg-danger-subtle text-danger-emphasis' : 'bg-white border';
-                const card = `<div class="card ${cardClass}" style="max-width: 80%;"><div class="card-body p-3 rounded-3"><p class="fw-bold mb-1">URBAN</p>${messageContentHTML}</div></div>`;
-                html = botIcon + card;
+                html = `<div class="card ${cardClass}" style="max-width: 80%;"><div class="card-body p-3 rounded-3"><p class="fw-bold mb-1">URBAN</p>${messageContentHTML}</div></div>`;
             }
 
             messageWrapper.innerHTML = html;
@@ -314,12 +364,17 @@
             scrollToBottom();
         }
 
+        // --- FUNCIÓN UTILITARIA PARA EL SCROLL ---
         function scrollToBottom() {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
+        // --- INICIALIZACIÓN DEL CHAT ---
+        // Esta función se ejecuta cuando la página ha cargado completamente.
         window.addEventListener('load', () => {
+             // Envía el primer mensaje de bienvenida
              addMessage("¡Esa prenda es puro flow! Ya eres de la casa. ¿Qué quieres ver? [Novedades en la Web](https://www.urbannoise.co) o [Lo último en Redes](https://www.instagram.com/urban_noise_/)", 'bot');
+             // Pone el foco en el campo de texto para que el usuario pueda escribir inmediatamente
              userInput.focus();
         });
 
