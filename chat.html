@@ -79,15 +79,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Estilos personalizados para la aplicación */
-        body {
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Previene el scroll en el cuerpo de la página */
             font-family: 'Inter', sans-serif;
             background-color: #ffffff; 
         }
         .chat-container {
-            height: 85vh;
-            max-height: 800px;
-            max-width: 700px;
-            border: 1px solid #dee2e6; 
+            width: 100%;
+            height: 100%; /* Ocupa toda la altura en móviles */
+            max-width: 100%;
+            border: none;
+            border-radius: 0;
         }
         .chat-messages {
             flex-grow: 1;
@@ -116,15 +121,31 @@
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1.0); }
         }
+
+        /* Estilos para pantallas más grandes (Tablets y Escritorio) */
+        @media (min-width: 768px) {
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .chat-container {
+                height: 85vh;
+                max-height: 800px;
+                max-width: 700px;
+                border: 1px solid #dee2e6;
+                border-radius: .5rem; /* Bootstrap .rounded-2 */
+                box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); /* Bootstrap .shadow-lg */
+            }
+        }
     </style>
 </head>
-<body class="d-flex align-items-center justify-content-center vh-100">
+<body>
 
-    <div class="card shadow-lg chat-container w-100 rounded-4 d-flex flex-column">
+    <div class="chat-container d-flex flex-column">
         <!-- Cabecera del Chat -->
-        <div class="card-header text-white d-flex justify-content-between align-items-center p-3 rounded-top-4" style="background-color: #000000;">
+        <div class="card-header text-white d-flex justify-content-between align-items-center p-3" style="background-color: #000000;">
             <h1 class="h5 mb-0 fw-bold">URBAN | Comunidad Noise</h1>
-            <!-- CAMBIO: Nuevo logo en la cabecera -->
             <img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Logo Urban Noise" style="width: 40px; height: 40px; object-fit: contain;">
         </div>
 
@@ -136,7 +157,6 @@
         <!-- Indicador de "Escribiendo..." -->
         <div id="typing-indicator" class="p-4 d-none">
              <div class="d-flex align-items-start gap-3">
-                <!-- CAMBIO: Nuevo logo en el indicador de escribiendo -->
                 <img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Typing Indicator" class="rounded-circle" style="width: 40px; height: 40px; object-fit: contain;">
                 <div class="card bg-white border"><div class="card-body p-3"><div class="typing-indicator"><span></span><span></span><span></span></div></div></div>
             </div>
@@ -261,12 +281,11 @@
                     const phone = url.split(':')[1].replace(/\D/g, '');
                     const message = encodeURIComponent("Hola Urban Noise, te contacto desde el asistente URBAN.");
                     finalUrl = `https://wa.me/${phone}?text=${message}`;
-                    buttonClass = 'btn btn-sm text-white'; // Para que el texto sea blanco sobre el fondo negro
+                    buttonClass = 'btn btn-sm text-white';
                 } else if (!url.startsWith('http')) {
                     finalUrl = 'https://' + url;
                 }
                 
-                // CAMBIO: Estilo en línea para los botones
                 let style = url.startsWith('whatsapp:') ? 'background-color: #000000; border-color: #000000;' : '';
 
                 buttonsHTML += `<a href="${finalUrl}" target="_blank" class="${buttonClass}" style="${style}">${buttonText}</a> `;
@@ -276,14 +295,12 @@
             const sanitizedText = messageText;
             let html = '';
 
-            // CAMBIO: Se usa la nueva URL del logo
             const botIcon = `<img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Logo Urban Noise" style="width: 40px; height: 40px; object-fit: contain;">`;
             const userIcon = `<div class="bg-white border rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-dark"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`;
 
             const messageContentHTML = `<p class="mb-0">${sanitizedText}</p><div class="message-buttons">${buttonsHTML}</div>`;
 
             if (sender === 'user') {
-                // CAMBIO: Fondo negro para los mensajes del usuario
                 const card = `<div class="card text-white border-0" style="background-color: #000000; max-width: 80%;"><div class="card-body p-3 rounded-3"><p class="fw-bold mb-1">Tú</p><p class="mb-0">${text}</p></div></div>`;
                 html = card + userIcon;
             } else {
