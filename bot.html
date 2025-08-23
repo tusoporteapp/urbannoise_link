@@ -180,6 +180,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const chatContainer = document.getElementById('chat-simulation');
@@ -189,17 +190,27 @@
         const modalIframe = document.getElementById('modal-iframe');
 
         // Firebase setup
+        let db;
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        let db;
 
-        try {
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            updateVisitorCount();
-        } catch (e) {
-            console.error("Firebase initialization failed:", e);
-            document.getElementById('visitor-counter').textContent = 'N/A';
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                const auth = getAuth(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                updateVisitorCount();
+            } catch (e) {
+                console.error("Firebase initialization or auth failed:", e);
+                document.getElementById('visitor-counter').textContent = 'N/A';
+            }
         }
 
         async function updateVisitorCount() {
@@ -406,6 +417,7 @@
         
         closeModalButton.addEventListener('click', closeModal);
         
+        initializeFirebase();
         renderFlow('main');
     </script>
 </body>
