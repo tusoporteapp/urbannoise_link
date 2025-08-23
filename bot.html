@@ -130,16 +130,18 @@
 <body class="antialiased">
 
     <div class="bg-[#1e1e1e] w-screen h-screen flex flex-col">
-        <header class="bg-[#2a2a2a] p-4 border-b border-gray-700 flex items-center justify-between flex-shrink-0">
+        <header class="bg-[#2a2a2a] p-4 border-b border-gray-700 flex items-center justify-between flex-shrink-0 z-20 relative">
             <div class="flex items-center">
-                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center mr-3 overflow-hidden">
-                    <img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Logo Urban Noise" class="object-cover h-6">
-                </div>
-                <div>
-                    <h3 class="font-bold text-base text-white">Urban Noise</h3>
-                    <p class="text-xs text-gray-400">Asistente Virtual</p>
+                <div class="w-16 h-16 bg-[#2a2a2a] rounded-full flex items-center justify-center mr-3 overflow-hidden">
+                    <img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Logo Urban Noise" class="object-cover h-10">
                 </div>
             </div>
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                <h3 class="font-bold text-base text-white">Urban Noise</h3>
+                <p class="text-xs text-gray-400">Asistente Virtual</p>
+            </div>
+
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-4">
                     <a href="https://www.instagram.com/urban_noise_/" target="_blank" title="Instagram" class="text-gray-400 hover:text-white transition-colors">
@@ -154,19 +156,11 @@
                 </div>
             </div>
         </header>
-        <main id="chat-simulation" class="flex-grow overflow-y-auto p-4 md:p-6 flex flex-col space-y-4 pb-40">
+        <main id="chat-simulation" class="flex-grow overflow-y-auto p-4 md:p-6 flex flex-col space-y-4 pb-24">
             <!-- Chat content is rendered here -->
         </main>
-        <footer id="sticky-footer" class="fixed bottom-0 left-0 w-full bg-[#2a2a2a] border-t border-gray-700 flex flex-col z-10">
-            <!-- Banner Container -->
-            <div class="w-full h-20 bg-black">
-                <!-- CAMBIA ESTA URL POR LA DE TU IMAGEN -->
-                <img src="https://placehold.co/800x80/1e1e1e/ffffff?text=Tu+Banner+Aqu%C3%AD" alt="Banner" class="w-full h-full object-cover">
-            </div>
-            <!-- Navigation Buttons Container -->
-            <div id="footer-buttons" class="w-full p-2.5 flex flex-wrap justify-center items-center gap-2">
-                <!-- Navigation buttons are rendered here by JS -->
-            </div>
+        <footer id="sticky-footer" class="fixed bottom-0 left-0 w-full bg-[#2a2a2a] p-2.5 border-t border-gray-700 flex flex-wrap justify-center items-center gap-2 z-10">
+            <!-- Navigation buttons are rendered here by JS -->
         </footer>
     </div>
 
@@ -189,7 +183,6 @@
         const closeModalButton = document.getElementById('close-modal-button');
         const modalIframe = document.getElementById('modal-iframe');
         const stickyFooter = document.getElementById('sticky-footer');
-        const footerButtonsContainer = document.getElementById('footer-buttons');
 
         const atencionMayorista = `\n\n👀 ATENCION 👀\nPara mayorista son compras superiores a 6 Unds.\nRecuerda que tenemos más clientes en línea, por lo tanto, es necesario verificar si las prendas de tu elección aún están disponibles. 📲\nNo manejamos pagos contra entrega 💰\nDebes asumir el costo del envió 🚚`;
 
@@ -302,7 +295,7 @@
             if (!flow) return;
 
             chatContainer.innerHTML = '';
-            footerButtonsContainer.innerHTML = '';
+            stickyFooter.innerHTML = '';
 
             const bubble = document.createElement('div');
             bubble.className = 'chat-bubble bot-bubble text-gray-200 text-sm';
@@ -329,8 +322,8 @@
                 element.textContent = opt.text;
 
                 if (isNav) {
-                    element.className = 'option-button flex-grow text-center bg-[#3a3a3a] border border-gray-600 text-gray-200 font-semibold py-2 px-3 rounded-lg shadow-sm text-xs';
-                    footerButtonsContainer.appendChild(element);
+                    element.className = 'option-button flex-grow text-center bg-[#3a3a3a] border border-gray-600 text-gray-200 font-semibold py-3 px-4 rounded-lg shadow-sm text-sm';
+                    stickyFooter.appendChild(element);
                 } else {
                     element.className = 'option-button text-center w-full md:w-3/4 bg-[#2a2a2a] border border-gray-600 text-gray-200 font-semibold py-3 px-4 rounded-lg shadow-sm text-sm';
                     optionsContainer.appendChild(element);
