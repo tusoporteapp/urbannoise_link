@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="es-419">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Urban Noise</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://urbannoise.cc/bot.html">
+    <meta property="og:url" content="https://urbannoise.cc/bot.html">
+    <meta name="twitter:image" content="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png">
+    <meta name="twitter:title" content="UrbanNoise">
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="UrbanNoise">
+    <meta property="og:image" content="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png">
+    <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png">
+    <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png">
+    <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png">
+    <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png">
+    <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <link rel="stylesheet" href="assets/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/swiper-icons.css">
+    <link rel="stylesheet" href="assets/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/css/main.css">
+    <link rel="stylesheet" href="assets/css/Articles-Cards-images.css">
+    <link rel="stylesheet" href="assets/css/Lightbox-Gallery-No-Gutters-baguetteBox.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Centered-Brand-Dark-icons.css">
+    <link rel="stylesheet" href="assets/css/tallas.css">
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAj9GLeYHfwhgI_oje28uowybe6hs2d4xw",
+    authDomain: "urbannoise-aed65.firebaseapp.com",
+    projectId: "urbannoise-aed65",
+    storageBucket: "urbannoise-aed65.firebasestorage.app",
+    messagingSenderId: "407971144874",
+    appId: "1:407971144874:web:65d027fa5bb68b81fa9cd3",
+    measurementId: "G-2C4W1QJLF1"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+<!-- Manifiesto PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+</head>
+
+<body><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Flujo de Chatbot - Urban Noise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Dark Mode -->
+    <!-- Application Structure Plan: Se ha diseñado una SPA con una estructura de columna única y centrada. El enfoque principal es la simulación interactiva del chat. Se ha añadido una ventana modal para visualizar enlaces externos sin salir de la página, ya que el contenido a mostrar comparte el mismo dominio que la aplicación anfitriona, permitiendo el uso de iframes. -->
+    <!-- Visualization & Content Choices: El contenido del reporte (el guion del bot) se presenta como una simulación de chat interactiva. La interacción clave se ha mejorado: los enlaces de productos ya no abren nuevas pestañas, sino que activan una ventana modal con un iframe que carga la URL del producto. Esto es posible gracias a que la aplicación se alojará en el mismo dominio que los enlaces de destino. La interacción se maneja con JavaScript para mostrar/ocultar el modal y establecer dinámicamente el src del iframe. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E0E0E0;
+        }
+        .chat-bubble {
+            max-width: 85%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            line-height: 1.5;
+        }
+        .bot-bubble {
+            background-color: #333333;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        .option-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            background-color: #4a4a4a;
+        }
+        .link-button {
+            display: inline-block;
+            background-color: #555;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+        .link-button:hover {
+            background-color: #777;
+        }
+        #modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <main class="max-w-4xl mx-auto pt-8">
+            <div class="bg-[#1e1e1e] rounded-xl shadow-lg">
+                <div class="bg-[#2a2a2a] p-4 rounded-t-xl border-b border-gray-700 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4 overflow-hidden">
+                            <img src="https://urbannoise.cc/assets/img/logo/lSOTIPO%20BLANCO%20WEB.png" alt="Logo Urban Noise" class="object-cover h-8">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Urban Noise</h3>
+                            <p class="text-sm text-gray-400">Asistente Virtual</p>
+                        </div>
+                    </div>
+                    <button id="reset-button" class="bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-500 transition-colors text-sm">
+                        Reiniciar
+                    </button>
+                </div>
+                <div id="chat-simulation" class="p-4 md:p-8 h-[70vh] overflow-y-auto flex flex-col space-y-4">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="page-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-[#1e1e1e] rounded-lg shadow-xl w-full h-full max-w-6xl flex flex-col">
+            <div class="flex justify-between items-center p-4 bg-[#2a2a2a] rounded-t-lg border-b border-gray-700">
+                <h3 class="text-lg font-semibold text-white">Vista Previa del Catálogo</h3>
+                <button id="close-modal-button" class="text-white text-2xl font-bold hover:text-gray-400">&times;</button>
+            </div>
+            <div class="flex-grow p-1">
+                <iframe id="modal-iframe" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-simulation');
+        const resetButton = document.getElementById('reset-button');
+        const pageModal = document.getElementById('page-modal');
+        const closeModalButton = document.getElementById('close-modal-button');
+        const modalIframe = document.getElementById('modal-iframe');
+
+        const atencionMayorista = `\n\n👀 ATENCION 👀\nPara mayorista son compras superiores a 6 Unds.\nRecuerda que tenemos más clientes en línea, por lo tanto, es necesario verificar si las prendas de tu elección aún están disponibles. 📲\nNo manejamos pagos contra entrega 💰\nDebes asumir el costo del envió 🚚`;
+
+        const chatbotFlow = {
+            main: {
+                message: `🌟 ¡Hola y bienvenido(a) a Urban Noise! 👋🏻`,
+                options: [
+                    { text: '1. 🛍️ Compra por Unidad', next: 'retail' },
+                    { text: '2. 📦 Surtir mi negocio', next: 'wholesale' },
+                    { text: '3. ℹ️ Más Información', next: 'info' },
+                    { text: '4. 🗣️ Hablar con un agente', type: 'link', url: 'https://wa.me/573108720491?text=Me%20gustar%C3%ADa%20hablar%20con%20un%20agente' }
+                ]
+            },
+            retail: {
+                message: `Para mayor facilidad te dejo nuestra página. Acá puedes ver todos nuestros productos y realizar la compra directa 💳<br><a href="https://urbannoise.co" target="_blank" class="text-blue-400 font-semibold hover:underline">urbannoise.co</a>\n\nO también puedes ver el producto de tu interés y me escribes y coordinamos tu compra. 🤩\n\nQuedo atento a cualquier inquietud 🧐`,
+                options: [
+                    { text: '↩️ Volver al menú principal', next: 'main' }
+                ]
+            },
+            wholesale: {
+                message: '¿Qué categoría buscas para tu negocio?',
+                options: [
+                    { text: '1. 👕 Camisetas Oversize', next: 'wholesale_product_1' },
+                    { text: '2. 🧥 Buzos', next: 'wholesale_product_2' },
+                    { text: '3. 💪 Esqueletos', next: 'wholesale_product_3' },
+                    { text: '4. 🩳 Bermudas', next: 'wholesale_product_4' },
+                    { text: '5. 👖 Conjuntos', next: 'wholesale_product_5' },
+                    { text: '6. 👩 Ropa para Dama', next: 'wholesale_product_6' },
+                    { text: '7. 👦 Ropa para Niño', next: 'wholesale_product_7' },
+                    { text: '8. ↩️ Volver al menú principal', next: 'main' }
+                ]
+            },
+            info: {
+                message: '¿Qué información necesitas?',
+                options: [
+                    { text: '1. 📍 Ubicación y Horarios', next: 'info_location' },
+                    { text: '2. 🚚 Envíos y Métodos de Pago', next: 'info_shipping' },
+                    { text: '3. 🔄 Políticas (Garantías y Cambios)', next: 'info_policies' },
+                    { text: '4. 🏭 Información para Fabricación (Diseños Propios)', next: 'info_manufacturing' },
+                    { text: '5. ↩️ Volver al menú principal', next: 'main' }
+                ]
+            },
+            agent: {
+                message: '¡Perfecto! En un momento uno de nuestros agentes se pondrá en contacto contigo por este mismo chat.',
+                options: [
+                    { text: '↩️ Volver al menú principal', next: 'main' }
+                ]
+            },
+            wholesale_product_1: {
+                message: `Precios 🤑 - Catálogo 📖\n“Camisetas Oversize al por mayor”:\nCaballero:\nAcid Wash $48.000 <button data-url="https://urbannoise.cc/caballero#AcidWash" class="link-button">Ver</button>\nOversize Burda $33.000 <button data-url="https://urbannoise.cc/caballero#OverBurda" class="link-button">Ver</button>\nOversize Galleta $33.000 <button data-url="https://urbannoise.cc/catalogo/Hombre/OverBurda/Tex.Galleta" class="link-button">Ver</button>\nDama:\nCamiseta Oversize $20.000 <button data-url="https://urbannoise.cc/damas#Camiseta" class="link-button">Ver</button>` + atencionMayorista,
+                options: [ { text: 'Envía "productos" para volver', next: 'wholesale' }, { text: 'Envía "inicio" para el menú principal', next: 'main' } ]
+            },
+            wholesale_product_2: { 
+                message: `Precios 🤑 - Catálogo 📖\n“Buzos al por mayor”:\nCaballero:\nDesde $70.000 <button data-url="https://urbannoise.cc/caballero#Busos" class="link-button">Ver</button>\nDama:\n$80.000 <button data-url="https://urbannoise.cc/damas#Busos" class="link-button">Ver</button>` + atencionMayorista, 
+                options: [{ text: 'productos', next: 'wholesale' }, { text: 'inicio', next: 'main' }] 
+            },
+            wholesale_product_3: { 
+                message: `Precios 🤑 - Catálogo 📖\n“Esqueletos al por mayor”:\nCaballero:\n$30.000 <button data-url="https://urbannoise.cc/caballero#Esqueletos" class="link-button">Ver</button>` + atencionMayorista, 
+                options: [{ text: 'productos', next: 'wholesale' }, { text: 'inicio', next: 'main' }] 
+            },
+            wholesale_product_4: { 
+                message: `Precios 🤑 - Catálogo 📖\n“Bermudas al por mayor”:\nCaballero:\n$32.000 <button data-url="https://urbannoise.cc/caballero#Bermudas" class="link-button">Ver</button>` + atencionMayorista, 
+                options: [{ text: 'productos', next: 'wholesale' }, { text: 'inicio', next: 'main' }] 
+            },
+            wholesale_product_5: { 
+                message: `Precios 🤑 - Catálogo 📖\n“Conjuntos al por mayor”:\nCaballero:\nDesde $66.000 <button data-url="https://urbannoise.cc/caballero#Conjuntos" class="link-button">Ver</button>\nDama:\n$75.000 <button data-url="https://urbannoise.cc/damas#Conjuntos" class="link-button">Ver</button>` + atencionMayorista, 
+                options: [{ text: 'productos', next: 'wholesale' }, { text: 'inicio', next: 'main' }] 
+            },
+            wholesale_product_6: { 
+                message: `Precios 🤑 - Catálogo 📖\n“Ropa para Dama al por mayor”:\nCatálogo completo <button data-url="https://urbannoise.cc/damas" class="link-button">Ver</button>` + atencionMayorista, 
+                options: [{ text: 'productos', next: 'wholesale' }, { text: 'inicio', next: 'main' }] 
+            },
+            wholesale_product_7: { 
+                message: `Precios 🤑 - Catálogo 📖\n“Ropa para Niño al por mayor”:\nConjunto Camisa $50.000 <button data-url="https://urbannoise.cc/niños" class="link-button">Ver</button>` + atencionMayorista, 
+                options: [{ text: 'productos', next: 'wholesale' }, { text: 'inicio', next: 'main' }] 
+            },
+            info_location: {
+                message: `Nuestra información:\n📍 Dirección: C.C. El Gran San, local 2268, Bogotá.\n🗺️ Google Maps: <a href="https://maps.app.goo.gl/36494su6GifD9X9PA" target="_blank" class="text-blue-400 font-semibold hover:underline">Ver en mapa</a>\n⏰ Horarios:\nL-M-J-V: 9:00 a.m. - 5:30 p.m.\nMiércoles y Sábados: 5:00 a.m. - 5:00 p.m.`,
+                options: [{ text: '↩️ Volver a Información', next: 'info' }, { text: '🏠 Volver al inicio', next: 'main' }]
+            },
+            info_shipping: {
+                message: 'Selecciona una opción sobre Envíos y Pagos:',
+                options: [
+                    { text: '1. 🛵 Pago Contra Entrega', next: 'info_shipping_cod' },
+                    { text: '2. 💳 Métodos de Pago', next: 'info_shipping_methods' },
+                    { text: '3. ✈️ Envíos Nacionales/Internacionales', next: 'info_shipping_nat' },
+                    { text: '4. ↩️ Volver', next: 'info' }
+                ]
+            },
+            info_policies: {
+                message: `Resumen de políticas:\nGarantía: 60 días por defectos de fábrica.\nCambios: Solo por talla o defecto.\nDevolución de Dinero: Solo por defecto de fábrica.`,
+                options: [{ text: '↩️ Volver a Información', next: 'info' }, { text: '🏠 Volver al inicio', next: 'main' }]
+            },
+            info_manufacturing: {
+                message: `Sobre diseños propios:\nNo personalizamos al detal.\nPara pedidos mayoristas (mínimo 80 prendas), se requiere un estudio previo. Un agente debe manejar estos casos para definir detalles y costos.`,
+                options: [{ text: '↩️ Volver a Información', next: 'info' }, { text: '🏠 Volver al inicio', next: 'main' }]
+            },
+            info_shipping_cod: {
+                message: `Sobre el pago contra entrega:\nEn Bogotá: El envío a domicilio cuesta $11.000.\nFuera de Bogotá: La transportadora cobra una comisión del 5% sobre el valor del producto.`,
+                options: [{ text: '↩️ Volver a Envíos y Pagos', next: 'info_shipping' }, { text: '🏠 Volver al inicio', next: 'main' }]
+            },
+            info_shipping_methods: {
+                message: `Métodos de pago aceptados:\nPedidos por WhatsApp: Efectivo, Nequi, Daviplata.\nCompras en la web: Todos los métodos, incluyendo tarjetas de crédito/débito.`,
+                options: [{ text: '↩️ Volver a Envíos y Pagos', next: 'info_shipping' }, { text: '🏠 Volver al inicio', next: 'main' }]
+            },
+            info_shipping_nat: {
+                message: `Información de envíos:\nNacionales: Hacemos envíos a todo el país. El costo depende del peso y volumen.\nInternacionales: Para envíos fuera de Colombia, es necesario que te atienda un agente.`,
+                options: [{ text: '↩️ Volver a Envíos y Pagos', next: 'info_shipping' }, { text: '🏠 Volver al inicio', next: 'main' }]
+            }
+        };
+
+        function renderFlow(flowKey) {
+            const flow = chatbotFlow[flowKey];
+            if (!flow) return;
+
+            chatContainer.innerHTML = '';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble bot-bubble text-gray-200';
+            bubble.innerHTML = flow.message.replace(/\n/g, '<br>');
+            chatContainer.appendChild(bubble);
+
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'flex flex-col items-center space-y-3 mt-4 w-full';
+
+            flow.options.forEach(opt => {
+                let element;
+                if (opt.type === 'link') {
+                    element = document.createElement('a');
+                    element.href = opt.url;
+                    element.target = '_blank';
+                    element.className = 'option-button text-center w-full md:w-3/4 bg-[#2a2a2a] border border-gray-600 text-gray-200 font-semibold py-3 px-4 rounded-lg shadow-sm';
+                } else {
+                    element = document.createElement('button');
+                    element.className = 'option-button w-full md:w-3/4 bg-[#2a2a2a] border border-gray-600 text-gray-200 font-semibold py-3 px-4 rounded-lg shadow-sm';
+                    element.dataset.next = opt.next;
+                }
+                element.textContent = opt.text;
+                optionsContainer.appendChild(element);
+            });
+
+            chatContainer.appendChild(optionsContainer);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function openModal(url) {
+            modalIframe.src = url;
+            pageModal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modalIframe.src = 'about:blank';
+            pageModal.classList.add('hidden');
+        }
+
+        chatContainer.addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON' && e.target.dataset.next) {
+                renderFlow(e.target.dataset.next);
+            }
+            if (e.target.tagName === 'BUTTON' && e.target.dataset.url) {
+                e.preventDefault();
+                openModal(e.target.dataset.url);
+            }
+        });
+        
+        resetButton.addEventListener('click', () => renderFlow('main'));
+        closeModalButton.addEventListener('click', closeModal);
+        pageModal.addEventListener('click', function(e) {
+            if (e.target === pageModal) {
+                closeModal();
+            }
+        });
+
+        renderFlow('main');
+    </script>
+</body>
+</html>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/vendor/php-email-form/validate.js"></script>
+    <script src="assets/js/vendor/aos/aos.js"></script>
+    <script src="assets/js/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/js/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/js/js/main.js"></script>
+    <script src="assets/js/atras.js"></script>
+    <script src="assets/js/blogger.js"></script>
+    <script src="assets/js/compartir.js"></script>
+    <script src="assets/js/Lightbox-Gallery-No-Gutters-baguetteBox.min.js"></script>
+    <script src="assets/js/Lightbox-Gallery-No-Gutters-Lightbox-Gallery.js"></script>
+    <script src="assets/js/pagina.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/WhatsApp%20Camisetas.js"></script>
+</body>
+
+</html>
