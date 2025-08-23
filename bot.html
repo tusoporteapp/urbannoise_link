@@ -77,7 +77,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Dark Mode -->
     <!-- Application Structure Plan: Se ha rediseñado la SPA para una experiencia de pantalla completa. La ventana de chat ahora ocupa todo el viewport. Se ha añadido una barra de navegación fija en la parte inferior para los controles persistentes (volver, inicio), imitando el comportamiento de una aplicación nativa y separando la navegación del flujo de la conversación. -->
-    <!-- Visualization & Content Choices: La interacción clave ha sido revertida a una ventana modal a petición del usuario. El modal ahora es a pantalla completa para una experiencia más inmersiva. Al hacer clic en 'Ver', se activa el modal a pantalla completa con un iframe, en lugar de mostrarlo inline. Se ha añadido un contador de visitantes en tiempo real usando Firebase Firestore. -->
+    <!-- Visualization & Content Choices: La interacción clave ha sido revertida a una ventana modal a petición del usuario. El modal ahora es a pantalla completa para una experiencia más inmersiva. Al hacer clic en 'Ver', se activa el modal a pantalla completa con un iframe, en lugar de mostrarlo inline. Se ha eliminado el contador de visitantes. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -153,10 +153,6 @@
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12.04 20.12c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31c-.82-1.31-1.26-2.83-1.26-4.38 0-4.54 3.7-8.24 8.24-8.24 4.54 0 8.24 3.7 8.24 8.24s-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.06-.39-2.02-1.24-.75-.66-1.25-1.47-1.4-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07s.88 2.4 1 2.56.86 1.39 2.98 2.66l.4.16c.49.2 1.02.28 1.42.28.69 0 1.26-.23 1.69-.82.4-.51.4-.95.28-1.07z" /></svg>
                     </a>
                 </div>
-                <div class="flex items-center gap-1 text-gray-400 text-xs pr-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                    <span id="visitor-counter">--</span>
-                </div>
             </div>
         </header>
         <main id="chat-simulation" class="flex-grow overflow-y-auto p-4 md:p-6 flex flex-col space-y-4 pb-24">
@@ -178,66 +174,12 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
+    <script>
         const chatContainer = document.getElementById('chat-simulation');
         const stickyFooter = document.getElementById('sticky-footer');
         const pageModal = document.getElementById('page-modal');
         const closeModalButton = document.getElementById('close-modal-button');
         const modalIframe = document.getElementById('modal-iframe');
-
-        // Firebase setup
-        let db;
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-        async function initializeFirebase() {
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                const auth = getAuth(app);
-
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-                
-                updateVisitorCount();
-            } catch (e) {
-                console.error("Firebase initialization or auth failed:", e);
-                document.getElementById('visitor-counter').textContent = 'N/A';
-            }
-        }
-
-        async function updateVisitorCount() {
-            if (!db) return;
-            const counterRef = doc(db, `artifacts/${appId}/public/data/analytics`, 'visits');
-
-            onSnapshot(counterRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    document.getElementById('visitor-counter').textContent = docSnap.data().count.toLocaleString('es-CO');
-                } else {
-                     document.getElementById('visitor-counter').textContent = '1';
-                }
-            });
-
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const sfDoc = await transaction.get(counterRef);
-                    let newCount = 1;
-                    if (sfDoc.exists()) {
-                        newCount = sfDoc.data().count + 1;
-                    }
-                    transaction.set(counterRef, { count: newCount }, { merge: true });
-                });
-            } catch (e) {
-                console.error("Visitor count transaction failed: ", e);
-            }
-        }
 
         const atencionMayorista = `\n\n👀 ATENCION 👀\nPara mayorista son compras superiores a 6 Unds.\nRecuerda que tenemos más clientes en línea, por lo tanto, es necesario verificar si las prendas de tu elección aún están disponibles. 📲\nNo manejamos pagos contra entrega 💰\nDebes asumir el costo del envió 🚚`;
 
@@ -417,7 +359,6 @@
         
         closeModalButton.addEventListener('click', closeModal);
         
-        initializeFirebase();
         renderFlow('main');
     </script>
 </body>
