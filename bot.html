@@ -77,7 +77,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Dark Mode -->
     <!-- Application Structure Plan: Se ha rediseñado la SPA para una experiencia de pantalla completa. La ventana de chat ahora ocupa todo el viewport. Se ha añadido una barra de navegación fija en la parte inferior para los controles persistentes (volver, inicio), imitando el comportamiento de una aplicación nativa y separando la navegación del flujo de la conversación. -->
-    <!-- Visualization & Content Choices: La interacción clave ha sido rediseñada. Los enlaces de productos ahora despliegan un iframe 'inline' dentro del flujo del chat, en lugar de un modal. Esto crea una experiencia más cohesiva y contextual, permitiendo al usuario ver contenido externo sin sentir que abandona la conversación. -->
+    <!-- Visualization & Content Choices: La interacción clave ha sido revertida a una ventana modal a petición del usuario. El modal ahora es a pantalla completa para una experiencia más inmersiva. Al hacer clic en 'Ver', se activa el modal a pantalla completa con un iframe, en lugar de mostrarlo inline. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -120,6 +120,11 @@
         .link-button:hover {
             background-color: #777;
         }
+        #modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -157,10 +162,24 @@
             <!-- Navigation buttons are rendered here by JS -->
         </footer>
     </div>
+    
+    <!-- Fullscreen Modal -->
+    <div id="page-modal" class="fixed inset-0 bg-[#1e1e1e] flex-col hidden z-50">
+        <div class="flex justify-between items-center p-3 bg-[#2a2a2a] border-b border-gray-700 flex-shrink-0">
+            <h3 class="text-base font-semibold text-white">Vista Previa del Catálogo</h3>
+            <button id="close-modal-button" class="text-white text-2xl font-bold hover:text-gray-400 leading-none px-2">&times;</button>
+        </div>
+        <div class="flex-grow w-full h-full">
+            <iframe id="modal-iframe" class="w-full h-full" src="about:blank"></iframe>
+        </div>
+    </div>
 
     <script>
         const chatContainer = document.getElementById('chat-simulation');
         const stickyFooter = document.getElementById('sticky-footer');
+        const pageModal = document.getElementById('page-modal');
+        const closeModalButton = document.getElementById('close-modal-button');
+        const modalIframe = document.getElementById('modal-iframe');
 
         const atencionMayorista = `\n\n👀 ATENCION 👀\nPara mayorista son compras superiores a 6 Unds.\nRecuerda que tenemos más clientes en línea, por lo tanto, es necesario verificar si las prendas de tu elección aún están disponibles. 📲\nNo manejamos pagos contra entrega 💰\nDebes asumir el costo del envió 🚚`;
 
@@ -312,36 +331,15 @@
             chatContainer.scrollTop = 0; // Scroll to top
         }
 
-        function showInlineFrame(url) {
-            const existingFrame = document.getElementById('inline-frame-container');
-            if (existingFrame) {
-                existingFrame.remove();
-            }
-
-            const frameContainer = document.createElement('div');
-            frameContainer.id = 'inline-frame-container';
-            frameContainer.className = 'w-full h-[60vh] bg-[#1e1e1e] rounded-lg mt-4 flex flex-col border border-gray-700';
-
-            const frameHeader = document.createElement('div');
-            frameHeader.className = 'p-2 bg-[#2a2a2a] text-right rounded-t-lg';
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Cerrar Vista Previa ×';
-            closeButton.className = 'text-xs bg-gray-600 text-white font-bold py-1 px-3 rounded-lg hover:bg-gray-500';
-            closeButton.onclick = () => frameContainer.remove();
-            frameHeader.appendChild(closeButton);
-
-            const iframe = document.createElement('iframe');
-            iframe.src = url;
-            iframe.className = 'w-full flex-grow border-0 rounded-b-lg';
-
-            frameContainer.appendChild(frameHeader);
-            frameContainer.appendChild(iframe);
-
-            chatContainer.appendChild(frameContainer);
-
-            frameContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        function openModal(url) {
+            modalIframe.src = url;
+            pageModal.classList.remove('hidden');
         }
 
+        function closeModal() {
+            modalIframe.src = 'about:blank';
+            pageModal.classList.add('hidden');
+        }
 
         function handleInteraction(e) {
             const target = e.target.closest('button, a');
@@ -352,13 +350,15 @@
             }
             if (target.dataset.url) {
                 e.preventDefault();
-                showInlineFrame(target.dataset.url);
+                openModal(target.dataset.url);
             }
         }
 
         chatContainer.addEventListener('click', handleInteraction);
         stickyFooter.addEventListener('click', handleInteraction);
-
+        
+        closeModalButton.addEventListener('click', closeModal);
+        
         renderFlow('main');
     </script>
 </body>
