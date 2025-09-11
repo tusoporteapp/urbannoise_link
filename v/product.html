@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Product - Brand</title>
+    <title>Catalogo Urban</title>
     <meta name="theme-color" content="#000000">
-    <meta property="og:image" content="assets/img/logo/LOGO_WEB.png">
+    <link rel="canonical" href="https://urbannoise.cc/product.html">
+    <meta property="og:url" content="https://urbannoise.cc/product.html">
+    <meta property="og:image" content="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png">
     <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png">
     <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/png" sizes="709x709" href="assets/img/logo/LOGO_WEB.png">
@@ -20,8 +22,33 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans&amp;display=swap">
     <link rel="stylesheet" href="assets/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="assets/css/Bot.css">
     <link rel="stylesheet" href="assets/css/d.css">
+    <link rel="stylesheet" href="assets/css/Hero-Carousel-images.css">
     <link rel="stylesheet" href="assets/css/Store.css">
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBCZJua0opBJPIAxpoYy8zF0Cf5CBwS2A8",
+    authDomain: "urbannoise-co.firebaseapp.com",
+    projectId: "urbannoise-co",
+    storageBucket: "urbannoise-co.firebasestorage.app",
+    messagingSenderId: "148342380553",
+    appId: "1:148342380553:web:c3be510f454f49cf36c0d8",
+    measurementId: "G-8PZDFL20W9"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </head>
 
 <body>
@@ -31,8 +58,8 @@
                         <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
                     </svg></span></span></div>
     </nav>
-    <section class="py-5" style="margin-top: -20px;">
-        <div data-reflow-type="product" data-reflow-shoppingcart-url="/v/shopping-cart.html" data-bss-dynamic-product="" data-bss-dynamic-product-param="product" style="margin-top:90px;margin-right:9px;margin-bottom:9px;margin-left:9px;color:rgb(0,0,0);font-weight:bold;"></div>
+    <section class="py-5" style="margin-top: -50px;">
+        <div data-reflow-type="product" data-reflow-shoppingcart-url="shopping-cart.html" data-bss-dynamic-product="" data-bss-dynamic-product-param="product" style="margin-top:90px;margin-right:9px;margin-bottom:9px;margin-left:9px;color:rgb(0,0,0);font-size:14px;"></div>
     </section>
     <footer class="bg-primary-gradient">
         <div class="container py-4 py-lg-5">
@@ -64,6 +91,8 @@
     <script src="https://cdn.reflowhq.com/v2/toolkit.min.js" data-reflow-project="847373085" data-reflow-locale="assets/js/es-ES.json"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/bold-and-bright.js"></script>
+    <script src="assets/js/logica.js"></script>
+    <script src="assets/js/SEO.js"></script>
 </body>
 
 </html>
