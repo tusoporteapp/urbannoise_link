@@ -1,6 +1,6 @@
 document.getElementById('compartir').addEventListener('click', async function() {
     const currentUrl = window.location.href;
-    const shareMessage = `Te recomienda este catalogo, de UrbanNoise, es una marca urbana colombiana con excelente calidad. ${currentUrl}`;
+    const shareMessage = `Te recomienda este catalogo, de UrbanNoise, es una marca urbana colombiana con excelente calidad.`;
 
     // Intenta usar la API de compartir del navegador si está disponible.
     if (navigator.share) {
