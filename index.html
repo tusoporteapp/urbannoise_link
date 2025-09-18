@@ -95,74 +95,7 @@
             <div class="d-flex justify-content-center" data-reflow-type="category-list" data-reflow-layout="horizontal-bar" data-reflow-category-link="index.html?category={id}" style="margin-right: 9px;margin-bottom: 0px;margin-left: 9px;font-weight: bold;"></div><span style="font-size: 13px;">Los precios que se muestran son para pedidos al mayor.</span>
         </div>
         <div data-reflow-type="product-list" data-reflow-addtocart-text="Información" data-reflow-shoppingcart-url="cart.html" data-reflow-layout="cards" data-reflow-order="date_desc" data-reflow-product-link="product.html?product={id}" data-reflow-show="image,name,price,pagination,add-to-cart" style="font-size: 12px;margin-right: 9px;margin-left: 9px;"></div>
-    </section><!-- Pega este código en la sección HTML de tu componente "Custom Code", reemplazando el anterior -->
-
-<!-- Contenedor para el botón y la burbuja de llamada a la acción -->
-<div class="chat-widget-container">
-    <!-- Burbuja "Call to action" -->
-    <div class="chat-callout" id="chat-callout">
-        ¿Hey, necesitas ayuda? ¡Presióname!
-    </div>
-    <!-- El botón que el usuario verá para iniciar el chat -->
-    <div class="chat-toggle-button" id="chat-toggle-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
-            <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-        </svg>
-    </div>
-</div>
-
-<!-- La ventana del chatbot que aparece al hacer clic en el botón -->
-<div class="chat-container" id="chat-container">
-    <!-- Encabezado -->
-    <div class="chat-header bg-primary text-white">
-        <h5 class="mb-0">Asistente Urban Noise</h5>
-        <button type="button" class="btn-close" id="close-chat-btn"></button>
-    </div>
-    <!-- Cuerpo con los mensajes -->
-    <div class="chat-messages" id="chat-messages"></div>
-    <!-- Pie con los botones de opción -->
-    <div class="chat-options" id="chat-options"></div>
-</div>
-
-<!-- Modal para contacto con agente -->
-<div class="modal fade" id="agentContactModal" tabindex="-1" aria-labelledby="agentContactModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="agentContactModalLabel">Contactar a un Agente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="agent-form" novalidate>
-          <div class="mb-3">
-            <label for="fullName" class="form-label">Nombre y Apellido</label>
-            <input type="text" class="form-control" id="fullName" required>
-            <div class="invalid-feedback">Por favor, ingresa tu nombre.</div>
-          </div>
-          <div class="mb-3">
-            <label for="reason" class="form-label">Motivo</label>
-            <select class="form-select" id="reason" required>
-              <option selected disabled value="">Elige un motivo...</option>
-              <option value="Consulta sobre pedido">Consulta sobre pedido</option>
-              <option value="Venta mayorista especial">Venta mayorista especial</option>
-              <option value="Otro">Otro</option>
-            </select>
-            <div class="invalid-feedback">Por favor, selecciona un motivo.</div>
-          </div>
-          <div class="mb-3">
-            <label for="customMessage" class="form-label">Mensaje</label>
-            <textarea class="form-control" id="customMessage" rows="3" placeholder="Escribe aquí tu consulta..." required></textarea>
-            <div class="invalid-feedback">Por favor, escribe tu mensaje.</div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="send-to-whatsapp-btn">Enviar a WhatsApp</button>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
     <footer class="bg-primary-gradient">
         <div class="container py-4 py-lg-5">
             <div class="row justify-content-center">
