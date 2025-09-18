@@ -1,0 +1,37 @@
+.reflow-product-list.ref-cards .ref-products {
+  --ref-products-per-row: 2 !important;
+}
+
+.reflow-product-list.ref-cards .ref-product img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(204,204,204,0.45);
+}
+
+/* Media query para tablet (≥ 768px) */
+
+@media (min-width: 768px) {
+  .reflow-product-list.ref-cards .ref-products {
+    --ref-products-per-row: 3 !important;
+  }
+}
+
+/* Media query para desktop (≥ 992px) */
+
+@media (min-width: 992px) {
+  .reflow-product-list.ref-cards .ref-products {
+    --ref-products-per-row: 4 !important;
+  }
+}
+
+/* Media query para XL (≥ 1200px) */
+
+@media (min-width: 1200px) {
+  .reflow-product-list.ref-cards .ref-products {
+    --ref-products-per-row: 5 !important;
+  }
+}
+

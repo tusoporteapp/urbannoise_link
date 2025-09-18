@@ -1,0 +1,7 @@
+/* Estilo para las opciones de variantes agotadas */
+
+.ref-variant-select option.unavailable {
+  color: #999 !important;
+  text-decoration: line-through;
+}
+
