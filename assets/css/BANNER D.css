@@ -1,0 +1,54 @@
+.banner-rojo {
+  background-color: #ff0000;
+  padding: 40px 20px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*border-bottom: 4px solid #000;*/
+}
+
+.banner-container {
+  max-width: 1000px;
+}
+
+.banner-titulo {
+  color: #ffffff;
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.banner-subtitulos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.banner-subtitulos span {
+  /*color: #000000;*/
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Responsivo: Si se ve en celular, el título se achica un poco */
+
+@media (max-width: 768px) {
+  .banner-titulo {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-subtitulos {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+

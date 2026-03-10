@@ -1,44 +1,35 @@
-.ticker-container {
+.ticker-wrapper {
   width: 100%;
   overflow: hidden;
-  background-color: #000;
-  color: #fff;
-  padding: 12px 0;
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-}
-
-.ticker-scroll {
-  display: flex;
-  width: fit-content;
-  animation: continuous-ticker 30s linear infinite;
-}
-
-.ticker-item {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px 0;
+  font-weight: bold;
+  font-family: sans-serif;
   white-space: nowrap;
-  flex-shrink: 0;
-  padding-right: 0;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
-/* El truco: mueve el contenedor exactamente el 50% (la longitud de un bloque) */
+.ticker-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker 20s linear infinite;
+}
 
-@keyframes continuous-ticker {
+.ticker-text span {
+  display: inline-block;
+  padding-right: 50px;
+  text-transform: uppercase;
+}
+
+@keyframes ticker {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-/* Opcional: Pausa el movimiento cuando pasas el mouse por encima */
-
-.ticker-container:hover .ticker-scroll {
-  animation-play-state: paused;
+html {
 }
 
