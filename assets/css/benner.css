@@ -1,0 +1,44 @@
+.ticker-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+  padding: 12px 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-scroll {
+  display: flex;
+  width: fit-content;
+  animation: continuous-ticker 30s linear infinite;
+}
+
+.ticker-item {
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-right: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* El truco: mueve el contenedor exactamente el 50% (la longitud de un bloque) */
+
+@keyframes continuous-ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Opcional: Pausa el movimiento cuando pasas el mouse por encima */
+
+.ticker-container:hover .ticker-scroll {
+  animation-play-state: paused;
+}
+
