@@ -1,17 +1,487 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="es" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Urban Noise Tetris</title>
-    <script src="./assets/config.js"></script>
-    <script type="module" crossorigin src="./assets/index-fo_erJVM.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-78ZvpyoQ.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Noise // Link in Bio</title>
+    <!-- Google Fonts: Inter & Space Grotesk para estética tipográfica urbana y premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'marquee': 'marquee 15s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Personalización de barra de scroll para estética oscura */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #08080a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222226;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #33333b;
+        }
+
+        /* Ambient glowing background */
+        .glow-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, var(--glow-color, rgba(197, 255, 26, 0.12)) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+            transition: background 0.6s ease-in-out;
+        }
+
+        /* Estética de paneles de vidrio (Glassmorphism) */
+        .glass-panel {
+            background: rgba(14, 14, 17, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Temas personalizados de Urban Noise */
+        .theme-acid {
+            --accent-color: #c5ff1a;
+            --accent-hover: #b2e612;
+            --accent-text: #000000;
+            --glow-color: rgba(197, 255, 26, 0.14);
+            --brand-gradient: linear-gradient(135deg, #c5ff1a 0%, #00ff88 100%);
+        }
+        .theme-volcanic {
+            --accent-color: #ff3e3e;
+            --accent-hover: #e02d2d;
+            --accent-text: #ffffff;
+            --glow-color: rgba(255, 62, 62, 0.12);
+            --brand-gradient: linear-gradient(135deg, #ff3e3e 0%, #ff7b00 100%);
+        }
+        .theme-stealth {
+            --accent-color: #ffffff;
+            --accent-hover: #e2e2e5;
+            --accent-text: #000000;
+            --glow-color: rgba(255, 255, 255, 0.08);
+            --brand-gradient: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+        }
+
+        .theme-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animación para simular prenda lavada AcidWash */
+        .acid-wash-texture {
+            background-color: #1a1a1e;
+            background-image: radial-gradient(circle at 20% 30%, #2e2e36 0%, transparent 40%),
+                              radial-gradient(circle at 75% 60%, #3a3a45 0%, transparent 45%),
+                              radial-gradient(circle at 40% 80%, #25252c 0%, transparent 35%);
+        }
+
+        /* Tetris block falling animation */
+        @keyframes tetris-fall {
+            0% { transform: translateY(-24px); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateY(48px); opacity: 0; }
+        }
+        .animate-tetris {
+            animation: tetris-fall 3.5s infinite linear;
+        }
+
+        /* Snake movement animation */
+        @keyframes snake-crawl {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(14px, 0); }
+            40% { transform: translate(14px, 14px); }
+            60% { transform: translate(0, 14px); }
+            80% { transform: translate(-14px, 14px); }
+            100% { transform: translate(0, 0); }
+        }
+        .animate-snake {
+            animation: snake-crawl 6s infinite steps(5);
+        }
+
+        /* Food blink */
+        @keyframes food-blink {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        .animate-food {
+            animation: food-blink 0.8s infinite;
+        }
+    </style>
 </head>
+<body class="theme-acid bg-[#050507] text-gray-200 font-sans min-h-screen flex flex-col items-center justify-between pb-8 overflow-x-hidden theme-transition">
 
-<body class="bg-black text-white">
-    <div id="root"></div>
+    <!-- Ambient backdrop glow -->
+    <div id="ambient-glow" class="glow-bg"></div>
+
+    <!-- MAIN CONTAINER (Diseñado mobile-first para simular una app nativa en teléfonos) -->
+    <main class="w-full max-w-md px-4 pt-6 flex-grow flex flex-col gap-5">
+        
+        <!-- TOP NAVIGATION: Botón Compartir -->
+        <div class="flex justify-end items-center w-full px-1">
+            <!-- Share Button -->
+            <button onclick="shareProfile()" class="glass-panel hover:bg-white/5 text-white rounded-full py-1.5 px-3.5 transition-all duration-300 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider">
+                <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+                Compartir
+            </button>
+        </div>
+
+        <!-- HEADER SECTION: Brand Profile -->
+        <div class="flex flex-col items-center text-center mt-1">
+            <!-- Animated Brand Avatar -->
+            <div class="relative mb-3 group">
+                <div class="absolute -inset-1.5 bg-gradient-to-r from-zinc-800 to-zinc-700 rounded-full blur-sm opacity-50 group-hover:opacity-90 transition duration-500"></div>
+                <div class="absolute -inset-0.5 rounded-full bg-[var(--accent-color)] opacity-25 group-hover:opacity-50 transition duration-300"></div>
+                
+                <!-- Stylized U.N. Logo -->
+                <div class="relative w-24 h-24 rounded-full overflow-hidden bg-zinc-950 border-2 border-white/10 flex items-center justify-center">
+                    <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Urban Noise Logo" class="w-full h-full object-cover" />
+                </div>
+                
+                <!-- Live Drop Indicator -->
+                <span class="absolute bottom-1 right-1 flex h-4 w-4">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-color)] opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-[var(--accent-color)] border border-zinc-950"></span>
+                </span>
+            </div>
+
+            <!-- Title & Bio -->
+            <h1 class="font-display text-4xl font-bold uppercase tracking-tighter text-white">
+                urban noise<span class="text-[var(--accent-color)] theme-transition">_</span>
+            </h1>
+            <p class="text-[10px] text-zinc-400 uppercase tracking-[0.25em] font-bold mt-1.5 flex items-center justify-center gap-1">
+                <i data-lucide="shield" class="w-3.5 h-3.5 text-[var(--accent-color)] theme-transition"></i> Streetwear Colombiano Premium
+            </p>
+            <p class="text-xs text-zinc-300 max-w-xs mt-3 px-2 leading-relaxed font-sans">
+                Diseño y estética urbana premium con lavados <span class="text-white font-semibold">Acid Wash</span> exclusivos de Bogotá. ⚡️
+            </p>
+        </div>
+
+        <!-- MARQUEE ANNOUNCEMENT: Live Promotions -->
+        <div class="w-full overflow-hidden bg-zinc-950 border-y border-white/5 py-1.5 relative select-none">
+            <div class="flex whitespace-nowrap animate-marquee text-[9px] uppercase font-mono tracking-widest text-zinc-400">
+                <span>🚚 Envíos gratis en Bogotá por compras superiores a $160.000 COP • envíos nacionales a toda Colombia • 📦 ⚡️ </span>
+                <span>🚚 Envíos gratis en Bogotá por compras superiores a $160.000 COP • envíos nacionales a toda Colombia • 📦 ⚡️ </span>
+            </div>
+            <!-- Vignette shadow edges -->
+            <div class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#050507] to-transparent pointer-events-none"></div>
+            <div class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#050507] to-transparent pointer-events-none"></div>
+        </div>
+
+        <!-- SOCIAL QUICK-LINKS STRIP (Real Social Handles) -->
+        <div class="flex justify-center gap-3.5 py-0.5">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/urban_noise_/" target="_blank" class="glass-panel p-3 rounded-xl transition-all hover:-translate-y-1 hover:bg-[#E1306C]/10 hover:border-[#E1306C]/40 duration-300" aria-label="Instagram @urban_noise_">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="url(#insta-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs>
+                        <linearGradient id="insta-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#fccc63" />
+                            <stop offset="30%" stop-color="#fbad50" />
+                            <stop offset="60%" stop-color="#cd486b" />
+                            <stop offset="100%" stop-color="#8a3ab9" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            <!-- WhatsApp -->
+            <a href="https://api.whatsapp.com/send?text=https%3A%2F%2Fshare.google%2FNgCtEDyI6ofS84U3F" target="_blank" class="glass-panel text-[#25D366] hover:text-[#33ff7a] hover:bg-[#25D366]/10 hover:border-[#25D366]/40 p-3 rounded-xl transition-all hover:-translate-y-1 duration-300" aria-label="WhatsApp Compartir Ubicación">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+            </a>
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@urban_noise" target="_blank" class="glass-panel p-3 rounded-xl transition-all hover:-translate-y-1 hover:bg-[#00f2fe]/5 hover:border-[#00f2fe]/40 duration-300" aria-label="TikTok @urban_noise">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="url(#tiktok-grad)">
+                    <defs>
+                        <linearGradient id="tiktok-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f2fe" />
+                            <stop offset="100%" stop-color="#fe0979" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.09-1.51-.15-.11-.29-.24-.43-.37v5.24c.04 3.07-1.35 6.13-4.14 7.55-3.09 1.7-7.14 1.17-9.61-1.22-2.61-2.45-3.05-6.85-1.04-9.82 1.74-2.67 5.16-3.87 8.16-3.1v4.19c-1.49-.49-3.19-.13-4.32.94-1.21 1.09-1.52 2.96-.75 4.45.74 1.53 2.45 2.5 4.15 2.37 1.83-.02 3.44-1.42 3.65-3.23.06-1.52.02-3.05.03-4.57V0h-3.95z"/>
+                </svg>
+            </a>
+            <!-- Sitio Web -->
+            <a href="https://www.urbannoise.co" target="_blank" class="glass-panel text-[var(--accent-color)] hover:text-white hover:bg-[var(--accent-color)]/10 hover:border-[var(--accent-color)]/40 p-3 rounded-xl transition-all hover:-translate-y-1 duration-300" aria-label="Sitio Web">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </a>
+        </div>
+
+        <!-- CORE INTERACTIVE WIDGETS -->
+        
+        <!-- Full-width Gamified Arcade Card -->
+        <a href="https://urbannoise.cc/nfc/gamer/" target="_blank" class="glass-panel rounded-2xl p-4 flex flex-col justify-between group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-[var(--accent-color)]/30 w-full min-h-[160px]">
+            <!-- Background glow effect on hover -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-[var(--accent-color)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+            
+            <div class="absolute top-3 right-3 bg-[var(--accent-color)] text-black px-2 py-0.5 rounded-full flex items-center gap-1 z-10 shadow-lg shadow-[var(--accent-color)]/25">
+                <span class="w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>
+                <span class="text-[8px] uppercase font-mono font-bold tracking-wider">JUEGA Y GANA</span>
+            </div>
+
+            <!-- Game preview screens -->
+            <div class="w-full flex justify-center pt-5 pb-1 select-none relative z-10">
+                <!-- Dual Mini Screen Mockups -->
+                <div class="grid grid-cols-2 gap-3 h-20 w-full max-w-[240px]">
+                    <!-- Left: Tetris Grid -->
+                    <div class="rounded-lg bg-zinc-950/90 border border-white/5 p-1 relative overflow-hidden flex flex-col justify-between">
+                        <!-- Dot Matrix Texture -->
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:5px_5px] pointer-events-none"></div>
+                        <span class="text-[5px] text-zinc-600 font-mono tracking-widest uppercase">TETRIS</span>
+                        
+                        <!-- Animated Falling Block -->
+                        <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 text-[var(--accent-color)] animate-tetris z-10">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full drop-shadow-[0_0_4px_var(--accent-color)]">
+                                <path d="M0 0h8v8H0zm8 8h8v8H8zm8-8h8v8h-8zM0 8h8v8H0z"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Static Base Blocks -->
+                        <div class="w-full h-3 flex items-end justify-center gap-[0.5px] relative z-10 mt-auto">
+                            <div class="w-2.5 h-2.5 bg-zinc-800 border border-white/5 rounded-sm"></div>
+                            <div class="w-2 h-2.5 bg-[var(--accent-color)] opacity-70 rounded-sm"></div>
+                            <div class="w-2 h-1.5 bg-zinc-800 border border-white/5 rounded-sm"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Snake Grid -->
+                    <div class="rounded-lg bg-zinc-950/90 border border-white/5 p-1 relative overflow-hidden flex flex-col justify-between">
+                        <!-- Dot Matrix Texture -->
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:5px_5px] pointer-events-none"></div>
+                        <span class="text-[5px] text-zinc-600 font-mono tracking-widest uppercase">SNAKE</span>
+                        
+                        <!-- Animated Snake -->
+                        <div class="absolute top-6 left-2 flex flex-col gap-[0.5px] animate-snake z-10">
+                            <div class="w-1.5 h-1.5 bg-[var(--accent-color)] rounded-[1px] shadow-[0_0_3px_var(--accent-color)]"></div>
+                            <div class="w-1.5 h-1.5 bg-zinc-400 rounded-[1px] opacity-75"></div>
+                            <div class="w-1.5 h-1.5 bg-zinc-400 rounded-[1px] opacity-50"></div>
+                        </div>
+
+                        <!-- Blinking Food -->
+                        <div class="absolute top-3 right-3 w-1.5 h-1.5 bg-red-500 rounded-full animate-food z-10"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-1">
+                <h4 class="text-[11px] font-bold text-white uppercase tracking-tight flex items-center justify-center gap-1 group-hover:text-[var(--accent-color)] transition-colors">
+                    Urban Arcade
+                    <svg class="w-3.5 h-3.5 text-zinc-500 group-hover:text-[var(--accent-color)] group-hover:translate-x-0.5 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                </h4>
+                <p class="text-[9px] text-[var(--accent-color)] font-bold mt-0.5 leading-tight">¡Gana códigos de descuento! 🎮</p>
+            </div>
+        </a>
+
+        <!-- Location & Logistics Row (Two columns in a single line) -->
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Mini card 1: Location & Hours -->
+            <div class="glass-panel rounded-2xl p-3 flex flex-col justify-between cursor-pointer hover:border-zinc-500 transition-all duration-300 min-h-[105px]" onclick="openMap()">
+                <div class="flex justify-between items-start">
+                    <i data-lucide="map-pin" class="w-4 h-4 text-zinc-400"></i>
+                    <span class="text-[8px] uppercase tracking-wider bg-white/5 px-1.5 py-0.5 rounded text-zinc-300">Ubicación</span>
+                </div>
+                <div>
+                    <span class="text-[9px] text-zinc-500 uppercase font-mono tracking-wider">Punto de Venta</span>
+                    <h4 class="text-xs font-bold text-white uppercase leading-tight mt-0.5">El Gran San</h4>
+                    <p class="text-[9px] text-zinc-400 mt-0.5">Local 2268, Bogotá, CO</p>
+                </div>
+            </div>
+
+            <!-- Mini card 2: Delivery Coverage -->
+            <div class="glass-panel rounded-2xl p-3 flex flex-col justify-between min-h-[105px]">
+                <div class="flex justify-between items-start">
+                    <i data-lucide="truck" class="w-4 h-4 text-[var(--accent-color)]"></i>
+                    <span class="text-[8px] uppercase tracking-widest bg-[var(--accent-color)]/10 text-[var(--accent-color)] px-1.5 py-0.5 rounded font-bold">Logística</span>
+                </div>
+                <div>
+                    <span class="text-[9px] text-zinc-500 uppercase font-mono tracking-wider">Despachos Rápidos</span>
+                    <div class="flex items-baseline gap-1 mt-0.5">
+                        <h4 class="text-xs font-display font-bold text-white uppercase leading-none">100% Nacional</h4>
+                    </div>
+                    <p class="text-[8px] text-zinc-400 mt-0.5 leading-none">Servientrega / Interrapidísimo</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CORE CHANNELS & PRIMARY LINK BUTTONS -->
+        <div class="flex flex-col gap-2.5">
+            
+            <!-- Link 1: Minorista Online Store (.co) -->
+            <a href="https://www.urbannoise.co" target="_blank" class="glass-panel group relative rounded-2xl p-4 flex items-center justify-between overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-zinc-500">
+                <div class="absolute inset-0 bg-gradient-to-r from-[var(--accent-color)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[var(--accent-color)]/10 transition-colors duration-300">
+                        <i data-lucide="shopping-bag" class="w-5 h-5 text-white group-hover:text-[var(--accent-color)] transition-colors duration-300"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-white flex items-center gap-1.5 uppercase">
+                            Tienda Online
+                        </h3>
+                        <p class="text-[11px] text-zinc-400">Compra al detal desde tu hogar. Envíos gratis BOG > $160K.</p>
+                    </div>
+                </div>
+                <i data-lucide="arrow-up-right" class="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors duration-300 relative z-10"></i>
+            </a>
+
+            <!-- Link 3: Chat with Sales Agent on WhatsApp -->
+            <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado%20en%20realizar%20una%20compra.%20¿Me%20pueden%20asesorar?" target="_blank" class="glass-panel group relative rounded-2xl p-4 flex items-center justify-between overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-zinc-500">
+                <div class="absolute inset-0 bg-gradient-to-r from-[var(--accent-color)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[var(--accent-color)]/10 transition-colors duration-300">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-white group-hover:text-[var(--accent-color)] transition-colors duration-300"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-white uppercase">Asesoría WhatsApp Directo</h3>
+                        <p class="text-[11px] text-zinc-400">Atención personalizada, cambios, dudas y despachos rápidos.</p>
+                    </div>
+                </div>
+                <i data-lucide="arrow-up-right" class="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors duration-300 relative z-10"></i>
+            </a>
+
+        </div>
+
+
+    </main>
+
+    <!-- FOOTER: Real branding & credentials -->
+    <footer class="w-full max-w-md px-4 mt-6 text-center flex flex-col items-center gap-1.5">
+        <div class="flex items-center gap-1.5 text-[9px] text-zinc-500 uppercase tracking-widest">
+            <span>© 2026 urban noise co</span>
+            <span>•</span>
+            <span>BOGOTÁ, COLOMBIA</span>
+        </div>
+        <p class="text-[9px] text-zinc-600">Disiseñado para mentes urbanas y estética contemporánea.</p>
+    </footer>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 glass-panel border border-[var(--accent-color)]/30 rounded-full px-5 py-3 text-xs text-white font-medium flex items-center gap-2 shadow-2xl translate-y-24 opacity-0 transition-all duration-300 z-50 whitespace-nowrap">
+        <span class="w-2 h-2 rounded-full bg-[var(--accent-color)]" id="toast-indicator"></span>
+        <span id="toast-text">Acción realizada</span>
+    </div>
+
+    <!-- MAIN INTERACTIVE LOGIC -->
+    <script>
+        // Init icons
+        lucide.createIcons();
+
+
+
+        // ------------------ GENERAL UTILS ------------------
+
+        // Toast display handler
+        let toastTimeout;
+        function showNotification(text) {
+            const toast = document.getElementById('toast-message');
+            const toastText = document.getElementById('toast-text');
+            
+            toastText.innerText = text;
+            clearTimeout(toastTimeout);
+            
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // Share Profile using native Web Share API or clipboard fallback
+        async function shareProfile() {
+            const shareData = {
+                title: 'Urban Noise',
+                text: 'Revisa el Link in Bio oficial de Urban Noise ⚡️',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        fallbackCopy();
+                    }
+                }
+            } else {
+                fallbackCopy();
+            }
+
+            function fallbackCopy() {
+                const temp = document.createElement('input');
+                temp.value = window.location.href;
+                document.body.appendChild(temp);
+                temp.select();
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        showNotification('🔗 ¡Enlace de Link-in-Bio copiado!');
+                    } else {
+                        showNotification('No se pudo copiar el enlace.');
+                    }
+                } catch (err) {
+                    showNotification('Error al copiar el enlace.');
+                }
+                document.body.removeChild(temp);
+            }
+        }
+
+        // Open Maps redirecting to CC El Gran San
+        function openMap() {
+            showNotification('🗺️ Redireccionando a Google Maps...');
+            setTimeout(() => {
+                window.open('https://share.google/NgCtEDyI6ofS84U3F', '_blank');
+            }, 800);
+        }
+
+
+    </script>
 </body>
-
 </html>
