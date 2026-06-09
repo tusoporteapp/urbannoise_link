@@ -256,65 +256,74 @@
         <!-- CORE INTERACTIVE WIDGETS -->
         
         <!-- Full-width Gamified Arcade Card -->
-        <a href="https://urbannoise.cc/nfc/gamer/" target="_blank" class="glass-panel rounded-2xl p-4 flex flex-col justify-between group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-[var(--accent-color)]/30 w-full min-h-[160px]">
+        <a href="https://urbannoise.cc/nfc/gamer/" target="_blank" class="glass-panel rounded-2xl p-4 flex flex-col justify-between group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-[var(--accent-color)]/30 w-full min-h-[200px]">
             <!-- Background glow effect on hover -->
             <div class="absolute inset-0 bg-gradient-to-tr from-[var(--accent-color)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
             
-            <div class="absolute top-3 right-3 bg-[var(--accent-color)] text-black px-2 py-0.5 rounded-full flex items-center gap-1 z-10 shadow-lg shadow-[var(--accent-color)]/25">
-                <span class="w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>
-                <span class="text-[8px] uppercase font-mono font-bold tracking-wider">JUEGA Y GANA</span>
+            <!-- Header Row inside Card -->
+            <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                <div class="flex flex-col text-left">
+                    <span class="text-[9px] font-mono tracking-widest text-zinc-500 uppercase font-bold">Sección de Juegos</span>
+                    <h3 class="font-display text-base font-bold uppercase tracking-tight text-white mt-0.5 group-hover:text-[var(--accent-color)] transition-colors">
+                        Urban Arcade 🎮
+                    </h3>
+                </div>
+                <div class="bg-[var(--accent-color)] text-black px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg shadow-[var(--accent-color)]/25 animate-pulse-slow">
+                    <span class="w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>
+                    <span class="text-[9px] uppercase font-mono font-bold tracking-widest">JUEGA Y GANA</span>
+                </div>
             </div>
 
             <!-- Game preview screens -->
-            <div class="w-full flex justify-center pt-5 pb-1 select-none relative z-10">
+            <div class="w-full flex justify-center py-2 select-none relative z-10">
                 <!-- Dual Mini Screen Mockups -->
-                <div class="grid grid-cols-2 gap-3 h-20 w-full max-w-[240px]">
+                <div class="grid grid-cols-2 gap-4 h-24 w-full max-w-[300px]">
                     <!-- Left: Tetris Grid -->
-                    <div class="rounded-lg bg-zinc-950/90 border border-white/5 p-1 relative overflow-hidden flex flex-col justify-between">
+                    <div class="rounded-lg bg-zinc-950/90 border border-white/10 p-2 relative overflow-hidden flex flex-col justify-between">
                         <!-- Dot Matrix Texture -->
-                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:5px_5px] pointer-events-none"></div>
-                        <span class="text-[5px] text-zinc-600 font-mono tracking-widest uppercase">TETRIS</span>
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:6px_6px] pointer-events-none"></div>
+                        <span class="text-[8px] text-zinc-500 font-mono tracking-wider uppercase font-bold">TETRIS</span>
                         
                         <!-- Animated Falling Block -->
-                        <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 text-[var(--accent-color)] animate-tetris z-10">
-                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full drop-shadow-[0_0_4px_var(--accent-color)]">
+                        <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 text-[var(--accent-color)] animate-tetris z-10">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full drop-shadow-[0_0_6px_var(--accent-color)]">
                                 <path d="M0 0h8v8H0zm8 8h8v8H8zm8-8h8v8h-8zM0 8h8v8H0z"/>
                             </svg>
                         </div>
                         
                         <!-- Static Base Blocks -->
-                        <div class="w-full h-3 flex items-end justify-center gap-[0.5px] relative z-10 mt-auto">
-                            <div class="w-2.5 h-2.5 bg-zinc-800 border border-white/5 rounded-sm"></div>
-                            <div class="w-2 h-2.5 bg-[var(--accent-color)] opacity-70 rounded-sm"></div>
-                            <div class="w-2 h-1.5 bg-zinc-800 border border-white/5 rounded-sm"></div>
+                        <div class="w-full h-4 flex items-end justify-center gap-[0.8px] relative z-10 mt-auto">
+                            <div class="w-3.5 h-3.5 bg-zinc-800 border border-white/5 rounded-sm"></div>
+                            <div class="w-3 h-3 bg-[var(--accent-color)] opacity-70 rounded-sm"></div>
+                            <div class="w-3.5 h-2 bg-zinc-800 border border-white/5 rounded-sm"></div>
                         </div>
                     </div>
 
                     <!-- Right: Snake Grid -->
-                    <div class="rounded-lg bg-zinc-950/90 border border-white/5 p-1 relative overflow-hidden flex flex-col justify-between">
+                    <div class="rounded-lg bg-zinc-950/90 border border-white/10 p-2 relative overflow-hidden flex flex-col justify-between">
                         <!-- Dot Matrix Texture -->
-                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:5px_5px] pointer-events-none"></div>
-                        <span class="text-[5px] text-zinc-600 font-mono tracking-widest uppercase">SNAKE</span>
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:6px_6px] pointer-events-none"></div>
+                        <span class="text-[8px] text-zinc-500 font-mono tracking-wider uppercase font-bold">SNAKE</span>
                         
                         <!-- Animated Snake -->
-                        <div class="absolute top-6 left-2 flex flex-col gap-[0.5px] animate-snake z-10">
-                            <div class="w-1.5 h-1.5 bg-[var(--accent-color)] rounded-[1px] shadow-[0_0_3px_var(--accent-color)]"></div>
-                            <div class="w-1.5 h-1.5 bg-zinc-400 rounded-[1px] opacity-75"></div>
-                            <div class="w-1.5 h-1.5 bg-zinc-400 rounded-[1px] opacity-50"></div>
+                        <div class="absolute top-8 left-3 flex flex-col gap-[0.8px] animate-snake z-10">
+                            <div class="w-2.5 h-2.5 bg-[var(--accent-color)] rounded-[1.5px] shadow-[0_0_5px_var(--accent-color)]"></div>
+                            <div class="w-2 h-2 bg-zinc-400 rounded-[1px] opacity-75"></div>
+                            <div class="w-2 h-2 bg-zinc-400 rounded-[1px] opacity-50"></div>
                         </div>
 
                         <!-- Blinking Food -->
-                        <div class="absolute top-3 right-3 w-1.5 h-1.5 bg-red-500 rounded-full animate-food z-10"></div>
+                        <div class="absolute top-4 right-4 w-2 h-2 bg-red-500 rounded-full animate-food z-10"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center mt-1">
-                <h4 class="text-[11px] font-bold text-white uppercase tracking-tight flex items-center justify-center gap-1 group-hover:text-[var(--accent-color)] transition-colors">
-                    Urban Arcade
-                    <svg class="w-3.5 h-3.5 text-zinc-500 group-hover:text-[var(--accent-color)] group-hover:translate-x-0.5 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-                </h4>
-                <p class="text-[9px] text-[var(--accent-color)] font-bold mt-0.5 leading-tight">¡Gana códigos de descuento! 🎮</p>
+            <!-- Call to Action Bar -->
+            <div class="w-full text-center mt-3 relative z-10">
+                <div class="w-full py-2.5 px-3 rounded-xl text-[10px] sm:text-xs font-bold text-[var(--accent-color)] uppercase tracking-wider bg-[var(--accent-color)]/10 border border-[var(--accent-color)]/20 group-hover:bg-[var(--accent-color)] group-hover:text-black transition-all duration-300 flex items-center justify-center gap-1.5 shadow-md">
+                    <span class="text-center leading-tight">Juega Ahora y Gana Código de Descuento para tu Próxima Compra</span>
+                    <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                </div>
             </div>
         </a>
 
@@ -401,6 +410,49 @@
         <p class="text-[9px] text-zinc-600">Disiseñado para mentes urbanas y estética contemporánea.</p>
     </footer>
 
+    <!-- POPUP MODAL: NEW DROP PROMOTION -->
+    <div id="product-popup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
+        <!-- Modal Backdrop click triggers close -->
+        <div class="absolute inset-0 cursor-default" onclick="closePopup()"></div>
+        
+        <!-- Modal Container -->
+        <div class="relative w-full max-w-sm glass-panel rounded-3xl p-5 border border-white/10 shadow-2xl transform scale-90 transition-all duration-500 flex flex-col gap-4 max-h-[90vh] overflow-y-auto" id="popup-content">
+            <!-- Glow Effect -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-[var(--accent-color)]/20 to-transparent rounded-3xl blur opacity-30 pointer-events-none"></div>
+
+            <!-- Close Button -->
+            <button onclick="closePopup()" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors z-20 p-1 bg-white/5 rounded-full hover:bg-white/10" aria-label="Cerrar">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center relative z-10 pt-2">
+                <span class="text-[9px] font-mono tracking-widest text-[var(--accent-color)] bg-[var(--accent-color)]/10 px-2.5 py-0.5 rounded-full uppercase font-bold">Lanzamiento Oficial</span>
+                <h3 class="font-display text-2xl font-bold uppercase tracking-tighter text-white mt-2">Nuevos Buzos Capoteros</h3>
+                <p class="text-[10px] text-zinc-400 uppercase mt-0.5">Disponibles ahora en nuestra tienda online</p>
+            </div>
+
+            <!-- Product Images Grid -->
+            <a href="https://www.urbannoise.co" target="_blank" onclick="closePopup()" class="grid grid-cols-2 gap-3 relative z-10 group overflow-hidden rounded-2xl cursor-pointer">
+                <div class="aspect-[3/4] rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
+                    <img src="https://dcdn-us.mitiendanube.com/stores/003/262/136/products/9-43dcc5a7ab507b715e17806854269782-1024-1024.webp" alt="Producto 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="aspect-[3/4] rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
+                    <img src="https://dcdn-us.mitiendanube.com/stores/003/262/136/products/11-1c9d092be26390f5a017806855395475-1024-1024.webp" alt="Producto 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+            </a>
+
+            <!-- Action Button -->
+            <a href="https://www.urbannoise.co" target="_blank" onclick="closePopup()" class="relative z-10 w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5" style="background-color: var(--accent-color); color: var(--accent-text);">
+                <span>Ver Colección Completa</span>
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 glass-panel border border-[var(--accent-color)]/30 rounded-full px-5 py-3 text-xs text-white font-medium flex items-center gap-2 shadow-2xl translate-y-24 opacity-0 transition-all duration-300 z-50 whitespace-nowrap">
         <span class="w-2 h-2 rounded-full bg-[var(--accent-color)]" id="toast-indicator"></span>
@@ -479,6 +531,38 @@
             setTimeout(() => {
                 window.open('https://share.google/NgCtEDyI6ofS84U3F', '_blank');
             }, 800);
+        }
+
+        // Popup Modal Management
+        function showPopup() {
+            const popup = document.getElementById('product-popup');
+            const content = document.getElementById('popup-content');
+            
+            popup.classList.remove('opacity-0', 'pointer-events-none');
+            popup.classList.add('opacity-100');
+            
+            setTimeout(() => {
+                content.classList.remove('scale-90');
+                content.classList.add('scale-100');
+            }, 50);
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('product-popup');
+            const content = document.getElementById('popup-content');
+            
+            content.classList.remove('scale-100');
+            content.classList.add('scale-90');
+            
+            setTimeout(() => {
+                popup.classList.remove('opacity-100');
+                popup.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+
+        // Initial loading setup
+        window.onload = function() {
+            setTimeout(showPopup, 1200); // 1.2 second delay for a smooth entry feeling
         }
 
 
