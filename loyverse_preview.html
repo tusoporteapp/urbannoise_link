@@ -1295,6 +1295,25 @@
             }, 50);
         }
 
+        // Tab manager inside detail modal
+        function showTab(tabName) {
+            const tabs = ['info', 'care', 'wholesale'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-btn-${t}`);
+                const content = document.getElementById(`tab-content-${t}`);
+                
+                if (t === tabName) {
+                    btn.classList.add('text-black', 'border-b-2', 'border-black');
+                    btn.classList.remove('text-zinc-500');
+                    content.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('text-black', 'border-b-2', 'border-black');
+                    btn.classList.add('text-zinc-500');
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
         function selectSize(size) {
             selectedSizeVal = size;
             selectedColorVal = null; // Reset selected color
@@ -1407,25 +1426,16 @@
         function addProductToList() {
             if (!currentModalProduct) return;
             if (!selectedSizeVal) {
-                showNotification("⚠️ Por favor selecciona una talla.");
+                showNotification("⚠️ Por favor selecciona una talla (S, M, L, XL).");
+                // Visual bounce effect on size container to attract attention
                 const container = document.getElementById('size-options');
                 container.classList.add('animate-bounce');
                 setTimeout(() => container.classList.remove('animate-bounce'), 800);
                 return;
             }
             
-            // Check if product has color variants
-            const hasColors = currentModalProduct.variants && currentModalProduct.variants.some(v => v.color);
-            if (hasColors && !selectedColorVal) {
-                showNotification("⚠️ Por favor selecciona un color.");
-                const container = document.getElementById('color-options');
-                container.classList.add('animate-bounce');
-                setTimeout(() => container.classList.remove('animate-bounce'), 800);
-                return;
-            }
-            
             // Add item to local list
-            const existingItemIndex = orderList.findIndex(item => item.id === currentModalProduct.id && item.size === selectedSizeVal && item.color === selectedColorVal);
+            const existingItemIndex = orderList.findIndex(item => item.id === currentModalProduct.id && item.size === selectedSizeVal);
             
             if (existingItemIndex !== -1) {
                 orderList[existingItemIndex].qty += qtyInputVal;
@@ -1436,7 +1446,6 @@
                     image: currentModalProduct.image,
                     price: currentModalProduct.price,
                     size: selectedSizeVal,
-                    color: selectedColorVal,
                     qty: qtyInputVal
                 });
             }
@@ -1447,13 +1456,22 @@
             // Update badges
             updateListTriggerBadge();
             
-            const colorText = selectedColorVal ? ` / ${selectedColorVal}` : '';
-            showNotification(`⚡️ ${qtyInputVal}x ${currentModalProduct.title} (Talla ${selectedSizeVal}${colorText}) añadido a tu lista.`);
+            showNotification(`⚡️ ${qtyInputVal}x ${currentModalProduct.title} (Talla ${selectedSizeVal}) añadido a tu lista.`);
             
             closeProductDetail();
             
             // Open list drawer automatically for verification feeling
             setTimeout(openOrderList, 300);
+
+            // Advance tour if active at step 5 (add to list, which has index 4)
+            if (window.onboardingDriver && window.onboardingDriver.isActive()) {
+                const activeIndex = window.onboardingDriver.getActiveIndex();
+                if (activeIndex === 4) {
+                    setTimeout(() => {
+                        window.onboardingDriver.moveNext();
+                    }, 150);
+                }
+            }
         }
 
         // Header counts badge updating
