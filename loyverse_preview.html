@@ -242,7 +242,7 @@
     <!-- VISTA PREVIA INDICATOR -->
     <div class="w-full bg-zinc-950 text-white text-center py-2 px-4 text-[10px] font-bold uppercase tracking-widest border-b border-zinc-800 z-50 flex justify-center items-center gap-2 select-none">
         <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
-        <span>MODO BORRADOR: Cargando inventario de Loyverse API (Vista Previa)</span>
+        <span>MODO BORRADOR: Cargando inventario y stock de Loyverse API (Vista Previa)</span>
     </div>
 
 
@@ -1170,16 +1170,28 @@
             selectedSizeVal = null;
             qtyInputVal = 1;
             
-            // Dynamically render size buttons based on Loyverse variants
+            // Dynamically render size buttons based on Loyverse variants and real stock levels
             const sizeOptionsContainer = document.getElementById('size-options');
             if (sizeOptionsContainer) {
                 if (product.variants && product.variants.length > 0) {
                     const uniqueSizes = [...new Set(product.variants.map(v => v.size))];
                     let sizeHtml = '';
                     uniqueSizes.forEach(size => {
-                        sizeHtml += `
-                            <button onclick="selectSize('${size}')" id="size-${size}" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">${size}</button>
-                        `;
+                        // Check if this size is in stock in any variant
+                        const sizeVariants = product.variants.filter(v => v.size === size);
+                        const isSizeInStock = sizeVariants.some(v => v.inStock);
+                        
+                        if (isSizeInStock) {
+                            sizeHtml += `
+                                <button onclick="selectSize('${size}')" id="size-${size}" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">${size}</button>
+                            `;
+                        } else {
+                            sizeHtml += `
+                                <button disabled class="py-3 rounded-xl text-sm font-bold uppercase bg-zinc-50 border border-zinc-200 text-zinc-300 line-through cursor-not-allowed opacity-50 relative select-none" title="Agotado en Loyverse">
+                                    <span>${size}</span>
+                                </button>
+                            `;
+                        }
                     });
                     sizeOptionsContainer.innerHTML = sizeHtml;
                 } else {
