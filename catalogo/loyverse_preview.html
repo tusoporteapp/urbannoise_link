@@ -1170,7 +1170,7 @@
             selectedSizeVal = null;
             qtyInputVal = 1;
             
-            // Dynamically render size buttons based on Loyverse variants and real stock levels
+            // Dynamically render size buttons based on Loyverse variants and real stock levels (with RED X overlay)
             const sizeOptionsContainer = document.getElementById('size-options');
             if (sizeOptionsContainer) {
                 if (product.variants && product.variants.length > 0) {
@@ -1187,8 +1187,13 @@
                             `;
                         } else {
                             sizeHtml += `
-                                <button disabled class="py-3 rounded-xl text-sm font-bold uppercase bg-zinc-50 border border-zinc-200 text-zinc-300 line-through cursor-not-allowed opacity-50 relative select-none" title="Agotado en Loyverse">
-                                    <span>${size}</span>
+                                <button disabled class="py-3 rounded-xl text-sm font-bold uppercase bg-zinc-100/50 border border-zinc-200 text-zinc-400 cursor-not-allowed opacity-50 relative overflow-hidden select-none" title="Agotado en Loyverse">
+                                    <span class="opacity-30">${size}</span>
+                                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                        <svg class="w-8 h-8 text-red-600 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </div>
                                 </button>
                             `;
                         }
