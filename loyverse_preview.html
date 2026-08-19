@@ -549,9 +549,14 @@
                     <i data-lucide="list-checks" class="w-5 h-5 text-zinc-950"></i>
                     <h3 class="font-display font-black text-lg uppercase tracking-tight text-zinc-950">Mi Lista de Pedido</h3>
                 </div>
-                <button onclick="closeOrderList()" class="text-zinc-400 hover:text-black p-1.5 bg-zinc-100 rounded-full" aria-label="Cerrar">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="clearEntireOrderList()" id="clear-list-btn" class="text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 transition-all rounded-full p-1.5 flex items-center justify-center cursor-pointer hidden" title="Vaciar Lista" aria-label="Vaciar Lista">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="closeOrderList()" class="text-zinc-400 hover:text-black p-1.5 bg-zinc-100 rounded-full" aria-label="Cerrar">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- List items container -->
@@ -1659,7 +1664,9 @@
             const submitBtn = document.getElementById('submit-list-btn');
             const valBanner = document.getElementById('wholesale-validation-banner');
             
+            const clearBtn = document.getElementById('clear-list-btn');
             if (orderList.length === 0) {
+                if (clearBtn) clearBtn.classList.add('hidden');
                 container.innerHTML = `
                     <div class="text-center py-16 text-zinc-500 flex flex-col items-center gap-2.5">
                         <i data-lucide="package-open" class="w-12 h-12 text-zinc-300"></i>
@@ -1686,6 +1693,7 @@
             let totalQty = 0;
             let hasConsultarPrice = false;
             
+            if (clearBtn) clearBtn.classList.remove('hidden');
             orderList.forEach((item, index) => {
                 const subtotal = item.price * item.qty;
                 if (item.price > 1000) {
@@ -1798,6 +1806,17 @@
         }
 
         // Delete from list
+        function clearEntireOrderList() {
+            if (orderList.length === 0) return;
+            if (confirm("¿Estás seguro de que deseas vaciar toda tu lista de pedido?")) {
+                orderList = [];
+                localStorage.setItem('un_order_list', JSON.stringify(orderList));
+                updateListTriggerBadge();
+                renderOrderListItems();
+                showNotification("🗑️ Lista vaciada por completo.");
+            }
+        }
+
         function deleteListItem(index) {
             const deletedItem = orderList[index];
             orderList.splice(index, 1);
