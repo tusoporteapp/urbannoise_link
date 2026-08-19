@@ -1299,6 +1299,21 @@
             }, 50);
         }
 
+        function closeProductDetail() {
+            const modal = document.getElementById('product-detail-modal');
+            const content = document.getElementById('detail-modal-content');
+            
+            content.classList.remove('translate-y-0');
+            content.classList.add('translate-y-full');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+            
+            currentModalProduct = null;
+        }
+
         // Tab manager inside detail modal
         function showTab(tabName) {
             const tabs = ['info', 'care', 'wholesale'];
