@@ -922,7 +922,7 @@
         // Fetch products from locally synchronized Loyverse JSON
         async function fetchCatalog() {
             try {
-                const response = await fetch("loyverse_products.json");
+                const response = await fetch("loyverse_products.json?t=" + Date.now());
                 if (!response.ok) throw new Error("No se pudo cargar el archivo local de productos de Loyverse.");
                 const data = await response.json();
                 
