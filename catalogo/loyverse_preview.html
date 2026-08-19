@@ -474,7 +474,7 @@
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs uppercase tracking-wider text-zinc-700 font-extrabold">Seleccionar Talla</span>
-                        <span class="text-xs text-zinc-500 font-semibold">Horma Ancha (Oversize)</span>
+                        <span id="modal-stock-indicator" class="text-xs text-zinc-500 font-semibold">Horma Ancha (Oversize)</span>
                     </div>
                     <div class="grid grid-cols-4 gap-2" id="size-options">
                         <button onclick="selectSize('S')" id="size-S" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">S</button>
@@ -1170,6 +1170,13 @@
             selectedSizeVal = null;
             qtyInputVal = 1;
             
+            // Reset stock indicator
+            const stockIndicator = document.getElementById('modal-stock-indicator');
+            if (stockIndicator) {
+                stockIndicator.innerText = "Horma Ancha (Oversize)";
+                stockIndicator.className = "text-xs text-zinc-500 font-semibold";
+            }
+            
             // Dynamically render size buttons based on Loyverse variants and real stock levels (with RED X overlay)
             const sizeOptionsContainer = document.getElementById('size-options');
             if (sizeOptionsContainer) {
@@ -1341,8 +1348,25 @@
             });
             
             const selectedBtn = document.getElementById(`size-${size}`);
-            selectedBtn.classList.remove('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
-            selectedBtn.classList.add('bg-black', 'text-white', 'border-transparent');
+            if (selectedBtn) {
+                selectedBtn.classList.remove('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
+                selectedBtn.classList.add('bg-black', 'text-white', 'border-transparent');
+            }
+            
+            // Show stock quantity
+            const stockIndicator = document.getElementById('modal-stock-indicator');
+            if (stockIndicator && currentModalProduct && currentModalProduct.variants) {
+                const sizeVariants = currentModalProduct.variants.filter(v => v.size === size);
+                const totalStock = sizeVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
+                
+                if (totalStock <= 5) {
+                    stockIndicator.innerHTML = `⚠️ ¡Solo quedan <span class="font-extrabold text-red-500">${totalStock}</span> unids!`;
+                    stockIndicator.className = "text-xs text-red-500 font-semibold animate-pulse";
+                } else {
+                    stockIndicator.innerHTML = `✓ <span class="font-extrabold text-emerald-600">${totalStock}</span> unids disponibles`;
+                    stockIndicator.className = "text-xs text-emerald-600 font-semibold";
+                }
+            }
         }
 
         // Qty controls
