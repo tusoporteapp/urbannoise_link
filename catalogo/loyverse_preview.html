@@ -935,7 +935,11 @@
                 if (!response.ok) throw new Error("No se pudo cargar el archivo local de productos de Loyverse.");
                 const data = await response.json();
                 
-                products = data;
+                // Only show products that have at least one variant in stock
+                products = data.filter(product => {
+                    if (!product.variants || product.variants.length === 0) return true;
+                    return product.variants.some(v => v.inStock);
+                });
                 filteredProductsList = [...products];
                 
                 // Render products
