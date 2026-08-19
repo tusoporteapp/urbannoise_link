@@ -242,7 +242,7 @@
     <!-- VISTA PREVIA INDICATOR -->
     <div class="w-full bg-zinc-950 text-white text-center py-2 px-4 text-[10px] font-bold uppercase tracking-widest border-b border-zinc-800 z-50 flex justify-center items-center gap-2 select-none">
         <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
-        <span>MODO BORRADOR: Cargando inventario y stock de Loyverse API (Vista Previa)</span>
+        <span>MODO BORRADOR: Cargando inventario, tallas y colores de Loyverse API (Vista Previa)</span>
     </div>
 
 
@@ -474,13 +474,20 @@
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs uppercase tracking-wider text-zinc-700 font-extrabold">Seleccionar Talla</span>
-                        <span class="text-xs text-zinc-500 font-semibold">Horma Ancha (Oversize)</span>
+                        <span id="modal-stock-indicator" class="text-xs text-zinc-500 font-semibold">Horma Ancha (Oversize)</span>
                     </div>
                     <div class="grid grid-cols-4 gap-2" id="size-options">
-                        <button onclick="selectSize('S')" id="size-S" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">S</button>
-                        <button onclick="selectSize('M')" id="size-M" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">M</button>
-                        <button onclick="selectSize('L')" id="size-L" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">L</button>
-                        <button onclick="selectSize('XL')" id="size-XL" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">XL</button>
+                        <!-- Size options loaded dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Color Selector Container -->
+                <div id="color-selector-container" class="mt-4 hidden border-t border-zinc-200 pt-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs uppercase tracking-wider text-zinc-700 font-extrabold">Seleccionar Color</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2" id="color-options">
+                        <!-- Generated dynamically -->
                     </div>
                 </div>
 
@@ -702,6 +709,7 @@
         
         let currentModalProduct = null;
         let selectedSizeVal = null;
+        let selectedColorVal = null;
         let qtyInputVal = 1;
         
         let orderList = [];
@@ -919,14 +927,14 @@
         function changeTheme(themeName) {}
         function updateAmbientGlow() {}
 
-        // Fetch products from locally synchronized Loyverse JSON
+        // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
+                // Fetch products from locally synchronized Loyverse JSON with cache buster
         async function fetchCatalog() {
             try {
                 const response = await fetch("loyverse_products.json?t=" + Date.now());
                 if (!response.ok) throw new Error("No se pudo cargar el archivo local de productos de Loyverse.");
                 const data = await response.json();
                 
-                // Keep the fetched products in memory
                 products = data;
                 filteredProductsList = [...products];
                 
@@ -948,6 +956,7 @@
                 `;
                 lucide.createIcons();
             }
+        }
         }
 
         // Logic to classify products
@@ -1161,16 +1170,24 @@
             };
         }
 
-        // Open details modal
+                // Open details modal
         function openProductDetail(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
             
             currentModalProduct = product;
             selectedSizeVal = null;
+            selectedColorVal = null;
             qtyInputVal = 1;
             
-            // Dynamically render size buttons with inline stock levels and RED X overlay
+            // Reset stock label
+            const stockIndicator = document.getElementById('modal-stock-indicator');
+            if (stockIndicator) {
+                stockIndicator.innerText = "Horma Ancha (Oversize)";
+                stockIndicator.className = "text-xs text-zinc-500 font-semibold";
+            }
+            
+            // Dynamically render size buttons
             const sizeOptionsContainer = document.getElementById('size-options');
             if (sizeOptionsContainer) {
                 if (product.variants && product.variants.length > 0) {
@@ -1212,6 +1229,20 @@
                 }
             }
             
+            // Set up Color options container
+            const colorContainer = document.getElementById('color-options');
+            const colorSelectorContainer = document.getElementById('color-selector-container');
+            if (colorContainer && colorSelectorContainer) {
+                const hasColors = product.variants && product.variants.some(v => v.color);
+                if (hasColors) {
+                    colorSelectorContainer.classList.remove('hidden');
+                    colorContainer.innerHTML = `<div class="text-[10px] text-zinc-400 font-semibold italic">Selecciona una talla para ver los colores disponibles.</div>`;
+                } else {
+                    colorSelectorContainer.classList.add('hidden');
+                    colorContainer.innerHTML = '';
+                }
+            }
+            
             // Update modal UI
             document.getElementById('modal-product-img').src = product.image;
             document.getElementById('modal-product-title').innerText = product.title;
@@ -1250,12 +1281,6 @@
             
             // Reset Tab UI
             showTab('info');
-            
-            // Reset sizes pills
-            document.querySelectorAll('#size-options button').forEach(btn => {
-                btn.classList.remove('bg-black', 'text-white', 'border-transparent');
-                btn.classList.add('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
-            });
             document.getElementById('qty-value').innerText = qtyInputVal;
             
             // Show modal
@@ -1269,83 +1294,15 @@
                 content.classList.remove('translate-y-full');
                 content.classList.add('translate-y-0');
             }, 50);
-
-            // Advance tour if active at step 0 (choose product)
-            if (window.onboardingDriver && window.onboardingDriver.isActive()) {
-                const activeIndex = window.onboardingDriver.getActiveIndex();
-                if (activeIndex === 0) {
-                    setTimeout(() => {
-                        window.onboardingDriver.moveNext();
-                    }, 150);
-                }
-            }
         }
 
-        // Swapping main image when clicking thumbnails
-        function setModalMainImage(imgUrl, clickedButton) {
-            const mainImg = document.getElementById('modal-product-img');
-            
-            // Fade effect
-            mainImg.style.opacity = '0.3';
-            setTimeout(() => {
-                mainImg.src = imgUrl;
-                mainImg.style.opacity = '1';
-            }, 150);
-            
-            // Update thumbnails border active states
-            const thumbnails = document.querySelectorAll('#modal-thumbnails button');
-            thumbnails.forEach(btn => {
-                btn.classList.remove('border-[var(--accent-color)]');
-                btn.classList.add('border-transparent', 'opacity-60');
-            });
-            
-            clickedButton.classList.remove('border-transparent', 'opacity-60');
-            clickedButton.classList.add('border-[var(--accent-color)]');
-        }
-
-        function closeProductDetail() {
-            const modal = document.getElementById('product-detail-modal');
-            const content = document.getElementById('detail-modal-content');
-            
-            content.classList.remove('translate-y-0');
-            content.classList.add('translate-y-full');
-            
-            setTimeout(() => {
-                modal.classList.remove('opacity-100');
-                modal.classList.add('opacity-0', 'pointer-events-none');
-            }, 300);
-            
-            currentModalProduct = null;
-        }
-
-        // Tab manager inside detail modal
-        function showTab(tabName) {
-            const tabs = ['info', 'care', 'wholesale'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`tab-btn-${t}`);
-                const content = document.getElementById(`tab-content-${t}`);
-                
-                if (t === tabName) {
-                    btn.classList.add('text-black', 'border-b-2', 'border-black');
-                    btn.classList.remove('text-zinc-500');
-                    content.classList.remove('hidden');
-                } else {
-                    btn.classList.remove('text-black', 'border-b-2', 'border-black');
-                    btn.classList.add('text-zinc-500');
-                    content.classList.add('hidden');
-                }
-            });
-        }
-
-        // Size selections
         function selectSize(size) {
             selectedSizeVal = size;
+            selectedColorVal = null; // Reset selected color
             
             document.querySelectorAll('#size-options button').forEach(btn => {
                 btn.classList.remove('bg-zinc-950', 'text-white', 'border-transparent');
                 btn.classList.add('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
-                
-                // Restore original stock label color
                 const stockLabel = btn.querySelector('.size-stock-label');
                 if (stockLabel) {
                     const isLow = stockLabel.getAttribute('data-low') === 'true';
@@ -1357,11 +1314,85 @@
             if (selectedBtn) {
                 selectedBtn.classList.remove('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
                 selectedBtn.classList.add('bg-zinc-950', 'text-white', 'border-transparent');
-                
-                // Change stock label text color to white when selected
                 const stockLabel = selectedBtn.querySelector('.size-stock-label');
                 if (stockLabel) {
                     stockLabel.className = 'text-[8px] mt-1 size-stock-label text-zinc-300 font-bold';
+                }
+            }
+            
+            // Update modal stock indicator top right of sizes grid
+            const stockIndicator = document.getElementById('modal-stock-indicator');
+            if (stockIndicator && currentModalProduct && currentModalProduct.variants) {
+                const sizeVariants = currentModalProduct.variants.filter(v => v.size === size);
+                const totalStock = sizeVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
+                if (totalStock <= 5) {
+                    stockIndicator.innerHTML = `⚠️ ¡Solo quedan <span class="font-extrabold text-red-500">${totalStock}</span> unids!`;
+                    stockIndicator.className = "text-xs text-red-500 font-semibold animate-pulse";
+                } else {
+                    stockIndicator.innerHTML = `✓ <span class="font-extrabold text-emerald-600">${totalStock}</span> unids disponibles`;
+                    stockIndicator.className = "text-xs text-emerald-600 font-semibold";
+                }
+                
+                // Dynamically render color buttons for this size
+                const colorContainer = document.getElementById('color-options');
+                if (colorContainer) {
+                    const uniqueColorsForSize = [...new Set(sizeVariants.map(v => v.color).filter(c => c !== null))];
+                    if (uniqueColorsForSize.length > 0) {
+                        let colorHtml = '';
+                        uniqueColorsForSize.forEach(color => {
+                            const variant = sizeVariants.find(v => v.color === color);
+                            const stock = variant ? variant.stock : 0;
+                            const inStock = variant ? variant.inStock : false;
+                            
+                            if (inStock) {
+                                const isLow = stock <= 5;
+                                const stockClass = isLow ? 'text-red-500 font-bold' : 'text-emerald-600 font-bold';
+                                colorHtml += `
+                                    <button onclick="selectColor('${color}')" id="color-${color}" class="px-4 py-2 rounded-xl border border-zinc-300 bg-zinc-100 text-zinc-800 hover:border-black flex flex-col items-center justify-center cursor-pointer transition-all">
+                                        <span class="text-xs font-bold uppercase leading-none">${color}</span>
+                                        <span class="text-[8px] mt-1 color-stock-label ${stockClass}" data-low="${isLow}">${stock} unids</span>
+                                    </button>
+                                `;
+                            } else {
+                                colorHtml += `
+                                    <button disabled class="px-4 py-2 rounded-xl border border-zinc-200 bg-zinc-100/50 text-zinc-400 flex flex-col items-center justify-center cursor-not-allowed opacity-50 relative overflow-hidden select-none">
+                                        <span class="text-xs font-bold uppercase leading-none opacity-30">${color}</span>
+                                        <span class="text-[8px] mt-1 opacity-30 text-zinc-400">0 unids</span>
+                                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <svg class="w-8 h-8 text-red-600 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                `;
+                            }
+                        });
+                        colorContainer.innerHTML = colorHtml;
+                    } else {
+                        colorContainer.innerHTML = `<div class="text-[10px] text-zinc-400 font-semibold italic">No hay colores disponibles para esta talla.</div>`;
+                    }
+                }
+            }
+        }
+        
+        function selectColor(color) {
+            selectedColorVal = color;
+            document.querySelectorAll('#color-options button').forEach(btn => {
+                btn.classList.remove('bg-zinc-950', 'text-white', 'border-transparent');
+                btn.classList.add('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
+                const label = btn.querySelector('.color-stock-label');
+                if (label) {
+                    const isLow = label.getAttribute('data-low') === 'true';
+                    label.className = `text-[8px] mt-1 color-stock-label ${isLow ? 'text-red-500 font-bold' : 'text-emerald-600 font-bold'}`;
+                }
+            });
+            const selectedBtn = document.getElementById(`color-${color}`);
+            if (selectedBtn) {
+                selectedBtn.classList.remove('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
+                selectedBtn.classList.add('bg-zinc-950', 'text-white', 'border-transparent');
+                const label = selectedBtn.querySelector('.color-stock-label');
+                if (label) {
+                    label.className = 'text-[8px] mt-1 color-stock-label text-zinc-300 font-bold';
                 }
             }
         }
@@ -1378,15 +1409,24 @@
             if (!currentModalProduct) return;
             if (!selectedSizeVal) {
                 showNotification("⚠️ Por favor selecciona una talla.");
-                // Visual bounce effect on size container to attract attention
                 const container = document.getElementById('size-options');
                 container.classList.add('animate-bounce');
                 setTimeout(() => container.classList.remove('animate-bounce'), 800);
                 return;
             }
             
+            // Check if product has color variants
+            const hasColors = currentModalProduct.variants && currentModalProduct.variants.some(v => v.color);
+            if (hasColors && !selectedColorVal) {
+                showNotification("⚠️ Por favor selecciona un color.");
+                const container = document.getElementById('color-options');
+                container.classList.add('animate-bounce');
+                setTimeout(() => container.classList.remove('animate-bounce'), 800);
+                return;
+            }
+            
             // Add item to local list
-            const existingItemIndex = orderList.findIndex(item => item.id === currentModalProduct.id && item.size === selectedSizeVal);
+            const existingItemIndex = orderList.findIndex(item => item.id === currentModalProduct.id && item.size === selectedSizeVal && item.color === selectedColorVal);
             
             if (existingItemIndex !== -1) {
                 orderList[existingItemIndex].qty += qtyInputVal;
@@ -1397,6 +1437,7 @@
                     image: currentModalProduct.image,
                     price: currentModalProduct.price,
                     size: selectedSizeVal,
+                    color: selectedColorVal,
                     qty: qtyInputVal
                 });
             }
@@ -1407,22 +1448,13 @@
             // Update badges
             updateListTriggerBadge();
             
-            showNotification(`⚡️ ${qtyInputVal}x ${currentModalProduct.title} (Talla ${selectedSizeVal}) añadido a tu lista.`);
+            const colorText = selectedColorVal ? ` / ${selectedColorVal}` : '';
+            showNotification(`⚡️ ${qtyInputVal}x ${currentModalProduct.title} (Talla ${selectedSizeVal}${colorText}) añadido a tu lista.`);
             
             closeProductDetail();
             
             // Open list drawer automatically for verification feeling
             setTimeout(openOrderList, 300);
-
-            // Advance tour if active at step 5 (add to list, which has index 4)
-            if (window.onboardingDriver && window.onboardingDriver.isActive()) {
-                const activeIndex = window.onboardingDriver.getActiveIndex();
-                if (activeIndex === 4) {
-                    setTimeout(() => {
-                        window.onboardingDriver.moveNext();
-                    }, 150);
-                }
-            }
         }
 
         // Header counts badge updating
@@ -1567,6 +1599,7 @@
                                 <h4 class="text-xs font-bold text-zinc-950 uppercase leading-tight line-clamp-1">${item.title}</h4>
                                 <div class="flex gap-2 items-center mt-1">
                                     <span class="text-[10px] font-bold uppercase tracking-wider bg-zinc-200 px-2 py-0.5 rounded text-zinc-800">Talla: ${item.size}</span>
+                                    ${item.color ? `<span class="text-[10px] font-bold uppercase tracking-wider bg-zinc-200 px-2 py-0.5 rounded text-zinc-800">Color: ${item.color}</span>` : ''}
                                     <span class="text-xs text-zinc-600">${itemPriceFormatted} c/u</span>
                                 </div>
                             </div>
@@ -1688,7 +1721,8 @@
                 const subtotalFormatted = item.price <= 1000 ? 'Por Consultar' : formatCOP(subtotal);
                 
                 message += `• *${item.qty}x* ${item.title}\n`;
-                message += `  Talla: *${item.size}* | Val: ${subtotalFormatted}\n\n`;
+                const colorStr = item.color ? ` | Color: *${item.color}*` : '';
+                message += `  Talla: *${item.size}*${colorStr} | Val: ${subtotalFormatted}\n\n`;
             });
             
             message += "----------------------------------------\n";
@@ -1700,7 +1734,7 @@
             
             // Generate link to visualize this order
             const baseUrl = window.location.origin + window.location.pathname;
-            const orderParam = orderList.map(item => `${item.id}-${item.size}-${item.qty}`).join(',');
+            const orderParam = orderList.map(item => `${item.id}:${item.size}:${item.qty}${item.color ? ':' + item.color : ''}`).join(',');
             const shareUrl = `${baseUrl}?order=${orderParam}`;
             
             message += `🔗 *Ver detalle y fotos del pedido aquí:*\n${shareUrl}\n\n`;
@@ -1728,13 +1762,18 @@
                 try {
                     const items = orderData.split(',');
                     sharedOrderList = items.map(str => {
-                        const [id, size, qty] = str.split('-');
+                        const parts = str.split(':');
+                        const id = parts[0];
+                        const size = parts[1] || 'M';
+                        const qty = parts[2] || '1';
+                        const color = parts[3] || '';
                         return {
-                            id: parseInt(id, 10),
-                            size: size || 'M',
-                            qty: parseInt(qty, 10) || 1
+                            id: id,
+                            size: size,
+                            qty: parseInt(qty, 10) || 1,
+                            color: color || null
                         };
-                    }).filter(item => !isNaN(item.id));
+                    }).filter(item => item.id);
                     
                     if (sharedOrderList.length > 0) {
                         setTimeout(openSharedOrderModal, 500);
@@ -1806,7 +1845,7 @@
                     <div class="flex-grow text-left">
                         <h4 class="text-xs font-bold text-zinc-900 leading-snug line-clamp-1">${title}</h4>
                         <div class="flex justify-between items-center mt-1">
-                            <span class="text-[10px] text-zinc-500 font-bold uppercase">Talla: <span class="text-zinc-900">${item.size}</span> | Cant: <span class="text-zinc-900">${item.qty}</span></span>
+                            <span class="text-[10px] text-zinc-500 font-bold uppercase">Talla: <span class="text-zinc-900">${item.size}</span>${item.color ? ` | Color: <span class="text-zinc-900">${item.color}</span>` : ''} | Cant: <span class="text-zinc-900">${item.qty}</span></span>
                             <span class="text-xs font-extrabold text-zinc-950">${subtotalFormatted}</span>
                         </div>
                     </div>
@@ -1832,6 +1871,7 @@
                         image: product ? product.image : 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png',
                         price: product ? product.price : 0,
                         size: item.size,
+                        color: item.color || null,
                         qty: item.qty
                     };
                 });
