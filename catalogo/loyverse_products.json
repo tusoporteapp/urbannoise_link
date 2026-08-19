@@ -625,7 +625,7 @@
         "color": "Negro",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "0d00e606-7c3a-4194-9794-de17fe8cd390",
@@ -634,7 +634,7 @@
         "color": "Negro",
         "price": 140000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "bc0ed97d-bb55-48ad-bf31-96e7cf24aa06",
@@ -683,7 +683,7 @@
         "color": "Camell",
         "price": 55000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "ae451e1a-d72f-4db1-885f-fc2c1dbf0a9d",
@@ -777,7 +777,7 @@
         "color": "Gris",
         "price": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 5
       },
       {
         "id": "c32dab1a-181b-4e80-82f8-755218e3b362",
@@ -844,7 +844,7 @@
         "color": "Negro",
         "price": 140000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "f518d26f-74b8-4651-a81e-ced0d7d3ed63",
@@ -902,7 +902,7 @@
         "color": "Negro",
         "price": 140000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "8b752714-dadb-447b-bdbd-61f7070db359",
@@ -951,7 +951,7 @@
         "color": "Azul",
         "price": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 5
       },
       {
         "id": "9aba932f-2680-4708-803c-04d2594ca025",
@@ -1169,8 +1169,8 @@
         "size": "M",
         "color": "Marfil",
         "price": 55000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "8205e99c-9ff5-4f76-882f-2e19f8c49f5b",
@@ -1237,7 +1237,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "27ea0074-6bbd-44d4-a892-6731312b8afe",
@@ -1442,7 +1442,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 6
+        "stock": 7
       },
       {
         "id": "8c22438b-d716-4f85-abd7-22205c5f3897",
@@ -1460,7 +1460,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": true,
-        "stock": 8
+        "stock": 9
       },
       {
         "id": "5e8992c4-815f-4bd0-9ccf-a78ff9d53da7",
@@ -1487,7 +1487,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": true,
-        "stock": 6
+        "stock": 7
       },
       {
         "id": "b31c2d94-8293-4d1c-9471-8fd7dc88f0f1",
@@ -1545,7 +1545,7 @@
         "color": "Marfil",
         "price": 55000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "b9ed6c3d-0762-451c-82f6-4a2a12880533",
@@ -1677,7 +1677,7 @@
         "color": "Negro",
         "price": 70000,
         "inStock": true,
-        "stock": 8
+        "stock": 9
       },
       {
         "id": "258e3dcf-9510-4203-8c20-1b2883a10d43",
@@ -1753,7 +1753,7 @@
         "color": "Negro",
         "price": 70000,
         "inStock": true,
-        "stock": 8
+        "stock": 9
       },
       {
         "id": "8167a527-8bfb-4063-8398-458299927325",
@@ -1771,7 +1771,7 @@
         "color": "Negro",
         "price": 70000,
         "inStock": true,
-        "stock": 5
+        "stock": 6
       },
       {
         "id": "0817dc14-3ee3-497c-b7c8-47432b36f24c",
@@ -1860,7 +1860,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": true,
-        "stock": 5
+        "stock": 6
       },
       {
         "id": "a94540cd-a909-44d7-80ea-a7c16f2e8099",
@@ -1869,7 +1869,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 5
+        "stock": 6
       },
       {
         "id": "87f09b2e-8e2c-41b8-ae20-01adfd43442c",
@@ -1935,8 +1935,8 @@
         "size": "S",
         "color": "Negro",
         "price": 55000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "71b6da05-caf4-4482-9093-9855d6bbe49a",
@@ -2034,7 +2034,7 @@
         "color": "MoraLeche",
         "price": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "3d245b16-479f-4492-bae4-1232753a97ad",
@@ -2043,7 +2043,7 @@
         "color": "Gris",
         "price": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "da718035-bbcc-402a-8970-c20931efbf33",
@@ -2137,7 +2137,7 @@
         "color": "Negro",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "20a36574-e877-4c59-a19f-427c828a42cf",
@@ -2145,8 +2145,8 @@
         "size": "XL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "30aa98c8-0b2c-4362-a976-7d88e5ba979e",
@@ -2154,8 +2154,8 @@
         "size": "XXL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       }
     ]
   },
@@ -2177,7 +2177,7 @@
         "color": "Azul",
         "price": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "d27ad0c2-1214-4d89-8340-558e92ae0743",
@@ -2195,7 +2195,7 @@
         "color": "Azul",
         "price": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "679233d7-8dce-4926-9ccd-280d5b5b2456",
@@ -2212,8 +2212,8 @@
         "size": "L",
         "color": "Azul",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "fa78693a-d243-4f81-8945-79df0a500da6",
@@ -2222,7 +2222,7 @@
         "color": "Verde",
         "price": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "c5fe0892-8333-4880-816c-6f2c623fb2c9",
@@ -2280,7 +2280,7 @@
         "color": "Gris",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "c0ed870c-d03f-479b-8831-721663c950ab",
@@ -2298,7 +2298,7 @@
         "color": "Gris",
         "price": 140000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "7b060dc9-b785-4853-985c-7b62bd04864b",
@@ -2373,8 +2373,8 @@
         "size": "S",
         "color": "Negro",
         "price": 60000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "56f9d2cf-0798-461e-84a3-851e8b481005",
@@ -2450,7 +2450,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 7
+        "stock": 8
       },
       {
         "id": "eb3806de-206a-4a2f-a2ae-e1b2339eaee1",
@@ -2459,7 +2459,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 6
+        "stock": 7
       },
       {
         "id": "5be0ee74-98a6-4450-824a-ae9bee35b4ab",
@@ -2505,8 +2505,8 @@
         "size": "M",
         "color": "Cobre",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "c385bc56-f0f1-4ab2-89cd-dc9876945e70",
@@ -2515,7 +2515,7 @@
         "color": "Cobre",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 3
       },
       {
         "id": "5c91cb85-2683-4baa-826d-13ebb7af928c",
@@ -2524,7 +2524,7 @@
         "color": "Cobre",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 3
       }
     ]
   },
@@ -2553,7 +2553,7 @@
         "color": "Negro",
         "price": 55000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "ebdc984e-758f-4dd0-8bc8-db2afd48ff36",
@@ -2635,8 +2635,8 @@
         "size": "L",
         "color": "Cobre",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "fb8bc2de-34aa-4198-9a2d-39af0bbed7a8",
@@ -3025,7 +3025,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "a888e633-bc67-4a38-901e-8a7efeb83003",
@@ -3061,7 +3061,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "508419bf-ccc1-45f6-8ef3-b783272b6bc4",
@@ -3168,7 +3168,7 @@
         "color": "Negro",
         "price": 40000,
         "inStock": true,
-        "stock": 10
+        "stock": 11
       },
       {
         "id": "3f45bdfe-9b8c-44ba-8fbe-fd3abcdad4d4",
@@ -3282,7 +3282,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "43032969-814a-4046-9a26-f7af95a7cc02",
@@ -3291,7 +3291,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "748f85fe-0868-40ca-b8a6-55b49b423c32",
@@ -3299,8 +3299,8 @@
         "size": "L",
         "color": "Marfil",
         "price": 53000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "fe52092e-a841-45d9-83bc-5304af9ce42e",
@@ -3309,7 +3309,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       }
     ]
   },
@@ -3331,7 +3331,7 @@
         "color": "Blanco",
         "price": 53000,
         "inStock": true,
-        "stock": 4
+        "stock": 5
       },
       {
         "id": "e4fd1de2-7a57-464c-8d89-bcbfecc02b16",
@@ -3414,7 +3414,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "ac146ee0-bb89-42ca-b52c-ae309aa3c8af",
@@ -3431,8 +3431,8 @@
         "size": "L",
         "color": "Negro",
         "price": 53000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "7c332547-0791-4ff5-bbe4-739ee0e1fdd7",
@@ -3441,7 +3441,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       }
     ]
   },
@@ -3461,7 +3461,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": false,
-        "stock": -2
+        "stock": -1
       },
       {
         "id": "0882de52-9733-480e-ac32-93b68e9d2d62",
@@ -3478,8 +3478,8 @@
         "size": "M",
         "color": "Marfil",
         "price": 53000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "276b05a8-7139-4147-82aa-096c08e25988",
@@ -3488,7 +3488,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "588d8e82-7bdd-43a5-a240-71b2c6ec2c1b",
@@ -3506,7 +3506,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "ef9a299f-8727-4567-8f8a-23713cc67ff0",
@@ -3515,7 +3515,7 @@
         "color": "Marfil",
         "price": 53000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "7c290b2c-6643-4fb3-b08a-7a7490e81c77",
@@ -3524,7 +3524,7 @@
         "color": "Negro",
         "price": 53000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       }
     ]
   },
@@ -3768,7 +3768,7 @@
         "color": "Gris",
         "price": 55000,
         "inStock": true,
-        "stock": 1
+        "stock": 3
       },
       {
         "id": "e653bbf9-037a-440a-a5e1-1d77b7a9c17e",
@@ -3776,8 +3776,8 @@
         "size": "M",
         "color": "Marfil",
         "price": 55000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "91bf597c-1de1-4958-bcdb-65969d7258ed",
@@ -3843,8 +3843,8 @@
         "size": "M",
         "color": "Negro",
         "price": 50000,
-        "inStock": false,
-        "stock": -1
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "877e51d2-7666-4020-b993-7c8dcfcecd60",
@@ -3853,7 +3853,7 @@
         "color": "Negro",
         "price": 50000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "2046f5b3-62be-4be7-b20f-965ee474a6fa",
@@ -3920,7 +3920,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": false,
-        "stock": -3
+        "stock": -1
       },
       {
         "id": "4fb1995c-257b-49e5-a7d7-95f113604ff1",
@@ -3995,8 +3995,8 @@
         "size": "M",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "6c9943ba-45a5-4c26-bd1d-6fda05276e43",
@@ -4004,8 +4004,8 @@
         "size": "L",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "464996e9-1d2a-4290-8729-37931d01b42d",
@@ -4031,8 +4031,8 @@
         "size": "XL",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "1185085c-1974-4922-be71-239e5319d9a7",
@@ -4116,8 +4116,8 @@
         "size": "L",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "80fa2b33-bb5e-422b-882b-dcaf7e0a98fd",
@@ -4125,8 +4125,8 @@
         "size": "XL",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "22fdfc32-469b-4f0d-9bab-54e57ba00ffb",
@@ -4210,8 +4210,8 @@
         "size": "L",
         "color": "Gris",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "e3cb46fe-732c-46f0-b787-3b2fedd03f08",
@@ -4237,8 +4237,8 @@
         "size": "XL",
         "color": "Cobre",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       }
     ]
   },
@@ -4260,7 +4260,7 @@
         "color": "Gris",
         "price": 55000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "b63c4d70-2644-4383-8c49-0dc6783ed5eb",
@@ -4345,7 +4345,7 @@
         "color": "Negro",
         "price": 120000,
         "inStock": false,
-        "stock": -5
+        "stock": -7
       },
       {
         "id": "284dcd38-1442-4657-b10b-a73076d91a69",
@@ -4353,8 +4353,8 @@
         "size": "U",
         "color": "Camell",
         "price": 120000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": -3
       },
       {
         "id": "79f890ee-bc8c-484f-b61a-299f2527ed75",
@@ -4363,7 +4363,7 @@
         "color": "Marfil",
         "price": 120000,
         "inStock": false,
-        "stock": -1
+        "stock": -3
       },
       {
         "id": "5ba00760-ad30-49f8-9354-24d81bdd32cc",
@@ -4372,7 +4372,7 @@
         "color": "Negro",
         "price": 120000,
         "inStock": false,
-        "stock": -4
+        "stock": -9
       },
       {
         "id": "c947f12b-c43c-4ff7-beb5-4cac7a2f8368",
@@ -4380,8 +4380,8 @@
         "size": "U",
         "color": "Camell",
         "price": 120000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": -2
       },
       {
         "id": "eb0c037c-271c-4e97-8d18-8bea30baffd2",
@@ -4390,7 +4390,7 @@
         "color": "Marfil",
         "price": 120000,
         "inStock": false,
-        "stock": -4
+        "stock": -9
       }
     ]
   },
@@ -4432,7 +4432,7 @@
         "color": "Negro",
         "price": 55000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "a437d309-e79b-47bd-97a8-4b602ba5ac53",
@@ -4553,7 +4553,7 @@
         "color": "MoraLeche",
         "price": 65000,
         "inStock": false,
-        "stock": -4
+        "stock": -2
       },
       {
         "id": "983dde98-0dd3-48fa-9868-512cac167825",
@@ -4561,8 +4561,8 @@
         "size": "L",
         "color": "Negro",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "279ea03c-f057-47c6-ab67-f8834ee6f211",
@@ -4790,7 +4790,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "b02e32c2-2ba5-447a-8ebd-8328c636baaf",
@@ -4808,7 +4808,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "905a872a-9218-441d-8517-3039e2d2a596",
@@ -4816,8 +4816,8 @@
         "size": "L",
         "color": "MoraLeche",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "9a9e51b3-5aab-410b-b48e-a5a022c14ad1",
@@ -4902,7 +4902,7 @@
         "color": "Gris",
         "price": 65000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "31979f34-f363-43d4-9888-047dd52ca039",
@@ -4941,8 +4941,8 @@
         "size": "S",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "dbad796e-c8da-4470-84a7-a507a60573b0",
@@ -4969,7 +4969,7 @@
         "color": "Gris",
         "price": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "50ee47bf-dd8e-468b-839d-72df4410a820",
@@ -4977,8 +4977,8 @@
         "size": "L",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "01f751d5-660a-46ee-9f4b-07bfae4700b1",
@@ -4995,8 +4995,8 @@
         "size": "XL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "bbeb47fa-f7af-458e-b7e5-42b4df57305e",
@@ -5004,8 +5004,8 @@
         "size": "XL",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "473d7bfe-1f14-47f6-82b6-57a339aca7c7",
@@ -5081,7 +5081,7 @@
         "color": "Negro",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "8b53a3c4-22c3-44f4-8e60-b551274b1804",
@@ -5089,8 +5089,8 @@
         "size": "L",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "c2519ccf-fa95-45b3-8990-09fdef09112f",
@@ -5098,8 +5098,8 @@
         "size": "XL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "1fad6055-627e-4fb4-a873-396c79a6772a",
@@ -5156,8 +5156,8 @@
         "size": "S",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "cd767483-21da-4c62-ac45-389b19be8302",
@@ -5165,8 +5165,8 @@
         "size": "M",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "6a32fea5-9bb9-4a16-8232-5c022565cb2c",
@@ -5183,8 +5183,8 @@
         "size": "L",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "6b15d77d-20d9-47b3-bf31-627f06a5746f",
@@ -5192,8 +5192,8 @@
         "size": "L",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "8713339f-435a-4119-b5bb-95e2b3b3547c",
@@ -5498,8 +5498,8 @@
         "size": "M",
         "color": "Camell",
         "price": 55000,
-        "inStock": false,
-        "stock": -1
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "8501caf8-e49c-4e73-b0be-89f8079ea718",
@@ -5556,8 +5556,8 @@
         "size": "M",
         "color": "Negro",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "9bf30d13-6d09-49ef-b784-f35602ab51ac",
@@ -5584,7 +5584,7 @@
         "color": "MoraLeche",
         "price": 65000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "3c8fbdcb-1925-40ea-a3af-15f0241a1c31",
@@ -5650,8 +5650,8 @@
         "size": "XL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "77df65e0-8e33-49cf-9f81-8804ace553ba",
@@ -5725,7 +5725,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "b7126178-b6ab-40d1-9f59-c13283d4172f",
@@ -5742,8 +5742,8 @@
         "size": "L",
         "color": "Cobre",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "8637b3ce-6912-418a-93ff-e93c65c0b86d",
@@ -5752,7 +5752,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "8ed179c2-2b6b-44ca-93d0-937064708571",
@@ -5798,8 +5798,8 @@
         "size": "S",
         "color": "Negro",
         "price": 55000,
-        "inStock": false,
-        "stock": -1
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "19394832-d941-4806-98ef-167c86b658fe",
@@ -5808,7 +5808,7 @@
         "color": "Marfil",
         "price": 55000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "924225f4-a801-44d2-b677-ae7f89529ff9",
@@ -5891,7 +5891,7 @@
         "color": "Negro",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "54511799-6a88-49aa-9439-9aaee451ae82",
@@ -5899,8 +5899,8 @@
         "size": "L",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "efb1ee81-ce51-4c49-9335-13ac27b2448a",
@@ -5998,7 +5998,7 @@
         "color": "Negro",
         "price": 50000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "a2974049-95a9-49a6-aa1b-76d4e294dc89",
@@ -6007,7 +6007,7 @@
         "color": "Camell",
         "price": 50000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "2c6ed68f-e5d2-4ea1-a629-0f2762c98aa6",
@@ -6015,8 +6015,8 @@
         "size": "M",
         "color": "Negro",
         "price": 50000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "3f686b40-c0df-4a47-9f5d-23d41800fa73",
@@ -6025,7 +6025,7 @@
         "color": "Camell",
         "price": 50000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "f8073f86-a0c1-472f-8215-b3781e3d0800",
@@ -6033,8 +6033,8 @@
         "size": "L",
         "color": "Negro",
         "price": 50000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "856c5d8b-f9ab-4b60-9e9b-00c871bdb600",
@@ -6136,8 +6136,8 @@
         "size": "L",
         "color": "Negro",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "c51c465e-13af-4a6b-91e2-c54bf2294e92",
@@ -6145,8 +6145,8 @@
         "size": "L",
         "color": "Gris",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "84307cfa-5f14-4e86-9bd0-ff366030d79e",
@@ -6252,8 +6252,8 @@
         "size": "S",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "cd102459-a882-4534-b35a-ceed9b3dde96",
@@ -6355,8 +6355,8 @@
         "size": "M",
         "color": "MoraLeche",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "083e01c8-78cb-4296-8801-efd30cd41e7a",
@@ -6374,7 +6374,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "b34eca8c-cea4-45f4-9dd5-caa609d7d81d",
@@ -6617,7 +6617,7 @@
         "color": "Gris",
         "price": 140000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "53d43fdd-8e93-4db6-b74c-5016b0e59966",
@@ -6634,8 +6634,8 @@
         "size": "L",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "5c52f292-b870-4cbc-a83f-29ca231fa64f",
@@ -6652,8 +6652,8 @@
         "size": "XL",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "6dee763f-3d44-4e2d-a6b9-746d9b4819ba",
@@ -6764,8 +6764,8 @@
         "size": "XL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "bf46f301-462e-4626-ab57-bc59ea3d164c",
@@ -6773,8 +6773,8 @@
         "size": "XXL",
         "color": "Azul",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "75de45d0-49c0-4ac9-bc5c-9cc893535a5f",
@@ -6782,8 +6782,8 @@
         "size": "XXL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       }
     ]
   },
@@ -6805,7 +6805,7 @@
         "color": "Negro",
         "price": 45000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "cf7d5858-a70b-42ab-a6a7-5f697f5828e0",
@@ -6845,7 +6845,7 @@
         "color": "Marfil",
         "price": 60000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "f23e6c98-155b-4773-8d55-7648b0cfe7af",
@@ -6853,8 +6853,8 @@
         "size": "M",
         "color": "Negro",
         "price": 60000,
-        "inStock": false,
-        "stock": -2
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "dcbfa398-9a9c-4063-bafb-2d0d48a33047",
@@ -6862,8 +6862,8 @@
         "size": "M",
         "color": "Marfil",
         "price": 60000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "2e377ff9-7a6b-40e0-9ed6-84645795d3ea",
@@ -6871,8 +6871,8 @@
         "size": "L",
         "color": "Negro",
         "price": 60000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "3e0c00e9-c72b-4568-b1b7-3c1d75733272",
@@ -6880,8 +6880,8 @@
         "size": "L",
         "color": "Marfil",
         "price": 60000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       }
     ]
   },
@@ -7025,8 +7025,8 @@
         "size": "L",
         "color": "Azul",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "f573dd44-3061-40bc-8a53-296b811760a9",
@@ -7043,8 +7043,8 @@
         "size": "XL",
         "color": "Azul",
         "price": 140000,
-        "inStock": false,
-        "stock": -1
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "86f2e29b-741f-43e0-be08-a0ac807b5656",
@@ -7061,8 +7061,8 @@
         "size": "XXL",
         "color": "Azul",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "8a2512dc-8ee8-4ca3-a49b-1221c3760598",
@@ -7177,8 +7177,8 @@
         "size": "S",
         "color": "Azul",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "a4ad4a09-a45a-47d0-af78-ae35c4cec538",
@@ -7393,7 +7393,7 @@
         "color": "Gris",
         "price": 140000,
         "inStock": false,
-        "stock": -3
+        "stock": -2
       },
       {
         "id": "4f1c4ea1-13de-4418-998d-dc36648162fa",
@@ -7410,8 +7410,8 @@
         "size": "L",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": -2
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "a15aab67-28d8-4d32-b77d-453f0f6b5d4a",
@@ -7420,7 +7420,7 @@
         "color": "Gris",
         "price": 140000,
         "inStock": false,
-        "stock": -2
+        "stock": -1
       },
       {
         "id": "d62a8da0-3d99-4588-8eb3-f45194e674c1",
@@ -7429,7 +7429,7 @@
         "color": "Gris",
         "price": 140000,
         "inStock": false,
-        "stock": -3
+        "stock": -2
       }
     ]
   },
@@ -7459,8 +7459,8 @@
         "size": "S",
         "color": "Azul",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "3f416efd-274c-4cbd-a9fc-a95e086e1f67",
@@ -7504,8 +7504,8 @@
         "size": "XL",
         "color": "Gris",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "90a34fcd-5615-49f1-89d9-20a50c7da1a9",
@@ -7534,7 +7534,7 @@
         "color": "Marfil",
         "price": 45000,
         "inStock": false,
-        "stock": -4
+        "stock": -2
       }
     ]
   },
@@ -7583,7 +7583,7 @@
         "color": "Marfil",
         "price": 45000,
         "inStock": true,
-        "stock": 9
+        "stock": 11
       },
       {
         "id": "2409dd77-a5d6-4381-9d74-18cfbee2183e",
@@ -7668,7 +7668,7 @@
         "color": "Azul",
         "price": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "0bc489cf-6981-4bae-9609-a8ede8ca1981",
@@ -7726,7 +7726,7 @@
         "color": "Cobre",
         "price": 65000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ]
   },
@@ -7832,8 +7832,8 @@
         "size": "M",
         "color": "Gris",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "cb0bc555-70d2-4140-8b7c-c495d8b23f94",
@@ -7841,8 +7841,8 @@
         "size": "M",
         "color": "Verde",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "bce7fb3c-2d80-4b2d-bce4-4fd8231310da",
@@ -7984,8 +7984,8 @@
         "size": "S",
         "color": "Azul",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "33a9f9d3-0330-425a-8e22-fb8f3151888e",
@@ -8123,8 +8123,8 @@
         "size": "M",
         "color": "Negro",
         "price": 60000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "f15ff89c-ceb5-4f94-9b12-3f2bca4bb3e5",
@@ -8151,7 +8151,7 @@
         "color": "Marfil",
         "price": 60000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       }
     ]
   },
@@ -8190,8 +8190,8 @@
         "size": "M",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "90cbc8d9-19d4-43e7-959e-f584706663d8",
@@ -8244,8 +8244,8 @@
         "size": "XXL",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "63d3048b-efde-4e20-bbbe-9267ebb8feec",
@@ -8283,7 +8283,7 @@
         "color": "Varios",
         "price": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "7255f0c5-e2aa-4994-955e-3c9ae2bb96b0",
@@ -8292,7 +8292,7 @@
         "color": "Varios",
         "price": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 6
       },
       {
         "id": "87f3de4a-7e92-4b0f-b0e2-6ec9f21781b1",
@@ -8300,8 +8300,8 @@
         "size": "XL",
         "color": "Varios",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 3
       }
     ]
   },
@@ -8494,8 +8494,8 @@
         "size": "L/XL",
         "color": "Beige",
         "price": 75000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       }
     ]
   },
@@ -9862,7 +9862,7 @@
         "color": "Marfil",
         "price": 95000,
         "inStock": true,
-        "stock": 9
+        "stock": 10
       },
       {
         "id": "b2f9a26b-8f57-4a1c-97be-62c4d448956e",
@@ -9889,7 +9889,7 @@
         "color": "Marfil",
         "price": 95000,
         "inStock": true,
-        "stock": 11
+        "stock": 13
       },
       {
         "id": "f62e3bbd-7233-427e-aa17-c71f02ae42ac",
@@ -9898,7 +9898,7 @@
         "color": "Camell",
         "price": 95000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "b782de9b-7cd5-4ee6-8493-5a7937f88aeb",
@@ -9907,7 +9907,7 @@
         "color": "Negro",
         "price": 95000,
         "inStock": true,
-        "stock": 5
+        "stock": 6
       },
       {
         "id": "ce417bf1-9335-43c0-8a51-4479ce55f17b",
@@ -9916,7 +9916,7 @@
         "color": "Marfil",
         "price": 95000,
         "inStock": true,
-        "stock": 5
+        "stock": 6
       },
       {
         "id": "16b39d54-fb3d-4ce5-8368-d1dabe7bb82e",
@@ -9925,7 +9925,7 @@
         "color": "Camell",
         "price": 95000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       },
       {
         "id": "ac45e286-8f60-49f2-aafc-8f4f880d2567",
@@ -9934,7 +9934,7 @@
         "color": "Negro",
         "price": 95000,
         "inStock": false,
-        "stock": 0
+        "stock": -8
       },
       {
         "id": "b5f89954-a1a8-47de-b6f1-00832ff92260",
@@ -9942,8 +9942,8 @@
         "size": "XL",
         "color": "Marfil",
         "price": 95000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": -4
       },
       {
         "id": "11239fb1-eccd-477e-913b-512621d2842d",
@@ -9970,7 +9970,7 @@
         "color": "Gris",
         "price": 95000,
         "inStock": true,
-        "stock": 12
+        "stock": 13
       },
       {
         "id": "666deb6d-780f-499e-8bb5-e66eacc2fb2a",
@@ -9988,7 +9988,7 @@
         "color": "Gris",
         "price": 95000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       }
     ]
   },
@@ -10036,8 +10036,8 @@
         "size": "M",
         "color": "Cobre",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       },
       {
         "id": "bf0ab4c3-cc35-43c9-84e2-c4fafe20dab6",
@@ -10171,7 +10171,7 @@
         "color": "Negro",
         "price": 45000,
         "inStock": true,
-        "stock": 10
+        "stock": 12
       },
       {
         "id": "c7bf1479-1209-4e0a-bc7a-98aff394ba6a",
@@ -10180,7 +10180,7 @@
         "color": "Marfil",
         "price": 45000,
         "inStock": false,
-        "stock": -3
+        "stock": -2
       },
       {
         "id": "c0fd7cce-8054-4ec2-8742-1c703e472c58",
@@ -10298,7 +10298,7 @@
         "color": "Negro",
         "price": 75000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "7391a2dc-106b-420d-b2a6-b280c088c9e9",
@@ -10325,7 +10325,7 @@
         "color": "Negro",
         "price": 75000,
         "inStock": true,
-        "stock": 2
+        "stock": 4
       },
       {
         "id": "c5688cf6-7c40-430e-bfbf-4ea709de4b89",
@@ -10351,8 +10351,8 @@
         "size": "L",
         "color": "Negro",
         "price": 75000,
-        "inStock": false,
-        "stock": -1
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "f570fe04-887c-45af-8c07-201591e86433",
@@ -10361,7 +10361,7 @@
         "color": "Marfil",
         "price": 75000,
         "inStock": true,
-        "stock": 3
+        "stock": 4
       },
       {
         "id": "b77f46b8-3ce8-443e-9306-afc9326c79fa",
@@ -10409,8 +10409,8 @@
         "size": "S",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "75ad1030-dcc4-42e0-ae06-a2601c5e949a",
@@ -10481,8 +10481,8 @@
         "size": "XXL",
         "color": "Negro",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "70d4d885-a595-4097-b3f4-09f3a581531c",
@@ -10695,8 +10695,8 @@
         "size": "M",
         "color": "Gris",
         "price": 140000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "4d02217a-cd20-41c6-a5e9-cf1da622aeb2",
@@ -10954,7 +10954,7 @@
         "color": "Mrfil",
         "price": 75000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "0a5df5a6-5897-424c-b473-e0f15bcd10e8",
@@ -10994,7 +10994,7 @@
         "color": "Negro",
         "price": 75000,
         "inStock": true,
-        "stock": 1
+        "stock": 2
       }
     ]
   },
@@ -11122,8 +11122,8 @@
         "size": "L/XL",
         "color": "Verde",
         "price": 75000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 2
       }
     ]
   },
@@ -11511,8 +11511,8 @@
         "size": "s",
         "color": "Gris",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "ea5111c4-b653-4a1a-bf7d-c82edc61df4c",
@@ -11650,8 +11650,8 @@
         "size": "S",
         "color": "MoraLeche",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "55dfb041-49eb-4968-85ab-f45bdcbfe062",
@@ -11812,7 +11812,7 @@
         "color": "Verde",
         "price": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 5
       },
       {
         "id": "b8c9ec9b-e5f4-41a1-80d3-8db9f95acc7f",
@@ -11847,8 +11847,8 @@
         "size": "L",
         "color": "Verde",
         "price": 65000,
-        "inStock": false,
-        "stock": -1
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "a298ae95-1748-436f-a02f-5299fed9d844",
@@ -11981,8 +11981,8 @@
         "size": "S",
         "color": "MoraLeche",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "b70d587d-8c93-4025-bb00-38bc3d311a19",
@@ -11991,7 +11991,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "ff0c6f10-d922-40cf-970a-9ed8e76d559b",
@@ -12066,8 +12066,8 @@
         "size": "S",
         "color": "Negro",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "fd8d12ca-ec9f-4061-8e42-beef5308b05c",
@@ -12075,8 +12075,8 @@
         "size": "M",
         "color": "Negro",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "4925b31f-bf08-40ad-822d-6d0fb5b3d513",
@@ -12247,8 +12247,8 @@
         "size": "S",
         "color": "Cobre",
         "price": 65000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "370d330d-49f1-4fbd-990e-191d3025d39b",
@@ -12320,7 +12320,7 @@
         "color": "Negro",
         "price": 65000,
         "inStock": true,
-        "stock": 1
+        "stock": 3
       },
       {
         "id": "a75caddb-8503-4216-aa41-5c9eb28ac28b",
@@ -12497,7 +12497,7 @@
         "color": "Cobre",
         "price": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 3
       },
       {
         "id": "01c8de3d-681a-482e-9d8d-75f99e13704c",
@@ -12778,7 +12778,7 @@
         "color": "Negro",
         "price": 75000,
         "inStock": false,
-        "stock": -2
+        "stock": -1
       },
       {
         "id": "d39425e7-2da4-4ff8-8f4a-44900cdbacd4",
@@ -12787,7 +12787,7 @@
         "color": "MarfiL",
         "price": 75000,
         "inStock": true,
-        "stock": 3
+        "stock": 5
       },
       {
         "id": "c1a3551a-97ab-4b36-9786-fc70e56abad8",
@@ -12805,7 +12805,7 @@
         "color": "Negro",
         "price": 75000,
         "inStock": false,
-        "stock": -2
+        "stock": -1
       },
       {
         "id": "ae9b9be4-007d-4509-8b81-39701b88336b",
@@ -12813,8 +12813,8 @@
         "size": "M",
         "color": "MarfiL",
         "price": 75000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 1
       },
       {
         "id": "4b87acd2-25bf-4752-a93b-234a7db29707",
@@ -12832,7 +12832,7 @@
         "color": "Negro",
         "price": 75000,
         "inStock": true,
-        "stock": 2
+        "stock": 4
       },
       {
         "id": "2d65de21-c884-490b-8f4d-6fc53b751fbe",
@@ -12841,7 +12841,7 @@
         "color": "MarfiL",
         "price": 75000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "3d7fdbfd-bbe0-4adf-b758-e48754cc9a2a",
@@ -14980,8 +14980,8 @@
         "size": "U",
         "color": null,
         "price": 65000,
-        "inStock": true,
-        "stock": 5
+        "inStock": false,
+        "stock": -9
       },
       {
         "id": "14cb90db-6310-45a0-a866-d0a0506410e4",
@@ -15057,7 +15057,7 @@
         "color": null,
         "price": 95000,
         "inStock": true,
-        "stock": 58
+        "stock": 61
       },
       {
         "id": "511a4113-d398-40a7-90bc-06328ab76316",
@@ -15200,7 +15200,7 @@
         "color": null,
         "price": 75000,
         "inStock": true,
-        "stock": 7
+        "stock": 5
       },
       {
         "id": "08dd81b9-ccac-4f67-ab90-4f4d59cafb47",
@@ -15238,7 +15238,7 @@
         "color": null,
         "price": 65000,
         "inStock": true,
-        "stock": 106
+        "stock": 107
       },
       {
         "id": "13aeae51-99b9-4678-adc3-6acbad3a9a79",
@@ -15247,7 +15247,7 @@
         "color": null,
         "price": 46000,
         "inStock": false,
-        "stock": -83
+        "stock": -139
       },
       {
         "id": "4ad8e525-ba29-4d2c-9ff6-c6ab99628dcf",
@@ -15256,7 +15256,7 @@
         "color": null,
         "price": 68000,
         "inStock": false,
-        "stock": -20
+        "stock": -19
       },
       {
         "id": "b68e6775-4a2b-4a28-ae91-bd4b20b44204",
@@ -15331,8 +15331,8 @@
         "size": "U",
         "color": null,
         "price": 50000,
-        "inStock": true,
-        "stock": 53
+        "inStock": false,
+        "stock": -1
       },
       {
         "id": "5552d9d4-17a6-4521-bb29-852f96d105d4",
@@ -15408,7 +15408,7 @@
         "color": null,
         "price": 75000,
         "inStock": true,
-        "stock": 34
+        "stock": 17
       },
       {
         "id": "466c52b6-a03b-4172-aacc-7f3549d0a193",
@@ -15826,7 +15826,7 @@
         "color": null,
         "price": 40000,
         "inStock": true,
-        "stock": 70
+        "stock": 77
       },
       {
         "id": "274bf28a-a84f-47cc-be80-388ba6f1f363",
@@ -15966,8 +15966,8 @@
         "size": "U",
         "color": null,
         "price": 33000,
-        "inStock": true,
-        "stock": 68
+        "inStock": false,
+        "stock": -245
       },
       {
         "id": "8e21d92c-d052-49e4-a981-a43bfd31009b",
