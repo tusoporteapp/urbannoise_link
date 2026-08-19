@@ -441,12 +441,24 @@
             <div class="w-12 h-1 bg-zinc-300 rounded-full mx-auto mb-2 cursor-pointer" onclick="closeProductDetail()"></div>
 
             <!-- Main Close Button -->
-            <button onclick="closeProductDetail()" class="absolute top-4 right-4 text-zinc-400 hover:text-black transition-colors z-20 p-1.5 bg-zinc-100 rounded-full hover:bg-zinc-200" aria-label="Cerrar">
+            <button onclick="closeProductDetail()" class="absolute top-4 right-4 text-zinc-400 hover:text-black transition-colors z-40 p-1.5 bg-zinc-100 rounded-full hover:bg-zinc-200" aria-label="Cerrar">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
             
+            <!-- STICKY COLLAPSED SUMMARY BAR (Slides down on scroll) -->
+            <div id="modal-sticky-collapsed-header" class="absolute top-0 left-0 right-0 h-[72px] bg-white/90 backdrop-blur-md border-b border-zinc-200 px-5 pt-4 pb-2 flex items-center justify-between z-30 transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none select-none">
+                <div class="flex items-center gap-3">
+                    <img id="sticky-header-img" src="" alt="" class="w-9 h-11 object-cover rounded-lg border border-zinc-200">
+                    <div class="flex flex-col text-left">
+                        <span id="sticky-header-cat" class="text-[9px] font-bold text-zinc-400 uppercase tracking-wider leading-none"></span>
+                        <h4 id="sticky-header-title" class="text-xs font-bold text-zinc-950 mt-1 uppercase tracking-tight truncate max-w-[200px] leading-none"></h4>
+                        <span id="sticky-header-price" class="text-xs font-extrabold text-zinc-950 mt-0.5"></span>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Scrollable Modal Body -->
-            <div class="flex-grow overflow-y-auto pr-1 flex flex-col gap-4 mb-4 mt-2">
+            <div id="modal-scrollable-body" class="flex-grow overflow-y-auto pr-1 flex flex-col gap-4 mb-4 mt-2">
 
             <!-- Product Image Large representation with Thumbnail Strip -->
             <div class="flex flex-col gap-2.5 mt-1">
@@ -769,6 +781,21 @@
             fetchCatalog();
             updateListTriggerBadge();
             checkWholesaleGatekeeper();
+            
+            // Scroll listener for sticky collapsed header
+            const scrollContainer = document.getElementById('modal-scrollable-body');
+            const stickyHeader = document.getElementById('modal-sticky-collapsed-header');
+            if (scrollContainer && stickyHeader) {
+                scrollContainer.addEventListener('scroll', () => {
+                    if (scrollContainer.scrollTop > 120) {
+                        stickyHeader.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                        stickyHeader.classList.add('translate-y-0', 'opacity-100');
+                    } else {
+                        stickyHeader.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                        stickyHeader.classList.remove('translate-y-0', 'opacity-100');
+                    }
+                });
+            }
         }
 
         // Wholesale gatekeeper overlay functions
@@ -1294,6 +1321,26 @@
             const isAcid = product.title.toLowerCase().includes('acid');
             document.getElementById('modal-product-badge').innerText = isAcid ? 'Acid Wash' : 'Streetwear';
             
+            // Update sticky collapsed header fields
+            const stickyImg = document.getElementById('sticky-header-img');
+            const stickyCat = document.getElementById('sticky-header-cat');
+            const stickyTitle = document.getElementById('sticky-header-title');
+            const stickyPrice = document.getElementById('sticky-header-price');
+            const stickyHeader = document.getElementById('modal-sticky-collapsed-header');
+            
+            if (stickyImg) stickyImg.src = product.image;
+            if (stickyCat) stickyCat.innerText = product.category;
+            if (stickyTitle) stickyTitle.innerText = product.title;
+            if (stickyPrice) stickyPrice.innerText = priceFormatted;
+            
+            if (stickyHeader) {
+                stickyHeader.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                stickyHeader.classList.remove('translate-y-0', 'opacity-100');
+            }
+            
+            const scrollContainer = document.getElementById('modal-scrollable-body');
+            if (scrollContainer) scrollContainer.scrollTop = 0;
+
             // Render thumbnails
             const thumbnailsContainer = document.getElementById('modal-thumbnails');
             if (product.images && product.images.length > 1) {
