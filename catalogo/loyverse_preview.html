@@ -474,7 +474,7 @@
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs uppercase tracking-wider text-zinc-700 font-extrabold">Seleccionar Talla</span>
-                        <span id="modal-stock-indicator" class="text-xs text-zinc-500 font-semibold">Horma Ancha (Oversize)</span>
+                        <span class="text-xs text-zinc-500 font-semibold">Horma Ancha (Oversize)</span>
                     </div>
                     <div class="grid grid-cols-4 gap-2" id="size-options">
                         <button onclick="selectSize('S')" id="size-S" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">S</button>
@@ -1170,32 +1170,31 @@
             selectedSizeVal = null;
             qtyInputVal = 1;
             
-            // Reset stock indicator
-            const stockIndicator = document.getElementById('modal-stock-indicator');
-            if (stockIndicator) {
-                stockIndicator.innerText = "Horma Ancha (Oversize)";
-                stockIndicator.className = "text-xs text-zinc-500 font-semibold";
-            }
-            
-            // Dynamically render size buttons based on Loyverse variants and real stock levels (with RED X overlay)
+            // Dynamically render size buttons with inline stock levels and RED X overlay
             const sizeOptionsContainer = document.getElementById('size-options');
             if (sizeOptionsContainer) {
                 if (product.variants && product.variants.length > 0) {
                     const uniqueSizes = [...new Set(product.variants.map(v => v.size))];
                     let sizeHtml = '';
                     uniqueSizes.forEach(size => {
-                        // Check if this size is in stock in any variant
                         const sizeVariants = product.variants.filter(v => v.size === size);
                         const isSizeInStock = sizeVariants.some(v => v.inStock);
+                        const totalStock = sizeVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
                         
                         if (isSizeInStock) {
+                            const isLow = totalStock <= 5;
+                            const stockClass = isLow ? 'text-red-500 font-bold' : 'text-emerald-600 font-bold';
                             sizeHtml += `
-                                <button onclick="selectSize('${size}')" id="size-${size}" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">${size}</button>
+                                <button onclick="selectSize('${size}')" id="size-${size}" class="py-2 rounded-xl border border-zinc-300 bg-zinc-100 text-zinc-800 hover:border-black flex flex-col items-center justify-center cursor-pointer transition-all">
+                                    <span class="text-sm font-bold uppercase leading-none">${size}</span>
+                                    <span class="text-[8px] mt-1 size-stock-label ${stockClass}" data-low="${isLow}">${totalStock} unids</span>
+                                </button>
                             `;
                         } else {
                             sizeHtml += `
-                                <button disabled class="py-3 rounded-xl text-sm font-bold uppercase bg-zinc-100/50 border border-zinc-200 text-zinc-400 cursor-not-allowed opacity-50 relative overflow-hidden select-none" title="Agotado en Loyverse">
-                                    <span class="opacity-30">${size}</span>
+                                <button disabled class="py-2 rounded-xl border border-zinc-200 bg-zinc-100/50 text-zinc-400 flex flex-col items-center justify-center cursor-not-allowed opacity-50 relative overflow-hidden select-none" title="Agotado en Loyverse">
+                                    <span class="text-sm font-bold uppercase leading-none opacity-30">${size}</span>
+                                    <span class="text-[8px] mt-1 opacity-30 text-zinc-400">0 unids</span>
                                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                                         <svg class="w-8 h-8 text-red-600 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -1343,28 +1342,26 @@
             selectedSizeVal = size;
             
             document.querySelectorAll('#size-options button').forEach(btn => {
-                btn.classList.remove('bg-black', 'text-white', 'border-transparent');
+                btn.classList.remove('bg-zinc-950', 'text-white', 'border-transparent');
                 btn.classList.add('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
+                
+                // Restore original stock label color
+                const stockLabel = btn.querySelector('.size-stock-label');
+                if (stockLabel) {
+                    const isLow = stockLabel.getAttribute('data-low') === 'true';
+                    stockLabel.className = `text-[8px] mt-1 size-stock-label ${isLow ? 'text-red-500 font-bold' : 'text-emerald-600 font-bold'}`;
+                }
             });
             
             const selectedBtn = document.getElementById(`size-${size}`);
             if (selectedBtn) {
                 selectedBtn.classList.remove('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
-                selectedBtn.classList.add('bg-black', 'text-white', 'border-transparent');
-            }
-            
-            // Show stock quantity
-            const stockIndicator = document.getElementById('modal-stock-indicator');
-            if (stockIndicator && currentModalProduct && currentModalProduct.variants) {
-                const sizeVariants = currentModalProduct.variants.filter(v => v.size === size);
-                const totalStock = sizeVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
+                selectedBtn.classList.add('bg-zinc-950', 'text-white', 'border-transparent');
                 
-                if (totalStock <= 5) {
-                    stockIndicator.innerHTML = `⚠️ ¡Solo quedan <span class="font-extrabold text-red-500">${totalStock}</span> unids!`;
-                    stockIndicator.className = "text-xs text-red-500 font-semibold animate-pulse";
-                } else {
-                    stockIndicator.innerHTML = `✓ <span class="font-extrabold text-emerald-600">${totalStock}</span> unids disponibles`;
-                    stockIndicator.className = "text-xs text-emerald-600 font-semibold";
+                // Change stock label text color to white when selected
+                const stockLabel = selectedBtn.querySelector('.size-stock-label');
+                if (stockLabel) {
+                    stockLabel.className = 'text-[8px] mt-1 size-stock-label text-zinc-300 font-bold';
                 }
             }
         }
