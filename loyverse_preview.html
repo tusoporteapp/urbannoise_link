@@ -1355,6 +1355,17 @@
                     stockIndicator.className = "text-xs text-emerald-600 font-semibold";
                 }
                 
+                // Adjust qty if product doesn't have colors
+                const hasColors = currentModalProduct.variants.some(v => v.color);
+                if (!hasColors) {
+                    const maxStock = getSelectedVariantStock();
+                    if (qtyInputVal > maxStock) {
+                        qtyInputVal = maxStock > 0 ? maxStock : 1;
+                        document.getElementById('qty-value').innerText = qtyInputVal;
+                        showNotification(`⚠️ Cantidad ajustada al máximo disponible: ${qtyInputVal} unids.`);
+                    }
+                }
+
                 // Dynamically render color buttons for this size
                 const colorContainer = document.getElementById('color-options');
                 if (colorContainer) {
@@ -1397,6 +1408,32 @@
             }
         }
         
+        function getSelectedVariantStock() {
+            if (!currentModalProduct) return 999;
+            if (currentModalProduct.track_stock === false) return 999;
+            
+            if (currentModalProduct.variants && currentModalProduct.variants.length > 0) {
+                const hasColors = currentModalProduct.variants.some(v => v.color);
+                if (hasColors) {
+                    if (!selectedSizeVal || !selectedColorVal) {
+                        if (selectedSizeVal) {
+                            return currentModalProduct.variants
+                                .filter(v => v.size === selectedSizeVal)
+                                .reduce((sum, v) => sum + (v.stock || 0), 0);
+                        }
+                        return 999;
+                    }
+                    const variant = currentModalProduct.variants.find(v => v.size === selectedSizeVal && v.color === selectedColorVal);
+                    return variant ? Math.max(0, variant.stock || 0) : 0;
+                } else {
+                    if (!selectedSizeVal) return 999;
+                    const variant = currentModalProduct.variants.find(v => v.size === selectedSizeVal);
+                    return variant ? Math.max(0, variant.stock || 0) : 0;
+                }
+            }
+            return 999;
+        }
+
         function selectColor(color) {
             selectedColorVal = color;
             document.querySelectorAll('#color-options button').forEach(btn => {
@@ -1417,12 +1454,51 @@
                     label.className = 'text-[8px] mt-1 color-stock-label text-zinc-300 font-bold';
                 }
             }
+            
+            // Adjust qty if it exceeds the new stock limit
+            const maxStock = getSelectedVariantStock();
+            if (qtyInputVal > maxStock) {
+                qtyInputVal = maxStock > 0 ? maxStock : 1;
+                document.getElementById('qty-value').innerText = qtyInputVal;
+                showNotification(`⚠️ Cantidad ajustada al máximo disponible: ${qtyInputVal} unids.`);
+            }
         }
 
-        // Qty controls
+        // Qty controls capped by real stock availability
         function changeQty(diff) {
-            qtyInputVal += diff;
-            if (qtyInputVal < 1) qtyInputVal = 1;
+            if (!currentModalProduct) return;
+            
+            if (!selectedSizeVal) {
+                showNotification("⚠️ Por favor selecciona una talla primero.");
+                const container = document.getElementById('size-options');
+                if (container) {
+                    container.classList.add('animate-bounce');
+                    setTimeout(() => container.classList.remove('animate-bounce'), 800);
+                }
+                return;
+            }
+            
+            const hasColors = currentModalProduct.variants && currentModalProduct.variants.some(v => v.color);
+            if (hasColors && !selectedColorVal) {
+                showNotification("⚠️ Por favor selecciona un color primero.");
+                const container = document.getElementById('color-options');
+                if (container) {
+                    container.classList.add('animate-bounce');
+                    setTimeout(() => container.classList.remove('animate-bounce'), 800);
+                }
+                return;
+            }
+            
+            const maxStock = getSelectedVariantStock();
+            let newQty = qtyInputVal + diff;
+            if (newQty < 1) newQty = 1;
+            
+            if (newQty > maxStock) {
+                showNotification(`⚠️ Solo hay ${maxStock} unidades disponibles de esta combinación.`);
+                newQty = maxStock;
+            }
+            
+            qtyInputVal = newQty;
             document.getElementById('qty-value').innerText = qtyInputVal;
         }
 
