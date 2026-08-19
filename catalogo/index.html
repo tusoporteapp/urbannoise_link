@@ -433,7 +433,7 @@
         <div class="absolute inset-0 cursor-default" onclick="closeProductDetail()"></div>
         
         <!-- Modal Drawer Container -->
-        <div class="relative w-full max-w-md bg-white border-t border-zinc-200 rounded-t-[32px] px-5 pb-8 pt-4 flex flex-col gap-4 max-h-[88vh] overflow-y-auto transform translate-y-full transition-transform duration-500" id="detail-modal-content">
+        <div class="relative w-full max-w-md bg-white border-t border-zinc-200 rounded-t-[32px] px-5 pb-6 pt-4 flex flex-col gap-4 max-h-[92vh] transform translate-y-full transition-transform duration-500" id="detail-modal-content">
             <!-- Header bar handle -->
             <div class="w-12 h-1 bg-zinc-300 rounded-full mx-auto mb-2 cursor-pointer" onclick="closeProductDetail()"></div>
 
@@ -441,6 +441,9 @@
             <button onclick="closeProductDetail()" class="absolute top-4 right-4 text-zinc-400 hover:text-black transition-colors z-20 p-1.5 bg-zinc-100 rounded-full hover:bg-zinc-200" aria-label="Cerrar">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
+            
+            <!-- Scrollable Modal Body -->
+            <div class="flex-grow overflow-y-auto pr-1 flex flex-col gap-4 mb-4 mt-2">
 
             <!-- Product Image Large representation with Thumbnail Strip -->
             <div class="flex flex-col gap-2.5 mt-1">
@@ -542,6 +545,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
             </div>
 
             <!-- Add to List Action button -->
