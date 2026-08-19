@@ -501,19 +501,46 @@
                 </div>
             </div>
 
-            <!-- DETAILS TABS (Info, Cuidados, Mayoristas) -->
-            <div class="w-full flex flex-col gap-2 mt-1">
-                <!-- Tab Headers -->
-                <div class="grid grid-cols-3 border-b border-zinc-200 text-center text-sm font-semibold">
-                    <button onclick="showTab('info')" id="tab-btn-info" class="pb-2 text-black border-b-2 border-black cursor-pointer">Detalles</button>
-                    <button onclick="showTab('care')" id="tab-btn-care" class="pb-2 text-zinc-500 hover:text-zinc-700 cursor-pointer">Cuidados</button>
-                    <button onclick="showTab('wholesale')" id="tab-btn-wholesale" class="pb-2 text-zinc-500 hover:text-zinc-700 cursor-pointer">Mayorista</button>
-                </div>
-                <!-- Tab Contents -->
-                <div class="text-left text-sm text-zinc-600 leading-relaxed py-2 min-h-[90px] font-sans">
-                    <div id="tab-content-info" class="whitespace-pre-line"></div>
-                    <div id="tab-content-care" class="hidden whitespace-pre-line"></div>
-                    <div id="tab-content-wholesale" class="hidden whitespace-pre-line"></div>
+            <!-- SPEC SHEET CONTAINER -->
+            <div class="w-full flex flex-col gap-3.5 mt-2 border-t border-zinc-200 pt-4 text-left">
+                <h4 class="text-xs font-extrabold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5 mb-0.5">
+                    <i data-lucide="info" class="w-4 h-4 text-zinc-800"></i>
+                    Ficha Técnica de la Prenda
+                </h4>
+                
+                <div class="flex flex-col gap-2.5">
+                    <!-- Item Description Section -->
+                    <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
+                        <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
+                            <i data-lucide="file-text" class="w-4 h-4"></i>
+                        </span>
+                        <div>
+                            <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Descripción del Diseño</span>
+                            <p id="spec-info" class="text-xs text-zinc-705 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Care & Composition Section -->
+                    <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
+                        <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
+                            <i data-lucide="shirt" class="w-4 h-4"></i>
+                        </span>
+                        <div>
+                            <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Composición y Cuidado</span>
+                            <p id="spec-care" class="text-xs text-zinc-705 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Shipping & Wholesale Conditions Section -->
+                    <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
+                        <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
+                            <i data-lucide="truck" class="w-4 h-4"></i>
+                        </span>
+                        <div>
+                            <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Despacho Mayorista</span>
+                            <p id="spec-shipping" class="text-xs text-zinc-705 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1262,14 +1289,11 @@
                 thumbnailsContainer.classList.add('hidden');
             }
             
-            // Set descriptions in tabs
+            // Set descriptions in spec sheet
             const sections = parseDescription(product.description);
-            document.getElementById('tab-content-info').innerText = sections.info;
-            document.getElementById('tab-content-care').innerText = sections.care;
-            document.getElementById('tab-content-wholesale').innerText = sections.shipping + '\n\n' + sections.warranty;
-            
-            // Reset Tab UI
-            showTab('info');
+            document.getElementById('spec-info').innerText = sections.info;
+            document.getElementById('spec-care').innerText = sections.care;
+            document.getElementById('spec-shipping').innerText = sections.shipping + '\n\n' + sections.warranty;
             
             // Reset sizes pills
             document.querySelectorAll('#size-options button').forEach(btn => {
