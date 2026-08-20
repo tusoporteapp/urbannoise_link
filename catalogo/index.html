@@ -1389,6 +1389,22 @@
             
             const priceFormatted = product.price <= 1000 ? 'Consultar Precio' : formatCOP(product.price);
             document.getElementById('modal-product-price').innerText = priceFormatted;
+
+            // Update sticky collapsed header UI
+            const stickyImg = document.getElementById('sticky-header-img');
+            const stickyTitle = document.getElementById('sticky-header-title');
+            const stickyCat = document.getElementById('sticky-header-cat');
+            const stickyPrice = document.getElementById('sticky-header-price');
+            const stickyHeader = document.getElementById('modal-sticky-collapsed-header');
+            
+            if (stickyImg) stickyImg.src = product.image;
+            if (stickyTitle) { stickyTitle.textContent = product.title; stickyTitle.innerText = product.title; }
+            if (stickyCat) { stickyCat.textContent = product.category; stickyCat.innerText = product.category; }
+            if (stickyPrice) { stickyPrice.textContent = priceFormatted; stickyPrice.innerText = priceFormatted; }
+            if (stickyHeader) {
+                stickyHeader.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                stickyHeader.classList.remove('translate-y-0', 'opacity-100');
+            }
             
             const isAcid = product.title.toLowerCase().includes('acid');
             document.getElementById('modal-product-badge').innerText = isAcid ? 'Acid Wash' : 'Streetwear';
@@ -1468,6 +1484,8 @@
             setTimeout(() => {
                 mainImg.src = imgUrl;
                 mainImg.style.opacity = '1';
+                const sImg = document.getElementById('sticky-header-img');
+                if (sImg) sImg.src = imgUrl;
             }, 150);
             
             // Update thumbnails border active states
@@ -1482,6 +1500,11 @@
         }
 
         function closeProductDetail() {
+            const stickyHeader = document.getElementById('modal-sticky-collapsed-header');
+            if (stickyHeader) {
+                stickyHeader.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                stickyHeader.classList.remove('translate-y-0', 'opacity-100');
+            }
             const modal = document.getElementById('product-detail-modal');
             const content = document.getElementById('detail-modal-content');
             
