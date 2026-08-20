@@ -475,7 +475,10 @@
 
             <!-- Title & Price Block -->
             <div class="flex flex-col text-left">
-                <span id="modal-product-cat" class="text-xs font-bold text-zinc-400 uppercase"></span>
+                <div class="flex justify-between items-center mb-0.5">
+                    <span id="modal-product-cat" class="text-xs font-bold text-zinc-400 uppercase"></span>
+                    <span id="modal-product-total-stock"></span>
+                </div>
                 <h3 id="modal-product-title" class="font-display text-xl font-bold uppercase tracking-tight text-zinc-950 mt-0.5 leading-tight"></h3>
                 <div class="flex items-center gap-2 mt-1.5">
                     <span id="modal-product-price" class="text-2xl font-extrabold text-zinc-950"></span>
@@ -1101,9 +1104,23 @@
                 
                 let badgeHtml = '';
                 if (isAcid) {
-                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[10px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-10">Acid Wash</span>`;
+                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-10">Acid Wash</span>`;
                 } else if (isNew) {
-                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md uppercase z-10">¡Nuevo!</span>`;
+                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md uppercase z-10">¡Nuevo!</span>`;
+                }
+
+                // Total stock calculation & urgency badge
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                let urgencyBadgeHtml = '';
+                let stockLabelHtml = '';
+
+                if (totalStock <= 5 && totalStock > 0) {
+                    urgencyBadgeHtml = `<span class="absolute top-2.5 right-2.5 text-[9px] font-black bg-rose-600 text-white px-2 py-0.5 rounded-full uppercase shadow-md flex items-center gap-1 z-10 animate-pulse"><i data-lucide="flame" class="w-2.5 h-2.5"></i> ¡Últimas ${totalStock}!</span>`;
+                    stockLabelHtml = `<span class="text-[10px] font-black text-rose-600 flex items-center gap-0.5"><i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> Quedan ${totalStock}</span>`;
+                } else if (totalStock > 5) {
+                    stockLabelHtml = `<span class="text-[10px] font-bold text-zinc-500 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Quedan ${totalStock}</span>`;
+                } else {
+                    stockLabelHtml = `<span class="text-[10px] font-bold text-zinc-400">Agotado</span>`;
                 }
                 
                 // Hide pricing placeholders (1 COP)
@@ -1116,12 +1133,18 @@
                         
                         <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200">
                             ${badgeHtml}
+                            ${urgencyBadgeHtml}
                             <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" loading="lazy" />
                         </div>
                         
-                        <div class="mt-2.5 px-0.5">
-                            <span class="text-[10px] font-bold text-zinc-400 uppercase leading-none block">${p.category}</span>
-                            <h4 class="text-xs font-bold text-zinc-900 uppercase leading-tight mt-1 line-clamp-2 min-h-[32px] group-hover:text-black transition-colors">${p.title}</h4>
+                        <div class="mt-2.5 px-0.5 flex flex-col justify-between flex-grow">
+                            <div>
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <span class="text-[10px] font-bold text-zinc-400 uppercase leading-none block">${p.category}</span>
+                                    ${stockLabelHtml}
+                                </div>
+                                <h4 class="text-xs font-bold text-zinc-900 uppercase leading-tight line-clamp-2 min-h-[32px] group-hover:text-black transition-colors">${p.title}</h4>
+                            </div>
                             <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-200">
                                 <span class="text-sm font-extrabold text-zinc-950">${priceFormatted}</span>
                                 <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Al por Mayor</span>
@@ -1132,9 +1155,9 @@
             });
             
             grid.innerHTML = html;
+            lucide.createIcons();
         }
 
-        // Update the count of filtered items displayed
         function updateProductCountLabel() {
             const countLabel = document.getElementById('product-count');
             countLabel.innerText = `${filteredProductsList.length} Prendas`;
