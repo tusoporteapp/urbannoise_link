@@ -240,34 +240,150 @@
 </head>
 <body class="bg-zinc-100 text-zinc-900 font-sans min-h-screen flex flex-col items-center justify-between pb-24 overflow-x-hidden">
 
+    <!-- STICKY TOP APP HEADER (Fixed on Mobile & Desktop) -->
+    <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-zinc-200/90 shadow-xs">
+        <div class="max-w-md mx-auto px-3.5 h-14 flex items-center justify-between">
+            <!-- Left: Menu Trigger & Logo -->
+            <div class="flex items-center gap-2.5">
+                <button type="button" onclick="toggleNavMenu()" class="w-9 h-9 rounded-xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-800 flex items-center justify-center transition-all cursor-pointer shadow-2xs" aria-label="Abrir Menú">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+                <a href="#" onclick="selectCategory('Todos'); return false;" class="flex items-center gap-1.5 cursor-pointer">
+                    <div class="h-7 bg-black px-2 py-0.5 rounded-lg flex items-center">
+                        <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Urban Noise" class="h-4 object-contain" />
+                    </div>
+                </a>
+            </div>
+
+            <!-- Right: Search Focus, WhatsApp & Order List -->
+            <div class="flex items-center gap-1.5">
+                <!-- Search Quick Button -->
+                <button type="button" onclick="focusSearchInput()" class="w-9 h-9 rounded-xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-700 flex items-center justify-center transition-all cursor-pointer" aria-label="Buscar">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </button>
+
+                <!-- WhatsApp Quick Link -->
+                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20tengo%20una%20consulta%20del%20cat%C3%A1logo%20mayorista." target="_blank" class="w-9 h-9 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 flex items-center justify-center transition-all border border-emerald-200/60 shadow-2xs" aria-label="WhatsApp">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                </a>
+
+                <!-- Order List Trigger with Dynamic Badge -->
+                <button type="button" onclick="openOrderList()" class="relative h-9 px-3 rounded-xl bg-zinc-950 hover:bg-black text-white flex items-center gap-1.5 text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-xs active:scale-95" id="list-trigger-btn">
+                    <i data-lucide="shopping-bag" class="w-4 h-4 text-amber-400"></i>
+                    <span class="hidden sm:inline text-[11px]">Mi Lista</span>
+                    <span id="list-count-badge" class="bg-rose-600 text-white font-black text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION DRAWER (Slide-in Menu) -->
+    <div id="nav-menu-drawer" class="fixed inset-0 z-50 flex bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 select-none">
+        <div class="absolute inset-0 cursor-default" onclick="toggleNavMenu()"></div>
+        
+        <div id="nav-menu-content" class="relative w-4/5 max-w-xs h-full bg-white border-r border-zinc-200 flex flex-col justify-between transform -translate-x-full transition-transform duration-300 shadow-2xl overflow-y-auto">
+            <!-- Top Drawer Header -->
+            <div class="p-5 border-b border-zinc-100 flex items-center justify-between">
+                <div class="h-8 bg-black px-2.5 py-1 rounded-lg flex items-center">
+                    <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Urban Noise" class="h-5 object-contain" />
+                </div>
+                <button onclick="toggleNavMenu()" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-black flex items-center justify-center transition-all cursor-pointer" aria-label="Cerrar menú">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Drawer Navigation Body -->
+            <div class="p-4 flex-grow flex flex-col gap-5 text-left">
+                <!-- Categories Quick Links -->
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2 px-1">Categorías de Catálogo</span>
+                    <div class="flex flex-col gap-1">
+                        <button onclick="selectCategoryAndCloseMenu('Todos')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                            <span class="flex items-center gap-2"><i data-lucide="layout-grid" class="w-4 h-4 text-zinc-500"></i> Todos los Diseños</span>
+                            <span class="text-[10px] text-zinc-400 font-bold" id="menu-count-all">207</span>
+                        </button>
+                        <button onclick="selectCategoryAndCloseMenu('Acidwash')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                            <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-zinc-500"></i> Acid Wash</span>
+                            <span class="text-[10px] text-zinc-400 font-bold">78</span>
+                        </button>
+                        <button onclick="selectCategoryAndCloseMenu('Buzos')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                            <span class="flex items-center gap-2"><i data-lucide="shirt" class="w-4 h-4 text-zinc-500"></i> Buzos & Hoodies</span>
+                            <span class="text-[10px] text-zinc-400 font-bold">48</span>
+                        </button>
+                        <button onclick="selectCategoryAndCloseMenu('Oversize')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                            <span class="flex items-center gap-2"><i data-lucide="tag" class="w-4 h-4 text-zinc-500"></i> Oversize Streetwear</span>
+                            <span class="text-[10px] text-zinc-400 font-bold">149</span>
+                        </button>
+                        <button onclick="selectCategoryAndCloseMenu('Conjuntos')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                            <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-zinc-500"></i> Conjuntos & Bermudas</span>
+                            <span class="text-[10px] text-zinc-400 font-bold">9</span>
+                        </button>
+                        <button onclick="selectCategoryAndCloseMenu('Linea de Damas')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                            <span class="flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4 text-zinc-500"></i> Línea de Damas</span>
+                            <span class="text-[10px] text-zinc-400 font-bold">14</span>
+                        </button>
+                        <button onclick="selectCategoryAndCloseMenu('Ultimas-Unidades')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center justify-between text-left transition-all cursor-pointer">
+                            <span class="flex items-center gap-2"><i data-lucide="flame" class="w-4 h-4 text-rose-500"></i> Últimas Unidades</span>
+                            <span class="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-black">Stock &lt; 5</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Wholesale Information & Conditions -->
+                <div class="pt-2 border-t border-zinc-100">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2 px-1">Información Mayorista</span>
+                    <div class="flex flex-col gap-2 bg-zinc-50 p-3 rounded-2xl border border-zinc-100 text-xs">
+                        <div class="flex items-start gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span class="text-zinc-600 leading-snug"><b>Compra mínima:</b> 6 prendas surtidas en todo el catálogo.</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i data-lucide="truck" class="w-4 h-4 text-zinc-700 shrink-0 mt-0.5"></i>
+                            <span class="text-zinc-600 leading-snug"><b>Envíos nacionales:</b> Despachos diarios por Servientrega / Interrapidísimo.</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i data-lucide="store" class="w-4 h-4 text-zinc-700 shrink-0 mt-0.5"></i>
+                            <span class="text-zinc-600 leading-snug"><b>Tienda:</b> Noise Urban (Stock en vivo).</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Links -->
+                <div class="pt-2 border-t border-zinc-100 flex flex-col gap-1.5">
+                    <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20necesito%20asesor%C3%ADa%20mayorista." target="_blank" class="py-2.5 px-3 rounded-xl text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> Asesor WhatsApp</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-60"></i>
+                    </a>
+                    <a href="https://www.instagram.com/urban_noise_/" target="_blank" class="py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-700 hover:bg-zinc-100 flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-pink-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg> Instagram Oficial</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-40"></i>
+                    </a>
+                    <a href="https://urbannoise.cc" target="_blank" class="py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-700 hover:bg-zinc-100 flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-zinc-600"></i> Web Principal</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-40"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer: Admin PIN Access -->
+            <div class="p-4 border-t border-zinc-100 bg-zinc-50 flex items-center justify-between">
+                <button onclick="toggleNavMenu(); openAdminPinModal();" class="text-[11px] font-bold text-zinc-500 hover:text-black flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                    <span>Despacho Bodega (Admin)</span>
+                </button>
+                <span class="text-[10px] text-zinc-400 font-mono font-bold">v2.0</span>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Ambient backdrop glow -->
     <div id="ambient-glow" class="glow-bg"></div>
 
     <!-- MAIN CONTAINER (Diseñado mobile-first para simular una app nativa en teléfonos) -->
     <main class="w-full max-w-md px-4 pt-6 flex-grow flex flex-col gap-5">
         
-        <!-- TOP NAVIGATION: Botones de Acción (Lista & Compartir) -->
-        <div class="flex justify-between items-center w-full px-1 gap-2">
-            <!-- Brand Logo -->
-            <div class="h-8 flex items-center bg-black px-2.5 py-1 rounded-lg select-none">
-                <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Urban Noise" class="h-full object-contain" />
-            </div>
-            
-            <div class="flex gap-2">
-                <!-- Floating Order List Trigger -->
-                <button onclick="openOrderList()" class="bg-zinc-900 text-white rounded-full py-2 px-3.5 transition-all duration-300 flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wide relative cursor-pointer shadow-md hover:bg-black" id="list-trigger-btn">
-                    <i data-lucide="list-checks" class="w-4 h-4 text-emerald-400"></i>
-                    <span>Mi Lista</span>
-                    <span id="list-count-badge" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white font-bold text-xs px-2 py-0.5 rounded-full hidden">0</span>
-                </button>
-                
-                <!-- Share Button -->
-                <button onclick="shareProfile()" class="bg-white border border-zinc-300 text-zinc-700 rounded-full py-2 px-3.5 transition-all duration-300 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide cursor-pointer hover:bg-zinc-50 hover:text-black shadow-sm">
-                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
-                    Compartir
-                </button>
-            </div>
-        </div>
+
 
         <!-- SOCIAL QUICK-LINKS STRIP (Real Social Handles) -->
         <div class="flex justify-center gap-3.5 py-0.5">
@@ -1145,6 +1261,52 @@
             } else {
                 badge.innerText = '0';
                 badge.classList.add('hidden');
+            }
+        }
+
+        // --- TOP NAVIGATION MENU HANDLERS ---
+        let isNavMenuOpen = false;
+        function toggleNavMenu() {
+            const drawer = document.getElementById('nav-menu-drawer');
+            const content = document.getElementById('nav-menu-content');
+            if (!drawer || !content) return;
+
+            isNavMenuOpen = !isNavMenuOpen;
+            if (isNavMenuOpen) {
+                drawer.classList.remove('opacity-0', 'pointer-events-none');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    content.classList.remove('-translate-x-full');
+                    content.classList.add('translate-x-0');
+                }, 30);
+            } else {
+                content.classList.remove('translate-x-0');
+                content.classList.add('-translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('opacity-0', 'pointer-events-none');
+                }, 300);
+            }
+        }
+
+        function selectCategoryAndCloseMenu(categoryName) {
+            selectCategory(categoryName);
+            if (isNavMenuOpen) {
+                toggleNavMenu();
+            }
+            setTimeout(() => {
+                const grid = document.getElementById('product-grid');
+                if (grid) {
+                    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 350);
+        }
+
+        function focusSearchInput() {
+            const searchInput = document.getElementById('catalog-search');
+            if (searchInput) {
+                searchInput.focus();
+                searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
