@@ -1710,14 +1710,14 @@
             }, 300);
         }
 
-        // Populate order list elements
+        // Populate order list elements (GROUPED BY PRODUCT)
         function renderOrderListItems() {
             const container = document.getElementById('order-list-items');
             const submitBtn = document.getElementById('submit-list-btn');
             const valBanner = document.getElementById('wholesale-validation-banner');
-            
             const clearBtn = document.getElementById('clear-list-btn');
-            if (orderList.length === 0) {
+
+            if (!orderList || orderList.length === 0) {
                 if (clearBtn) clearBtn.classList.add('hidden');
                 container.innerHTML = `
                     <div class="text-center py-16 text-zinc-500 flex flex-col items-center gap-2.5">
@@ -1731,7 +1731,7 @@
                 document.getElementById('summary-total-price').innerText = "COP 0.00";
                 
                 submitBtn.disabled = true;
-                submitBtn.classList.remove('bg-emerald-600', 'text-white');
+                submitBtn.classList.remove('bg-emerald-600', 'text-white', 'hover:bg-emerald-700');
                 submitBtn.classList.add('bg-zinc-100', 'text-zinc-400', 'cursor-not-allowed');
                 
                 if (valBanner) valBanner.innerHTML = '';
@@ -1739,82 +1739,121 @@
                 lucide.createIcons();
                 return;
             }
-            
-            let html = '';
+
+            if (clearBtn) clearBtn.classList.remove('hidden');
+
+            // 1. Group items by Product ID
+            const groupedProducts = {};
             let totalVal = 0;
             let totalQty = 0;
             let hasConsultarPrice = false;
-            
-            if (clearBtn) clearBtn.classList.remove('hidden');
-            orderList.forEach((item, index) => {
-                const subtotal = item.price * item.qty;
+
+            orderList.forEach(item => {
+                const subtotal = (item.price || 0) * item.qty;
                 if (item.price > 1000) {
                     totalVal += subtotal;
                 } else {
                     hasConsultarPrice = true;
                 }
                 totalQty += item.qty;
-                
-                const itemPriceFormatted = item.price <= 1000 ? 'Consultar' : formatCOP(item.price);
-                const subtotalFormatted = item.price <= 1000 ? 'Consultar' : formatCOP(subtotal);
-                
+
+                if (!groupedProducts[item.id]) {
+                    groupedProducts[item.id] = {
+                        id: item.id,
+                        title: item.title,
+                        image: item.image,
+                        price: item.price,
+                        variants: [],
+                        productTotalQty: 0,
+                        productTotalPrice: 0
+                    };
+                }
+                groupedProducts[item.id].variants.push(item);
+                groupedProducts[item.id].productTotalQty += item.qty;
+                groupedProducts[item.id].productTotalPrice += subtotal;
+            });
+
+            // 2. Render 1 card per product with nested variants breakdown
+            let html = '';
+            Object.values(groupedProducts).forEach(prod => {
+                const prodTotalFormatted = prod.price <= 1000 ? 'Consultar' : formatCOP(prod.productTotalPrice);
+
                 html += `
-                    <div class="glass-panel border-zinc-200 rounded-xl p-3.5 flex gap-3 relative text-left bg-zinc-50">
-                        <!-- image -->
-                        <div class="w-16 h-16 rounded-lg overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0">
-                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
-                        </div>
-                        
-                        <!-- Details -->
-                        <div class="flex-grow flex flex-col justify-between">
-                            <div>
-                                <h4 class="text-xs font-bold text-zinc-950 uppercase leading-tight line-clamp-1">${item.title}</h4>
-                                <div class="flex gap-2 items-center mt-1">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider bg-zinc-200 px-2 py-0.5 rounded text-zinc-800">Talla: ${item.size}</span>
-                                    <span class="text-xs text-zinc-600">${itemPriceFormatted} c/u</span>
-                                </div>
+                    <div class="bg-white border border-zinc-200 rounded-2xl p-3.5 flex flex-col gap-3 relative text-left shadow-xs transition-all hover:border-zinc-300">
+                        <!-- Product Header (Photo, Title, Total, Delete Entire Product) -->
+                        <div class="flex gap-3 items-center pb-2.5 border-b border-zinc-100">
+                            <div class="w-14 h-14 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 aspect-square">
+                                <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover">
                             </div>
                             
-                            <!-- quantity buttons -->
-                            <div class="flex justify-between items-center mt-2.5 pt-2 border-t border-zinc-200">
-                                <div class="flex items-center gap-1.5 bg-white rounded-md p-1 border border-zinc-200 shadow-sm">
-                                    <button onclick="updateListItemQty(${index}, -1)" class="w-6 h-6 flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-100 rounded cursor-pointer"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
-                                    <span class="w-6 text-center text-xs font-bold text-zinc-900">${item.qty}</span>
-                                    <button onclick="updateListItemQty(${index}, 1)" class="w-6 h-6 flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-100 rounded cursor-pointer"><i data-lucide="plus" class="w-3.5 h-3.5"></i></button>
+                            <div class="flex-grow pr-6">
+                                <h4 class="text-xs font-black text-zinc-950 uppercase leading-tight line-clamp-1">${prod.title}</h4>
+                                <div class="flex items-center gap-2 mt-0.5">
+                                    <span class="text-[11px] font-bold text-zinc-500">${prod.productTotalQty} ${prod.productTotalQty === 1 ? 'prenda' : 'prendas'}</span>
+                                    <span class="text-xs font-black text-zinc-950">${prodTotalFormatted}</span>
                                 </div>
-                                <span class="text-sm font-extrabold text-zinc-950">${subtotalFormatted}</span>
+                            </div>
+
+                            <button onclick="deleteProductFromOrder('${prod.id}')" class="absolute top-3.5 right-3.5 text-zinc-400 hover:text-rose-600 transition-colors p-1 cursor-pointer rounded-lg hover:bg-zinc-100" title="Eliminar prenda completa" aria-label="Eliminar prenda completa">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Nested Variants Breakdown -->
+                        <div class="flex flex-col gap-1.5 bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                `;
+
+                prod.variants.forEach(v => {
+                    const varSubtotal = (v.price || prod.price || 0) * v.qty;
+                    const varSubtotalFormatted = v.price <= 1000 ? 'Consultar' : formatCOP(varSubtotal);
+                    const colorLabel = v.color && v.color !== 'null' && v.color !== 'undefined' ? v.color : '';
+
+                    html += `
+                        <div class="flex items-center justify-between py-1 px-2 bg-white rounded-lg border border-zinc-200/70 text-xs shadow-2xs">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] font-black bg-zinc-900 text-white px-1.5 py-0.5 rounded uppercase">Talla ${v.size}</span>
+                                ${colorLabel ? `<span class="text-[10px] font-bold text-zinc-600 bg-zinc-100 px-1.5 py-0.5 rounded uppercase">${colorLabel}</span>` : ''}
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <span class="text-[11px] font-extrabold text-zinc-900">${varSubtotalFormatted}</span>
+                                <div class="flex items-center gap-1 bg-zinc-100 p-0.5 rounded-lg border border-zinc-200 select-none">
+                                    <button type="button" onclick="updateOrderItemQty('${prod.id}', '${v.size}', '${v.color || ''}', -1)" class="w-5 h-5 bg-white hover:bg-zinc-200 text-zinc-900 rounded font-black text-xs flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90">-</button>
+                                    <span class="w-5 text-center text-xs font-black text-zinc-950">${v.qty}</span>
+                                    <button type="button" onclick="updateOrderItemQty('${prod.id}', '${v.size}', '${v.color || ''}', 1)" class="w-5 h-5 bg-white hover:bg-zinc-200 text-zinc-900 rounded font-black text-xs flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90">+</button>
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- delete absolute button -->
-                        <button onclick="deleteListItem(${index})" class="absolute top-2.5 right-2.5 text-zinc-400 hover:text-red-650 transition-colors p-1" aria-label="Eliminar">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
+                    `;
+                });
+
+                html += `
+                        </div>
                     </div>
                 `;
             });
-            
+
             container.innerHTML = html;
-            
-            document.getElementById('summary-items-count').innerText = totalQty;
+
+            const countEl = document.getElementById('summary-items-count'); if (countEl) { countEl.textContent = totalQty; countEl.innerText = totalQty; }
             
             if (hasConsultarPrice) {
                 document.getElementById('summary-total-price').innerText = totalVal > 0 ? `${formatCOP(totalVal)} + Consultar` : "Por Consultar";
             } else {
-                document.getElementById('summary-total-price').innerText = formatCOP(totalVal);
+                const priceEl = document.getElementById('summary-total-price'); if (priceEl) { priceEl.textContent = formatCOP(totalVal); priceEl.innerText = formatCOP(totalVal); }
             }
 
-            // Enable or disable WhatsApp submission based on the 6 garments minimum requirement
+            // Wholesale gatekeeper button state
             if (totalQty < 6) {
                 submitBtn.disabled = true;
-                submitBtn.classList.remove('bg-emerald-600', 'text-white', 'hover:opacity-90', 'hover:bg-emerald-700');
+                submitBtn.classList.remove('bg-emerald-600', 'text-white', 'hover:bg-emerald-700');
                 submitBtn.classList.add('bg-zinc-100', 'text-zinc-400', 'cursor-not-allowed');
             } else {
                 submitBtn.disabled = false;
                 submitBtn.classList.remove('bg-zinc-100', 'text-zinc-400', 'cursor-not-allowed');
-                submitBtn.classList.add('bg-emerald-600', 'text-white', 'hover:opacity-90', 'hover:bg-emerald-700');
+                submitBtn.classList.add('bg-emerald-600', 'text-white', 'hover:bg-emerald-700');
             }
-            
+
             // Dynamic wholesale requirement checker banner injection
             if (valBanner) {
                 if (totalQty < 6) {
@@ -1843,20 +1882,70 @@
             lucide.createIcons();
         }
 
-        // Edit list quantity
-        function updateListItemQty(index, diff) {
+        // Edit list quantity per variant
+        function updateOrderItemQty(productId, size, color, diff) {
+            const index = orderList.findIndex(item => item.id === productId && item.size === size && (item.color || '') === (color || ''));
+            if (index === -1) return;
+
+            const product = products.find(p => p.id === productId);
+            let maxStock = 9999;
+            if (product && product.variants) {
+                const variant = product.variants.find(v => v.size === size && (v.color || '') === (color || ''));
+                if (variant && variant.stock) maxStock = variant.stock;
+            }
+
             orderList[index].qty += diff;
+            if (orderList[index].qty > maxStock) {
+                orderList[index].qty = maxStock;
+                showNotification(`⚠️ Solo hay ${maxStock} unidades disponibles de esta talla/color.`);
+            }
+
             if (orderList[index].qty < 1) {
-                deleteListItem(index);
-                return;
+                orderList.splice(index, 1);
             }
             
             localStorage.setItem('un_order_list', JSON.stringify(orderList));
             updateListTriggerBadge();
             renderOrderListItems();
+            checkWholesaleGatekeeper();
         }
 
-        // Delete from list
+        // Backward compatibility
+        function updateListItemQty(index, diff) {
+            if (!orderList[index]) return;
+            const item = orderList[index];
+            updateOrderItemQty(item.id, item.size, item.color || '', diff);
+        }
+
+        // Delete single variant from list
+        function deleteListItem(index) {
+            if (!orderList[index]) return;
+            const deletedItem = orderList[index];
+            orderList.splice(index, 1);
+            
+            localStorage.setItem('un_order_list', JSON.stringify(orderList));
+            updateListTriggerBadge();
+            renderOrderListItems();
+            checkWholesaleGatekeeper();
+            
+            showNotification(`🗑️ Se eliminó "${deletedItem.title}" (${deletedItem.size}) de tu lista.`);
+        }
+
+        // Delete entire product with all variants
+        function deleteProductFromOrder(productId) {
+            const item = orderList.find(i => i.id === productId);
+            const title = item ? item.title : 'la prenda';
+            orderList = orderList.filter(i => i.id !== productId);
+            
+            localStorage.setItem('un_order_list', JSON.stringify(orderList));
+            updateListTriggerBadge();
+            renderOrderListItems();
+            checkWholesaleGatekeeper();
+            
+            showNotification(`🗑️ Se eliminaron todas las tallas de "${title}".`);
+        }
+
+        // Clear entire list
         function clearEntireOrderList() {
             if (orderList.length === 0) return;
             if (confirm("¿Estás seguro de que deseas vaciar toda tu lista de pedido?")) {
@@ -1864,62 +1953,78 @@
                 localStorage.setItem('un_order_list', JSON.stringify(orderList));
                 updateListTriggerBadge();
                 renderOrderListItems();
+                checkWholesaleGatekeeper();
                 showNotification("🗑️ Lista vaciada por completo.");
             }
         }
 
-        function deleteListItem(index) {
-            const deletedItem = orderList[index];
-            orderList.splice(index, 1);
-            
-            localStorage.setItem('un_order_list', JSON.stringify(orderList));
-            updateListTriggerBadge();
-            renderOrderListItems();
-            
-            showNotification(`🗑️ Se eliminó "${deletedItem.title}" de tu lista.`);
-        }
-
-        // WhatsApp Sender Logic
+        // WhatsApp Sender Logic (Grouped by Product)
         function sendOrderToWhatsApp() {
             if (orderList.length === 0) return;
             
             const wpNumber = "573108720491"; // Asesor
             
-            let message = "Hola *Urban Noise* ⚡️,\n\nMe gustaría verificar la disponibilidad del siguiente listado de prendas de su catálogo mayorista:\n\n";
-            message += "📦 *DETALLE DE LA SOLICITUD:*\n";
-            message += "----------------------------------------\n";
-            
+            // Group by product for ultra clean WhatsApp layout
+            const grouped = {};
+            let totalQty = 0;
             let totalEstimate = 0;
             let hasConsultarPrice = false;
-            orderList.forEach((item, index) => {
+
+            orderList.forEach(item => {
                 const subtotal = item.price * item.qty;
                 if (item.price > 1000) {
                     totalEstimate += subtotal;
                 } else {
                     hasConsultarPrice = true;
                 }
-                
-                const itemPriceFormatted = item.price <= 1000 ? 'Por Consultar' : formatCOP(item.price);
-                const subtotalFormatted = item.price <= 1000 ? 'Por Consultar' : formatCOP(subtotal);
-                
-                message += `• *${item.qty}x* ${item.title}\n`;
-                message += `  Talla: *${item.size}* | Val: ${subtotalFormatted}\n\n`;
+                totalQty += item.qty;
+
+                if (!grouped[item.id]) {
+                    grouped[item.id] = {
+                        title: item.title,
+                        price: item.price,
+                        variants: [],
+                        totalQty: 0,
+                        totalPrice: 0
+                    };
+                }
+                grouped[item.id].variants.push(item);
+                grouped[item.id].totalQty += item.qty;
+                grouped[item.id].totalPrice += subtotal;
+            });
+
+            let message = "Hola *Urban Noise* ⚡️,\n\nMe gustaría verificar la disponibilidad del siguiente listado de prendas de su catálogo mayorista:\n\n";
+            message += "📦 *DETALLE DEL PEDIDO:*\n";
+            message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+            
+            let i = 1;
+            Object.values(grouped).forEach(g => {
+                message += `*${i}. ${g.title.toUpperCase()}*\n`;
+                g.variants.forEach(v => {
+                    const colorStr = v.color && v.color !== 'null' ? ` (${v.color})` : '';
+                    const subFormatted = v.price <= 1000 ? 'Consultar' : formatCOP(v.price * v.qty);
+                    message += `   ▫️ Talla *${v.size}*${colorStr} x*${v.qty}* unds = ${subFormatted}\n`;
+                });
+                const gSubFormatted = g.price <= 1000 ? 'Consultar' : formatCOP(g.totalPrice);
+                message += `   👉 _Total Prenda: ${g.totalQty} unds | ${gSubFormatted}_\n\n`;
+                i++;
             });
             
-            message += "----------------------------------------\n";
+            message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+            message += `📊 *TOTAL PRENDAS:* ${totalQty} unidades\n`;
             if (hasConsultarPrice) {
-                message += `*Valor Estimado Total:* ${totalEstimate > 0 ? formatCOP(totalEstimate) + " + flete (cotización pendiente)" : "Por Cotizar (flete pendiente)"}\n\n`;
+                message += `💰 *VALOR ESTIMADO:* ${totalEstimate > 0 ? formatCOP(totalEstimate) + " + Consultar" : "Por Consultar"}\n\n`;
             } else {
-                message += `*Valor Estimado Total:* ${formatCOP(totalEstimate)}\n\n`;
+                message += `💰 *VALOR TOTAL:* ${formatCOP(totalEstimate)} COP\n\n`;
             }
             
-            // Generate link to visualize this order
+            // Generate link to visualize this order with colors
             const baseUrl = window.location.origin + window.location.pathname;
-            const orderParam = orderList.map(item => `${item.id}-${item.size}-${item.qty}`).join(',');
+            const orderParam = orderList.map(item => `${item.id}:${item.size}:${item.color || 'U'}:${item.qty}`).join(',');
             const shareUrl = `${baseUrl}?order=${orderParam}`;
             
             message += `🔗 *Ver detalle y fotos del pedido aquí:*\n${shareUrl}\n\n`;
-            message += "⚠️ *Nota:* Entiendo que este pedido está sujeto a verificación física de disponibilidad de stock por su parte en bodega. Quedo atento a la confirmación de las prendas.";
+            message += "⚠️ *Nota:* Entiendo que este pedido está sujeto a verificación física de stock en bodega. Quedo atento.";
             
             const encodedText = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${wpNumber}?text=${encodedText}`;
