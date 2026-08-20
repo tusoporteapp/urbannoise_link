@@ -483,30 +483,19 @@
                 </div>
             </div>
 
-            <!-- SELECTION OPTIONS (Size & Qty) -->
-            <div class="glass-panel rounded-2xl p-4 flex flex-col gap-4 border-zinc-200 bg-zinc-50 shadow-sm">
-                <!-- Size Selector -->
-                <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs uppercase tracking-wider text-zinc-700 font-extrabold">Seleccionar Talla</span>
-                        <span class="text-xs text-zinc-500 font-semibold">Horma Ancha (Oversize)</span>
-                    </div>
-                    <div class="grid grid-cols-4 gap-2" id="size-options">
-                        <button onclick="selectSize('S')" id="size-S" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">S</button>
-                        <button onclick="selectSize('M')" id="size-M" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">M</button>
-                        <button onclick="selectSize('L')" id="size-L" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">L</button>
-                        <button onclick="selectSize('XL')" id="size-XL" class="py-3 rounded-xl text-sm font-bold uppercase transition-all bg-zinc-100 border border-zinc-300 text-zinc-800 hover:border-black cursor-pointer">XL</button>
-                    </div>
+            <!-- WHOLESALE MATRIX SELECTION (Curva de Tallas y Colores) -->
+            <div class="flex flex-col gap-3 text-left">
+                <div class="flex justify-between items-center px-0.5">
+                    <span class="text-xs uppercase tracking-wider text-zinc-900 font-black flex items-center gap-1.5">
+                        <i data-lucide="layers" class="w-4 h-4 text-zinc-700"></i>
+                        Curva de Pedido Mayorista
+                    </span>
+                    <span class="text-[11px] text-zinc-500 font-semibold">Elige las cantidades por talla</span>
                 </div>
-
-                <!-- Quantity Selector -->
-                <div class="flex justify-between items-center">
-                    <span class="text-xs uppercase tracking-wider text-zinc-700 font-extrabold">Cantidad (Unidades)</span>
-                    <div class="flex items-center gap-1.5 bg-white border border-zinc-200 rounded-xl p-1 shadow-sm" id="qty-selector-container">
-                        <button onclick="changeQty(-1)" class="w-10 h-10 rounded-lg flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-200 transition-colors cursor-pointer"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                        <span id="qty-value" class="w-12 text-center text-sm font-bold text-zinc-900">1</span>
-                        <button onclick="changeQty(1)" class="w-10 h-10 rounded-lg flex items-center justify-center text-zinc-600 hover:text-black hover:bg-zinc-200 transition-colors cursor-pointer"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                    </div>
+                
+                <!-- Dynamic Matrix Container -->
+                <div id="modal-wholesale-matrix" class="flex flex-col gap-3">
+                    <!-- Color/Size Groups Render Dynamically -->
                 </div>
             </div>
 
@@ -564,11 +553,17 @@
 
             </div>
 
-            <!-- Add to List Action button -->
-            <button onclick="addProductToList()" class="w-full text-center py-4 rounded-2xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-zinc-900 flex items-center justify-center gap-2 cursor-pointer shadow-md bg-black text-white" id="add-to-list-btn">
-                <i data-lucide="plus-circle" class="w-5 h-5"></i>
-                <span>Añadir a mi Lista de Pedido</span>
-            </button>
+            <!-- Add to List Action Footer -->
+            <div class="w-full flex flex-col gap-2 pt-2 bg-white sticky bottom-0 border-t border-zinc-100 z-10">
+                <div class="flex justify-between items-baseline px-1 text-xs">
+                    <span class="text-zinc-500 font-medium">Prendas a añadir: <b id="modal-batch-count" class="text-zinc-950 font-bold">0 unds</b></span>
+                    <span class="text-zinc-500 font-medium">Subtotal: <b id="modal-batch-subtotal" class="text-zinc-950 font-black text-sm">COP 0</b></span>
+                </div>
+                <button onclick="addBatchProductsToList()" class="w-full text-center py-4 rounded-2xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md bg-zinc-200 text-zinc-500" id="add-to-list-btn">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="add-to-list-btn-text">Selecciona las cantidades arriba</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1203,6 +1198,19 @@
             lucide.createIcons();
         }
 
+        function updateListTriggerBadge() {
+            const badge = document.getElementById('list-count-badge');
+            if (!badge) return;
+            const totalQty = (orderList || []).reduce((acc, item) => acc + (item.qty || 0), 0);
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.innerText = '0';
+                badge.classList.add('hidden');
+            }
+        }
+
         function updateProductCountLabel() {
             const countLabel = document.getElementById('product-count');
             countLabel.innerText = `${filteredProductsList.length} Prendas`;
@@ -1361,12 +1369,16 @@
             };
         }
 
+        // State for batch wholesale ordering
+        let modalVariantQuantities = {};
+
         // Open details modal
         function openProductDetail(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
             
             currentModalProduct = product;
+            modalVariantQuantities = {};
             selectedSizeVal = null;
             qtyInputVal = 1;
             
@@ -1421,12 +1433,8 @@
             document.getElementById('spec-care').innerText = sections.care;
             document.getElementById('spec-shipping').innerText = sections.shipping + '\n\n' + sections.warranty;
             
-            // Reset sizes pills
-            document.querySelectorAll('#size-options button').forEach(btn => {
-                btn.classList.remove('bg-black', 'text-white', 'border-transparent');
-                btn.classList.add('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
-            });
-            document.getElementById('qty-value').innerText = qtyInputVal;
+            // Render Wholesale Matrix
+            renderWholesaleMatrix(product);
             
             // Show modal
             const modal = document.getElementById('product-detail-modal');
@@ -1507,135 +1515,214 @@
             });
         }
 
-        // Size selections
-        function selectSize(size) {
-            selectedSizeVal = size;
-            
-            document.querySelectorAll('#size-options button').forEach(btn => {
-                btn.classList.remove('bg-black', 'text-white', 'border-transparent');
-                btn.classList.add('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
-            });
-            
-            const selectedBtn = document.getElementById(`size-${size}`);
-            selectedBtn.classList.remove('bg-zinc-100', 'text-zinc-800', 'border-zinc-300');
-            selectedBtn.classList.add('bg-black', 'text-white', 'border-transparent');
-        }
+        // --- WHOLESALE MATRIX FUNCTIONS (CURVA MAYORISTA) ---
+        function renderWholesaleMatrix(product) {
+            const container = document.getElementById('modal-wholesale-matrix');
+            if (!container) return;
 
-        // Qty controls
-        function changeQty(diff) {
-            qtyInputVal += diff;
-            if (qtyInputVal < 1) qtyInputVal = 1;
-            document.getElementById('qty-value').innerText = qtyInputVal;
-        }
-
-        // Add to Order List
-        function addProductToList() {
-            if (!currentModalProduct) return;
-            if (!selectedSizeVal) {
-                showNotification("⚠️ Por favor selecciona una talla (S, M, L, XL).");
-                // Visual bounce effect on size container to attract attention
-                const container = document.getElementById('size-options');
-                container.classList.add('animate-bounce');
-                setTimeout(() => container.classList.remove('animate-bounce'), 800);
+            modalVariantQuantities = {};
+            if (!product || !product.variants || product.variants.length === 0) {
+                container.innerHTML = `
+                    <div class="p-4 bg-zinc-50 border border-zinc-200 rounded-2xl text-center text-xs text-zinc-500">
+                        No hay variantes disponibles para esta prenda.
+                    </div>
+                `;
+                updateModalBatchSummary();
                 return;
             }
-            
-            // Add item to local list
-            const existingItemIndex = orderList.findIndex(item => item.id === currentModalProduct.id && item.size === selectedSizeVal);
-            
-            if (existingItemIndex !== -1) {
-                orderList[existingItemIndex].qty += qtyInputVal;
-            } else {
-                orderList.push({
-                    id: currentModalProduct.id,
-                    title: currentModalProduct.title,
-                    image: currentModalProduct.image,
-                    price: currentModalProduct.price,
-                    size: selectedSizeVal,
-                    qty: qtyInputVal
+
+            // Group variants by color
+            const groupedByColor = {};
+            product.variants.forEach(v => {
+                const colorKey = v.color || 'Color Único';
+                if (!groupedByColor[colorKey]) groupedByColor[colorKey] = [];
+                groupedByColor[colorKey].push(v);
+            });
+
+            let html = '';
+            const colorKeys = Object.keys(groupedByColor);
+
+            colorKeys.forEach(colorName => {
+                const variants = groupedByColor[colorName];
+                const totalColorStock = variants.reduce((sum, v) => sum + (v.stock || 0), 0);
+                const hasColor = colorName !== 'Color Único' && colorName !== 'null' && colorName !== 'undefined';
+
+                html += `
+                    <div class="bg-zinc-50/90 border border-zinc-200 rounded-2xl p-3.5 flex flex-col gap-2.5 shadow-xs">
+                        ${hasColor ? `
+                        <div class="flex justify-between items-center pb-2 border-b border-zinc-200/80">
+                            <span class="text-xs font-black uppercase tracking-wide text-zinc-950 flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-zinc-900 inline-block"></span>
+                                Color: ${colorName}
+                            </span>
+                            <span class="text-[10px] font-bold text-zinc-500 bg-white border border-zinc-200 px-2.5 py-0.5 rounded-full">
+                                ${totalColorStock} en stock
+                            </span>
+                        </div>
+                        ` : ''}
+
+                        <div class="flex flex-col gap-2">
+                `;
+
+                variants.forEach(v => {
+                    const isAvailable = v.inStock && v.stock > 0;
+                    const isLow = v.stock > 0 && v.stock <= 5;
+                    const stockBadge = isAvailable
+                        ? (isLow
+                            ? `<span class="text-[10px] font-black text-rose-600 flex items-center gap-0.5">🔥 ¡Últimas ${v.stock}!</span>`
+                            : `<span class="text-[10px] font-bold text-zinc-500">${v.stock} disponibles</span>`)
+                        : `<span class="text-[10px] font-bold text-zinc-400">Agotado</span>`;
+
+                    html += `
+                        <div class="flex items-center justify-between p-2.5 bg-white border border-zinc-200 rounded-xl transition-all hover:border-zinc-300">
+                            <div class="flex flex-col text-left">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-black text-zinc-950 uppercase tracking-tight">Talla ${v.size}</span>
+                                    ${!hasColor && v.color ? `<span class="text-[10px] text-zinc-400 font-semibold uppercase">(${v.color})</span>` : ''}
+                                </div>
+                                ${stockBadge}
+                            </div>
+
+                            ${isAvailable ? `
+                            <div class="flex items-center gap-1 bg-zinc-100 p-1 rounded-xl border border-zinc-200 select-none">
+                                <button type="button" onclick="changeMatrixVariantQty('${v.id}', -1)" class="w-8 h-8 rounded-lg bg-white hover:bg-zinc-200 text-zinc-900 font-black text-sm flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90">-</button>
+                                <span id="matrix-qty-${v.id}" class="w-8 text-center text-xs font-black text-zinc-950">0</span>
+                                <button type="button" onclick="changeMatrixVariantQty('${v.id}', 1)" class="w-8 h-8 rounded-lg bg-white hover:bg-zinc-200 text-zinc-900 font-black text-sm flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90">+</button>
+                            </div>
+                            ` : `
+                            <span class="text-[10px] font-bold text-zinc-400 bg-zinc-100 px-2.5 py-1.5 rounded-lg border border-zinc-200 select-none">Agotado</span>
+                            `}
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            updateModalBatchSummary();
+            lucide.createIcons();
+        }
+
+        function changeMatrixVariantQty(variantId, delta) {
+            if (!currentModalProduct || !currentModalProduct.variants) return;
+            const variant = currentModalProduct.variants.find(v => v.id === variantId);
+            if (!variant) return;
+
+            const currentQty = modalVariantQuantities[variantId] || 0;
+            const maxStock = variant.stock || 0;
+            let newQty = currentQty + delta;
+
+            if (newQty < 0) newQty = 0;
+            if (newQty > maxStock) {
+                newQty = maxStock;
+                showNotification(`⚠️ Solo hay ${maxStock} unidades disponibles de esta talla/color.`);
+            }
+
+            modalVariantQuantities[variantId] = newQty;
+            const qtySpan = document.getElementById(`matrix-qty-${variantId}`);
+            if (qtySpan) {
+                qtySpan.innerText = newQty;
+                if (newQty > 0) {
+                    qtySpan.className = "w-8 text-center text-xs font-black text-emerald-600";
+                } else {
+                    qtySpan.className = "w-8 text-center text-xs font-black text-zinc-950";
+                }
+            }
+
+            updateModalBatchSummary();
+        }
+
+        function updateModalBatchSummary() {
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            if (currentModalProduct && currentModalProduct.variants) {
+                currentModalProduct.variants.forEach(v => {
+                    const q = modalVariantQuantities[v.id] || 0;
+                    if (q > 0) {
+                        totalItems += q;
+                        totalPrice += q * (v.price || currentModalProduct.price || 0);
+                    }
                 });
             }
-            
-            // Save local storage
-            localStorage.setItem('un_order_list', JSON.stringify(orderList));
-            
-            // Update badges
-            updateListTriggerBadge();
-            
-            showNotification(`⚡️ ${qtyInputVal}x ${currentModalProduct.title} (Talla ${selectedSizeVal}) añadido a tu lista.`);
-            
-            closeProductDetail();
-            
-            // Open list drawer automatically for verification feeling
-            setTimeout(openOrderList, 300);
 
-            // Advance tour if active at step 5 (add to list, which has index 4)
-            if (window.onboardingDriver && window.onboardingDriver.isActive()) {
-                const activeIndex = window.onboardingDriver.getActiveIndex();
-                if (activeIndex === 4) {
-                    setTimeout(() => {
-                        window.onboardingDriver.moveNext();
-                    }, 150);
+            const countEl = document.getElementById('modal-batch-count');
+            const subtotalEl = document.getElementById('modal-batch-subtotal');
+            const btnTextEl = document.getElementById('add-to-list-btn-text');
+            const btnEl = document.getElementById('add-to-list-btn');
+
+            if (countEl) countEl.innerText = `${totalItems} ${totalItems === 1 ? 'prenda' : 'prendas'}`;
+            if (subtotalEl) subtotalEl.innerText = formatCOP(totalPrice);
+
+            if (btnTextEl && btnEl) {
+                if (totalItems > 0) {
+                    btnTextEl.innerText = `Añadir ${totalItems} ${totalItems === 1 ? 'Prenda' : 'Prendas'} (${formatCOP(totalPrice)})`;
+                    btnEl.className = "w-full text-center py-4 rounded-2xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-zinc-900 flex items-center justify-center gap-2 cursor-pointer shadow-md bg-black text-white active:scale-98";
+                } else {
+                    btnTextEl.innerText = "Selecciona las cantidades arriba";
+                    btnEl.className = "w-full text-center py-4 rounded-2xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm bg-zinc-200 text-zinc-500";
                 }
             }
         }
 
-        // Header counts badge updating
-        function updateListTriggerBadge() {
-            const badge = document.getElementById('list-count-badge');
-            const totalCount = orderList.reduce((sum, item) => sum + item.qty, 0);
-            
-            if (totalCount > 0) {
-                badge.innerText = totalCount;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-            
-            // Sync floating bottom bar
-            updateStickyProgress();
-        }
+        function addBatchProductsToList() {
+            if (!currentModalProduct || !currentModalProduct.variants) return;
 
-        // Sync and update the floating progress bar
-        function updateStickyProgress() {
-            const tracker = document.getElementById('sticky-progress-tracker');
-            const fill = document.getElementById('sticky-progress-bar-fill');
-            const label = document.getElementById('sticky-progress-label');
-            const percentLabel = document.getElementById('sticky-progress-percent');
-            const subtext = document.getElementById('sticky-progress-subtext');
-            
-            const totalQty = orderList.reduce((sum, item) => sum + item.qty, 0);
-            
-            if (totalQty === 0) {
-                tracker.classList.add('hidden');
+            let addedCount = 0;
+
+            currentModalProduct.variants.forEach(v => {
+                const qty = modalVariantQuantities[v.id] || 0;
+                if (qty > 0) {
+                    const existingIndex = orderList.findIndex(item => item.id === currentModalProduct.id && item.size === v.size && (item.color || '') === (v.color || ''));
+                    if (existingIndex !== -1) {
+                        orderList[existingIndex].qty += qty;
+                        if (orderList[existingIndex].qty > v.stock) {
+                            orderList[existingIndex].qty = v.stock;
+                        }
+                    } else {
+                        orderList.push({
+                            id: currentModalProduct.id,
+                            title: currentModalProduct.title,
+                            image: currentModalProduct.image,
+                            price: v.price || currentModalProduct.price,
+                            size: v.size,
+                            color: v.color || null,
+                            qty: qty
+                        });
+                    }
+                    addedCount += qty;
+                }
+            });
+
+            if (addedCount === 0) {
+                showNotification("⚠️ Por favor selecciona la cantidad con los botones + en las tallas que deseas.");
                 return;
             }
-            
-            tracker.classList.remove('hidden');
-            
-            // Calculate percentage
-            const pct = Math.min(Math.round((totalQty / 6) * 100), 100);
-            fill.style.width = `${pct}%`;
-            percentLabel.innerText = `${pct}%`;
-            
-            if (totalQty < 6) {
-                label.innerHTML = `<i data-lucide="alert-circle" class="w-4.5 h-4.5 text-amber-550 animate-pulse"></i> Llevas <strong class="text-white mx-1">${totalQty} de 6</strong> prendas`;
-                fill.classList.remove('bg-emerald-500');
-                fill.classList.add('bg-amber-500');
-                subtext.innerText = `Faltan ${6 - totalQty} prendas para activar precio mayorista`;
-                subtext.className = "text-xs text-amber-300 font-semibold";
-            } else {
-                label.innerHTML = `<i data-lucide="check-circle-2" class="w-4.5 h-4.5 text-emerald-400"></i> ¡Precio Mayorista Activado! 🎉`;
-                fill.classList.remove('bg-amber-500');
-                fill.classList.add('bg-emerald-500');
-                subtext.innerText = `Tienes ${totalQty} prendas. ¡Ya puedes enviar por WhatsApp!`;
-                subtext.className = "text-xs text-emerald-400 font-bold";
-            }
-            
-            lucide.createIcons();
+
+            // Save to local storage
+            localStorage.setItem('un_order_list', JSON.stringify(orderList));
+            updateListTriggerBadge();
+            checkWholesaleGatekeeper();
+
+            const productTitle = currentModalProduct.title;
+            closeProductDetail();
+            showNotification(`🛍️ ¡Se añadieron ${addedCount} prendas de "${productTitle}" a tu lista!`);
         }
 
-        // Drawer order list operations
+        function selectSize(size) {
+            selectedSizeVal = size;
+        }
+
+        function changeQty(delta) {}
+
+        function addProductToList() {
+            addBatchProductsToList();
+        }
+
         function openOrderList() {
             renderOrderListItems();
             
