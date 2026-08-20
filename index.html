@@ -242,36 +242,33 @@
 
     <!-- STICKY TOP APP HEADER (Fixed on Mobile & Desktop) -->
     <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-zinc-200/90 shadow-xs">
-        <div class="max-w-md mx-auto px-3.5 h-14 flex items-center justify-between">
-            <!-- Left: Menu Trigger & Logo -->
-            <div class="flex items-center gap-2.5">
-                <button type="button" onclick="toggleNavMenu()" class="w-9 h-9 rounded-xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-800 flex items-center justify-center transition-all cursor-pointer shadow-2xs" aria-label="Abrir Menú">
-                    <i data-lucide="menu" class="w-5 h-5"></i>
-                </button>
-                <a href="#" onclick="selectCategory('Todos'); return false;" class="flex items-center gap-1.5 cursor-pointer">
-                    <div class="h-7 flex items-center">
-                        <img src="../assets/img/logo/urban_noise_logo_black.png" onerror="this.src='https://urbannoise.cc/assets/img/logo/urban_noise_logo_black.png'" alt="Urban Noise" class="h-4.5 object-contain" />
-                    </div>
-                </a>
-            </div>
+        <div class="max-w-md mx-auto px-4 h-16 flex items-center justify-between gap-2">
+            <!-- Left: Menu Trigger -->
+            <button type="button" onclick="toggleNavMenu()" class="w-10 h-10 rounded-2xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-800 flex items-center justify-center transition-all cursor-pointer shrink-0" aria-label="Abrir Menú">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
 
-            <!-- Right: Search Focus, WhatsApp & Order List -->
-            <div class="flex items-center gap-1.5">
-                <!-- Search Quick Button -->
-                <button type="button" onclick="openSearchModal()" class="w-9 h-9 rounded-xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-700 flex items-center justify-center transition-all cursor-pointer" aria-label="Buscar">
+            <!-- Center: Logo -->
+            <a href="#" onclick="selectCategory('Todos'); return false;" class="flex items-center justify-center cursor-pointer flex-grow">
+                <img src="../assets/img/logo/urban_noise_logo_black.png" onerror="this.src='https://urbannoise.cc/assets/img/logo/urban_noise_logo_black.png'" alt="Urban Noise" class="h-6 sm:h-7 max-w-[140px] sm:max-w-[160px] object-contain" />
+            </a>
+
+            <!-- Right: Search, WhatsApp & Order List Trigger -->
+            <div class="flex items-center gap-2 shrink-0">
+                <!-- Search Button -->
+                <button type="button" onclick="openSearchModal()" class="w-10 h-10 rounded-2xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-700 flex items-center justify-center transition-all cursor-pointer" aria-label="Buscar">
                     <i data-lucide="search" class="w-4 h-4"></i>
                 </button>
 
-                <!-- WhatsApp Quick Link -->
-                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20tengo%20una%20consulta%20del%20cat%C3%A1logo%20mayorista." target="_blank" class="w-9 h-9 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 flex items-center justify-center transition-all border border-emerald-200/60 shadow-2xs" aria-label="WhatsApp">
+                <!-- WhatsApp Link -->
+                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20tengo%20una%20consulta%20del%20cat%C3%A1logo%20mayorista." target="_blank" class="w-10 h-10 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 flex items-center justify-center transition-all border border-emerald-200/60" aria-label="WhatsApp">
                     <i data-lucide="message-circle" class="w-4 h-4"></i>
                 </a>
 
-                <!-- Order List Trigger with Dynamic Badge -->
-                <button type="button" onclick="openOrderList()" class="relative h-9 px-3 rounded-xl bg-zinc-950 hover:bg-black text-white flex items-center gap-1.5 text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-xs active:scale-95" id="list-trigger-btn">
+                <!-- Order List Trigger with Golden Bag & Dynamic Badge -->
+                <button type="button" onclick="openOrderList()" class="relative w-10 h-10 rounded-2xl bg-black hover:bg-zinc-900 text-white flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95" id="list-trigger-btn" aria-label="Mi Lista">
                     <i data-lucide="shopping-bag" class="w-4 h-4 text-amber-400"></i>
-                    <span class="hidden sm:inline text-[11px]">Mi Lista</span>
-                    <span id="list-count-badge" class="bg-rose-600 text-white font-black text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                    <span id="list-count-badge" class="absolute -top-1 -right-1 bg-rose-600 text-white font-black text-[10px] min-w-[18px] h-[18px] flex items-center justify-center px-1 rounded-full hidden">0</span>
                 </button>
             </div>
         </div>
