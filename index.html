@@ -683,17 +683,45 @@
                     </div>
                 </div>
 
-                <!-- Action buttons -->
-                <div class="flex gap-2.5">
-                    <!-- Import to active list -->
-                    <button onclick="importSharedOrder()" class="flex-1 text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer shadow-md bg-zinc-900 hover:bg-black text-white">
-                        <i data-lucide="import" class="w-4 h-4 text-emerald-400"></i>
-                        <span>Importar Lista</span>
-                    </button>
-                    <!-- Close -->
-                    <button onclick="closeSharedOrderModal()" class="px-4 text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer border border-zinc-300 hover:bg-zinc-50 text-zinc-700">
-                        <span>Cerrar</span>
-                    </button>
+                <!-- Admin Dispatch Container -->
+                <div class="flex flex-col gap-2.5">
+                    <!-- Admin Unlock Button Trigger -->
+                    <div id="admin-lock-box">
+                        <button onclick="openAdminPinModal()" class="w-full text-center py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-zinc-800 shadow-sm">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-zinc-700"></i>
+                            <span>🔒 Panel de Despacho (Solo Admin)</span>
+                        </button>
+                    </div>
+
+                    <!-- Admin Unlocked Panel -->
+                    <div id="admin-unlocked-panel" class="hidden flex-col gap-2.5 bg-emerald-50/70 border border-emerald-300/80 rounded-2xl p-3.5 text-left">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-extrabold uppercase tracking-wide text-emerald-800 flex items-center gap-1.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                                Modo Administrador Activo
+                            </span>
+                            <span class="text-[9px] bg-emerald-200/60 text-emerald-900 font-bold px-2 py-0.5 rounded-full">Noise Urban</span>
+                        </div>
+                        <p class="text-[10px] text-zinc-600 leading-snug">
+                            Presiona el botón para descontar automáticamente estas cantidades del inventario en Loyverse.
+                        </p>
+                        <button id="dispatch-action-btn" onclick="executeOrderDispatch()" class="w-full text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md bg-emerald-600 hover:bg-emerald-700 text-white">
+                            <i data-lucide="package-check" class="w-4 h-4"></i>
+                            <span>⚡ Despachar y Descontar Stock</span>
+                        </button>
+                    </div>
+
+                    <div class="flex gap-2.5">
+                        <!-- Import to active list -->
+                        <button onclick="importSharedOrder()" class="flex-1 text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer shadow-md bg-zinc-900 hover:bg-black text-white">
+                            <i data-lucide="import" class="w-4 h-4 text-emerald-400"></i>
+                            <span>Importar Lista</span>
+                        </button>
+                        <!-- Close -->
+                        <button onclick="closeSharedOrderModal()" class="px-4 text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer border border-zinc-300 hover:bg-zinc-50 text-zinc-700">
+                            <span>Cerrar</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -1922,6 +1950,209 @@
             }
         }
 
+        // --- ADMIN DISPATCH SYSTEM ---
+        let isAdminAuthenticated = false;
+
+        function openAdminPinModal() {
+            const modal = document.getElementById('admin-pin-modal');
+            const input = document.getElementById('admin-pin-input');
+            const errorMsg = document.getElementById('admin-pin-error');
+            if (modal && input) {
+                input.value = '';
+                if (errorMsg) errorMsg.classList.add('hidden');
+                modal.classList.remove('hidden', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                setTimeout(() => input.focus(), 150);
+                lucide.createIcons();
+            }
+        }
+
+        function closeAdminPinModal() {
+            const modal = document.getElementById('admin-pin-modal');
+            if (modal) {
+                modal.classList.remove('opacity-100');
+                setTimeout(() => modal.classList.add('hidden', 'pointer-events-none'), 200);
+            }
+        }
+
+        function verifyAdminPin() {
+            const input = document.getElementById('admin-pin-input');
+            const errorMsg = document.getElementById('admin-pin-error');
+            const pin = input ? input.value.trim() : '';
+            
+            if (pin === '8624') {
+                isAdminAuthenticated = true;
+                closeAdminPinModal();
+                
+                const lockBox = document.getElementById('admin-lock-box');
+                const unlockedPanel = document.getElementById('admin-unlocked-panel');
+                if (lockBox) lockBox.classList.add('hidden');
+                if (unlockedPanel) {
+                    unlockedPanel.classList.remove('hidden');
+                    unlockedPanel.classList.add('flex');
+                    lucide.createIcons();
+                }
+                showNotification("🔓 Modo Administrador desbloqueado con éxito.");
+            } else {
+                if (errorMsg) {
+                    errorMsg.innerText = "❌ Clave incorrecta. Inténtalo de nuevo.";
+                    errorMsg.classList.remove('hidden');
+                }
+                if (input) {
+                    input.value = '';
+                    input.focus();
+                }
+            }
+        }
+
+        async function executeOrderDispatch() {
+            if (!isAdminAuthenticated) {
+                openAdminPinModal();
+                return;
+            }
+            
+            if (!sharedOrderList || sharedOrderList.length === 0) {
+                showNotification("⚠️ No hay prendas en este pedido para despachar.");
+                return;
+            }
+            
+            if (!confirm("¿Confirmas que deseas marcar este pedido como DESPACHADO y descontar las cantidades de Loyverse en la tienda Noise Urban?")) {
+                return;
+            }
+            
+            const dispatchBtn = document.getElementById('dispatch-action-btn');
+            if (dispatchBtn) {
+                dispatchBtn.disabled = true;
+                dispatchBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Descontando en Loyverse...</span>
+                `;
+            }
+            
+            try {
+                const response = await fetch('/api/dispatch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pin: '8624',
+                        items: sharedOrderList
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showDispatchSuccessModal(data);
+                    
+                    if (dispatchBtn) {
+                        dispatchBtn.disabled = true;
+                        dispatchBtn.className = "w-full text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider bg-zinc-300 text-zinc-600 cursor-not-allowed flex items-center justify-center gap-2";
+                        dispatchBtn.innerHTML = `<span>✅ PEDIDO YA DESPACHADO</span>`;
+                    }
+                    
+                    if (data.logs) {
+                        data.logs.forEach(log => {
+                            if (log.status === 'ok') {
+                                const prod = products.find(p => p.id === log.id);
+                                if (prod && prod.variants) {
+                                    const v = prod.variants.find(varItem => varItem.id === log.variant_id);
+                                    if (v) {
+                                        v.stock = log.newStock;
+                                        v.inStock = log.newStock > 0;
+                                    }
+                                }
+                            }
+                        });
+                        renderProductsGrid();
+                    }
+                    
+                } else {
+                    alert("Error al despachar pedido: " + (data.error || "No se pudo conectar con Loyverse"));
+                    if (dispatchBtn) {
+                        dispatchBtn.disabled = false;
+                        dispatchBtn.innerHTML = `
+                            <i data-lucide="package-check" class="w-4 h-4"></i>
+                            <span>⚡ Reintentar Despacho</span>
+                        `;
+                        lucide.createIcons();
+                    }
+                }
+            } catch (err) {
+                console.error("Dispatch Error:", err);
+                alert("Error de conexión al intentar despachar: " + err.message);
+                if (dispatchBtn) {
+                    dispatchBtn.disabled = false;
+                    dispatchBtn.innerHTML = `
+                        <i data-lucide="package-check" class="w-4 h-4"></i>
+                        <span>⚡ Reintentar Despacho</span>
+                    `;
+                    lucide.createIcons();
+                }
+            }
+        }
+
+        function showDispatchSuccessModal(data) {
+            let breakdownHtml = '';
+            if (data.logs) {
+                data.logs.forEach(l => {
+                    const colorTxt = l.color ? ` / ${l.color}` : '';
+                    if (l.status === 'ok') {
+                        breakdownHtml += `
+                            <div class="flex justify-between items-center py-1.5 border-b border-zinc-100 text-xs">
+                                <div class="text-left">
+                                    <span class="font-bold text-zinc-900 block">${l.title} (${l.size}${colorTxt})</span>
+                                    <span class="text-[10px] text-zinc-500 font-semibold">Cant. Despachada: <b class="text-zinc-800">${l.deductedQty}</b></span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] text-zinc-400 line-through mr-1">${l.previousStock}</span>
+                                    <span class="text-xs font-black text-emerald-600">→ ${l.newStock} en stock</span>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        breakdownHtml += `
+                            <div class="flex justify-between items-center py-1.5 border-b border-zinc-100 text-xs text-red-600">
+                                <span>${l.title || l.id} (${l.size || ''})</span>
+                                <span class="text-[10px] font-bold">⚠️ ${l.message}</span>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            const modalHtml = `
+                <div id="dispatch-success-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300">
+                    <div class="w-full max-w-sm bg-white rounded-3xl p-6 flex flex-col gap-4 text-center shadow-2xl border border-zinc-200">
+                        <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-extrabold uppercase tracking-tight text-zinc-950">¡Despacho Completado!</h3>
+                            <p class="text-xs text-zinc-500 mt-1">Se ha descontado el stock directamente en Loyverse POS (Tienda Noise Urban).</p>
+                        </div>
+                        
+                        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-3 max-h-48 overflow-y-auto">
+                            <span class="text-[10px] font-bold uppercase text-zinc-400 block mb-1 text-left">Resumen de Descuento:</span>
+                            ${breakdownHtml}
+                        </div>
+                        
+                        <button onclick="document.getElementById('dispatch-success-overlay').remove()" class="w-full bg-zinc-950 text-white font-extrabold text-xs uppercase py-3.5 rounded-xl hover:bg-black transition-all">
+                            Aceptar y Cerrar
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
         // Toast display handler
         let toastTimeout;
         function showNotification(text) {
@@ -1987,6 +2218,28 @@
             }, 800);
         }
     </script>
+
+    <!-- ADMIN PIN MODAL -->
+    <div id="admin-pin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0 select-none">
+        <div class="w-full max-w-xs bg-white text-zinc-900 p-5 rounded-3xl border border-zinc-200 shadow-2xl flex flex-col gap-4 text-center relative">
+            <div class="w-12 h-12 rounded-full bg-zinc-100 text-zinc-800 flex items-center justify-center mx-auto">
+                <i data-lucide="lock" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-extrabold uppercase tracking-wide text-zinc-950">Clave de Administrador</h3>
+                <p class="text-xs text-zinc-500 mt-0.5">Ingresa tu clave PIN para autorizar el despacho de este pedido:</p>
+            </div>
+            
+            <input type="password" id="admin-pin-input" maxlength="6" placeholder="PIN" class="w-full text-center text-xl font-mono tracking-widest py-3 px-4 rounded-xl border border-zinc-300 focus:outline-none focus:border-zinc-900 bg-zinc-50 font-bold" onkeyup="if(event.key==='Enter') verifyAdminPin()" />
+            
+            <p id="admin-pin-error" class="text-xs font-bold text-red-600 hidden -mt-2">❌ Clave incorrecta. Inténtalo de nuevo.</p>
+            
+            <div class="flex gap-2 mt-1">
+                <button onclick="closeAdminPinModal()" class="flex-1 py-3 rounded-xl font-extrabold text-xs uppercase border border-zinc-300 text-zinc-700 hover:bg-zinc-50">Cancelar</button>
+                <button onclick="verifyAdminPin()" class="flex-1 py-3 rounded-xl font-extrabold text-xs uppercase bg-zinc-950 text-white hover:bg-black shadow-md">Ingresar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- FIRST-TIME WHOLESALE GUIDE OVERLAY (GATEKEEPER) -->
     <div id="wholesale-gatekeeper-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
