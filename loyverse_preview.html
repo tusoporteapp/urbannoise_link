@@ -1184,10 +1184,33 @@
         // Filter engine
         function applyFilters() {
             filteredProductsList = products.filter(p => {
-                const matchesCategory = (selectedCategoryTab === 'Todos' || p.category === selectedCategoryTab);
-                const matchesSearch = (p.title.toLowerCase().includes(searchQueryStr) || 
-                                       p.description.toLowerCase().includes(searchQueryStr) || 
-                                       p.category.toLowerCase().includes(searchQueryStr));
+                let matchesCategory = false;
+                const cat = (p.category || '').toLowerCase();
+                const rawCat = (p.rawCategory || '').toLowerCase();
+                const title = (p.title || '').toLowerCase();
+
+                if (selectedCategoryTab === 'Todos') {
+                    matchesCategory = true;
+                } else if (selectedCategoryTab === 'Acidwash') {
+                    matchesCategory = cat.includes('acid') || rawCat.includes('acid') || rawCat.includes('wash') || title.includes('acid') || title.includes('wash');
+                } else if (selectedCategoryTab === 'Buzos') {
+                    matchesCategory = cat.includes('buzo') || rawCat.includes('buzo') || rawCat.includes('hoodie') || title.includes('buzo') || title.includes('hoodie');
+                } else if (selectedCategoryTab === 'Conjuntos') {
+                    matchesCategory = cat.includes('conjunto') || rawCat.includes('conjunto') || rawCat.includes('bermuda') || rawCat.includes('pantalon') || title.includes('conjunto');
+                } else if (selectedCategoryTab === 'Linea de Damas') {
+                    matchesCategory = cat.includes('dama') || rawCat.includes('dama') || rawCat.includes('body') || rawCat.includes('dm') || title.includes('dama') || title.includes('dam');
+                } else if (selectedCategoryTab === 'Oversize') {
+                    matchesCategory = cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
+                } else {
+                    matchesCategory = (p.category === selectedCategoryTab);
+                }
+
+                const searchLower = searchQueryStr.toLowerCase();
+                const matchesSearch = !searchQueryStr || 
+                                       title.includes(searchLower) || 
+                                       (p.description && p.description.toLowerCase().includes(searchLower)) || 
+                                       cat.includes(searchLower) ||
+                                       rawCat.includes(searchLower);
                 return matchesCategory && matchesSearch;
             });
             

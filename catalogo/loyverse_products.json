@@ -7,6 +7,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "a7fe9ef2-acfb-4b70-87b0-daae1985fa4b",
@@ -37,7 +38,8 @@
     "images": [
       "https://api.loyverse.com/image/3cf76027-5cf8-47d0-9f66-c44de641b616"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "5565bdc5-fc71-4fa3-be94-0bb7585d9dca",
@@ -140,7 +142,8 @@
     "images": [
       "https://api.loyverse.com/image/09bf0107-021e-4188-b8a8-4792d0a5bd94"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo GoldCrem",
     "variants": [
       {
         "id": "42df1d7e-474d-4513-9a62-16b0fdbdd7b8",
@@ -189,7 +192,8 @@
     "images": [
       "https://api.loyverse.com/image/e3a13515-5285-49ce-8a71-2a6c8ce50ad9"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "9fd49592-0d24-4e74-8584-4450c866306c",
@@ -292,7 +296,8 @@
     "images": [
       "https://api.loyverse.com/image/aebf86c1-62f0-4d28-a0b1-91a6f0d81403"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "43fc2b61-e8a5-4c78-9bba-cebbcdf8c95e",
@@ -393,7 +398,8 @@
     "price": 55000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Conjuntos",
+    "rawCategory": "Conjuntos",
     "variants": [
       {
         "id": "9d7d104b-cc81-4492-b995-2d6489f01410",
@@ -442,7 +448,8 @@
     "images": [
       "https://api.loyverse.com/image/21ad4e93-d44e-49be-9e19-44ca71ccb63e"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo GoldCrem",
     "variants": [
       {
         "id": "5d2055c6-8b82-443b-9262-e98b20d4466b",
@@ -491,7 +498,8 @@
     "images": [
       "https://api.loyverse.com/image/497b92be-eb31-499e-8a9e-42325d87efb4"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo GoldCrem",
     "variants": [
       {
         "id": "b1b4721d-9336-4784-8324-ea277aa15b4a",
@@ -540,7 +548,8 @@
     "images": [
       "https://api.loyverse.com/image/925415f4-1b66-4241-beb7-6702128edbe8"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "12c1c12a-8223-4a0a-878a-73a3522b0316",
@@ -598,7 +607,8 @@
     "images": [
       "https://api.loyverse.com/image/d3d115ee-31ea-4cbd-a858-d7882fb0491e"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "f648071d-6c84-4f91-aa0b-f7d6dd78c794",
@@ -657,6 +667,7 @@
       "https://api.loyverse.com/image/01b8ccf9-7cad-45a5-855d-f743276b2eca"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "911ac718-cd15-4804-bb0f-6fb51fd3a6ed",
@@ -741,7 +752,8 @@
     "images": [
       "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "0b77245b-c1b6-44e4-964d-edb19cc8e015",
@@ -826,7 +838,8 @@
     "images": [
       "https://api.loyverse.com/image/adfd1823-268b-4145-a3a7-af4cd0a2d0f2"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "9e2ae531-0e2c-41a2-96e8-768fd5aaa6fb",
@@ -884,7 +897,8 @@
     "images": [
       "https://api.loyverse.com/image/d6afe05f-4d6e-4b9a-93e3-b763303b1d22"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "a1b3625a-471a-4f27-a6a0-09c23f0e5c70",
@@ -933,7 +947,8 @@
     "images": [
       "https://api.loyverse.com/image/92af4827-7923-4685-96d4-0f746dd02516"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "363c1548-cb50-4b1f-ba2d-cf67e2f74669",
@@ -1019,6 +1034,7 @@
       "https://api.loyverse.com/image/dd67bc3c-313f-4466-851a-cdba99ed36db"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "6703e4c3-4fd4-4ad1-bd04-ca97cb7e7137",
@@ -1068,6 +1084,7 @@
       "https://api.loyverse.com/image/ab1a19d0-1d31-44f7-9159-7b38eb799596"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "2b74bced-4cd9-4926-9106-9553fb1c68aa",
@@ -1153,6 +1170,7 @@
       "https://api.loyverse.com/image/bc83d2b4-9d50-4736-9008-309d31f5daf9"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "0b7391b3-8f70-4384-8fba-ea203ac0d958",
@@ -1201,7 +1219,8 @@
     "images": [
       "https://api.loyverse.com/image/929a2a54-d336-467c-a74d-a9a159b65eb8"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "e729ce56-e1b6-40bc-9791-fb25f643e190",
@@ -1287,6 +1306,7 @@
       "https://api.loyverse.com/image/dabc60d1-108f-485d-8851-f058adc564eb"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "a4de8bec-d4c2-4e2c-b22f-8c5067c92c05",
@@ -1335,7 +1355,8 @@
     "images": [
       "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "3a42cb62-f391-4051-8bfc-58767c41a9d4",
@@ -1384,7 +1405,8 @@
     "images": [
       "https://api.loyverse.com/image/6acfe0bf-cf43-4634-bb63-fa60afe0a74a"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "80c9df30-e1a0-47f8-b9da-1d547681b525",
@@ -1434,6 +1456,7 @@
       "https://api.loyverse.com/image/68d6f844-4193-4fce-a5f9-bde762535ba3"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "ccf43736-d3a0-43c1-8e64-c46987ceb880",
@@ -1519,6 +1542,7 @@
       "https://api.loyverse.com/image/c2058ae6-ffd0-47eb-aede-1ced17448cb3"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "b48e7d70-06b5-429a-b9d9-42974fb7a280",
@@ -1603,7 +1627,8 @@
     "images": [
       "https://api.loyverse.com/image/1655b2c5-9501-4508-a7fb-504795585dcb"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Esqueleto AcidWash",
     "variants": [
       {
         "id": "c79c8ce1-595a-45c3-9771-d7d1bc00c82e",
@@ -1651,6 +1676,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "61356be6-bd7f-4c3d-9357-412ca30fed4b",
@@ -1698,6 +1724,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "c8169101-7993-4542-b823-a070227be37d",
@@ -1745,6 +1772,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "187ae01c-4b6a-457c-a756-2367a9394808",
@@ -1793,7 +1821,8 @@
     "images": [
       "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "84c8fbf3-bf7b-4b8a-ae32-3cb93a8168c1",
@@ -1843,6 +1872,7 @@
       "https://api.loyverse.com/image/28f57d39-7c77-49ee-944d-d07f4512b9b4"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "654ca6ba-6394-4b28-8a43-c20eb0cf3403",
@@ -1928,6 +1958,7 @@
       "https://api.loyverse.com/image/1fc200d6-f232-45b9-9024-a8e23d9d8b89"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "3602d565-95de-4d03-b618-d38d047e4cbb",
@@ -1976,7 +2007,8 @@
     "images": [
       "https://api.loyverse.com/image/4825f4f0-9791-4c6e-9144-2d09bb0b5565"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Esqueleto AcidWash",
     "variants": [
       {
         "id": "8617437d-14c1-41b0-b8ce-8e583591e083",
@@ -2025,7 +2057,8 @@
     "images": [
       "https://api.loyverse.com/image/7369a514-00fa-402d-8231-00319bc4fd80"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "c3a866ce-bced-450d-812e-16aa083fca05",
@@ -2110,7 +2143,8 @@
     "images": [
       "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "6dfd4ce0-d412-42ae-a43d-14c126647bd0",
@@ -2168,7 +2202,8 @@
     "images": [
       "https://api.loyverse.com/image/b69a8bae-196d-4db4-b6f8-d7fccc705c59"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "00950c72-25ab-49be-aa9b-f0c6c7c7122d",
@@ -2253,7 +2288,8 @@
     "images": [
       "https://api.loyverse.com/image/b0f42c6b-ea04-42c8-9c06-f1201ee0f1c1"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "3205fe61-8090-4493-9536-0c2b723e6fc0",
@@ -2356,7 +2392,8 @@
     "images": [
       "https://api.loyverse.com/image/42041318-8059-46f7-81bb-e4e9e4db76b4"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Esqueleto AcidWash",
     "variants": [
       {
         "id": "453b6e79-cbe4-4602-8176-dcdcd6e485a2",
@@ -2441,7 +2478,8 @@
     "images": [
       "https://api.loyverse.com/image/ec1e7b11-03f6-4d7e-9889-aa35e20e001e"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "900a9165-bcbb-4181-8231-01078efe4fc0",
@@ -2488,7 +2526,8 @@
     "price": 140000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "d944fd46-a53b-4c1a-b838-98c2f98e2305",
@@ -2536,6 +2575,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "4c98255a-b820-4061-baf1-8a40350d2e99",
@@ -2582,7 +2622,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "a5b840d8-d441-4f6d-ae80-272aaf3c94cd",
@@ -2668,6 +2709,7 @@
       "https://api.loyverse.com/image/9b709908-e01c-407c-9af1-61365258d333"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "fa32608a-9219-48bc-905b-c11ea1503ba5",
@@ -2750,7 +2792,8 @@
     "price": 140000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "a420f50c-4dd3-4ab5-bf58-822f8beb4238",
@@ -2789,6 +2832,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "6228c0ab-a4a4-42ed-a505-64319012cfa4",
@@ -2838,6 +2882,7 @@
       "https://api.loyverse.com/image/38c884bd-2366-4da3-a4e7-17a7dd6beaa0"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "d1011aad-ead8-44b3-8add-1060149b4191",
@@ -2884,7 +2929,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "43bd61c9-b8a8-41b2-b94d-9b7e4b305473",
@@ -2968,6 +3014,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "5ca897db-c3d0-44c9-9fd0-17cd9f1b00ed",
@@ -3017,6 +3064,7 @@
       "https://api.loyverse.com/image/590e58b3-be5e-498d-89b1-3b983601f813"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "cd480882-fc44-49db-add2-b84553eef191",
@@ -3102,6 +3150,7 @@
       "https://api.loyverse.com/image/a9afc049-8670-4f5f-93e7-6ba38aa4796c"
     ],
     "category": "Linea de Damas",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "b9651fde-24b2-49cb-bd18-36d3bf78e2c2",
@@ -3141,7 +3190,8 @@
     "images": [
       "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e"
     ],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "Body",
     "variants": [
       {
         "id": "9fae9343-5185-4174-a3f4-7325ed3b646f",
@@ -3189,6 +3239,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "11b8837f-e0a7-4d95-b2ee-2cb37a4c6143",
@@ -3274,6 +3325,7 @@
       "https://api.loyverse.com/image/ba34794f-1c4c-4ca8-a4ea-dea3828b6a9a"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "e378e270-53a9-45be-9efc-373a0558ec8c",
@@ -3323,6 +3375,7 @@
       "https://api.loyverse.com/image/f590c58c-0d21-47ec-8ed9-04a44823d923"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "2dc6bdc3-a25e-4282-a7c7-8a81215d214e",
@@ -3406,6 +3459,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "5e2d0a30-9408-482a-9f85-563db36f70e9",
@@ -3453,6 +3507,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "f30718ec-879a-4d3e-9e90-e891cea27071",
@@ -3535,7 +3590,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "84d2c37c-7f9c-4384-8b15-79721745f6e4",
@@ -3656,7 +3712,8 @@
     "images": [
       "https://api.loyverse.com/image/836036b2-102f-4c8b-a64e-741a9dcf49ae"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "a88be656-5e1d-402c-b34d-f76d4ac09a1c",
@@ -3742,6 +3799,7 @@
       "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "a8b80d04-383d-4a41-b8b7-ae928abd146e",
@@ -3827,6 +3885,7 @@
       "https://api.loyverse.com/image/9277df94-f46c-4d8d-a598-6023ee51e517"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "34bd3108-c816-4e4e-9d31-e81aae1631b0",
@@ -3875,7 +3934,8 @@
     "images": [
       "https://api.loyverse.com/image/8fb3a200-db93-4870-a2ca-d23a1ae60644"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "c2226490-21b5-4993-918b-58003cbf614a",
@@ -3960,7 +4020,8 @@
     "images": [
       "https://api.loyverse.com/image/fa6ef351-225c-46d5-aa01-958152358c77"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "bfb4919c-9dfb-4897-9c03-cf10e60339b7",
@@ -4063,7 +4124,8 @@
     "images": [
       "https://api.loyverse.com/image/99227b73-ab97-4fb3-9d26-3bb095d998ed"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "d7856589-7f3c-4852-bfee-98b33338e9dc",
@@ -4166,7 +4228,8 @@
     "images": [
       "https://api.loyverse.com/image/3d47f574-1d15-436c-9607-35b595f016bf"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "8cad031f-5795-47e9-9774-9685fa75f944",
@@ -4252,6 +4315,7 @@
       "https://api.loyverse.com/image/677b8a75-9124-4681-8df3-46cb7376b877"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "5c8b9c97-172e-4caf-a3c4-f2e245b6ecb4",
@@ -4336,7 +4400,8 @@
     "images": [
       "https://api.loyverse.com/image/fd5481aa-d300-4a38-8ec5-621a15122f1e"
     ],
-    "category": "Oversize",
+    "category": "Conjuntos",
+    "rawCategory": "Conjuntos",
     "variants": [
       {
         "id": "237f069c-2d04-4232-9315-27f809f2995a",
@@ -4402,6 +4467,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Premium",
     "variants": [
       {
         "id": "b859e7eb-e64c-4000-82fd-339e3ae094dc",
@@ -4424,6 +4490,7 @@
       "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "06cb9596-974d-446e-9275-ba6d2126b706",
@@ -4508,7 +4575,8 @@
     "images": [
       "https://api.loyverse.com/image/5cf4828f-f9a8-4030-ab49-01d03381eab9"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "c70c0a85-776c-4318-8a49-529eec74d605",
@@ -4593,7 +4661,8 @@
     "images": [
       "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "8081abda-286b-48d8-816e-b887dcbebfb2",
@@ -4695,6 +4764,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "9b625a22-d790-4d83-9f9c-c7a3bcfe02a3",
@@ -4715,6 +4785,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Premium",
     "variants": [
       {
         "id": "0076e546-16a3-4d3a-b43c-1f33a0953303",
@@ -4763,7 +4834,8 @@
     "images": [
       "https://api.loyverse.com/image/74ee583d-c95c-4a91-bb0e-d5eacfacc2d7"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "70d5529c-b4fb-49a9-9821-f42e5846d5a0",
@@ -4848,7 +4920,8 @@
     "images": [
       "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "82b1d4d2-2780-46b7-9f9c-3a601bd34a40",
@@ -4933,7 +5006,8 @@
     "images": [
       "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "f17d2a05-18a3-4be0-8040-f1dc176e4414",
@@ -5036,7 +5110,8 @@
     "images": [
       "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "288c2f2a-1773-4727-9fc2-4c8700202416",
@@ -5139,7 +5214,8 @@
     "images": [
       "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "5d0f015c-d16f-4bf2-9f3b-7230048a4095",
@@ -5241,6 +5317,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "f2471aa6-a235-4ee9-9fd9-1ff6bae618b1",
@@ -5270,6 +5347,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "71b0dfcf-402a-4b6b-a65c-5bf54229028a",
@@ -5299,6 +5377,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "b15d3ad0-4f84-4a52-8d71-21fe9e7f2b00",
@@ -5347,7 +5426,8 @@
     "images": [
       "https://api.loyverse.com/image/7c6c7340-f7c3-4076-aef8-823bbc565f9b"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "36625509-4a6a-47db-bc87-fca82aec607a",
@@ -5433,6 +5513,7 @@
       "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "bb92fefc-a9c2-489b-b81e-4858664e30fc",
@@ -5482,6 +5563,7 @@
       "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "9c6fb07c-c67e-457e-bdf7-9e74cd1c510a",
@@ -5530,7 +5612,8 @@
     "images": [
       "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "7d86ba06-4fa7-4a57-b32b-16189e28e969",
@@ -5615,7 +5698,8 @@
     "images": [
       "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "dadd19cc-5393-4df2-9d09-c26c7ac59455",
@@ -5671,7 +5755,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "02dcaa58-b5c0-47c5-94c8-5c93a55bc31e",
@@ -5791,6 +5876,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "c1c588bd-d105-49c6-9f2e-ff2d9ce4a634",
@@ -5873,7 +5959,8 @@
     "price": 140000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "beab3728-388f-4f23-9fff-c9df286fe08e",
@@ -5932,6 +6019,7 @@
       "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "b9d8d0ee-267c-496e-a9d9-ec868e523337",
@@ -5981,6 +6069,7 @@
       "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460"
     ],
     "category": "Oversize",
+    "rawCategory": "Esqueleto",
     "variants": [
       {
         "id": "6d933523-62e1-4938-8996-164580676322",
@@ -6065,7 +6154,8 @@
     "images": [
       "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "a5100306-0ce8-484e-8be7-a593197480e1",
@@ -6186,7 +6276,8 @@
     "images": [
       "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "6080cc01-3c5f-4b37-9bd4-84697a9cb22b",
@@ -6244,7 +6335,8 @@
     "images": [
       "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "cc195ccb-182e-40fb-9949-d9ab7db923e1",
@@ -6302,7 +6394,8 @@
     "images": [
       "https://api.loyverse.com/image/f1a3ee69-aacc-4b24-8962-3a8dea6e955b"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "6c760b7a-6890-4a09-a5e0-77b5f7cfe2df",
@@ -6415,6 +6508,7 @@
       "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23"
     ],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "97ed579e-5a30-4148-a907-0f7b0e22ee61",
@@ -6446,6 +6540,7 @@
       "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "dee7ea31-c526-40a6-bbc4-3a39dd0ee823",
@@ -6501,7 +6596,8 @@
     "price": 75000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "b46448c9-a6ab-4c68-8f6d-e4773953372b",
@@ -6523,7 +6619,8 @@
     "images": [
       "https://api.loyverse.com/image/68962ab5-6e8d-494d-b8a1-5d8f162fac3d"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "690180e8-f893-43b9-ac9e-3b3edbbb2b7b",
@@ -6590,7 +6687,8 @@
     "images": [
       "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "bdf2d61e-f733-486a-864f-33747382edfd",
@@ -6693,7 +6791,8 @@
     "images": [
       "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "ddc0b3c0-1a31-4fbc-bb2f-1d0df782550d",
@@ -6797,6 +6896,7 @@
       "https://api.loyverse.com/image/a11c58b8-1e6a-4ad7-a3a0-275123f56e22"
     ],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "7d65d15d-8083-434c-9427-5df823a7bb62",
@@ -6828,6 +6928,7 @@
       "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "9724302d-c064-4290-abe8-b2e2f4e7484f",
@@ -6893,6 +6994,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "d6f76eb8-9e73-4eea-9b29-4a342d2de333",
@@ -6951,6 +7053,7 @@
       "https://api.loyverse.com/image/25906f6d-81b2-47ab-8f2e-7f512979635d"
     ],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "0ab58a4b-101f-446e-bef2-edb83c9be771",
@@ -6981,7 +7084,8 @@
     "images": [
       "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "5c4ed113-e115-4b2a-8afc-b1082c29ec79",
@@ -7085,6 +7189,7 @@
       "https://api.loyverse.com/image/ccdfc9e2-ca04-437b-8c83-e4d8d7d6fa7a"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "cc8992d3-5e32-4589-8014-1375e11b26f5",
@@ -7169,7 +7274,8 @@
     "images": [
       "https://api.loyverse.com/image/6df4655f-c470-4bb4-b09a-15f7b9d57d8f"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "ee1db730-27a4-4e1b-bb03-c9372f00c612",
@@ -7326,7 +7432,8 @@
     "images": [
       "https://api.loyverse.com/image/d9d692d2-1fc2-458a-a0e2-bf222f80b17e"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "20f791f6-d752-4f39-ab96-31931b4a369f",
@@ -7384,7 +7491,8 @@
     "images": [
       "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "75d87874-18c2-4347-9063-861f5d0578e2",
@@ -7442,7 +7550,8 @@
     "images": [
       "https://api.loyverse.com/image/33e1e9e6-fba4-4185-9b74-325011e355df"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "60c90c22-3e0f-44af-95fa-4f116c054f07",
@@ -7526,6 +7635,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "7a56f0d4-3de5-4fc5-b5a1-1851b5115b04",
@@ -7546,6 +7656,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "e4c33d57-9c6f-4368-a279-1ee5667ce9a9",
@@ -7575,6 +7686,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "b77f30d6-715e-4dce-ae6a-d6a37e9e721b",
@@ -7605,7 +7717,8 @@
     "images": [
       "https://api.loyverse.com/image/70d3ebbb-dd5e-4938-9072-09cb9f77ebb9"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "c699e5f2-e1c6-4226-8aed-8cc359c0e975",
@@ -7690,7 +7803,8 @@
     "images": [
       "https://api.loyverse.com/image/fb7d0860-51a3-4ddd-8ad6-73c17c12982b"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "9364c213-e145-40a5-aadc-c97133555d7e",
@@ -7740,6 +7854,7 @@
       "https://api.loyverse.com/image/be10ad63-fd32-4a9a-a447-77f9d22fed4d"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "714c0f70-1bfe-4c3c-a8d7-9423c545f777",
@@ -7824,7 +7939,8 @@
     "images": [
       "https://api.loyverse.com/image/aa788241-419f-4c52-b206-ce420b23149f"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "4cd18dcc-b5b3-44ff-aef9-6197bb770236",
@@ -7892,6 +8008,7 @@
       "https://api.loyverse.com/image/0b3b820e-e33d-4f79-89a9-e13f937f8e9b"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "58c8b01b-94d8-44a2-a804-f52fe6732179",
@@ -7976,7 +8093,8 @@
     "images": [
       "https://api.loyverse.com/image/435dd600-886b-4f09-8e6a-199f65cd6948"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "a3c3b3e0-bb5b-4849-a059-578e93f5428e",
@@ -8098,6 +8216,7 @@
       "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "85676dff-c9c0-4eb2-9ca5-2db32b75c272",
@@ -8164,7 +8283,8 @@
     "images": [
       "https://api.loyverse.com/image/5d285b55-decf-4982-b113-e3b582f795a1"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "cca36349-c847-487c-bab2-65dd21ac79d1",
@@ -8265,7 +8385,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "c2ecc842-675a-46ef-b3d0-dae7fd0453d4",
@@ -8315,6 +8436,7 @@
       "https://api.loyverse.com/image/33222955-7e82-452f-aa15-57c5db1fa3de"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "e2928b9d-f1b7-4b07-ba0e-0573d4369bbd",
@@ -8364,6 +8486,7 @@
       "https://api.loyverse.com/image/5d4bb607-0047-4b44-86df-d734a4b0c091"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "92501859-7584-40c2-a5c0-42a0a630c3c6",
@@ -8411,6 +8534,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Niño",
     "variants": [
       {
         "id": "b0efd897-01ed-4b2f-9819-dad3f443a911",
@@ -8430,7 +8554,8 @@
     "price": 140000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo New/B",
     "variants": [
       {
         "id": "3bcae340-8eaa-4a38-b3e7-cd11d1f5fb1c",
@@ -8477,7 +8602,8 @@
     "price": 75000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "678df684-274a-4c82-b9a1-1a0e4712abcb",
@@ -8509,6 +8635,7 @@
       "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "ba6bb8a6-a707-4d9a-a104-17059366a056",
@@ -8574,6 +8701,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "d26406a4-f9d3-4bbf-9517-9324075bd592",
@@ -8621,6 +8749,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "45d345f1-f146-4a3f-bb44-ee4331f49c67",
@@ -8643,6 +8772,7 @@
       "https://api.loyverse.com/image/607ac8f5-92fb-4cd3-bd69-a53537faf1dd"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "1082aae3-a6b2-42b6-8724-f970dd64f60d",
@@ -8665,6 +8795,7 @@
       "https://api.loyverse.com/image/c893d651-0fa2-4591-8f0c-87b31bd04e38"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "09551253-6ec7-4333-8d61-7060c4e6ecc8",
@@ -8732,6 +8863,7 @@
       "https://api.loyverse.com/image/d96524fa-4970-4f89-9560-46fa2c583d23"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "cd27be6b-01a4-4a71-81ed-2f943d389fe3",
@@ -8754,6 +8886,7 @@
       "https://api.loyverse.com/image/c3b44fb2-b096-45d7-84a7-d6a0c445f312"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "d9b202e6-5bb2-48bb-8382-2fcc2e21c0f0",
@@ -8776,6 +8909,7 @@
       "https://api.loyverse.com/image/18e9de55-d68f-47aa-b33a-5eb469d60295"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "e1fbb669-c1ff-4648-902b-eb2c2bb1e83a",
@@ -8798,6 +8932,7 @@
       "https://api.loyverse.com/image/3ce7e047-3792-4651-801b-f823fab6cd0b"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "09371e5a-64d3-4f08-b0e6-b4518c964968",
@@ -8838,6 +8973,7 @@
       "https://api.loyverse.com/image/19bf556e-b465-4c02-be58-c9126220b01f"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "a7378007-4fe3-49c8-bd27-557a8478e7a0",
@@ -8869,6 +9005,7 @@
       "https://api.loyverse.com/image/4106ead2-a260-4157-b303-fcb8d7e7f54d"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "f7c96764-03b3-4d65-b533-7488f575b286",
@@ -8891,6 +9028,7 @@
       "https://api.loyverse.com/image/f8bfb318-211f-44a0-96fa-c9136472d7ec"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "de26461f-ead7-4975-9a9c-7eaf6611df56",
@@ -8940,6 +9078,7 @@
       "https://api.loyverse.com/image/2cc1e28d-e638-47ed-94c5-30b86369b587"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "5f516faa-1976-4274-8878-2e565855045c",
@@ -9025,6 +9164,7 @@
       "https://api.loyverse.com/image/f907b40c-573e-45aa-840f-cae7d6de9d4c"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "11f6053a-0fd1-46d3-ad8a-411ef25ad547",
@@ -9146,6 +9286,7 @@
       "https://api.loyverse.com/image/b7ce0f08-61bb-46e0-b8d5-5f809abf3485"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "3eea1696-2b50-4190-8685-51153f66cc74",
@@ -9193,6 +9334,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Unisex",
     "variants": [
       {
         "id": "d7c48973-8a25-4d4d-bd33-0bf8feeff4ab",
@@ -9213,6 +9355,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Unisex",
     "variants": [
       {
         "id": "87f37232-4190-42c5-b05f-dd4db59ed355",
@@ -9233,6 +9376,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Unisex",
     "variants": [
       {
         "id": "3db8f29b-9f45-4e79-b6a3-f8b4e7505e9c",
@@ -9262,6 +9406,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Unisex",
     "variants": [
       {
         "id": "c4a58213-3ad8-41a8-928a-49fa44df9b5b",
@@ -9317,7 +9462,8 @@
     "price": 75000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Conjuntos",
+    "rawCategory": "Conjuntos",
     "variants": [
       {
         "id": "b3a5e21c-8de2-4113-b954-651e6ac00f1f",
@@ -9400,7 +9546,8 @@
     "price": 30000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "Over Dama",
     "variants": [
       {
         "id": "2ac9fa3e-0726-4499-933c-528a0f83964b",
@@ -9430,6 +9577,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "Pantalon Dm",
     "variants": [
       {
         "id": "9382c075-6d14-463b-a96f-f4392574d7a2",
@@ -9477,6 +9625,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Buzos",
+    "rawCategory": "Buzo Gold",
     "variants": [
       {
         "id": "55785fee-e85c-4380-99e9-627cedf20dba",
@@ -9559,7 +9708,8 @@
     "price": null,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Conjuntos",
+    "rawCategory": "Bermudas",
     "variants": [
       {
         "id": "2301f36e-c731-47cb-8a7a-ebac91006471",
@@ -9579,7 +9729,8 @@
     "price": null,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Conjuntos",
+    "rawCategory": "Bermudas",
     "variants": [
       {
         "id": "c003a15d-1675-4d85-95c3-823a56a83ba4",
@@ -9844,7 +9995,8 @@
     "images": [
       "https://api.loyverse.com/image/6fe57058-054f-4a9c-9657-9cf54d5125c8"
     ],
-    "category": "Oversize",
+    "category": "Conjuntos",
+    "rawCategory": "Conjuntos",
     "variants": [
       {
         "id": "6cce341a-bb4e-41cb-9140-37512eea20e3",
@@ -10001,7 +10153,8 @@
     "images": [
       "https://api.loyverse.com/image/bf32fd97-d64d-429a-a4dd-d02828ff1d7c"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "10fc55c2-0968-4bb4-b73a-f85ea2a127f9",
@@ -10087,6 +10240,7 @@
       "https://api.loyverse.com/image/96553996-6bfe-4f09-b13b-819f2c25c779"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "b6b01a33-776e-4a45-be28-2687ee1121bf",
@@ -10163,6 +10317,7 @@
       "https://api.loyverse.com/image/45164a62-22b8-4934-8546-ad5752e40711"
     ],
     "category": "Oversize",
+    "rawCategory": "T-Shirt",
     "variants": [
       {
         "id": "a4bc3bd4-7d12-4ad7-96a4-842c95f1674b",
@@ -10201,6 +10356,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Linea de Damas",
+    "rawCategory": "Over Dama",
     "variants": [
       {
         "id": "6cd62907-65e8-4b02-b3db-17e2373c1879",
@@ -10231,7 +10387,8 @@
     "images": [
       "https://api.loyverse.com/image/f7f28342-865a-401b-9a4d-7bbe75d75d12"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo New/B",
     "variants": [
       {
         "id": "01c1b1dc-0e56-4be6-8ae7-a9618b24130d",
@@ -10281,6 +10438,7 @@
       "https://api.loyverse.com/image/6d853690-b309-4e5c-917e-adf4601bb673"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Premium",
     "variants": [
       {
         "id": "7f51595b-4f62-42e3-87c4-c3791341324e",
@@ -10401,7 +10559,8 @@
     "images": [
       "https://api.loyverse.com/image/869a64ce-3a2d-48f0-b797-4d487559a3ae"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "ac84487c-1ee8-4b12-985e-e5ae9deee766",
@@ -10504,7 +10663,8 @@
     "images": [
       "https://api.loyverse.com/image/85130264-77f7-47d3-be81-bb7311eba7cf"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "b840f215-00f1-4b90-8b78-ef37f944c882",
@@ -10562,7 +10722,8 @@
     "images": [
       "https://api.loyverse.com/image/1a3b7867-575d-4301-92ea-72da3300d691"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "23825138-608c-4259-a649-88709dca9db1",
@@ -10620,7 +10781,8 @@
     "images": [
       "https://api.loyverse.com/image/294f95f8-62b6-4c36-a04e-4027fc4d5dc7"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "998e9a97-747f-4ce2-acbf-9fddbb6e0e18",
@@ -10678,7 +10840,8 @@
     "images": [
       "https://api.loyverse.com/image/db2d5b92-2abb-4392-9f6d-d8c29039827f"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "ac5f0e9c-e8bf-4410-82f2-fdddc6cd8ec8",
@@ -10736,7 +10899,8 @@
     "images": [
       "https://api.loyverse.com/image/f95f779a-9d1e-4fcb-ad9f-7ef6c80a310e"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "09e1cc33-d0de-46ae-8634-46c17079dc7a",
@@ -10794,7 +10958,8 @@
     "images": [
       "https://api.loyverse.com/image/6daa098a-f5c4-4d1e-8757-1fb7c0e90292"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
     "variants": [
       {
         "id": "04e5e996-fb2a-4034-ae45-a0c146662235",
@@ -10852,7 +11017,8 @@
     "images": [
       "https://api.loyverse.com/image/8b05a36c-c32c-4b82-b864-b5ad033ebf62"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "6affbefe-5501-4d58-9b1c-92e7731c4132",
@@ -10883,7 +11049,8 @@
     "images": [
       "https://api.loyverse.com/image/c038cb5b-1dca-4aa7-b7f9-939a91b107cd"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "b39a8bcc-aff0-414a-8184-2947225bf4b6",
@@ -10914,7 +11081,8 @@
     "images": [
       "https://api.loyverse.com/image/928f2fd4-5d11-49f3-bfa9-13a1ff0be315"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "bcf74975-1d1b-4aa6-b926-40a393011cd6",
@@ -10945,7 +11113,8 @@
     "images": [
       "https://api.loyverse.com/image/82d353fc-1c22-42a6-b6dc-b21ceda80851"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "383efc3b-e823-4f24-94fd-33d03ae07d9b",
@@ -10976,7 +11145,8 @@
     "images": [
       "https://api.loyverse.com/image/e1cf1cce-dfcb-4e5c-bdc5-60cc6d049b82"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "cafee8a9-e7bb-4cab-81f4-95f0483208de",
@@ -11007,7 +11177,8 @@
     "images": [
       "https://api.loyverse.com/image/4d27b681-4eef-46f6-b198-0338e44c356f"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "946a3384-9030-4ca6-a493-987757caa0b9",
@@ -11038,7 +11209,8 @@
     "images": [
       "https://api.loyverse.com/image/008bf019-9462-4bc7-915f-4eb13746ac52"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "fb308d36-2a83-4b59-8373-b700ddeed1c0",
@@ -11087,7 +11259,8 @@
     "images": [
       "https://api.loyverse.com/image/28d738f2-4d40-4d8c-9675-6f5e49304790"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "21a2212d-5b00-414e-aea0-44e40464a087",
@@ -11136,7 +11309,8 @@
     "images": [
       "https://api.loyverse.com/image/e4805abe-43a4-4c55-83e3-2f1760092f89"
     ],
-    "category": "Oversize",
+    "category": "Buzos",
+    "rawCategory": "Buzo Capotero",
     "variants": [
       {
         "id": "2eab1ac8-b76a-4cb6-b16d-7fdb9adaa49d",
@@ -11185,7 +11359,8 @@
     "images": [
       "https://api.loyverse.com/image/ea99fc21-baed-482f-97c9-387027bd4324"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "05ae6049-79db-4048-8254-0f13a296b36f",
@@ -11306,7 +11481,8 @@
     "images": [
       "https://api.loyverse.com/image/57b26da8-1ffc-4f3d-8f47-d6f348554c05"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "07ec264b-ab2d-4831-9bc1-229bdc924d59",
@@ -11391,7 +11567,8 @@
     "images": [
       "https://api.loyverse.com/image/3c1c9921-5e61-482f-80b4-f5319cf0757c"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "fc9c0b30-908e-4c47-917a-f13d42e62f5e",
@@ -11476,7 +11653,8 @@
     "images": [
       "https://api.loyverse.com/image/1a2e5abe-726c-483a-a7df-9d02b6ffd01e"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "507e9659-b754-47ee-838b-bd17b26ea016",
@@ -11633,7 +11811,8 @@
     "images": [
       "https://api.loyverse.com/image/fd10434a-3759-457b-ac57-6bbc42ca1415"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "438fe598-c3ed-436c-b27d-85b6bf10596a",
@@ -11718,7 +11897,8 @@
     "images": [
       "https://api.loyverse.com/image/884a5b28-7e5a-4926-a14a-fcf0d47d6dfb"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "d284ebb6-402d-4b09-9bc4-3fec7cf15c21",
@@ -11803,7 +11983,8 @@
     "images": [
       "https://api.loyverse.com/image/529081b5-c51e-456d-9904-30bb1c857dc1"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "939d5d50-5059-40e3-9c5d-b784f742dd1f",
@@ -11888,7 +12069,8 @@
     "images": [
       "https://api.loyverse.com/image/1431bde0-804a-4a3b-8de5-5cfa4373b4e4"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "e13f6b88-9cbb-417b-a3b0-d8fbb9bd15ad",
@@ -11973,7 +12155,8 @@
     "images": [
       "https://api.loyverse.com/image/65ba9242-b6d5-40d4-970b-0ced5f8d8b78"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "cae395bf-4dee-4782-b11e-20d12f5327d7",
@@ -12058,7 +12241,8 @@
     "images": [
       "https://api.loyverse.com/image/49ff8925-e8b7-432c-9fdd-25295b072a61"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "fd214f9d-dc70-47f4-98af-1fd90102fa80",
@@ -12107,7 +12291,8 @@
     "images": [
       "https://api.loyverse.com/image/a004cfc8-67d7-417b-b831-c263ed83bdac"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "97742799-b74a-4580-86e1-c00aaaf7623f",
@@ -12156,7 +12341,8 @@
     "images": [
       "https://api.loyverse.com/image/3decfd37-23c1-4f0a-97dd-3d3ac1a35477"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "40f44729-3a01-4ffc-9f0c-70c8077c491b",
@@ -12239,7 +12425,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "1af59c35-8fe2-4487-8fb5-aa06b0e5a0d6",
@@ -12358,7 +12545,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "235b5456-325a-4e21-9b0e-3d45839eb771",
@@ -12441,7 +12629,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "f5d3703c-5465-4f89-9a6f-b4c476cbf861",
@@ -12488,7 +12677,8 @@
     "price": 65000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "ab9ad60e-8ab2-4cb6-8b25-2acbef2be675",
@@ -12537,7 +12727,8 @@
     "images": [
       "https://api.loyverse.com/image/0637c9f4-cc3f-4d5c-a677-78133f2bcbe0"
     ],
-    "category": "Oversize",
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
     "variants": [
       {
         "id": "31c74c3f-93dd-4b3c-885a-71d32dcaa9ab",
@@ -12623,6 +12814,7 @@
       "https://api.loyverse.com/image/c3aa6e6b-badf-470d-96ef-edb381a878b1"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "1d0cb0fb-b968-4654-8582-71ee449cba7c",
@@ -12672,6 +12864,7 @@
       "https://api.loyverse.com/image/1e9a2b59-5d65-4eaa-9734-8daa05de9cc9"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "15dfe711-fcfb-490e-acab-bc4bb73699f0",
@@ -12721,6 +12914,7 @@
       "https://api.loyverse.com/image/54e4453f-80a5-45b9-b068-0c846aa63b73"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Pedreria",
     "variants": [
       {
         "id": "3bf0ab7d-ead4-4caf-8479-8aedc49bd678",
@@ -12770,6 +12964,7 @@
       "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Premium",
     "variants": [
       {
         "id": "9f5b8ae2-387c-4c38-a6fa-958d52f95fc3",
@@ -12891,6 +13086,7 @@
       "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "1d0187b8-3e18-4ba7-84bd-b4171fb2ba52",
@@ -12931,6 +13127,7 @@
       "https://api.loyverse.com/image/ad0308fb-c6a9-4c1f-9df9-048168dbca9c"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "3017b3b6-577e-48e8-b34e-4963a6c9c294",
@@ -12971,6 +13168,7 @@
       "https://api.loyverse.com/image/3c1bcefb-5209-433a-9ac0-c92dbfda73cc"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "4db933fc-9cad-4003-800d-293455353f04",
@@ -13011,6 +13209,7 @@
       "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "0290ef50-7d68-44c2-946c-ce2ce41a771d",
@@ -13051,6 +13250,7 @@
       "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890"
     ],
     "category": "Oversize",
+    "rawCategory": "Boxi Fit",
     "variants": [
       {
         "id": "4ab9a564-aee0-49a1-ba63-365aa5dd3e89",
@@ -13118,6 +13318,7 @@
       "https://api.loyverse.com/image/3f1ce825-9e79-40e7-be05-26b18e730b28"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "fdaaea6f-710e-4ec4-b964-f7b015897b59",
@@ -13167,6 +13368,7 @@
       "https://api.loyverse.com/image/c0026685-8cf3-4df1-ac46-67acbe50f89b"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "6182add2-5f34-40ba-8cf6-18e68c308ee1",
@@ -13216,6 +13418,7 @@
       "https://api.loyverse.com/image/a964dfae-dca5-4700-b1bc-f0e555940bec"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "9054ae44-a9d5-4db2-a9d9-40614ab2791b",
@@ -13301,6 +13504,7 @@
       "https://api.loyverse.com/image/63559bf3-b712-4a53-a0a2-7d4d66ee5c71"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Algodon",
     "variants": [
       {
         "id": "0e66695f-30c9-4bc2-9914-313e07e3df0d",
@@ -13386,6 +13590,7 @@
       "https://api.loyverse.com/image/280bd28c-bba7-4ec2-bbd1-123dddf1293c"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "705f5a53-c4c5-4093-87d7-6392a8afa68c",
@@ -13435,6 +13640,7 @@
       "https://api.loyverse.com/image/f741509d-1ea1-4baa-9984-b8ad500c039b"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "eaf262fe-fbfa-4fde-99ef-b437726b2184",
@@ -13484,6 +13690,7 @@
       "https://api.loyverse.com/image/395dcca1-a48b-49e6-a59a-9886c3e9511e"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "343cbb5b-8db2-4fcf-a969-262f054389f5",
@@ -13533,6 +13740,7 @@
       "https://api.loyverse.com/image/c3b2cb5f-8755-40d9-b569-6b2f5d69acf5"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "59274ed1-0ddd-4224-a723-27b42edef088",
@@ -13582,6 +13790,7 @@
       "https://api.loyverse.com/image/bf3cef2b-4853-452e-86d0-9923cafb1dcc"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "6f9a106e-16a0-4c25-aa87-93eefb40aa80",
@@ -13631,6 +13840,7 @@
       "https://api.loyverse.com/image/8a303b26-798a-46f5-9e40-7d7c636c08e0"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "25fcd4a5-7b5f-419a-b069-db59cd3bc54d",
@@ -13680,6 +13890,7 @@
       "https://api.loyverse.com/image/cffc62db-4453-43be-8138-3215ffb57b84"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "3445bfff-bf68-4c5e-a3dc-67840ec1d1e0",
@@ -13729,6 +13940,7 @@
       "https://api.loyverse.com/image/75b101b9-59b4-4042-bcc8-2a8ee6e8be4a"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "2c6e5f31-af1c-41b8-86be-3463f1bb2d13",
@@ -13778,6 +13990,7 @@
       "https://api.loyverse.com/image/a36d7679-0541-4ced-8679-a20ad10d6846"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "52896137-a4b1-4c0d-841a-14f2d6f84ce1",
@@ -13827,6 +14040,7 @@
       "https://api.loyverse.com/image/96495579-7fac-42fd-97b3-3a861b24051f"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "124b2ddc-a8e0-40d7-a5a4-412e4074827a",
@@ -13876,6 +14090,7 @@
       "https://api.loyverse.com/image/7413c975-aa2e-45c9-9f2f-ca1b39600aaf"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "397bb839-a8e9-4ed8-8249-a1bb280c5976",
@@ -13925,6 +14140,7 @@
       "https://api.loyverse.com/image/b636f89d-6c02-4cc0-a290-fd0bea271f8c"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "c74d5351-2d9a-4653-8224-0e1f7416e721",
@@ -13974,6 +14190,7 @@
       "https://api.loyverse.com/image/25208805-3025-4fee-80df-86bdcd680303"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "188dcdec-98aa-4d04-b585-788754d387f8",
@@ -14023,6 +14240,7 @@
       "https://api.loyverse.com/image/c7e048c9-97e0-488b-b84a-c1ea3bc12ed1"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "be9fdfe3-6269-4ad4-883f-98f004e04885",
@@ -14144,6 +14362,7 @@
       "https://api.loyverse.com/image/b07776f1-1111-4576-8e27-351ddf47c833"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "34dd6535-7a44-430b-947b-8a964e7f7aca",
@@ -14193,6 +14412,7 @@
       "https://api.loyverse.com/image/a0d9c266-e55b-4653-8e6e-d8fd3d5a6e32"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "cce15214-83b6-48c5-8c3e-ca6ceee34300",
@@ -14278,6 +14498,7 @@
       "https://api.loyverse.com/image/001b6350-2055-4a12-933a-0bc9e3191164"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "f19a1285-0d79-42dd-a0fe-62b674e47a7d",
@@ -14327,6 +14548,7 @@
       "https://api.loyverse.com/image/b925292f-c264-4ba9-9bcb-e3aecf7721c3"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "4416eac0-7427-4bdf-9dcd-4865e7e3605b",
@@ -14376,6 +14598,7 @@
       "https://api.loyverse.com/image/649a8a56-0251-46cf-8b56-8c6b5720f4cf"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "49848e33-24cb-4487-992b-a902dc65e8b1",
@@ -14425,6 +14648,7 @@
       "https://api.loyverse.com/image/11dd8b7a-4b72-417a-bb4e-8f7e41c1b7aa"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "167b2cd6-4768-4859-b956-e6ca6751e46a",
@@ -14474,6 +14698,7 @@
       "https://api.loyverse.com/image/49169624-f47b-494a-ac4d-8d4eb2c4d770"
     ],
     "category": "Oversize",
+    "rawCategory": "Oversize Burda",
     "variants": [
       {
         "id": "186c18c7-753a-464e-b370-6124164cf464",
@@ -14520,7 +14745,8 @@
     "price": 45000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "e3ee9e18-a45e-4d2f-887b-7211a2e71f9c",
@@ -14568,6 +14794,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Buzos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "ba140344-1a72-49af-9bf3-2260627a8686",
@@ -14606,6 +14833,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "960d479f-5de9-4d87-9639-caba9bc1760e",
@@ -14653,6 +14881,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "cd6331f7-19fb-4f73-b850-83da435b61ad",
@@ -14700,6 +14929,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "be79e5be-2a3c-46d6-8a26-74ef36c11209",
@@ -14747,6 +14977,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Acidwash",
+    "rawCategory": "NIÑO",
     "variants": [
       {
         "id": "60ebe65a-341f-4f28-b487-534b2bda5c00",
@@ -14794,6 +15025,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Acidwash",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "ef87307b-659f-41c7-aa00-689415bcbe1b",
@@ -14832,6 +15064,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Buzos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "05e72318-d553-46af-9c65-282cd08a3642",
@@ -14878,7 +15111,8 @@
     "price": 140000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Buzos",
+    "category": "Acidwash",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "9dbdb897-7bf5-4cc0-8496-3c680dce8851",
@@ -14925,7 +15159,8 @@
     "price": 60000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "fa9dc98a-4430-4622-b3c4-53ee8283ce54",
@@ -14964,6 +15199,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "8dfe7f62-32b6-4ca8-9dbb-57c56680dac5",
@@ -15011,6 +15247,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "52bd1db2-7886-47f3-90cf-66a999e82ee6",
@@ -15049,6 +15286,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Conjuntos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "8e653eec-adc2-4bd6-8dd1-2123201c8d7a",
@@ -15096,6 +15334,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "UNISEX",
     "variants": [
       {
         "id": "560d479c-d80e-4a19-9896-e7d18ab7f934",
@@ -15116,6 +15355,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Buzos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "a1a2d3e9-c6ff-438d-8d25-8b05db18ac0a",
@@ -15153,7 +15393,8 @@
     "price": 68000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "51e81856-86c8-4146-9cac-833694ddd185",
@@ -15191,7 +15432,8 @@
     "price": 75000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Conjuntos",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "22ba290e-b73b-45a4-846d-fb744e1f7d4b",
@@ -15230,6 +15472,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Acidwash",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "808961a4-614d-400c-bf0e-b6b854fe0dc8",
@@ -15286,6 +15529,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "UNISEX",
     "variants": [
       {
         "id": "122cff37-8398-4c4c-95c0-0405e09e95ae",
@@ -15315,6 +15559,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Conjuntos",
+    "rawCategory": "NIÑO",
     "variants": [
       {
         "id": "464cb2ce-eceb-4e91-9f63-1584a510ee48",
@@ -15353,6 +15598,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "NIÑO",
     "variants": [
       {
         "id": "a92901b3-4c0f-407e-9ae0-831ea46c69bb",
@@ -15391,6 +15637,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Conjuntos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "cf3e71a2-2203-4a0e-880d-38174c17fbc9",
@@ -15429,6 +15676,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "039d1e8d-d188-4263-8820-03d041ff545e",
@@ -15476,6 +15724,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "8bfbe77c-3c46-44c0-a4b8-3a805ce7c9c5",
@@ -15514,6 +15763,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "UNISEX",
     "variants": [
       {
         "id": "a1745d47-117b-4c3a-b043-69564be46b38",
@@ -15552,6 +15802,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "UNISEX",
     "variants": [
       {
         "id": "02c6c290-1185-45c6-8645-77cec8188976",
@@ -15589,7 +15840,8 @@
     "price": 40000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "e9a3b4c8-4532-46e6-b263-c1c1a387fe7b",
@@ -15627,7 +15879,8 @@
     "price": 25000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "e9b6c053-d10c-4496-b035-5c651c264275",
@@ -15665,7 +15918,8 @@
     "price": 30000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "4cc3e5ca-6e2d-4157-8480-93845f8b7c48",
@@ -15703,7 +15957,8 @@
     "price": 38000,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
-    "category": "Oversize",
+    "category": "Linea de Damas",
+    "rawCategory": "DAMA",
     "variants": [
       {
         "id": "7d3a97bc-d04e-4a5e-8040-fd2dd3129174",
@@ -15742,6 +15997,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Conjuntos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "f9777f8d-2882-4878-afb4-0f950b4286b2",
@@ -15780,6 +16036,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Conjuntos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "b556b918-33ca-4b97-af61-7751d25b414d",
@@ -15818,6 +16075,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "34686949-12f9-405a-89b4-f54181dd8bb3",
@@ -15865,6 +16123,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Buzos",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "548f1da8-eacd-48f0-a3e0-763794d5b44d",
@@ -15912,6 +16171,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "394acbf8-3822-4bc9-9180-4327ab1105a9",
@@ -15950,6 +16210,7 @@
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
     "category": "Oversize",
+    "rawCategory": "CABALLERO",
     "variants": [
       {
         "id": "932cc417-becf-463c-8b92-178c50851a6b",
