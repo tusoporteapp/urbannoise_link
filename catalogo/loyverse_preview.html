@@ -2397,13 +2397,26 @@
                 try {
                     const items = orderData.split(',');
                     sharedOrderList = items.map(str => {
-                        const [id, size, qty] = str.split('-');
-                        return {
-                            id: parseInt(id, 10),
-                            size: size || 'M',
-                            qty: parseInt(qty, 10) || 1
-                        };
-                    }).filter(item => !isNaN(item.id));
+                        // Supports colon format: "id:size:color:qty" or legacy dash format
+                        if (str.includes(':')) {
+                            const parts = str.split(':');
+                            const id = parts[0];
+                            const size = parts[1] || 'U';
+                            const color = parts[2] && parts[2] !== 'U' && parts[2] !== 'null' ? parts[2] : null;
+                            const qty = parseInt(parts[3], 10) || 1;
+                            return { id, size, color, qty };
+                        } else {
+                            const lastDashIdx = str.lastIndexOf('-');
+                            const secondLastDashIdx = str.lastIndexOf('-', lastDashIdx - 1);
+                            if (secondLastDashIdx !== -1) {
+                                const id = str.substring(0, secondLastDashIdx);
+                                const size = str.substring(secondLastDashIdx + 1, lastDashIdx);
+                                const qty = parseInt(str.substring(lastDashIdx + 1), 10) || 1;
+                                return { id, size, color: null, qty };
+                            }
+                            return null;
+                        }
+                    }).filter(item => item && item.id);
                     
                     if (sharedOrderList.length > 0) {
                         setTimeout(openSharedOrderModal, 500);
