@@ -511,6 +511,15 @@
                     <span id="modal-product-price" class="text-2xl font-extrabold text-zinc-950"></span>
                     <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">Precio Mayorista</span>
                 </div>
+                
+                <!-- LIVE SOCIAL PROOF ACTIVITY BANNER -->
+                <div id="modal-social-proof-banner" class="mt-2.5 bg-amber-50/90 border border-amber-200/80 rounded-xl px-3 py-2 flex items-center justify-between text-xs text-amber-950 shadow-2xs">
+                    <span class="flex items-center gap-1.5 font-bold">
+                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+                        🔥 <span id="modal-live-viewers-count">14</span> personas viendo esta prenda ahora
+                    </span>
+                    <span class="text-[10px] font-black uppercase text-amber-800 bg-white px-2 py-0.5 rounded-md border border-amber-200">Alta Demanda</span>
+                </div>
             </div>
 
             <!-- WHOLESALE MATRIX SELECTION (Curva de Tallas y Colores) -->
@@ -1240,6 +1249,62 @@
             }, 250);
         }
 
+        // --- LIVE SOCIAL PROOF & STRATEGIC REORDERING ENGINES ---
+        function getLiveViewerCount(id) {
+            let hash = 0;
+            const str = String(id || '');
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0;
+            }
+            const minuteBucket = Math.floor(Date.now() / (1000 * 60 * 3));
+            return Math.abs(hash + minuteBucket) % 19 + 7; // range: 7 - 25 viewers
+        }
+
+        function getStrategicallyOrderedProducts(rawList, isCategoryFiltered = false) {
+            if (!rawList || rawList.length === 0) return [];
+            
+            if (isCategoryFiltered) {
+                // If filtered by category: order low stock first
+                return [...rawList].sort((a, b) => {
+                    const stockA = (a.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                    const stockB = (b.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                    return stockA - stockB;
+                });
+            }
+
+            // In Full Catalog (Todos):
+            // 1. Exclude the top 10 items of the carousel from the initial positions
+            const carouselIds = new Set(rawList.slice(0, 10).map(p => p.id));
+            const pool = rawList.filter(p => !carouselIds.has(p.id));
+            const carouselItems = rawList.filter(p => carouselIds.has(p.id));
+
+            // 2. Separate pool into low stock (<= 5) and regular stock (> 5)
+            const lowStock = [];
+            const regularStock = [];
+
+            pool.forEach(p => {
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                if (totalStock > 0 && totalStock <= 5) {
+                    lowStock.push(p);
+                } else {
+                    regularStock.push(p);
+                }
+            });
+
+            // 3. Interleave: 1 low stock + 2 regular stock + 1 low stock + 2 regular stock
+            const interleaved = [];
+            let lIdx = 0, rIdx = 0;
+            while (lIdx < lowStock.length || rIdx < regularStock.length) {
+                if (lIdx < lowStock.length) interleaved.push(lowStock[lIdx++]);
+                if (rIdx < regularStock.length) interleaved.push(regularStock[rIdx++]);
+                if (rIdx < regularStock.length) interleaved.push(regularStock[rIdx++]);
+            }
+
+            // 4. Append carousel items at the end to keep all 207 garments
+            return interleaved.concat(carouselItems);
+        }
+
         function renderProductsGrid() {
             const grid = document.getElementById('product-grid');
             if (filteredProductsList.length === 0) {
@@ -1247,15 +1312,18 @@
                     <div class="col-span-2 text-center py-12 flex flex-col items-center justify-center gap-2 bg-white rounded-3xl border border-zinc-200 shadow-sm p-6">
                         <i data-lucide="package-search" class="w-10 h-10 text-zinc-400"></i>
                         <span class="text-sm font-bold text-zinc-800 uppercase tracking-wider">No se encontraron prendas</span>
-                        <p class="text-xs text-zinc-500 px-4">No hay prendas que coincidan con la búsqueda "${searchQueryStr}". Escribe otra palabra o selecciona otra categoría arriba.</p>
+                        <p class="text-xs text-zinc-500 px-4">No hay prendas que coincidan con el filtro actual. Selecciona otra categoría.</p>
                     </div>
                 `;
                 lucide.createIcons();
                 return;
             }
+
+            // Apply strategic interleaving reordering
+            const displayProducts = getStrategicallyOrderedProducts(filteredProductsList, selectedCategoryTab !== 'Todos');
             
             let html = '';
-            filteredProductsList.forEach((p, index) => {
+            displayProducts.forEach((p, index) => {
                 const isAcid = p.title.toLowerCase().includes('acid');
                 const isNew = p.title.toLowerCase().includes('esqueleto') || p.title.toLowerCase().includes('cargo') || p.title.toLowerCase().includes('ondas');
                 
@@ -1280,13 +1348,15 @@
                     stockLabelHtml = `<span class="text-[10px] font-bold text-zinc-400">Agotado</span>`;
                 }
                 
-                // Hide pricing placeholders (1 COP)
+                // Live viewers count for social proof
+                const viewers = getLiveViewerCount(p.id);
+
+                // Price format
                 const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
-                
                 const cardIdAttr = index === 0 ? 'id="first-product-card"' : '';
                 
                 html += `
-                    <div onclick="openProductDetail('${p.id}')" ${cardIdAttr} class="glass-panel rounded-2xl p-3 flex flex-col justify-between cursor-pointer group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-black/30 text-left select-none border border-zinc-200 shadow-sm">
+                    <div onclick="openProductDetail('${p.id}')" ${cardIdAttr} class="glass-panel rounded-2xl p-3 flex flex-col justify-between cursor-pointer group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-black/30 text-left select-none border border-zinc-200 shadow-sm bg-white">
                         
                         <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200">
                             ${badgeHtml}
@@ -1296,11 +1366,17 @@
                         
                         <div class="mt-2.5 px-0.5 flex flex-col justify-between flex-grow">
                             <div>
-                                <div class="flex justify-between items-center mb-0.5">
-                                    <span class="text-[10px] font-bold text-zinc-400 uppercase leading-none block">${p.category}</span>
-                                    ${stockLabelHtml}
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-[10px] font-bold text-zinc-400 uppercase leading-none block truncate max-w-[55%]">${p.category}</span>
+                                    <span class="text-[9px] font-bold text-zinc-500 flex items-center gap-1 shrink-0 bg-zinc-100/90 px-1.5 py-0.5 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        ${viewers} viendo
+                                    </span>
                                 </div>
                                 <h4 class="text-xs font-bold text-zinc-900 uppercase leading-tight line-clamp-2 min-h-[32px] group-hover:text-black transition-colors">${p.title}</h4>
+                                <div class="mt-1">
+                                    ${stockLabelHtml}
+                                </div>
                             </div>
                             <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-200">
                                 <span class="text-sm font-extrabold text-zinc-950">${priceFormatted}</span>
@@ -1736,6 +1812,12 @@
             
             const priceFormatted = product.price <= 1000 ? 'Consultar Precio' : formatCOP(product.price);
             document.getElementById('modal-product-price').innerText = priceFormatted;
+            
+            // Set live viewers count in modal
+            const viewersEl = document.getElementById('modal-live-viewers-count');
+            if (viewersEl) {
+                viewersEl.innerText = getLiveViewerCount(product.id);
+            }
 
             // Update sticky collapsed header UI
             const stickyImg = document.getElementById('sticky-header-img');
