@@ -750,9 +750,10 @@
     </div>
 
     <!-- TOAST NOTIFICATION CONTAINER -->
-    <div id="toast-message" class="fixed top-4 left-4 bg-zinc-950 text-white rounded-xl px-4 py-2.5 text-xs font-semibold flex items-center gap-2 shadow-xl -translate-y-24 opacity-0 transition-all duration-300 z-50 whitespace-nowrap border border-zinc-800">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400" id="toast-indicator"></span>
-        <span id="toast-text">Acción realizada</span>
+    <!-- TOAST NOTIFICATION CONTAINER (BOTTOM CENTER) -->
+    <div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-950/95 backdrop-blur-md text-white rounded-full px-5 py-3 text-xs font-bold flex items-center gap-2.5 shadow-2xl translate-y-24 opacity-0 transition-all duration-300 z-50 max-w-[92vw] border border-zinc-800 pointer-events-none select-none">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+        <span id="toast-text" class="truncate">Acción realizada</span>
     </div>
 
     <!-- MAIN INTERACTIVE LOGIC -->
@@ -2542,22 +2543,24 @@
             }
         }
 
-        // Toast display handler
+        // Toast display handler (Bottom Pill)
         let toastTimeout;
         function showNotification(text) {
             const toast = document.getElementById('toast-message');
             const toastText = document.getElementById('toast-text');
+            if (!toast || !toastText) return;
             
+            toastText.textContent = text;
             toastText.innerText = text;
             clearTimeout(toastTimeout);
             
-            toast.classList.remove('-translate-y-24', 'opacity-0');
+            toast.classList.remove('translate-y-24', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
             
             toastTimeout = setTimeout(() => {
                 toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('-translate-y-24', 'opacity-0');
-            }, 3000);
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3200);
         }
 
         // Share Profile using native Web Share API or clipboard fallback
