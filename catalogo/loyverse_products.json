@@ -6,8 +6,10 @@
     "price": 45000,
     "retailPrice": 58000,
     "modifierApplied": "T-Shirt (X Mayor)",
-    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
-    "images": [],
+    "image": "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c",
+    "images": [
+      "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c"
+    ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
     "variants": [
@@ -457,7 +459,7 @@
         "price": 42000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 32
+        "stock": 30
       },
       {
         "id": "e5ef194b-22f5-472c-b940-1cc64bf17ec1",
@@ -467,7 +469,7 @@
         "price": 42000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 30
+        "stock": 29
       },
       {
         "id": "98496452-603d-4920-a76b-06a0f6d04bc0",
@@ -807,7 +809,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "7eaf036c-4d0c-4d73-9f5b-7c4ab2d0520e",
@@ -1187,7 +1189,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "54c358f7-720e-4718-b18c-4e3ea6107166",
@@ -1593,7 +1595,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "fca9cc38-2cd5-4b8c-9ce3-b65f78298d29",
@@ -1603,7 +1605,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 6
+        "stock": 5
       },
       {
         "id": "8af28ca7-9efd-4a1e-9afe-123f3ec51ec4",
@@ -1613,7 +1615,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       }
     ]
   },
@@ -1795,7 +1797,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 6
+        "stock": 5
       },
       {
         "id": "ec572e3c-e2ed-4c95-8573-90186d19ba73",
@@ -2221,7 +2223,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "eb3bff00-c545-494c-8f10-a471f6b16c05",
@@ -2383,7 +2385,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       }
     ]
   },
@@ -2475,7 +2477,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "d27ad0c2-1214-4d89-8340-558e92ae0743",
@@ -2495,7 +2497,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 1
       },
       {
         "id": "679233d7-8dce-4926-9ccd-280d5b5b2456",
@@ -2783,7 +2785,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 8
+        "stock": 7
       },
       {
         "id": "eb3806de-206a-4a2f-a2ae-e1b2339eaee1",
@@ -2793,7 +2795,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 7
+        "stock": 6
       },
       {
         "id": "5be0ee74-98a6-4450-824a-ae9bee35b4ab",
@@ -2803,7 +2805,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 10
+        "stock": 9
       },
       {
         "id": "d3845209-a251-4ab2-862a-3a89dabacd7b",
@@ -2813,7 +2815,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 9
+        "stock": 8
       }
     ]
   },
@@ -2911,7 +2913,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 6
+        "stock": 5
       },
       {
         "id": "70b80acf-28f4-421d-9498-22e43156e71a",
@@ -3289,7 +3291,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "ae4e60ea-4e15-437d-b44d-c783b9362752",
@@ -3309,7 +3311,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "10209f52-f863-4f43-ae1f-97fe5c33c02b",
@@ -3319,7 +3321,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "1bbffb98-5a48-4180-b062-9e56ad0a5d14",
@@ -3339,7 +3341,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "a41eeacd-2689-4a34-97d4-99fe3289cbc8",
@@ -3403,7 +3405,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -1
+        "stock": -2
       },
       {
         "id": "e1c007b1-0c1a-4984-839b-39af30b588e2",
@@ -3449,7 +3451,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 6
+        "stock": 5
       },
       {
         "id": "b82cf66c-11b0-4f05-80f7-cf2ea0626ef9",
@@ -3469,7 +3471,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 10
+        "stock": 9
       },
       {
         "id": "29b6ff87-f4ba-48c7-8937-fdbe51acd352",
@@ -3489,7 +3491,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 10
+        "stock": 9
       },
       {
         "id": "a0cb9042-3e40-44b3-b7ed-7d1f4f9960ce",
@@ -3509,7 +3511,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 7
+        "stock": 6
       }
     ]
   },
@@ -3685,7 +3687,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "390d8b52-975d-4256-88db-82366ddc3dbc",
@@ -4016,8 +4018,10 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash (X Mayor 6 UND)",
-    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
-    "images": [],
+    "image": "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e",
+    "images": [
+      "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e"
+    ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
     "variants": [
@@ -4837,7 +4841,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "b63c4d70-2644-4383-8c49-0dc6783ed5eb",
@@ -4973,7 +4977,7 @@
         "price": 75000,
         "retailPrice": 120000,
         "inStock": false,
-        "stock": -2
+        "stock": -3
       },
       {
         "id": "eb0c037c-271c-4e97-8d18-8bea30baffd2",
@@ -6558,8 +6562,8 @@
         "color": "Negro",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ]
   },
@@ -6622,8 +6626,8 @@
         "color": "Negro",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "8dea8405-66fd-4f53-8288-7b3f4e5d6951",
@@ -8865,7 +8869,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       }
     ]
   },
@@ -10711,8 +10715,8 @@
     "id": "cde13165-6915-41b5-a9a7-9123320e18ed",
     "title": "Cargo",
     "description": "Sin descripción disponible.",
-    "price": 60000,
-    "retailPrice": 60000,
+    "price": 40000,
+    "retailPrice": 40000,
     "modifierApplied": null,
     "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
     "images": [],
@@ -10724,8 +10728,8 @@
         "sku": "10641",
         "size": "6",
         "color": "Negro",
-        "price": 60000,
-        "retailPrice": 60000,
+        "price": 40000,
+        "retailPrice": 40000,
         "inStock": true,
         "stock": 5
       },
@@ -10734,8 +10738,8 @@
         "sku": "10642",
         "size": "6",
         "color": "Camell",
-        "price": 60000,
-        "retailPrice": 60000,
+        "price": 40000,
+        "retailPrice": 40000,
         "inStock": true,
         "stock": 5
       },
@@ -10744,8 +10748,8 @@
         "sku": "10643",
         "size": "10",
         "color": "Negro",
-        "price": 60000,
-        "retailPrice": 60000,
+        "price": 40000,
+        "retailPrice": 40000,
         "inStock": true,
         "stock": 8
       },
@@ -10754,8 +10758,8 @@
         "sku": "10644",
         "size": "10",
         "color": "Camell",
-        "price": 60000,
-        "retailPrice": 60000,
+        "price": 40000,
+        "retailPrice": 40000,
         "inStock": true,
         "stock": 3
       }
@@ -14278,8 +14282,8 @@
         "color": "Verde",
         "price": 47000,
         "retailPrice": 66000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "f84b24e6-7630-43ca-879b-5dc6f1193b99",
