@@ -258,7 +258,7 @@
             <!-- Right: Search Focus, WhatsApp & Order List -->
             <div class="flex items-center gap-1.5">
                 <!-- Search Quick Button -->
-                <button type="button" onclick="focusSearchInput()" class="w-9 h-9 rounded-xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-700 flex items-center justify-center transition-all cursor-pointer" aria-label="Buscar">
+                <button type="button" onclick="openSearchModal()" class="w-9 h-9 rounded-xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-700 flex items-center justify-center transition-all cursor-pointer" aria-label="Buscar">
                     <i data-lucide="search" class="w-4 h-4"></i>
                 </button>
 
@@ -406,36 +406,20 @@
             </div>
         </div>
 
-        <!-- CATALOG SECTION HEADER -->
-        <div id="catalog-section" class="flex flex-col gap-3.5 mt-2 scroll-mt-6">
-            <div class="flex items-center justify-between">
-                <h2 class="font-display text-xl font-bold uppercase tracking-tight text-zinc-950 flex items-center gap-1.5">
-                    Catálogo Mayorista
+        <!-- CATALOG SECTION HEADER (Minimalist & Clean) -->
+        <div id="catalog-section" class="flex items-center justify-between mt-1 pt-2 border-t border-zinc-200/80 scroll-mt-20">
+            <div class="flex items-center gap-2">
+                <h2 class="font-display text-base font-black uppercase tracking-tight text-zinc-950 flex items-center gap-1.5" id="current-catalog-title">
+                    Catálogo Completo
                 </h2>
-                <span class="text-xs font-mono tracking-widest text-zinc-500 uppercase font-bold" id="product-count">Cargando...</span>
+                <span id="active-category-chip" class="hidden text-[10px] font-black uppercase bg-zinc-950 text-white px-2 py-0.5 rounded-full"></span>
             </div>
-
-            <!-- SEARCH BAR -->
-            <div class="relative w-full">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                    <i data-lucide="search" class="w-4 h-4 text-zinc-500"></i>
-                </span>
-                <input type="text" id="catalog-search" oninput="filterProducts()" placeholder="Buscar prenda (ej: Acid Wash, Burda, Buzo...)" 
-                    class="w-full py-3 pl-10 pr-10 text-sm bg-white border border-zinc-300 rounded-xl text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-black transition-colors shadow-sm">
-                <!-- Clean Search Button -->
-                <button onclick="clearSearch()" id="clear-search-btn" class="absolute inset-y-0 right-0 flex items-center pr-3.5 hidden text-zinc-500 hover:text-black">
-                    <i data-lucide="x" class="w-4 h-4"></i>
+            <div class="flex items-center gap-2">
+                <span class="text-[11px] font-mono tracking-wider text-zinc-500 uppercase font-bold" id="product-count">Cargando...</span>
+                <button type="button" onclick="openSearchModal()" class="text-xs font-bold text-zinc-700 hover:text-black flex items-center gap-1 bg-zinc-100 hover:bg-zinc-200 px-2.5 py-1 rounded-xl transition-all cursor-pointer shadow-2xs" title="Buscar y filtrar">
+                    <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                    <span>Buscar</span>
                 </button>
-            </div>
-
-            <!-- CATEGORY PILLS (Horizontal Scroll) -->
-            <div class="w-full overflow-x-auto no-scrollbar flex gap-2 py-0.5" id="category-pills">
-                <button onclick="selectCategory('Todos')" id="tab-Todos" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-black text-white border border-transparent whitespace-nowrap cursor-pointer shadow-sm">Todos</button>
-                <button onclick="selectCategory('Acidwash')" id="tab-Acidwash" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-white text-zinc-700 border border-zinc-300 hover:text-black whitespace-nowrap cursor-pointer shadow-sm">Acidwash</button>
-                <button onclick="selectCategory('Buzos')" id="tab-Buzos" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-white text-zinc-700 border border-zinc-300 hover:text-black whitespace-nowrap cursor-pointer shadow-sm">Buzos</button>
-                <button onclick="selectCategory('Oversize')" id="tab-Oversize" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-white text-zinc-700 border border-zinc-300 hover:text-black whitespace-nowrap cursor-pointer shadow-sm">Oversize</button>
-                <button onclick="selectCategory('Conjuntos')" id="tab-Conjuntos" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-white text-zinc-700 border border-zinc-300 hover:text-black whitespace-nowrap cursor-pointer shadow-sm">Conjuntos</button>
-                <button onclick="selectCategory('Linea de Damas')" id="tab-Linea-de-Damas" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-white text-zinc-700 border border-zinc-300 hover:text-black whitespace-nowrap cursor-pointer shadow-sm">Línea de Damas</button>
             </div>
         </div>
 
@@ -1398,88 +1382,272 @@
             countLabel.innerText = `${filteredProductsList.length} Prendas`;
         }
 
-        // Search inputs handling
-        function filterProducts() {
-            searchQueryStr = document.getElementById('catalog-search').value.toLowerCase().trim();
-            const clearBtn = document.getElementById('clear-search-btn');
-            
-            if (searchQueryStr.length > 0) {
-                clearBtn.classList.remove('hidden');
-            } else {
-                clearBtn.classList.add('hidden');
+        // --- REAL-TIME INTELLIGENT SEARCH MODAL & FILTER ENGINE ---
+        let modalActiveCategory = 'Todos';
+
+        function openSearchModal(initialQuery = '') {
+            const modal = document.getElementById('search-modal');
+            const content = document.getElementById('search-modal-content');
+            const input = document.getElementById('modal-search-input');
+            if (!modal || !content) return;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            setTimeout(() => {
+                content.classList.remove('-translate-y-6', 'sm:scale-95', 'opacity-0');
+                content.classList.add('translate-y-0', 'sm:scale-100', 'opacity-100');
+                if (input) {
+                    if (initialQuery) input.value = initialQuery;
+                    input.focus();
+                }
+                renderSearchModalResults();
+            }, 50);
+        }
+
+        function closeSearchModal() {
+            const modal = document.getElementById('search-modal');
+            const content = document.getElementById('search-modal-content');
+            if (!modal || !content) return;
+
+            content.classList.remove('translate-y-0', 'sm:scale-100', 'opacity-100');
+            content.classList.add('-translate-y-6', 'sm:scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 250);
+        }
+
+        function onSearchModalInput() {
+            const input = document.getElementById('modal-search-input');
+            const clearBtn = document.getElementById('modal-clear-search-btn');
+            if (input && clearBtn) {
+                if (input.value.trim().length > 0) {
+                    clearBtn.classList.remove('hidden');
+                } else {
+                    clearBtn.classList.add('hidden');
+                }
             }
+            renderSearchModalResults();
+        }
+
+        function clearModalSearch() {
+            const input = document.getElementById('modal-search-input');
+            const clearBtn = document.getElementById('modal-clear-search-btn');
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+            if (clearBtn) clearBtn.classList.add('hidden');
+            renderSearchModalResults();
+        }
+
+        function setModalCategoryFilter(catName) {
+            modalActiveCategory = catName;
             
-            applyFilters();
-        }
-
-        function clearSearch() {
-            document.getElementById('catalog-search').value = '';
-            document.getElementById('clear-search-btn').classList.add('hidden');
-            searchQueryStr = '';
-            applyFilters();
-        }
-
-        // Select dynamic categories tabs
-        function selectCategory(categoryTab) {
-            // Reset all tab button styles to inactive
-            document.querySelectorAll('#category-pills button').forEach(btn => {
-                btn.classList.remove('bg-black', 'text-white', 'border-transparent');
-                btn.classList.add('bg-white', 'text-zinc-700', 'border-zinc-300');
+            // Update Chip UI inside modal
+            document.querySelectorAll('.modal-cat-chip').forEach(btn => {
+                btn.className = "modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs";
             });
-            
-            selectedCategoryTab = categoryTab;
-            
-            // Set active style to new tab
-            const activeTabBtn = document.getElementById(`tab-${categoryTab.replace(/\s+/g, '-')}`);
-            if (activeTabBtn) {
-                activeTabBtn.classList.remove('bg-white', 'text-zinc-700', 'border-zinc-300');
-                activeTabBtn.classList.add('bg-black', 'text-white', 'border-transparent');
+            const safeCatId = catName.replace(/\s+/g, '-');
+            const activeBtn = document.getElementById(`modal-tab-${safeCatId}`);
+            if (activeBtn) {
+                if (catName === 'Ultimas-Unidades') {
+                    activeBtn.className = "modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-rose-600 text-white border border-transparent whitespace-nowrap cursor-pointer shadow-2xs";
+                } else {
+                    activeBtn.className = "modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-black text-white border border-transparent whitespace-nowrap cursor-pointer shadow-2xs";
+                }
             }
-            
-            applyFilters();
+
+            // Sync main feed category
+            selectCategory(catName);
+            renderSearchModalResults();
         }
 
-        // Filter engine
-        function applyFilters() {
-            filteredProductsList = products.filter(p => {
-                let matchesCategory = false;
+        function renderSearchModalResults() {
+            const container = document.getElementById('search-modal-results-container');
+            const statusText = document.getElementById('search-modal-status-text');
+            const input = document.getElementById('modal-search-input');
+            if (!container) return;
+
+            const query = input ? input.value.toLowerCase().trim() : '';
+
+            // Filter products in memory
+            let matches = products.filter(p => {
+                // 1. Category check
+                let catMatch = true;
                 const cat = (p.category || '').toLowerCase();
                 const rawCat = (p.rawCategory || '').toLowerCase();
                 const title = (p.title || '').toLowerCase();
 
-                if (selectedCategoryTab === 'Todos') {
-                    matchesCategory = true;
-                } else if (selectedCategoryTab === 'Acidwash') {
-                    matchesCategory = cat.includes('acid') || rawCat.includes('acid') || rawCat.includes('wash') || title.includes('acid') || title.includes('wash');
-                } else if (selectedCategoryTab === 'Buzos') {
-                    matchesCategory = cat.includes('buzo') || rawCat.includes('buzo') || rawCat.includes('hoodie') || title.includes('buzo') || title.includes('hoodie');
-                } else if (selectedCategoryTab === 'Conjuntos') {
-                    matchesCategory = cat.includes('conjunto') || rawCat.includes('conjunto') || rawCat.includes('bermuda') || rawCat.includes('pantalon') || title.includes('conjunto');
-                } else if (selectedCategoryTab === 'Linea de Damas') {
-                    matchesCategory = cat.includes('dama') || rawCat.includes('dama') || rawCat.includes('body') || rawCat.includes('dm') || title.includes('dama') || title.includes('dam');
-                } else if (selectedCategoryTab === 'Oversize') {
-                    matchesCategory = cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
-                } else if (selectedCategoryTab === 'Ultimas-Unidades') {
+                if (modalActiveCategory === 'Todos') {
+                    catMatch = true;
+                } else if (modalActiveCategory === 'Acidwash') {
+                    catMatch = cat.includes('acid') || rawCat.includes('acid') || rawCat.includes('wash') || title.includes('acid') || title.includes('wash');
+                } else if (modalActiveCategory === 'Buzos') {
+                    catMatch = cat.includes('buzo') || rawCat.includes('buzo') || rawCat.includes('hoodie') || title.includes('buzo') || title.includes('hoodie');
+                } else if (modalActiveCategory === 'Conjuntos') {
+                    catMatch = cat.includes('conjunto') || rawCat.includes('conjunto') || rawCat.includes('bermuda') || rawCat.includes('pantalon') || title.includes('conjunto');
+                } else if (modalActiveCategory === 'Linea de Damas') {
+                    catMatch = cat.includes('dama') || rawCat.includes('dama') || rawCat.includes('body') || rawCat.includes('dm') || title.includes('dama') || title.includes('dam');
+                } else if (modalActiveCategory === 'Oversize') {
+                    catMatch = cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
+                } else if (modalActiveCategory === 'Ultimas-Unidades') {
                     const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-                    matchesCategory = (totalStock > 0 && totalStock <= 5);
+                    catMatch = (totalStock > 0 && totalStock <= 5);
                 } else {
-                    matchesCategory = (p.category === selectedCategoryTab);
+                    catMatch = (p.category === modalActiveCategory);
                 }
 
-                const searchLower = searchQueryStr.toLowerCase();
-                const matchesSearch = !searchQueryStr || 
-                                       title.includes(searchLower) || 
-                                       (p.description && p.description.toLowerCase().includes(searchLower)) || 
-                                       cat.includes(searchLower) ||
-                                       rawCat.includes(searchLower);
-                return matchesCategory && matchesSearch;
+                if (!catMatch) return false;
+                if (!query) return true;
+
+                // 2. Text Query check across title, category, sizes and colors
+                const titleMatch = title.includes(query);
+                const categoryMatch = cat.includes(query) || rawCat.includes(query);
+                const variantsMatch = (p.variants || []).some(v => 
+                    (v.size || '').toLowerCase().includes(query) || 
+                    (v.color || '').toLowerCase().includes(query)
+                );
+
+                return titleMatch || categoryMatch || variantsMatch;
             });
+
+            if (statusText) {
+                if (query) {
+                    statusText.innerText = `${matches.length} ${matches.length === 1 ? 'resultado' : 'resultados'} para "${query}"`;
+                } else if (modalActiveCategory !== 'Todos') {
+                    statusText.innerText = `${matches.length} prendas en ${modalActiveCategory}`;
+                } else {
+                    statusText.innerText = `Explorando ${products.length} prendas mayoristas`;
+                }
+            }
+
+            if (matches.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-zinc-100 flex items-center justify-center text-zinc-400">
+                            <i data-lucide="search-x" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-sm font-bold text-zinc-800 uppercase">Sin resultados para "${query}"</h4>
+                        <p class="text-xs text-zinc-500 max-w-xs">Intenta buscar por otro término como Acid Wash, Buzos, Oversize, S, M, L o Negro.</p>
+                        <button onclick="clearModalSearch(); setModalCategoryFilter('Todos');" class="mt-2 text-xs font-black uppercase text-zinc-900 bg-zinc-200 hover:bg-zinc-300 px-4 py-2 rounded-xl transition-all cursor-pointer">
+                            Ver todo el catálogo
+                        </button>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            let html = '';
+            matches.slice(0, 50).forEach(p => {
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
+                const availableSizes = Array.from(new Set((p.variants || []).filter(v => v.stock > 0).map(v => v.size))).join(', ');
+                const isLow = totalStock > 0 && totalStock <= 5;
+
+                html += `
+                    <div onclick="selectProductFromSearch('${p.id}')" class="bg-white border border-zinc-200 hover:border-zinc-900 rounded-2xl p-2.5 flex items-center gap-3 cursor-pointer group transition-all shadow-2xs hover:shadow-sm active:scale-98">
+                        <div class="w-16 h-16 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 aspect-square">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        </div>
+
+                        <div class="flex-grow min-w-0 flex flex-col justify-center">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] font-extrabold uppercase text-zinc-400 tracking-wider truncate">${p.category}</span>
+                                ${isLow ? `<span class="text-[9px] font-black text-rose-600 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded uppercase">Quedan ${totalStock}</span>` : ''}
+                            </div>
+                            <h4 class="text-xs font-black text-zinc-950 uppercase truncate group-hover:text-black leading-tight mt-0.5">${p.title}</h4>
+                            <div class="flex items-center justify-between mt-1">
+                                <span class="text-[11px] font-bold text-zinc-500 truncate">Tallas: ${availableSizes || 'Varias'}</span>
+                                <span class="text-xs font-black text-zinc-950 shrink-0">${priceFormatted}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function selectProductFromSearch(productId) {
+            closeSearchModal();
+            setTimeout(() => {
+                openProductDetail(productId);
+            }, 100);
+        }
+
+        function selectCategory(categoryName) {
+            selectedCategoryTab = categoryName;
             
+            if (categoryName === 'Ultimas-Unidades') {
+                filteredProductsList = products.filter(p => {
+                    const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                    return totalStock > 0 && totalStock <= 5;
+                });
+            } else if (categoryName === 'Todos') {
+                filteredProductsList = [...products];
+            } else if (categoryName === 'Acidwash') {
+                filteredProductsList = products.filter(p => {
+                    const cat = (p.category || '').toLowerCase();
+                    const rawCat = (p.rawCategory || '').toLowerCase();
+                    const title = (p.title || '').toLowerCase();
+                    return cat.includes('acid') || rawCat.includes('acid') || rawCat.includes('wash') || title.includes('acid') || title.includes('wash');
+                });
+            } else if (categoryName === 'Buzos') {
+                filteredProductsList = products.filter(p => {
+                    const cat = (p.category || '').toLowerCase();
+                    const rawCat = (p.rawCategory || '').toLowerCase();
+                    const title = (p.title || '').toLowerCase();
+                    return cat.includes('buzo') || rawCat.includes('buzo') || rawCat.includes('hoodie') || title.includes('buzo') || title.includes('hoodie');
+                });
+            } else if (categoryName === 'Conjuntos') {
+                filteredProductsList = products.filter(p => {
+                    const cat = (p.category || '').toLowerCase();
+                    const rawCat = (p.rawCategory || '').toLowerCase();
+                    const title = (p.title || '').toLowerCase();
+                    return cat.includes('conjunto') || rawCat.includes('conjunto') || rawCat.includes('bermuda') || rawCat.includes('pantalon') || title.includes('conjunto');
+                });
+            } else if (categoryName === 'Linea de Damas') {
+                filteredProductsList = products.filter(p => {
+                    const cat = (p.category || '').toLowerCase();
+                    const rawCat = (p.rawCategory || '').toLowerCase();
+                    const title = (p.title || '').toLowerCase();
+                    return cat.includes('dama') || rawCat.includes('dama') || rawCat.includes('body') || rawCat.includes('dm') || title.includes('dama') || title.includes('dam');
+                });
+            } else if (categoryName === 'Oversize') {
+                filteredProductsList = products.filter(p => {
+                    const cat = (p.category || '').toLowerCase();
+                    const rawCat = (p.rawCategory || '').toLowerCase();
+                    return cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
+                });
+            } else {
+                filteredProductsList = products.filter(p => p.category === categoryName);
+            }
+
+            // Update main feed header title and badge
+            const titleEl = document.getElementById('current-catalog-title');
+            const chipEl = document.getElementById('active-category-chip');
+            if (titleEl) {
+                titleEl.innerText = categoryName === 'Todos' ? 'Catálogo Completo' : categoryName;
+            }
+            if (chipEl) {
+                if (categoryName !== 'Todos') {
+                    chipEl.innerText = categoryName;
+                    chipEl.classList.remove('hidden');
+                } else {
+                    chipEl.classList.add('hidden');
+                }
+            }
+
             renderProductsGrid();
             updateProductCountLabel();
             updateLastUnitsBadges();
-            check24HourLastUnitsAutoPush();
         }
+
+        function filterProducts() {}
+        function clearSearch() {}
 
         // Parse feed detailed description text
         function parseDescription(descText) {
@@ -2831,6 +2999,53 @@
                 </button>
             </div>
             
+        </div>
+    </div>
+
+    <!-- REAL-TIME INTELLIGENT SEARCH MODAL -->
+    <div id="search-modal" class="fixed inset-0 z-50 flex flex-col bg-zinc-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 select-none">
+        <div class="absolute inset-0 cursor-default" onclick="closeSearchModal()"></div>
+        
+        <div id="search-modal-content" class="relative w-full max-w-lg mx-auto h-full sm:h-[90vh] sm:my-auto bg-white sm:rounded-[32px] overflow-hidden shadow-2xl flex flex-col transform -translate-y-6 sm:scale-95 opacity-0 transition-all duration-300">
+            
+            <!-- Top Search Input Header -->
+            <div class="p-4 sm:p-5 border-b border-zinc-200 bg-white flex items-center gap-3">
+                <div class="relative flex-grow flex items-center">
+                    <i data-lucide="search" class="w-5 h-5 text-zinc-400 absolute left-3.5 pointer-events-none"></i>
+                    <input type="text" id="modal-search-input" oninput="onSearchModalInput()" placeholder="Buscar por prenda, talla, color, categoría..." 
+                        class="w-full py-3 pl-11 pr-10 text-sm bg-zinc-100 border border-zinc-200 rounded-2xl text-zinc-950 placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-zinc-900 transition-all font-medium" autocomplete="off" />
+                    
+                    <button type="button" onclick="clearModalSearch()" id="modal-clear-search-btn" class="absolute right-3 text-zinc-400 hover:text-black hidden cursor-pointer p-1" aria-label="Borrar búsqueda">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <button type="button" onclick="closeSearchModal()" class="px-3.5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-black text-xs font-bold transition-all cursor-pointer shrink-0" aria-label="Cerrar">
+                    Cerrar
+                </button>
+            </div>
+
+            <!-- Quick Category Chips in Search Modal -->
+            <div class="px-4 py-3 bg-zinc-50 border-b border-zinc-100 overflow-x-auto no-scrollbar flex items-center gap-1.5 shrink-0">
+                <button onclick="setModalCategoryFilter('Todos')" id="modal-tab-Todos" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-black text-white border border-transparent whitespace-nowrap cursor-pointer shadow-2xs">Todos</button>
+                <button onclick="setModalCategoryFilter('Acidwash')" id="modal-tab-Acidwash" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Acid Wash</button>
+                <button onclick="setModalCategoryFilter('Buzos')" id="modal-tab-Buzos" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Buzos</button>
+                <button onclick="setModalCategoryFilter('Oversize')" id="modal-tab-Oversize" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Oversize</button>
+                <button onclick="setModalCategoryFilter('Conjuntos')" id="modal-tab-Conjuntos" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Conjuntos</button>
+                <button onclick="setModalCategoryFilter('Linea de Damas')" id="modal-tab-Linea-de-Damas" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Damas</button>
+                <button onclick="setModalCategoryFilter('Ultimas-Unidades')" id="modal-tab-Ultimas-Unidades" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-rose-600 border border-rose-200 hover:bg-rose-50 whitespace-nowrap cursor-pointer shadow-2xs">🔥 Stock &lt; 5</button>
+            </div>
+
+            <!-- Search Results Body (Real-Time Dynamic List) -->
+            <div class="flex-grow overflow-y-auto p-4 flex flex-col gap-2.5 bg-zinc-50/50 text-left" id="search-modal-results-container">
+                <!-- Injected via JavaScript -->
+            </div>
+
+            <!-- Search Footer / Summary Status -->
+            <div class="p-3.5 bg-white border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500 shrink-0">
+                <span id="search-modal-status-text" class="font-bold text-zinc-700">Explorando 207 prendas</span>
+                <span class="text-[10px] text-zinc-400">Toca una prenda para elegir tallas</span>
+            </div>
         </div>
     </div>
 
