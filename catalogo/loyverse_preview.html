@@ -384,6 +384,12 @@
 
             <!-- CATEGORY PILLS (Horizontal Scroll) -->
             <div class="w-full overflow-x-auto no-scrollbar flex gap-2 py-0.5" id="category-pills">
+                <!-- SPECIAL LAST UNITS URGENCY PILL -->
+                <button onclick="selectCategory('Ultimas-Unidades')" id="tab-Ultimas-Unidades" class="px-4 py-2 rounded-full text-sm font-black uppercase tracking-wider transition-all bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white border border-rose-400 hover:brightness-110 whitespace-nowrap cursor-pointer shadow-md flex items-center gap-1.5 animate-pulse">
+                    <i data-lucide="flame" class="w-4 h-4 text-amber-300"></i>
+                    <span>🔥 Últimas Unidades</span>
+                    <span class="bg-black/40 text-white text-[10px] font-black px-2 py-0.5 rounded-full" id="last-units-pill-count">0</span>
+                </button>
                 <button onclick="selectCategory('Todos')" id="tab-Todos" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-black text-white border border-transparent whitespace-nowrap cursor-pointer shadow-sm">Todos</button>
                 <button onclick="selectCategory('Acidwash')" id="tab-Acidwash" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-white text-zinc-700 border border-zinc-300 hover:text-black whitespace-nowrap cursor-pointer shadow-sm">Acidwash</button>
                 <button onclick="selectCategory('Buzos')" id="tab-Buzos" class="px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all bg-white text-zinc-700 border border-zinc-300 hover:text-black whitespace-nowrap cursor-pointer shadow-sm">Buzos</button>
@@ -1040,6 +1046,8 @@
                 // Render products
                 renderProductsGrid();
                 updateProductCountLabel();
+                updateLastUnitsBadges();
+                check24HourLastUnitsAutoPush();
                 
                 // Check if there is a shared order in the URL parameters
                 checkSharedOrder();
@@ -1224,6 +1232,9 @@
                     matchesCategory = cat.includes('dama') || rawCat.includes('dama') || rawCat.includes('body') || rawCat.includes('dm') || title.includes('dama') || title.includes('dam');
                 } else if (selectedCategoryTab === 'Oversize') {
                     matchesCategory = cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
+                } else if (selectedCategoryTab === 'Ultimas-Unidades') {
+                    const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                    matchesCategory = (totalStock > 0 && totalStock <= 5);
                 } else {
                     matchesCategory = (p.category === selectedCategoryTab);
                 }
@@ -1239,6 +1250,8 @@
             
             renderProductsGrid();
             updateProductCountLabel();
+            updateLastUnitsBadges();
+            check24HourLastUnitsAutoPush();
         }
 
         // Parse feed detailed description text
@@ -2356,6 +2369,123 @@
             document.body.insertAdjacentHTML('beforeend', modalHtml);
         }
 
+        // --- 24-HOUR LAST UNITS AUTO-PUSH SYSTEM ---
+        function updateLastUnitsBadges() {
+            const lastUnitsCount = products.filter(p => {
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                return totalStock > 0 && totalStock <= 5;
+            }).length;
+
+            const pillCount = document.getElementById('last-units-pill-count');
+            const floatCount = document.getElementById('floating-last-units-count');
+            if (pillCount) { pillCount.textContent = lastUnitsCount; pillCount.innerText = lastUnitsCount; }
+            if (floatCount) { floatCount.textContent = lastUnitsCount; floatCount.innerText = lastUnitsCount; }
+        }
+
+        function openLastUnitsModal() {
+            const modal = document.getElementById('last-units-modal');
+            const content = document.getElementById('last-units-modal-content');
+            if (!modal || !content) return;
+
+            renderLastUnitsShowcase();
+
+            modal.classList.remove('pointer-events-none');
+            modal.style.opacity = '1';
+            content.style.opacity = '1';
+            content.style.transform = 'scale(1)';
+            lucide.createIcons();
+        }
+
+        function closeLastUnitsModal() {
+            const modal = document.getElementById('last-units-modal');
+            const content = document.getElementById('last-units-modal-content');
+            if (!modal || !content) return;
+
+            modal.style.opacity = '0';
+            content.style.opacity = '0';
+            content.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                modal.classList.add('pointer-events-none');
+            }, 300);
+        }
+
+        function renderLastUnitsShowcase() {
+            const container = document.getElementById('last-units-showcase-container');
+            if (!container) return;
+
+            const lastUnitsItems = products.filter(p => {
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                return totalStock > 0 && totalStock <= 5;
+            });
+
+            if (lastUnitsItems.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-zinc-400 text-xs">
+                        No hay prendas con stock crítico en este momento.
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            // Display top 10 items in modal with direct click-to-view
+            lastUnitsItems.slice(0, 12).forEach(p => {
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
+
+                html += `
+                    <div onclick="closeLastUnitsModal(); openProductDetail('${p.id}')" class="flex gap-3 items-center bg-zinc-900 border border-zinc-800 hover:border-rose-500/60 p-2.5 rounded-2xl cursor-pointer group transition-all duration-300 hover:bg-zinc-850">
+                        <div class="relative w-16 h-16 rounded-xl overflow-hidden bg-zinc-800 border border-zinc-700 shrink-0 aspect-square">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                            <span class="absolute top-1 right-1 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase">
+                                ${totalStock} unds
+                            </span>
+                        </div>
+                        <div class="flex-grow text-left">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] font-bold uppercase text-zinc-400">${p.category}</span>
+                                <span class="text-[10px] font-black text-rose-400 flex items-center gap-0.5">
+                                    <i data-lucide="flame" class="w-3 h-3 text-rose-500"></i> ¡Solo ${totalStock}!
+                                </span>
+                            </div>
+                            <h4 class="text-xs font-bold text-white uppercase line-clamp-1 group-hover:text-rose-400 transition-colors">${p.title}</h4>
+                            <div class="flex items-center justify-between mt-1">
+                                <span class="text-xs font-extrabold text-amber-300">${priceFormatted}</span>
+                                <span class="text-[10px] font-bold text-rose-300 bg-rose-950/60 border border-rose-800/60 px-2 py-0.5 rounded-lg flex items-center gap-1 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                                    <span>Ver Tallas</span>
+                                    <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function filterByLastUnitsAndClose() {
+            closeLastUnitsModal();
+            selectCategory('Ultimas-Unidades');
+            const catalogSec = document.getElementById('catalog-section');
+            if (catalogSec && typeof catalogSec.scrollIntoView === 'function') catalogSec.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function check24HourLastUnitsAutoPush() {
+            const KEY = 'un_last_units_push_seen_v1';
+            const lastSeen = localStorage.getItem(KEY);
+            const now = Date.now();
+            const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+
+            if (!lastSeen || (now - parseInt(lastSeen, 10)) > TWENTY_FOUR_HOURS) {
+                setTimeout(() => {
+                    openLastUnitsModal();
+                    localStorage.setItem(KEY, now.toString());
+                }, 1800); // Smooth auto-pop after 1.8 seconds
+            }
+        }
+
         // Toast display handler
         let toastTimeout;
         function showNotification(text) {
@@ -2421,6 +2551,71 @@
             }, 800);
         }
     </script>
+
+    <!-- FLOATING LAST UNITS TRIGGER -->
+    <div id="floating-last-units-btn" class="fixed bottom-20 right-3.5 z-40 cursor-pointer group select-none transition-all duration-300 transform hover:scale-105 active:scale-95" onclick="openLastUnitsModal()">
+        <div class="bg-zinc-950/95 text-white border-2 border-rose-500 rounded-full px-3.5 py-2 shadow-2xl flex items-center gap-2 backdrop-blur-md">
+            <div class="w-7 h-7 rounded-full bg-rose-600 flex items-center justify-center text-white shrink-0 animate-bounce">
+                <i data-lucide="flame" class="w-4 h-4 text-amber-300"></i>
+            </div>
+            <div class="flex flex-col text-left pr-1">
+                <span class="text-[9px] font-black uppercase tracking-widest text-rose-400 leading-none">¡Liquidación!</span>
+                <span class="text-xs font-black uppercase text-white leading-tight">Últimas Piezas</span>
+            </div>
+            <span class="bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full" id="floating-last-units-count">0</span>
+        </div>
+    </div>
+
+    <!-- 24-HOUR LAST UNITS AUTO-PUSH MODAL -->
+    <div id="last-units-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500 select-none">
+        <div class="absolute inset-0 cursor-default" onclick="closeLastUnitsModal()"></div>
+        
+        <div id="last-units-modal-content" class="relative w-full max-w-lg bg-zinc-950 text-white border border-zinc-800 rounded-[32px] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] transform scale-95 opacity-0 transition-all duration-300">
+            
+            <!-- Modal Header Banner -->
+            <div class="relative bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 p-5 text-left overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 opacity-20 transform rotate-12 pointer-events-none">
+                    <i data-lucide="flame" class="w-36 h-36 text-white"></i>
+                </div>
+                
+                <div class="flex justify-between items-start relative z-10">
+                    <span class="bg-black/40 text-amber-300 border border-amber-300/40 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="alert-triangle" class="w-3 h-3 text-amber-300"></i>
+                        Oportunidad Mayorista
+                    </span>
+                    <button onclick="closeLastUnitsModal()" class="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-all">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                
+                <div class="mt-2.5 relative z-10">
+                    <h3 class="font-display text-xl sm:text-2xl font-black uppercase tracking-tight text-white leading-tight">
+                        🔥 ¡Últimas Piezas en Bodega!
+                    </h3>
+                    <p class="text-xs text-rose-100 font-medium mt-1 leading-snug">
+                        Prendas exclusivas con <b class="text-amber-300 underline font-black">menos de 5 unidades en existencia</b> en la tienda Noise Urban. ¡Asegura tu pedido antes de que se agoten!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Scrollable Items Carousel / Showcase -->
+            <div class="p-4 overflow-y-auto flex-grow flex flex-col gap-3 bg-zinc-900/60" id="last-units-showcase-container">
+                <!-- Dynamic Items Rendered Here -->
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="p-4 bg-zinc-950 border-t border-zinc-800/80 flex flex-col gap-2">
+                <button onclick="filterByLastUnitsAndClose()" class="w-full py-3.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 hover:brightness-110 text-white shadow-lg flex items-center justify-center gap-2 cursor-pointer transition-all">
+                    <i data-lucide="grid" class="w-4 h-4 text-amber-300"></i>
+                    <span>⚡ Explorar Todas en el Catálogo</span>
+                </button>
+                <button onclick="closeLastUnitsModal()" class="w-full py-2.5 rounded-xl font-bold text-xs uppercase text-zinc-400 hover:text-white hover:bg-zinc-900 transition-all">
+                    ✕ Continuar viendo catálogo completo
+                </button>
+            </div>
+            
+        </div>
+    </div>
 
     <!-- ADMIN PIN MODAL -->
     <div id="admin-pin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0 select-none">
