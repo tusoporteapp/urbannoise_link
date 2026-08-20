@@ -806,6 +806,13 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
+        
+        // Format Currency in Colombian Pesos (COP)
+        function formatCOP(amount) {
+            if (isNaN(amount) || amount === null || amount === undefined) return '$ 0';
+            return '$ ' + Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
         // Global State
         let products = [];
         let filteredProductsList = [];
@@ -1049,59 +1056,71 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                const response = await fetch("loyverse_products.json?t=" + Date.now());
-                if (!response.ok) throw new Error("No se pudo cargar el archivo local de productos de Loyverse.");
-                const data = await response.json();
-                
-                // Only show products that have at least one variant in stock
+                // 1. Fetch real-time live Loyverse data from Cloudflare Function
+                let data = null;
+                try {
+                    const apiRes = await fetch("/api/catalog?t=" + Date.now());
+                    if (apiRes.ok) {
+                        data = await apiRes.json();
+                        if (Array.isArray(data) && data.length > 0) {
+                            console.log("⚡ Loaded fresh real-time catalog from /api/catalog (" + data.length + " items)");
+                        }
+                    }
+                } catch(e) {
+                    console.warn("Live /api/catalog unreachable, using local fallback:", e);
+                }
+
+                // 2. Fallback to loyverse_products.json if needed
+                if (!data || !Array.isArray(data) || data.length === 0) {
+                    let localRes = await fetch("loyverse_products.json?t=" + Date.now());
+                    if (!localRes.ok) {
+                        localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
+                    }
+                    if (localRes.ok) {
+                        data = await localRes.json();
+                    } else {
+                        throw new Error("No se pudo cargar el catálogo de productos.");
+                    }
+                }
+
+                // Filter products that have at least one variant in stock
                 products = data.filter(product => {
                     if (!product.variants || product.variants.length === 0) return true;
-                    return product.variants.some(v => v.inStock && v.stock > 0);
+                    return product.variants.some(v => v.stock > 0);
                 });
+
                 filteredProductsList = [...products];
-                
-                // Render products & carousel
-                renderProductsGrid();
+
+                // Render top 10 carousel
                 renderLatestArrivalsCarousel();
-                updateProductCountLabel();
-                updateLastUnitsBadges();
-                check24HourWholesaleGuideAutoPush();
-                check24HourLastUnitsAutoPush();
-                
-                // Check if there is a shared order in the URL parameters
+
+                // Render strategic full catalog
+                renderProductsGrid();
+
+                // Update product count label
+                const countEl = document.getElementById('product-count');
+                if (countEl) countEl.innerText = `${products.length} PRENDAS`;
+
+                // Check for shared order in URL
                 checkSharedOrder();
-            } catch (err) {
-                console.error("Error al cargar productos de Loyverse:", err);
+
+                // Check for 24h wholesale guide modal
+                check24HourWholesaleGuideAutoPush();
+
+            } catch (error) {
+                console.error("Error al cargar productos:", error);
+                document.getElementById('product-grid').innerHTML = `
+                    <div class="col-span-2 text-center py-12 flex flex-col items-center justify-center gap-2 bg-white rounded-3xl border border-zinc-200 shadow-sm p-6">
+                        <i data-lucide="alert-circle" class="w-10 h-10 text-rose-500"></i>
+                        <span class="text-sm font-bold text-zinc-900 uppercase">Error al conectar con el catálogo</span>
+                        <p class="text-xs text-zinc-500 px-4">${error.message}</p>
+                        <button onclick="fetchCatalog()" class="mt-2 px-4 py-2 bg-black text-white text-xs font-bold rounded-xl cursor-pointer">Reintentar</button>
+                    </div>
+                `;
+                lucide.createIcons();
             }
         }
 
-        // Logic to classify products
-        function getSimpleCategory(title, productType) {
-            const t = title.toLowerCase();
-            const pt = (productType || '').toLowerCase();
-            
-            if (pt.includes('damas') || t.includes('dama')) return 'Linea de Damas';
-            if (t.includes('buzo')) return 'Buzos';
-            if (t.includes('acid wash') || pt.includes('acidwash') || pt.includes('acid wash') || t.includes('wash')) return 'Acidwash';
-            if (t.includes('conjunto')) return 'Conjuntos';
-            if (t.includes('esqueleto')) return 'Oversize'; // Classify skeletors as Oversize for clean layout
-            if (t.includes('over.') || t.includes('camiseta') || t.includes('t-shirt') || t.includes('boxyfit') || t.includes('shirt')) return 'Oversize';
-            
-            return 'Oversize'; // Default fallback
-        }
-
-        // Formatting price as COP currency
-        function formatCOP(value) {
-            return new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }).format(value);
-        }
-
-        // Render products into the grid UI
-        // --- CAROUSEL: TOP 10 LATEST ARRIVALS ---
         function renderLatestArrivalsCarousel() {
             const container = document.getElementById('latest-arrivals-carousel');
             if (!container) return;

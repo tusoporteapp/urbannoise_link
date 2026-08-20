@@ -806,6 +806,13 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
+        
+        // Format Currency in Colombian Pesos (COP)
+        function formatCOP(amount) {
+            if (isNaN(amount) || amount === null || amount === undefined) return '$ 0';
+            return '$ ' + Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
         // Global State
         let products = [];
         let filteredProductsList = [];
@@ -1049,121 +1056,71 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                // Fetch page 1 first to get last_page
-                const response1 = await fetch(`https://api.reflowhq.com/v2/projects/847373085/products?page=1`);
-                if (!response1.ok) throw new Error("No se pudo cargar la primera página de productos.");
-                const data1 = await response1.json();
-                
-                let allProducts = [...data1.data];
-                const lastPage = data1.meta.last_page;
-                
-                // Fetch remaining pages in parallel
-                if (lastPage > 1) {
-                    const promises = [];
-                    for (let p = 2; p <= lastPage; p++) {
-                        promises.push(
-                            fetch(`https://api.reflowhq.com/v2/projects/847373085/products?page=${p}`)
-                                .then(res => {
-                                    if (!res.ok) throw new Error("Error al cargar la página " + p);
-                                    return res.json();
-                                })
-                                .then(data => data.data)
-                        );
+                // 1. Fetch real-time live Loyverse data from Cloudflare Function
+                let data = null;
+                try {
+                    const apiRes = await fetch("/api/catalog?t=" + Date.now());
+                    if (apiRes.ok) {
+                        data = await apiRes.json();
+                        if (Array.isArray(data) && data.length > 0) {
+                            console.log("⚡ Loaded fresh real-time catalog from /api/catalog (" + data.length + " items)");
+                        }
                     }
-                    const pagesData = await Promise.all(promises);
-                    pagesData.forEach(pageProducts => {
-                        allProducts = allProducts.concat(pageProducts);
-                    });
+                } catch(e) {
+                    console.warn("Live /api/catalog unreachable, using local fallback:", e);
                 }
-                
-                // Process and format products to match our internal schema
-                products = allProducts.map(p => {
-                    // Normalize price (divide by 100 as Reflow prices are returned in cents)
-                    const priceNum = p.price / 100;
-                    
-                    // Extract category from categories array
-                    let productType = '';
-                    if (p.categories && p.categories.length > 0) {
-                        productType = p.categories.map(c => c.name).join(' > ');
+
+                // 2. Fallback to loyverse_products.json if needed
+                if (!data || !Array.isArray(data) || data.length === 0) {
+                    let localRes = await fetch("loyverse_products.json?t=" + Date.now());
+                    if (!localRes.ok) {
+                        localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
                     }
-                    
-                    const simpleCategory = getSimpleCategory(p.name, productType);
-                    
-                    // Extract all images
-                    let imagesList = [];
-                    if (p.media && p.media.length > 0) {
-                        imagesList = p.media
-                            .filter(m => m.type === 'image')
-                            .map(m => m.src.lg || m.src.md || m.src.sm);
+                    if (localRes.ok) {
+                        data = await localRes.json();
+                    } else {
+                        throw new Error("No se pudo cargar el catálogo de productos.");
                     }
-                    if (imagesList.length === 0 && p.image) {
-                        imagesList = [p.image.lg || p.image.md || p.image.sm];
-                    }
-                    
-                    return {
-                        id: String(p.id),
-                        title: p.name,
-                        description: p.description || p.excerpt || '',
-                        link: `https://urbannoise.cc/product?product=${p.id}`,
-                        image: imagesList[0] || '', // Primary image
-                        images: imagesList,         // All images array
-                        price: priceNum,
-                        category: simpleCategory
-                    };
+                }
+
+                // Filter products that have at least one variant in stock
+                products = data.filter(product => {
+                    if (!product.variants || product.variants.length === 0) return true;
+                    return product.variants.some(v => v.stock > 0);
                 });
-                
-                // ReflowHQ's default JSON ordering is already newest to oldest!
-                
+
                 filteredProductsList = [...products];
-                
-                // Render products
+
+                // Render top 10 carousel
+                renderLatestArrivalsCarousel();
+
+                // Render strategic full catalog
                 renderProductsGrid();
-                updateProductCountLabel();
-                
-                // Check if there is a shared order in the URL parameters
+
+                // Update product count label
+                const countEl = document.getElementById('product-count');
+                if (countEl) countEl.innerText = `${products.length} PRENDAS`;
+
+                // Check for shared order in URL
                 checkSharedOrder();
-                
-            } catch (err) {
-                console.error("Error fetching products from JSON API:", err);
+
+                // Check for 24h wholesale guide modal
+                check24HourWholesaleGuideAutoPush();
+
+            } catch (error) {
+                console.error("Error al cargar productos:", error);
                 document.getElementById('product-grid').innerHTML = `
-                    <div class="col-span-2 text-center py-10 glass-panel border border-red-500/20 text-red-300 rounded-2xl flex flex-col items-center gap-2">
-                        <i data-lucide="wifi-off" class="w-8 h-8 text-red-400"></i>
-                        <span class="text-xs font-bold uppercase tracking-wider">Error de Conexión</span>
-                        <p class="text-[10px] text-zinc-400 px-6">No se pudo cargar el catálogo de productos. Por favor intenta recargar la página.</p>
-                        <button onclick="fetchCatalog()" class="mt-2 text-[10px] uppercase font-bold bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg hover:bg-white/10 text-white cursor-pointer">Reintentar</button>
+                    <div class="col-span-2 text-center py-12 flex flex-col items-center justify-center gap-2 bg-white rounded-3xl border border-zinc-200 shadow-sm p-6">
+                        <i data-lucide="alert-circle" class="w-10 h-10 text-rose-500"></i>
+                        <span class="text-sm font-bold text-zinc-900 uppercase">Error al conectar con el catálogo</span>
+                        <p class="text-xs text-zinc-500 px-4">${error.message}</p>
+                        <button onclick="fetchCatalog()" class="mt-2 px-4 py-2 bg-black text-white text-xs font-bold rounded-xl cursor-pointer">Reintentar</button>
                     </div>
                 `;
                 lucide.createIcons();
             }
         }
 
-        // Logic to classify products
-        function getSimpleCategory(title, productType) {
-            const t = title.toLowerCase();
-            const pt = (productType || '').toLowerCase();
-            
-            if (pt.includes('damas') || t.includes('dama')) return 'Linea de Damas';
-            if (t.includes('buzo')) return 'Buzos';
-            if (t.includes('acid wash') || pt.includes('acidwash') || pt.includes('acid wash') || t.includes('wash')) return 'Acidwash';
-            if (t.includes('conjunto')) return 'Conjuntos';
-            if (t.includes('esqueleto')) return 'Oversize'; // Classify skeletors as Oversize for clean layout
-            if (t.includes('over.') || t.includes('camiseta') || t.includes('t-shirt') || t.includes('boxyfit') || t.includes('shirt')) return 'Oversize';
-            
-            return 'Oversize'; // Default fallback
-        }
-
-        // Formatting price as COP currency
-        function formatCOP(value) {
-            return new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }).format(value);
-        }
-
-        // Render products into the grid UI
-        // --- CAROUSEL: TOP 10 LATEST ARRIVALS ---
         function renderLatestArrivalsCarousel() {
             const container = document.getElementById('latest-arrivals-carousel');
             if (!container) return;
