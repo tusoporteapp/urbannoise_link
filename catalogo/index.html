@@ -457,152 +457,152 @@
         <p class="text-[9px] text-zinc-600">Diseñado para mentes urbanas y estética contemporánea.</p>
     </footer>
 
-    <!-- PRODUCT DETAIL MODAL -->
-    <div id="product-detail-modal" class="fixed inset-0 z-50 flex items-end justify-center p-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-500">
-        <!-- Modal Backdrop click triggers close -->
-        <div class="absolute inset-0 cursor-default" onclick="closeProductDetail()"></div>
-        
-        <!-- Modal Drawer Container -->
-        <div class="relative w-full max-w-md bg-white border-t border-zinc-200 rounded-t-[32px] px-5 pb-6 pt-4 flex flex-col gap-4 max-h-[92vh] transform translate-y-full transition-transform duration-500" id="detail-modal-content">
-            <!-- Header bar handle -->
-            <div class="w-12 h-1 bg-zinc-300 rounded-full mx-auto mb-2 cursor-pointer" onclick="closeProductDetail()"></div>
-
-            <!-- Main Close Button -->
-            <button onclick="closeProductDetail()" class="absolute top-4 right-4 text-zinc-400 hover:text-black transition-colors z-40 p-1.5 bg-zinc-100 rounded-full hover:bg-zinc-200" aria-label="Cerrar">
-                <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
+    <!-- PRODUCT DETAIL MODAL (FULL SCREEN VIEW) -->
+    <div id="product-detail-modal" class="fixed inset-0 z-50 w-full h-full bg-white flex flex-col opacity-0 pointer-events-none transition-all duration-300 overflow-hidden select-none">
+        <!-- Native Fullscreen Wrapper -->
+        <div class="relative w-full max-w-md mx-auto h-full flex flex-col bg-white overflow-hidden" id="detail-modal-content">
             
-            <!-- STICKY COLLAPSED SUMMARY BAR (Slides down on scroll) -->
-            <div id="modal-sticky-collapsed-header" class="absolute top-0 left-0 right-0 h-[72px] bg-white/90 backdrop-blur-md border-b border-zinc-200 px-5 pt-4 pb-2 flex items-center justify-between z-30 transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none select-none">
-                <div class="flex items-center gap-3">
-                    <img id="sticky-header-img" src="" alt="" class="w-10 h-10 aspect-square object-cover rounded-lg border border-zinc-200">
-                    <div class="flex flex-col text-left">
-                        <span id="sticky-header-cat" class="text-[9px] font-bold text-zinc-400 uppercase tracking-wider leading-none"></span>
-                        <h4 id="sticky-header-title" class="text-xs font-bold text-zinc-950 mt-1 uppercase tracking-tight truncate max-w-[200px] leading-none"></h4>
-                        <span id="sticky-header-price" class="text-xs font-extrabold text-zinc-950 mt-0.5"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Scrollable Modal Body -->
-            <div id="modal-scrollable-body" class="flex-grow overflow-y-auto pr-1 flex flex-col gap-4 mb-4 mt-2">
+            <!-- Sticky Top App Bar in Fullscreen -->
+            <div class="sticky top-0 z-30 w-full bg-white/95 backdrop-blur-md border-b border-zinc-200/90 px-4 h-14 flex items-center justify-between shrink-0">
+                <button type="button" onclick="closeProductDetail()" class="w-10 h-10 rounded-2xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-800 flex items-center justify-center transition-all cursor-pointer" aria-label="Volver al catálogo">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </button>
 
-            <!-- Product Image Large representation with Thumbnail Strip -->
-            <div class="flex flex-col gap-2.5 mt-1">
-                <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
-                    <img id="modal-product-img" src="" alt="" class="w-full h-full object-cover transition-opacity duration-200">
-                    <!-- Badges -->
-                    <span id="modal-product-badge" class="absolute top-3 left-3 text-xs font-bold bg-zinc-900 text-white px-2.5 py-1 rounded-md uppercase z-10"></span>
+                <div class="flex flex-col items-center text-center px-2 flex-grow max-w-[200px]">
+                    <span id="modal-topbar-cat" class="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider truncate w-full leading-tight"></span>
+                    <h4 id="modal-topbar-title" class="text-xs font-bold text-zinc-950 uppercase tracking-tight truncate w-full"></h4>
                 </div>
-                <!-- Thumbnail Strip -->
-                <div id="modal-thumbnails" class="flex gap-2 overflow-x-auto no-scrollbar py-0.5 w-full">
-                    <!-- Thumbnail images go here -->
+
+                <div class="flex items-center gap-1.5">
+                    <a id="modal-topbar-wp-btn" href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20tengo%20una%20consulta%20de%20esta%20prenda." target="_blank" class="w-10 h-10 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200/60 flex items-center justify-center transition-all" aria-label="Consultar por WhatsApp">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    </a>
+                    <button type="button" onclick="closeProductDetail()" class="w-10 h-10 rounded-2xl bg-zinc-100 hover:bg-zinc-200 active:scale-95 text-zinc-600 flex items-center justify-center transition-all cursor-pointer" aria-label="Cerrar">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Title & Price Block -->
-            <div class="flex flex-col text-left">
-                <div class="flex justify-between items-center mb-0.5">
-                    <span id="modal-product-cat" class="text-xs font-bold text-zinc-400 uppercase"></span>
-                    <span id="modal-product-total-stock"></span>
-                </div>
-                <h3 id="modal-product-title" class="font-display text-xl font-bold uppercase tracking-tight text-zinc-950 mt-0.5 leading-tight"></h3>
-                <div class="flex items-center gap-2 mt-1.5">
-                    <span id="modal-product-price" class="text-2xl font-extrabold text-zinc-950"></span>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">Precio Mayorista</span>
-                </div>
-                
-                <!-- LIVE SOCIAL PROOF ACTIVITY BANNER -->
-                <div id="modal-social-proof-banner" class="mt-2.5 bg-amber-50/90 border border-amber-200/80 rounded-xl px-3 py-2 flex items-center justify-between text-xs text-amber-950 shadow-2xs">
-                    <span class="flex items-center gap-1.5 font-bold">
-                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
-                        🔥 <span id="modal-live-viewers-count">14</span> personas viendo esta prenda ahora
-                    </span>
-                    <span class="text-[10px] font-black uppercase text-amber-800 bg-white px-2 py-0.5 rounded-md border border-amber-200">Alta Demanda</span>
-                </div>
-            </div>
+            <!-- Scrollable Fullscreen Body -->
+            <div id="modal-scrollable-body" class="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-4 no-scrollbar">
 
-            <!-- WHOLESALE MATRIX SELECTION (Curva de Tallas y Colores) -->
-            <div class="flex flex-col gap-3 text-left">
-                <div class="flex justify-between items-center px-0.5">
-                    <span class="text-xs uppercase tracking-wider text-zinc-900 font-black flex items-center gap-1.5">
-                        <i data-lucide="layers" class="w-4 h-4 text-zinc-700"></i>
-                        Curva de Pedido Mayorista
-                    </span>
-                    <span class="text-[11px] text-zinc-500 font-semibold">Elige las cantidades por talla</span>
-                </div>
-                
-                <!-- Dynamic Matrix Container -->
-                <div id="modal-wholesale-matrix" class="flex flex-col gap-3">
-                    <!-- Color/Size Groups Render Dynamically -->
-                </div>
-            </div>
-
-            <!-- STOCK VERIFICATION WARNING BANNER -->
-            <div class="flex items-start gap-2.5 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-left text-amber-900">
-                <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5 animate-pulse"></i>
-                <div class="flex flex-col gap-0.5">
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Verificación Obligatoria</span>
-                    <p class="text-xs leading-relaxed text-zinc-700">La disponibilidad de tallas en este catálogo no se reserva automáticamente. Al finalizar, debes enviar tu lista por WhatsApp para que confirmemos stock en bodega.</p>
-                </div>
-            </div>
-
-            <!-- SPEC SHEET CONTAINER -->
-            <div class="w-full flex flex-col gap-3.5 mt-2 border-t border-zinc-200 pt-4 text-left">
-                <h4 class="text-xs font-extrabold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5 mb-0.5">
-                    <i data-lucide="info" class="w-4 h-4 text-zinc-800"></i>
-                    Ficha Técnica de la Prenda
-                </h4>
-                
+                <!-- Product Image Large representation with Thumbnail Strip -->
                 <div class="flex flex-col gap-2.5">
-                    <!-- Item Description Section -->
-                    <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
-                        <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
-                            <i data-lucide="file-text" class="w-4 h-4"></i>
-                        </span>
-                        <div>
-                            <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Descripción del Diseño</span>
-                            <p id="spec-info" class="text-xs text-zinc-705 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
-                        </div>
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-xs">
+                        <img id="modal-product-img" src="" alt="" class="w-full h-full object-cover transition-opacity duration-200">
+                        <!-- Badges -->
+                        <span id="modal-product-badge" class="absolute top-3 left-3 text-xs font-bold bg-zinc-900 text-white px-2.5 py-1 rounded-md uppercase z-10"></span>
+                    </div>
+                    <!-- Thumbnail Strip -->
+                    <div id="modal-thumbnails" class="flex gap-2 overflow-x-auto no-scrollbar py-0.5 w-full">
+                        <!-- Thumbnail images go here -->
+                    </div>
+                </div>
+
+                <!-- Title, Price & Stock Block -->
+                <div class="flex flex-col text-left">
+                    <div class="flex justify-between items-center mb-0.5">
+                        <span id="modal-product-cat" class="text-xs font-bold text-zinc-400 uppercase"></span>
+                        <span id="modal-product-total-stock"></span>
+                    </div>
+                    <h3 id="modal-product-title" class="font-display text-xl font-bold uppercase tracking-tight text-zinc-950 mt-0.5 leading-tight"></h3>
+                    <div class="flex items-center gap-2 mt-1.5">
+                        <span id="modal-product-price" class="text-2xl font-extrabold text-zinc-950"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">Precio Mayorista</span>
                     </div>
                     
-                    <!-- Care & Composition Section -->
-                    <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
-                        <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
-                            <i data-lucide="shirt" class="w-4 h-4"></i>
+                    <!-- LIVE SOCIAL PROOF ACTIVITY BANNER -->
+                    <div id="modal-social-proof-banner" class="mt-2.5 bg-amber-50/90 border border-amber-200/80 rounded-xl px-3 py-2 flex items-center justify-between text-xs text-amber-950 shadow-2xs">
+                        <span class="flex items-center gap-1.5 font-bold">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+                            🔥 <span id="modal-live-viewers-count">14</span> personas viendo esta prenda ahora
                         </span>
-                        <div>
-                            <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Composición y Cuidado</span>
-                            <p id="spec-care" class="text-xs text-zinc-705 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
-                        </div>
+                        <span class="text-[10px] font-black uppercase text-amber-800 bg-white px-2 py-0.5 rounded-md border border-amber-200">Alta Demanda</span>
+                    </div>
+                </div>
+
+                <!-- WHOLESALE MATRIX SELECTION (Curva de Tallas y Colores) -->
+                <div class="flex flex-col gap-3 text-left">
+                    <div class="flex justify-between items-center px-0.5">
+                        <span class="text-xs uppercase tracking-wider text-zinc-900 font-black flex items-center gap-1.5">
+                            <i data-lucide="layers" class="w-4 h-4 text-zinc-700"></i>
+                            Curva de Pedido Mayorista
+                        </span>
+                        <span class="text-[11px] text-zinc-500 font-semibold">Elige las cantidades por talla</span>
                     </div>
                     
-                    <!-- Shipping & Wholesale Conditions Section -->
-                    <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
-                        <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
-                            <i data-lucide="truck" class="w-4 h-4"></i>
-                        </span>
-                        <div>
-                            <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Despacho Mayorista</span>
-                            <p id="spec-shipping" class="text-xs text-zinc-705 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
+                    <!-- Dynamic Matrix Container -->
+                    <div id="modal-wholesale-matrix" class="flex flex-col gap-3">
+                        <!-- Color/Size Groups Render Dynamically -->
+                    </div>
+                </div>
+
+                <!-- STOCK VERIFICATION WARNING BANNER -->
+                <div class="flex items-start gap-2.5 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-left text-amber-900">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5 animate-pulse"></i>
+                    <div class="flex flex-col gap-0.5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Verificación Obligatoria</span>
+                        <p class="text-xs leading-relaxed text-zinc-700">La disponibilidad de tallas en este catálogo no se reserva automáticamente. Al finalizar, debes enviar tu lista por WhatsApp para que confirmemos stock en bodega.</p>
+                    </div>
+                </div>
+
+                <!-- SPEC SHEET CONTAINER -->
+                <div class="w-full flex flex-col gap-3.5 mt-2 border-t border-zinc-200 pt-4 text-left pb-4">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5 mb-0.5">
+                        <i data-lucide="info" class="w-4 h-4 text-zinc-800"></i>
+                        Ficha Técnica de la Prenda
+                    </h4>
+                    
+                    <div class="flex flex-col gap-2.5">
+                        <!-- Item Description Section -->
+                        <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
+                            <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
+                                <i data-lucide="file-text" class="w-4 h-4"></i>
+                            </span>
+                            <div>
+                                <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Descripción del Diseño</span>
+                                <p id="spec-info" class="text-xs text-zinc-700 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Care & Composition Section -->
+                        <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
+                            <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
+                                <i data-lucide="shirt" class="w-4 h-4"></i>
+                            </span>
+                            <div>
+                                <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Composición y Cuidado</span>
+                                <p id="spec-care" class="text-xs text-zinc-700 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Shipping Section -->
+                        <div class="flex items-start gap-3 bg-zinc-50 border border-zinc-200 p-3 rounded-2xl">
+                            <span class="p-2 bg-zinc-200 rounded-xl text-zinc-800 shrink-0">
+                                <i data-lucide="truck" class="w-4 h-4"></i>
+                            </span>
+                            <div>
+                                <span class="text-[9px] font-extrabold uppercase text-zinc-400 block tracking-wide leading-none">Despacho Mayorista</span>
+                                <p id="spec-shipping" class="text-xs text-zinc-700 font-medium leading-relaxed mt-1 whitespace-pre-line"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             </div>
 
-            <!-- Add to List Action Footer -->
-            <div class="w-full flex flex-col gap-2 pt-2 bg-white sticky bottom-0 border-t border-zinc-100 z-10">
+            <!-- Sticky Bottom Footer with Batch Order Action -->
+            <div class="w-full flex flex-col gap-2 p-4 bg-white/95 backdrop-blur-md sticky bottom-0 border-t border-zinc-200/90 z-20 shrink-0 shadow-lg">
                 <div class="flex justify-between items-baseline px-1 text-xs">
                     <span class="text-zinc-500 font-medium">Prendas a añadir: <b id="modal-batch-count" class="text-zinc-950 font-bold">0 unds</b></span>
                     <span class="text-zinc-500 font-medium">Subtotal: <b id="modal-batch-subtotal" class="text-zinc-950 font-black text-sm">COP 0</b></span>
                 </div>
-                <button onclick="addBatchProductsToList()" class="w-full text-center py-4 rounded-2xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md bg-zinc-200 text-zinc-500" id="add-to-list-btn">
+                <button onclick="addBatchProductsToList()" class="w-full text-center py-3.5 rounded-2xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md bg-zinc-200 text-zinc-500 active:scale-98" id="add-to-list-btn">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i>
                     <span id="add-to-list-btn-text">Selecciona las cantidades arriba</span>
                 </button>
             </div>
+
         </div>
     </div>
 
@@ -1818,6 +1818,11 @@
             document.getElementById('modal-product-title').innerText = product.title;
             document.getElementById('modal-product-cat').innerText = product.category;
             
+            const topBarCat = document.getElementById('modal-topbar-cat');
+            if (topBarCat) topBarCat.innerText = product.category;
+            const topBarTitle = document.getElementById('modal-topbar-title');
+            if (topBarTitle) topBarTitle.innerText = product.title;
+            
             const priceFormatted = product.price <= 1000 ? 'Consultar Precio' : formatCOP(product.price);
             document.getElementById('modal-product-price').innerText = priceFormatted;
             
@@ -1825,22 +1830,6 @@
             const viewersEl = document.getElementById('modal-live-viewers-count');
             if (viewersEl) {
                 viewersEl.innerText = getLiveViewerCount(product.id);
-            }
-
-            // Update sticky collapsed header UI
-            const stickyImg = document.getElementById('sticky-header-img');
-            const stickyTitle = document.getElementById('sticky-header-title');
-            const stickyCat = document.getElementById('sticky-header-cat');
-            const stickyPrice = document.getElementById('sticky-header-price');
-            const stickyHeader = document.getElementById('modal-sticky-collapsed-header');
-            
-            if (stickyImg) stickyImg.src = product.image;
-            if (stickyTitle) { stickyTitle.textContent = product.title; stickyTitle.innerText = product.title; }
-            if (stickyCat) { stickyCat.textContent = product.category; stickyCat.innerText = product.category; }
-            if (stickyPrice) { stickyPrice.textContent = priceFormatted; stickyPrice.innerText = priceFormatted; }
-            if (stickyHeader) {
-                stickyHeader.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
-                stickyHeader.classList.remove('translate-y-0', 'opacity-100');
             }
             
             const isAcid = product.title.toLowerCase().includes('acid');
@@ -1863,119 +1852,77 @@
             
             // Render thumbnails
             const thumbnailsContainer = document.getElementById('modal-thumbnails');
-            if (product.images && product.images.length > 1) {
-                thumbnailsContainer.classList.remove('hidden');
-                let thumbHtml = '';
-                product.images.forEach((imgUrl, i) => {
-                    const activeClass = i === 0 ? 'border-[var(--accent-color)]' : 'border-transparent opacity-60';
-                    thumbHtml += `
-                        <button onclick="setModalMainImage('${imgUrl}', this)" class="w-12 h-12 aspect-square rounded-lg overflow-hidden border-2 bg-zinc-950 shrink-0 transition-all focus:outline-none cursor-pointer ${activeClass}">
-                            <img src="${imgUrl}" alt="Thumbnail ${i+1}" class="w-full h-full object-cover">
-                        </button>
-                    `;
-                });
-                thumbnailsContainer.innerHTML = thumbHtml;
-            } else {
-                thumbnailsContainer.innerHTML = '';
-                thumbnailsContainer.classList.add('hidden');
-            }
-            
-            // Set descriptions in spec sheet
-            const sections = parseDescription(product.description);
-            document.getElementById('spec-info').innerText = sections.info;
-            document.getElementById('spec-care').innerText = sections.care;
-            document.getElementById('spec-shipping').innerText = sections.shipping + '\n\n' + sections.warranty;
-            
-            // Render Wholesale Matrix
-            renderWholesaleMatrix(product);
-            
-            // Show modal
-            const modal = document.getElementById('product-detail-modal');
-            const content = document.getElementById('detail-modal-content');
-            
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modal.classList.add('opacity-100');
-            
-            setTimeout(() => {
-                content.classList.remove('translate-y-full');
-                content.classList.add('translate-y-0');
-            }, 50);
-
-            // Advance tour if active at step 0 (choose product)
-            if (window.onboardingDriver && window.onboardingDriver.isActive()) {
-                const activeIndex = window.onboardingDriver.getActiveIndex();
-                if (activeIndex === 0) {
-                    setTimeout(() => {
-                        window.onboardingDriver.moveNext();
-                    }, 150);
+            if (thumbnailsContainer) {
+                let thumbHtml = `
+                    <button onclick="setMainModalImage('${product.image}', this)" class="w-14 h-14 rounded-xl overflow-hidden border-2 border-black shrink-0 relative bg-zinc-100 transition-all cursor-pointer thumbnail-btn active">
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">
+                    </button>
+                `;
+                if (product.secondaryImages && Array.isArray(product.secondaryImages)) {
+                    product.secondaryImages.forEach(imgUrl => {
+                        thumbHtml += `
+                            <button onclick="setMainModalImage('${imgUrl}', this)" class="w-14 h-14 rounded-xl overflow-hidden border border-zinc-200 hover:border-black shrink-0 relative bg-zinc-100 transition-all cursor-pointer thumbnail-btn">
+                                <img src="${imgUrl}" alt="${product.title}" class="w-full h-full object-cover">
+                            </button>
+                        `;
+                    });
                 }
+                thumbnailsContainer.innerHTML = thumbHtml;
             }
-        }
 
-        // Swapping main image when clicking thumbnails
-        function setModalMainImage(imgUrl, clickedButton) {
-            const mainImg = document.getElementById('modal-product-img');
+            renderWholesaleMatrix(product);
+            renderSpecSheet(product);
+            updateModalBatchSummary();
+
+            // Show Full Screen Modal
+            const modal = document.getElementById('product-detail-modal');
+            if (modal) {
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                modal.classList.add('opacity-100');
+                modal.style.opacity = '1';
+                
+                const scrollBody = document.getElementById('modal-scrollable-body');
+                if (scrollBody) scrollBody.scrollTop = 0;
+                
+                document.body.style.overflow = 'hidden';
+            }
             
-            // Fade effect
-            mainImg.style.opacity = '0.3';
-            setTimeout(() => {
-                mainImg.src = imgUrl;
-                mainImg.style.opacity = '1';
-                const sImg = document.getElementById('sticky-header-img');
-                if (sImg) sImg.src = imgUrl;
-            }, 150);
-            
-            // Update thumbnails border active states
-            const thumbnails = document.querySelectorAll('#modal-thumbnails button');
-            thumbnails.forEach(btn => {
-                btn.classList.remove('border-[var(--accent-color)]');
-                btn.classList.add('border-transparent', 'opacity-60');
-            });
-            
-            clickedButton.classList.remove('border-transparent', 'opacity-60');
-            clickedButton.classList.add('border-[var(--accent-color)]');
+            lucide.createIcons();
         }
 
         function closeProductDetail() {
-            const stickyHeader = document.getElementById('modal-sticky-collapsed-header');
-            if (stickyHeader) {
-                stickyHeader.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
-                stickyHeader.classList.remove('translate-y-0', 'opacity-100');
-            }
             const modal = document.getElementById('product-detail-modal');
-            const content = document.getElementById('detail-modal-content');
-            
-            content.classList.remove('translate-y-0');
-            content.classList.add('translate-y-full');
-            
-            setTimeout(() => {
+            if (modal) {
                 modal.classList.remove('opacity-100');
-                modal.classList.add('opacity-0', 'pointer-events-none');
-            }, 300);
-            
-            currentModalProduct = null;
-        }
-
-        // Tab manager inside detail modal
-        function showTab(tabName) {
-            const tabs = ['info', 'care', 'wholesale'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`tab-btn-${t}`);
-                const content = document.getElementById(`tab-content-${t}`);
+                modal.classList.add('opacity-0');
+                modal.style.opacity = '0';
                 
-                if (t === tabName) {
-                    btn.classList.add('text-black', 'border-b-2', 'border-black');
-                    btn.classList.remove('text-zinc-500');
-                    content.classList.remove('hidden');
-                } else {
-                    btn.classList.remove('text-black', 'border-b-2', 'border-black');
-                    btn.classList.add('text-zinc-500');
-                    content.classList.add('hidden');
-                }
-            });
+                document.body.style.overflow = '';
+                
+                setTimeout(() => {
+                    modal.classList.add('pointer-events-none');
+                }, 300);
+            }
         }
 
         // --- WHOLESALE MATRIX FUNCTIONS (CURVA MAYORISTA) ---
+        
+        function renderSpecSheet(product) {
+            const specInfo = document.getElementById('spec-info');
+            const specCare = document.getElementById('spec-care');
+            const specShipping = document.getElementById('spec-shipping');
+            
+            if (specInfo) {
+                specInfo.innerText = product.description || "Algodón 100% premium pesado (240g). Confección sobredimensionada con acabados industriales reforzados, estampados de alta densidad y tacto suave.";
+            }
+            if (specCare) {
+                specCare.innerText = "Lavar con agua fría al revés. No usar blanqueador. Secar a la sombra. No planchar directamente sobre el estampado.";
+            }
+            if (specShipping) {
+                specShipping.innerText = "Despachos inmediatos a todo el país desde Bogotá. Envíos asegurados por Servientrega, Envía e Interrapidísimo. Pedido mínimo mayorista: 6 prendas.";
+            }
+        }
+        
         function renderWholesaleMatrix(product) {
             const container = document.getElementById('modal-wholesale-matrix');
             if (!container) return;
