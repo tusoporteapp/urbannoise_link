@@ -1182,15 +1182,19 @@
             const latest10 = products.slice(0, 10);
             let html = '';
 
-            latest10.forEach(p => {
+            latest10.forEach((p, idx) => {
                 const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
                 const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
                 const isLow = totalStock > 0 && totalStock <= 5;
+                
+                // Prioritize the first 3 visible cards on screen with eager load & high priority
+                const isAboveTheFold = idx < 3;
+                const loadingAttr = isAboveTheFold ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
                 html += `
                     <div onclick="openProductDetail('${p.id}')" class="flex-shrink-0 w-36 bg-white border border-zinc-200 hover:border-zinc-400 rounded-2xl p-2 flex flex-col gap-2 cursor-pointer group transition-all duration-300 snap-start shadow-xs hover:shadow-md">
                         <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-100">
-                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                            <img src="${getOptimizedImageUrl(p.image, 300, 80)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" ${loadingAttr} decoding="async" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
                             <span class="absolute top-1.5 left-1.5 bg-black/80 backdrop-blur-xs text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider">
                                 Nuevo
                             </span>
@@ -1214,7 +1218,6 @@
             lucide.createIcons();
         }
 
-        // --- 24-HOUR WHOLESALE GUIDE AUTO-PUSH MODAL ---
         function check24HourWholesaleGuideAutoPush() {
             const KEY = 'un_wholesale_guide_seen_24h';
             const lastSeen = localStorage.getItem(KEY);
@@ -2054,7 +2057,7 @@
             if (thumbnailsContainer) {
                 let thumbHtml = `
                     <button onclick="setMainModalImage('${product.image}', this)" class="w-14 h-14 rounded-xl overflow-hidden border-2 border-black shrink-0 relative bg-zinc-100 transition-all cursor-pointer thumbnail-btn active">
-                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">
+                        <img src="${getOptimizedImageUrl(product.image, 160, 75)}" alt="${product.title}" class="w-full h-full object-cover" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'">
                     </button>
                 `;
                 if (product.secondaryImages && Array.isArray(product.secondaryImages)) {
@@ -3096,7 +3099,7 @@
                 html += `
                     <div onclick="closeLastUnitsModal(); openProductDetail('${p.id}')" class="flex gap-3 items-center bg-white border border-zinc-200 hover:border-zinc-400 p-2.5 rounded-2xl cursor-pointer group transition-all shadow-sm">
                         <div class="relative w-14 h-14 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 aspect-square">
-                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-103 transition-transform" />
+                            <img src="${getOptimizedImageUrl(p.image, 160, 75)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-103 transition-transform" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
                         </div>
                         <div class="flex-grow text-left">
                             <div class="flex items-center justify-between">
