@@ -1,16 +1,28 @@
 /**
  * Cloudflare Pages Function: /api/stock
- * Ultralight real-time inventory verification endpoint for single product or all active variants
+ * Ultralight real-time inventory verification endpoint with Cloudflare Edge Caching
  * Tienda Noise Urban (fee704a4-ff11-43ae-903e-d2f9cf0a9a25)
  */
 
 export async function onRequestGet(context) {
+    const cacheUrl = new URL(context.request.url);
+    cacheUrl.searchParams.delete('t');
+    cacheUrl.searchParams.delete('_');
+    const cacheKey = new Request(cacheUrl.toString(), context.request);
+    const cache = caches.default;
+
+    const isFresh = new URL(context.request.url).searchParams.get('fresh') === 'true';
+    if (!isFresh) {
+        const cached = await cache.match(cacheKey);
+        if (cached) return cached;
+    }
+
     const corsHeaders = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+        "Cache-Control": "public, max-age=15, s-maxage=20, stale-while-revalidate=60"
     };
 
     const API_KEY = (context.env && context.env.LOYVERSE_API_KEY) ? context.env.LOYVERSE_API_KEY : "ccc26aa2d00a48a4a8d8b4606cf7531e";
@@ -52,6 +64,8 @@ export async function onRequestGet(context) {
             }
         });
 
+        let responsePayload;
+
         // 2. If single productId requested, fetch item to map variants
         if (productId) {
             const itemRes = await fetch(`https://api.loyverse.com/v1.0/items/${productId}`, { headers: authHeaders });
@@ -76,27 +90,30 @@ export async function onRequestGet(context) {
 
                 const totalStock = variants.reduce((sum, v) => sum + v.stock, 0);
 
-                return new Response(JSON.stringify({
+                responsePayload = {
                     id: item.id,
                     title: item.item_name,
                     totalStock,
                     variants,
                     timestamp: new Date().toISOString()
-                }), {
-                    status: 200,
-                    headers: corsHeaders
-                });
+                };
             }
         }
 
-        // 3. Return full stockMap
-        return new Response(JSON.stringify({
-            stockMap,
-            timestamp: new Date().toISOString()
-        }), {
+        if (!responsePayload) {
+            responsePayload = {
+                stockMap,
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        const response = new Response(JSON.stringify(responsePayload), {
             status: 200,
             headers: corsHeaders
         });
+
+        context.waitUntil(cache.put(cacheKey, response.clone()));
+        return response;
 
     } catch (error) {
         return new Response(JSON.stringify({

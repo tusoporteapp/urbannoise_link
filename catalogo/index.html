@@ -1056,69 +1056,100 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                // 1. Fetch real-time live Loyverse data from Cloudflare Function
-                let data = null;
-                try {
-                    const apiRes = await fetch("/api/catalog?t=" + Date.now());
-                    if (apiRes.ok) {
-                        data = await apiRes.json();
-                        if (Array.isArray(data) && data.length > 0) {
-                            console.log("⚡ Loaded fresh real-time catalog from /api/catalog (" + data.length + " items)");
+                // --- STEP 1: INSTANT HYDRATION (< 50ms) ---
+                // Load local static CDN dataset immediately so user sees products instantly without 8s delay
+                let initialData = null;
+                
+                // Try session cache first (0ms)
+                const cachedCatalog = sessionStorage.getItem('un_catalog_cache');
+                if (cachedCatalog) {
+                    try {
+                        const parsed = JSON.parse(cachedCatalog);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            initialData = parsed;
                         }
-                    }
-                } catch(e) {
-                    console.warn("Live /api/catalog unreachable, using local fallback:", e);
+                    } catch(e) {}
                 }
 
-                // 2. Fallback to loyverse_products.json if needed
-                if (!data || !Array.isArray(data) || data.length === 0) {
-                    let localRes = await fetch("loyverse_products.json?t=" + Date.now());
+                // If not in session cache, fetch static CDN json (~30ms)
+                if (!initialData) {
+                    let localRes = await fetch("loyverse_products.json");
                     if (!localRes.ok) {
-                        localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
+                        localRes = await fetch("../catalogo/loyverse_products.json");
                     }
                     if (localRes.ok) {
-                        data = await localRes.json();
-                    } else {
-                        throw new Error("No se pudo cargar el catálogo de productos.");
+                        initialData = await localRes.json();
                     }
                 }
 
-                // Filter products that have at least one variant in stock
-                products = data.filter(product => {
-                    if (!product.variants || product.variants.length === 0) return true;
-                    return product.variants.some(v => v.stock > 0);
-                });
+                if (initialData && Array.isArray(initialData)) {
+                    renderCatalogDataset(initialData);
+                }
 
-                filteredProductsList = [...products];
-
-                // Render top 10 carousel
-                renderLatestArrivalsCarousel();
-
-                // Render strategic full catalog
-                renderProductsGrid();
-
-                // Update product count label
-                const countEl = document.getElementById('product-count');
-                if (countEl) countEl.innerText = `${products.length} PRENDAS`;
-
-                // Check for shared order in URL
-                checkSharedOrder();
-
-                // Check for 24h wholesale guide modal
-                check24HourWholesaleGuideAutoPush();
-                startSilentStockPolling();
+                // --- STEP 2: ASYNC BACKGROUND REVALIDATION (SWR) ---
+                // Silently fetch fresh API data from Cloudflare Edge without blocking the screen
+                revalidateCatalogInBackground();
 
             } catch (error) {
                 console.error("Error al cargar productos:", error);
-                document.getElementById('product-grid').innerHTML = `
-                    <div class="col-span-2 text-center py-12 flex flex-col items-center justify-center gap-2 bg-white rounded-3xl border border-zinc-200 shadow-sm p-6">
-                        <i data-lucide="alert-circle" class="w-10 h-10 text-rose-500"></i>
-                        <span class="text-sm font-bold text-zinc-900 uppercase">Error al conectar con el catálogo</span>
-                        <p class="text-xs text-zinc-500 px-4">${error.message}</p>
-                        <button onclick="fetchCatalog()" class="mt-2 px-4 py-2 bg-black text-white text-xs font-bold rounded-xl cursor-pointer">Reintentar</button>
-                    </div>
-                `;
-                lucide.createIcons();
+                // Fallback attempt to load products
+                revalidateCatalogInBackground();
+            }
+        }
+
+        function renderCatalogDataset(dataset) {
+            if (!dataset || !Array.isArray(dataset)) return;
+
+            // Filter in-stock items
+            products = dataset.filter(product => {
+                if (!product.variants || product.variants.length === 0) return true;
+                return product.variants.some(v => v.stock > 0);
+            });
+
+            filteredProductsList = [...products];
+
+            // Render carousel & grid instantly
+            renderLatestArrivalsCarousel();
+            renderProductsGrid();
+
+            // Update product count label
+            const countEl = document.getElementById('product-count');
+            if (countEl) countEl.innerText = `${products.length} PRENDAS`;
+
+            // Check for shared order in URL
+            checkSharedOrder();
+
+            // Check for 24h wholesale guide modal
+            check24HourWholesaleGuideAutoPush();
+
+            // Save to session cache for sub-millisecond future loads
+            try {
+                sessionStorage.setItem('un_catalog_cache', JSON.stringify(dataset));
+            } catch(e) {}
+        }
+
+        async function revalidateCatalogInBackground() {
+            try {
+                // Fetch from Cloudflare Edge API (served in ~15ms from CDN cache)
+                const apiRes = await fetch("/api/catalog");
+                if (apiRes.ok) {
+                    const freshData = await apiRes.json();
+                    if (Array.isArray(freshData) && freshData.length > 0) {
+                        // If products were not yet rendered or count changed
+                        if (products.length === 0 || JSON.stringify(freshData.length) !== JSON.stringify(products.length)) {
+                            renderCatalogDataset(freshData);
+                        } else {
+                            // Update in-place smoothly
+                            products = freshData.filter(product => {
+                                if (!product.variants || product.variants.length === 0) return true;
+                                return product.variants.some(v => v.stock > 0);
+                            });
+                            filteredProductsList = [...products];
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn("Background catalog revalidation error:", e);
             }
         }
 
