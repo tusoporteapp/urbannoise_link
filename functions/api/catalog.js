@@ -1,23 +1,22 @@
 /**
  * Cloudflare Pages Function: /api/catalog
- * High-Performance Loyverse Catalog Endpoint with Edge Cache API
- * Response time: ~15ms (Cached) / Stale-While-Revalidate
+ * High-performance real-time Loyverse catalog aggregator with Cloudflare Edge Caching & Cache-Busting Image Versions
+ * Tienda Noise Urban (fee704a4-ff11-43ae-903e-d2f9cf0a9a25)
  */
 
 export async function onRequestGet(context) {
     const cacheUrl = new URL(context.request.url);
-    // Normalize cache key without random timestamp params to maximize CDN cache hit ratio
+    const isFresh = cacheUrl.searchParams.get('fresh') === 'true' || cacheUrl.searchParams.has('t');
+    
     cacheUrl.searchParams.delete('t');
     cacheUrl.searchParams.delete('_');
+    cacheUrl.searchParams.delete('fresh');
     const cacheKey = new Request(cacheUrl.toString(), context.request);
     const cache = caches.default;
 
-    // 1. Check Cloudflare Edge Cache first
-    let cachedResponse = await cache.match(cacheKey);
-    const isFreshRequested = new URL(context.request.url).searchParams.get('fresh') === 'true';
-
-    if (cachedResponse && !isFreshRequested) {
-        return cachedResponse;
+    if (!isFresh) {
+        const cached = await cache.match(cacheKey);
+        if (cached) return cached;
     }
 
     const corsHeaders = {
@@ -25,8 +24,7 @@ export async function onRequestGet(context) {
         "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json; charset=utf-8",
-        // Cache at Edge for 60 seconds, browser for 30 seconds, serve stale up to 10 minutes
-        "Cache-Control": "public, max-age=30, s-maxage=60, stale-while-revalidate=600"
+        "Cache-Control": "public, max-age=15, s-maxage=30, stale-while-revalidate=60"
     };
 
     const API_KEY = (context.env && context.env.LOYVERSE_API_KEY) ? context.env.LOYVERSE_API_KEY : "ccc26aa2d00a48a4a8d8b4606cf7531e";
@@ -37,56 +35,63 @@ export async function onRequestGet(context) {
         "Content-Type": "application/json"
     };
 
-    async function fetchLoyversePage(endpoint, cursor = null) {
-        let url = `https://api.loyverse.com/v1.0/${endpoint}?limit=250`;
-        if (cursor) {
-            url += `&cursor=${cursor}`;
-        }
-        const res = await fetch(url, { headers: authHeaders });
-        if (!res.ok) {
-            const err = await res.text();
-            throw new Error(`Loyverse API error on ${endpoint}: ${err}`);
-        }
-        return await res.json();
-    }
-
     try {
-        // 1. Fetch Modifiers & Categories in parallel
-        const [modData, catData] = await Promise.all([
-            fetchLoyversePage('modifiers').catch(() => ({ modifiers: [] })),
-            fetchLoyversePage('categories').catch(() => ({ categories: [] }))
-        ]);
+        // 1. Fetch Modifiers (parallel request)
+        const modifiersPromise = fetch("https://api.loyverse.com/v1.0/modifiers", { headers: authHeaders })
+            .then(res => res.ok ? res.json() : { modifiers: [] })
+            .then(data => data.modifiers || []);
 
-        const modifiers = modData.modifiers || [];
-        const categories = catData.categories || [];
-        const categoryMap = {};
-        categories.forEach(c => {
-            if (c.id && c.name) categoryMap[c.id] = c.name;
-        });
+        // 2. Fetch Categories (parallel request)
+        const categoriesPromise = fetch("https://api.loyverse.com/v1.0/categories", { headers: authHeaders })
+            .then(res => res.ok ? res.json() : { categories: [] })
+            .then(data => {
+                const map = {};
+                (data.categories || []).forEach(c => { map[c.id] = c.name; });
+                return map;
+            });
 
-        // 2. Fetch all items (handle pagination)
+        // 3. Fetch Items with Cursor Pagination
         let allItems = [];
-        let cursor = null;
+        let itemCursor = null;
         do {
-            const itemData = await fetchLoyversePage('items', cursor);
+            let itemUrl = `https://api.loyverse.com/v1.0/items?limit=250`;
+            if (itemCursor) itemUrl += `&cursor=${itemCursor}`;
+            
+            const itemRes = await fetch(itemUrl, { headers: authHeaders });
+            if (!itemRes.ok) {
+                const errText = await itemRes.text();
+                throw new Error(`Loyverse Items API error: ${errText}`);
+            }
+            const itemData = await itemRes.json();
             if (itemData.items && Array.isArray(itemData.items)) {
                 allItems = allItems.concat(itemData.items);
             }
-            cursor = itemData.cursor;
-        } while (cursor);
+            itemCursor = itemData.cursor;
+        } while (itemCursor);
 
-        // 3. Fetch all inventory levels (handle pagination)
+        // 4. Fetch Inventory Levels with Cursor Pagination
         let allInventory = [];
-        cursor = null;
+        let invCursor = null;
         do {
-            const invData = await fetchLoyversePage('inventory', cursor);
+            let invUrl = `https://api.loyverse.com/v1.0/inventory?limit=250`;
+            if (invCursor) invUrl += `&cursor=${invCursor}`;
+
+            const invRes = await fetch(invUrl, { headers: authHeaders });
+            if (!invRes.ok) {
+                const errText = await invRes.text();
+                throw new Error(`Loyverse Inventory API error: ${errText}`);
+            }
+            const invData = await invRes.json();
             if (invData.inventory_levels && Array.isArray(invData.inventory_levels)) {
                 allInventory = allInventory.concat(invData.inventory_levels);
             }
-            cursor = invData.cursor;
-        } while (cursor);
+            invCursor = invData.cursor;
+        } while (invCursor);
 
-        // 4. Map stock by variant_id for Noise Urban store
+        // Await parallel metadata
+        const [modifiers, categoryMap] = await Promise.all([modifiersPromise, categoriesPromise]);
+
+        // Filter inventory specifically for Tienda Noise Urban
         const stockMap = {};
         allInventory.forEach(inv => {
             if (inv.variant_id && inv.store_id === STORE_ID) {
@@ -94,7 +99,7 @@ export async function onRequestGet(context) {
             }
         });
 
-        // 5. Map Loyverse items to our Catalog schema
+        // 5. Aggregate & Map Products to Universal Unified Schema
         const mappedProducts = allItems.map(item => {
             const defaultVariant = item.variants && item.variants[0] ? item.variants[0] : null;
             const retailBasePrice = defaultVariant ? defaultVariant.default_price : 0;
@@ -120,35 +125,25 @@ export async function onRequestGet(context) {
             // Determine clean category
             let categoryName = 'Oversize';
             if (item.category_id && categoryMap[item.category_id]) {
-                const cName = categoryMap[item.category_id].trim();
-                const cNameLower = cName.toLowerCase();
-                if (cNameLower.includes('dama')) categoryName = 'Linea de Damas';
-                else if (cNameLower.includes('buzo') || cNameLower.includes('hoodie')) categoryName = 'Buzos';
-                else if (cNameLower.includes('acid') || cNameLower.includes('wash')) categoryName = 'Acidwash';
-                else if (cNameLower.includes('conjunto')) categoryName = 'Conjuntos';
-                else if (cNameLower.includes('pantalon') || cNameLower.includes('jogger') || cNameLower.includes('cargo') || cNameLower.includes('bermuda') || cNameLower.includes('short')) categoryName = 'Pantalones';
-                else if (cNameLower.includes('oversize') || cNameLower.includes('t-shirt') || cNameLower.includes('camiseta')) categoryName = 'Oversize';
+                const cName = categoryMap[item.category_id];
+                if (/acid/i.test(cName)) categoryName = 'Acidwash';
+                else if (/buzo|hoodie/i.test(cName)) categoryName = 'Buzos';
+                else if (/conjunto|bermuda/i.test(cName)) categoryName = 'Conjuntos';
+                else if (/dama|body/i.test(cName)) categoryName = 'Linea de Damas';
+                else if (/oversize|burda|boxi|t-shirt/i.test(cName)) categoryName = 'Oversize';
                 else categoryName = cName;
-            } else {
-                const nameLower = (item.item_name || '').toLowerCase();
-                if (nameLower.includes('dama')) categoryName = 'Linea de Damas';
-                else if (nameLower.includes('buzo') || nameLower.includes('hoodie')) categoryName = 'Buzos';
-                else if (nameLower.includes('acid') || nameLower.includes('wash')) categoryName = 'Acidwash';
-                else if (nameLower.includes('conjunto')) categoryName = 'Conjuntos';
             }
 
-            // Extract variant sizes and colors
+            // Map Variants
             const sizeOptionIdx = item.option1_name === 'Tallas' ? 1 : (item.option2_name === 'Tallas' ? 2 : (item.option3_name === 'Tallas' ? 3 : -1));
             const colorOptionIdx = item.option1_name === 'Color' ? 1 : (item.option2_name === 'Color' ? 2 : (item.option3_name === 'Color' ? 3 : -1));
 
-            const variantsMapped = item.variants ? item.variants.map(v => {
+            const variants = (item.variants || []).map(v => {
                 const sizeVal = sizeOptionIdx === 1 ? v.option1_value : (sizeOptionIdx === 2 ? v.option2_value : (sizeOptionIdx === 3 ? v.option3_value : 'U'));
                 const colorVal = colorOptionIdx === 1 ? v.option1_value : (colorOptionIdx === 2 ? v.option2_value : (colorOptionIdx === 3 ? v.option3_value : null));
-                
-                const totalStock = stockMap[v.variant_id] !== undefined ? stockMap[v.variant_id] : 0;
-                const trackStock = item.track_stock !== false;
-                const inStock = trackStock ? (totalStock > 0) : true;
-                const variantWholesalePrice = Math.max(0, (v.default_price || retailBasePrice) + mayorDiscount);
+                const variantWholesalePrice = wholesalePrice > 0 ? wholesalePrice : (v.default_price || retailBasePrice);
+                const currentStock = stockMap[v.variant_id] !== undefined ? stockMap[v.variant_id] : 0;
+                const inStock = currentStock > 0;
 
                 return {
                     id: v.variant_id,
@@ -158,13 +153,14 @@ export async function onRequestGet(context) {
                     price: variantWholesalePrice,
                     retailPrice: v.default_price || retailBasePrice,
                     inStock: inStock,
-                    stock: totalStock
+                    stock: currentStock
                 };
-            }) : [];
+            });
 
-            // Images
-            const primaryImage = item.image_url || 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
-            const imagesList = item.image_url ? [item.image_url] : [];
+            // Versioned Images with updated_at timestamp to bust CDN image caches on image changes
+            const vParam = item.updated_at ? `?v=${encodeURIComponent(item.updated_at)}` : '';
+            const primaryImage = item.image_url ? `${item.image_url}${vParam}` : 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
+            const imagesList = item.image_url ? [`${item.image_url}${vParam}`] : [];
 
             return {
                 id: item.id,
@@ -177,32 +173,23 @@ export async function onRequestGet(context) {
                 images: imagesList,
                 category: categoryName,
                 rawCategory: item.category_id ? (categoryMap[item.category_id] || '') : '',
-                variants: variantsMapped
+                variants: variants,
+                updated_at: item.updated_at || ''
             };
         });
 
-        // Filter: only show items with at least one variant in stock
-        const availableProducts = mappedProducts.filter(p => {
-            if (!p.variants || p.variants.length === 0) return true;
-            return p.variants.some(v => v.stock > 0);
-        });
-
-        const response = new Response(JSON.stringify(availableProducts), {
+        const response = new Response(JSON.stringify(mappedProducts), {
             status: 200,
             headers: corsHeaders
         });
 
-        // Save to Cloudflare Edge Cache in background
+        // Store in Cloudflare Edge Cache
         context.waitUntil(cache.put(cacheKey, response.clone()));
-
         return response;
 
     } catch (error) {
-        // Fallback: If Loyverse API failed, return cached data if available
-        if (cachedResponse) return cachedResponse;
-
         return new Response(JSON.stringify({
-            error: error.message || "Error al sincronizar con Loyverse API",
+            error: error.message || "Error al sincronizar catálogo con Loyverse POS",
             timestamp: new Date().toISOString()
         }), {
             status: 500,

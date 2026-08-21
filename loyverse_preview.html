@@ -1074,7 +1074,6 @@
         async function fetchCatalog() {
             try {
                 // --- STEP 1: INSTANT HYDRATION (< 50ms) ---
-                // Load local static CDN dataset immediately so user sees products instantly without 8s delay
                 let initialData = null;
                 
                 // Try session cache first (0ms)
@@ -1090,9 +1089,9 @@
 
                 // If not in session cache, fetch static CDN json (~30ms)
                 if (!initialData) {
-                    let localRes = await fetch("loyverse_products.json");
+                    let localRes = await fetch("loyverse_products.json?t=" + Date.now());
                     if (!localRes.ok) {
-                        localRes = await fetch("../catalogo/loyverse_products.json");
+                        localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
                     }
                     if (localRes.ok) {
                         initialData = await localRes.json();
@@ -1103,13 +1102,12 @@
                     renderCatalogDataset(initialData);
                 }
 
-                // --- STEP 2: ASYNC BACKGROUND REVALIDATION (SWR) ---
-                // Silently fetch fresh API data from Cloudflare Edge without blocking the screen
+                // --- STEP 2: ASYNC REAL-TIME REVALIDATION (SWR) ---
+                // Silently fetch fresh API data from Cloudflare Edge and update on any image or stock changes
                 revalidateCatalogInBackground();
 
             } catch (error) {
                 console.error("Error al cargar productos:", error);
-                // Fallback attempt to load products
                 revalidateCatalogInBackground();
             }
         }
@@ -1125,7 +1123,7 @@
 
             filteredProductsList = [...products];
 
-            // Render carousel & grid instantly
+            // Render carousel & grid
             renderLatestArrivalsCarousel();
             renderProductsGrid();
 
@@ -1147,21 +1145,17 @@
 
         async function revalidateCatalogInBackground() {
             try {
-                // Fetch from Cloudflare Edge API (served in ~15ms from CDN cache)
-                const apiRes = await fetch("/api/catalog");
+                // Fetch fresh data with cache buster in background without blocking screen
+                const apiRes = await fetch("/api/catalog?fresh=true&t=" + Date.now());
                 if (apiRes.ok) {
                     const freshData = await apiRes.json();
                     if (Array.isArray(freshData) && freshData.length > 0) {
-                        // If products were not yet rendered or count changed
-                        if (products.length === 0 || JSON.stringify(freshData.length) !== JSON.stringify(products.length)) {
+                        const currentSignature = (products || []).map(p => `${p.id}:${p.image}:${p.price}:${(p.variants||[]).reduce((s,v)=>s+(v.stock||0),0)}`).join('|');
+                        const freshSignature = freshData.filter(p => !p.variants || p.variants.some(v => v.stock > 0)).map(p => `${p.id}:${p.image}:${p.price}:${(p.variants||[]).reduce((s,v)=>s+(v.stock||0),0)}`).join('|');
+
+                        if (currentSignature !== freshSignature || products.length === 0) {
+                            console.log("⚡ Live update detected from Loyverse! Refreshing catalog smoothly...");
                             renderCatalogDataset(freshData);
-                        } else {
-                            // Update in-place smoothly
-                            products = freshData.filter(product => {
-                                if (!product.variants || product.variants.length === 0) return true;
-                                return product.variants.some(v => v.stock > 0);
-                            });
-                            filteredProductsList = [...products];
                         }
                     }
                 }
