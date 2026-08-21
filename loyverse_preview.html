@@ -813,6 +813,16 @@
             return '$ ' + Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
         
+        
+        // Image Optimizer Helper: Automatically converts any heavy PNG/JPG to ultra-light WebP thumbnail (~15KB)
+        function getOptimizedImageUrl(url, width = 400, quality = 80) {
+            if (!url || typeof url !== 'string') return 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
+            if (url.includes('data:image') || url.includes('wsrv.nl')) return url;
+            if (url.startsWith('../assets/') || url.startsWith('/assets/')) return url;
+            
+            return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=${width}&q=${quality}&output=webp&default=https%3A%2F%2Furbannoise.cc%2Fassets%2Fimg%2Flogo%2FLOGO_WEB.png`;
+        }
+        
         // Global State
         let products = [];
         let filteredProductsList = [];
@@ -1358,7 +1368,7 @@
                         <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200">
                             ${badgeHtml}
                             ${urgencyBadgeHtml}
-                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" loading="lazy" />
+                            <img src="${getOptimizedImageUrl(p.image, 400, 80)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
                         </div>
                         
                         <div class="mt-2.5 px-0.5 flex flex-col justify-between flex-grow">
@@ -1912,7 +1922,7 @@
             qtyInputVal = 1;
             
             // Update modal UI
-            document.getElementById('modal-product-img').src = product.image;
+            document.getElementById('modal-product-img').src = getOptimizedImageUrl(product.image, 800, 85);
             document.getElementById('modal-product-title').innerText = product.title;
             document.getElementById('modal-product-cat').innerText = product.category;
             
@@ -1960,7 +1970,7 @@
                     product.secondaryImages.forEach(imgUrl => {
                         thumbHtml += `
                             <button onclick="setMainModalImage('${imgUrl}', this)" class="w-14 h-14 rounded-xl overflow-hidden border border-zinc-200 hover:border-black shrink-0 relative bg-zinc-100 transition-all cursor-pointer thumbnail-btn">
-                                <img src="${imgUrl}" alt="${product.title}" class="w-full h-full object-cover">
+                                <img src="${getOptimizedImageUrl(imgUrl, 160, 75)}" alt="${product.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'">
                             </button>
                         `;
                     });
@@ -2329,7 +2339,7 @@
                         <!-- Product Header (Photo, Title, Total, Delete Entire Product) -->
                         <div class="flex gap-3 items-center pb-2.5 border-b border-zinc-100">
                             <div class="w-14 h-14 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 aspect-square">
-                                <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover">
+                                <img src="${getOptimizedImageUrl(prod.image, 160, 75)}" alt="${prod.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'">
                             </div>
                             
                             <div class="flex-grow pr-6">
@@ -2681,7 +2691,7 @@
                 
                 html += `
                 <div class="flex gap-3 items-center bg-zinc-50 border border-zinc-200 p-2.5 rounded-2xl">
-                    <img src="${image}" alt="${title}" class="w-12 h-12 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0" />
+                    <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-12 h-12 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
                     <div class="flex-grow text-left">
                         <h4 class="text-xs font-bold text-zinc-900 leading-snug line-clamp-1">${title}</h4>
                         <div class="flex justify-between items-center mt-1">
