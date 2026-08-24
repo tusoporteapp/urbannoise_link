@@ -1954,9 +1954,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=2026-08-21T15%3A05%3A26.000Z",
+    "image": "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=2026-08-24T20%3A36%3A04.000Z",
     "images": [
-      "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=2026-08-21T15%3A05%3A26.000Z"
+      "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=2026-08-24T20%3A36%3A04.000Z"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -1969,7 +1969,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": true,
-        "stock": 3
+        "stock": 1
       },
       {
         "id": "86e24273-c2bf-4587-84e7-2f1f834a1d1c",
@@ -1978,8 +1978,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "efa605eb-c5cd-45d5-9f5e-69dcb1b43502",
@@ -2002,7 +2002,7 @@
         "stock": 1
       }
     ],
-    "updated_at": "2026-08-21T15:05:26.000Z"
+    "updated_at": "2026-08-24T20:36:04.000Z"
   },
   {
     "id": "6acfe0bf-cf43-4634-bb63-fa60afe0a74a",

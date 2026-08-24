@@ -1075,7 +1075,7 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                // Load direct static JSON dataset (0ms server load)
+                // 1. Instant Cache/Static Hydration (0ms perceived time)
                 let localRes = await fetch("loyverse_products.json?t=" + Date.now());
                 if (!localRes.ok) {
                     localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
@@ -1086,8 +1086,31 @@
                         renderCatalogDataset(data);
                     }
                 }
+
+                // 2. Background Revalidation with Live Loyverse Catalog via Cloudflare Edge
+                revalidateCatalogInBackground();
             } catch (error) {
                 console.error("Error al cargar catálogo:", error);
+            }
+        }
+
+        async function revalidateCatalogInBackground() {
+            try {
+                const res = await fetch("/api/catalog?t=" + Date.now());
+                if (!res.ok) return;
+                const freshProducts = await res.json();
+                if (Array.isArray(freshProducts) && freshProducts.length > 0) {
+                    // Check if signature changed
+                    const currentSig = (products || []).map(p => `${p.id}:${(p.variants||[]).map(v=>v.stock).join(',')}:${p.updated_at}`).join('|');
+                    const freshSig = freshProducts.map(p => `${p.id}:${(p.variants||[]).map(v=>v.stock).join(',')}:${p.updated_at}`).join('|');
+                    
+                    if (currentSig !== freshSig) {
+                        console.log("⚡ Live changes detected in Loyverse, updating catalog smoothly...");
+                        renderCatalogDataset(freshProducts);
+                    }
+                }
+            } catch(e) {
+                // Silent failover to static dataset
             }
         }
 
