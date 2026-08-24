@@ -1868,7 +1868,7 @@
                 }
                 
                 if (currentModalProduct && currentModalProduct.id === productId) {
-                    currentModalProduct.variants = product ? product.variants : currentModalProduct.variants;
+                    currentModalProduct.variants = product ? product.variants : liveData.variants;
                     const newTotalStock = (currentModalProduct.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
                     
                     const stockBadgeEl = document.getElementById('modal-product-total-stock');
@@ -1884,16 +1884,17 @@
                             stockBadgeEl.innerText = "Agotado en Bodega";
                         }
                     }
-                    
+
+                    // CRITICAL: Re-render the Wholesale Matrix to disable 0-stock size inputs!
                     renderWholesaleMatrix(currentModalProduct);
                     updateModalBatchSummary();
                     lucide.createIcons();
                 }
-            } catch (e) {
-                console.warn("Live stock verification error:", e);
+            } catch (error) {
+                console.warn("Error en verificación Just-In-Time:", error);
             }
         }
-    
+
         function openProductDetail(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;

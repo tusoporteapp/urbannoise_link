@@ -314,9 +314,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "BUZO DOBLE CREM",
-    "image": "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=2026-08-24T15%3A02%3A56.000Z",
+    "image": "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=2026-08-24T19%3A53%3A21.000Z",
     "images": [
-      "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=2026-08-24T15%3A02%3A56.000Z"
+      "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=2026-08-24T19%3A53%3A21.000Z"
     ],
     "category": "Conjuntos",
     "rawCategory": "CONJUNTO SUDADERA",
@@ -362,7 +362,7 @@
         "stock": 10
       }
     ],
-    "updated_at": "2026-08-24T15:02:56.000Z"
+    "updated_at": "2026-08-24T19:53:21.000Z"
   },
   {
     "id": "f93280e4-35d3-4a77-8f22-c7b6f82d0775",
@@ -2490,9 +2490,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=2026-08-21T15%3A39%3A05.000Z",
+    "image": "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=2026-08-24T20%3A03%3A25.000Z",
     "images": [
-      "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=2026-08-21T15%3A39%3A05.000Z"
+      "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=2026-08-24T20%3A03%3A25.000Z"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -2504,8 +2504,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "a7594837-dd0f-4db2-b603-74452831df3d",
@@ -2514,8 +2514,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "fc6a65c2-aeda-40cb-9698-a872afd0a5ca",
@@ -2524,8 +2524,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "5880c8bb-149d-485b-a6ff-49552e39a825",
@@ -2534,11 +2534,11 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-21T15:39:05.000Z"
+    "updated_at": "2026-08-24T20:03:25.000Z"
   },
   {
     "id": "28f57d39-7c77-49ee-944d-d07f4512b9b4",
