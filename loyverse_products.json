@@ -1,13 +1,110 @@
 [
   {
+    "id": "855c5ed4-20a6-44b1-8173-1523352793eb",
+    "title": "Bermuda AcidWash",
+    "description": "Sin descripción disponible.",
+    "price": 65000,
+    "retailPrice": 95000,
+    "modifierApplied": "Bermuda Acid Wash",
+    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
+    "images": [],
+    "category": "Conjuntos",
+    "rawCategory": "Bermudas",
+    "variants": [
+      {
+        "id": "cb593f54-e918-4051-89ed-0cb3c228b1f5",
+        "sku": "11459",
+        "size": "S",
+        "color": "Negro",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "9445ca3d-6603-44a8-912c-ef26f954a496",
+        "sku": "11460",
+        "size": "S",
+        "color": "Gris",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "4f93fd7c-ee93-436d-8a1f-845475afddba",
+        "sku": "11461",
+        "size": "M",
+        "color": "Negro",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": true,
+        "stock": 8
+      },
+      {
+        "id": "1c158df4-0322-45c3-8d97-2f034280a445",
+        "sku": "11462",
+        "size": "M",
+        "color": "Gris",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "127c42b4-2ac0-4222-8caf-a5c7062a3beb",
+        "sku": "11463",
+        "size": "L",
+        "color": "Negro",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "35bc47e8-1ea1-4175-8c11-95ad235637e3",
+        "sku": "11464",
+        "size": "L",
+        "color": "Gris",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "9618a2bd-01b1-4d69-9513-3d1f220bbd62",
+        "sku": "11465",
+        "size": "XL",
+        "color": "Negro",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": true,
+        "stock": 14
+      },
+      {
+        "id": "002a591b-772d-4a96-9211-2a26fe60cb3e",
+        "sku": "11466",
+        "size": "XL",
+        "color": "Gris",
+        "price": 65000,
+        "retailPrice": 95000,
+        "inStock": false,
+        "stock": 0
+      }
+    ],
+    "updated_at": "2026-08-24T21:19:18.000Z"
+  },
+  {
     "id": "6ee5aaae-349e-4694-90ec-ed63a9d44daf",
     "title": "Pantalon AcidWash",
     "description": "Sin descripción disponible.",
     "price": 90000,
     "retailPrice": 125000,
     "modifierApplied": "Pantalon AcidWash",
-    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
-    "images": [],
+    "image": "https://api.loyverse.com/image/6ee5aaae-349e-4694-90ec-ed63a9d44daf?v=2026-08-24T21%3A19%3A39.000Z",
+    "images": [
+      "https://api.loyverse.com/image/6ee5aaae-349e-4694-90ec-ed63a9d44daf?v=2026-08-24T21%3A19%3A39.000Z"
+    ],
     "category": "Conjuntos",
     "rawCategory": "CONJUNTO SUDADERA",
     "variants": [
@@ -18,8 +115,8 @@
         "color": "Negro",
         "price": 90000,
         "retailPrice": 125000,
-        "inStock": false,
-        "stock": 0
+        "inStock": true,
+        "stock": 6
       },
       {
         "id": "45fb518c-b251-40d0-9c3e-f21d61924889",
@@ -92,7 +189,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T20:45:21.000Z"
+    "updated_at": "2026-08-24T21:19:39.000Z"
   },
   {
     "id": "5fc2bea9-3222-4aa2-b55c-e2298f19f5be",
@@ -1366,9 +1463,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=2026-08-21T15%3A16%3A16.000Z",
+    "image": "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=2026-08-24T21%3A17%3A23.000Z",
     "images": [
-      "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=2026-08-21T15%3A16%3A16.000Z"
+      "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=2026-08-24T21%3A17%3A23.000Z"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -1381,7 +1478,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 2
       },
       {
         "id": "8c5c4aa6-8c85-45ec-9072-42a70fd694a4",
@@ -1401,7 +1498,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "9e1c9b94-cf48-446c-907a-581881e7cb56",
@@ -1411,7 +1508,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 5
+        "stock": 3
       },
       {
         "id": "c32dab1a-181b-4e80-82f8-755218e3b362",
@@ -1421,7 +1518,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "860bcbb2-5591-4712-82d6-3f7c94d586e2",
@@ -1431,7 +1528,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 6
+        "stock": 5
       },
       {
         "id": "9069ef05-97f7-4665-9c1c-ed34ec97eba8",
@@ -1441,7 +1538,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "ca8708a6-361b-4d6a-b4f9-dece1a2230d0",
@@ -1454,7 +1551,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-21T15:16:16.000Z"
+    "updated_at": "2026-08-24T21:17:23.000Z"
   },
   {
     "id": "adfd1823-268b-4145-a3a7-af4cd0a2d0f2",
