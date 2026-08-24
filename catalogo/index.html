@@ -1075,42 +1075,30 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                // 1. Instant Cache/Static Hydration (0ms perceived time)
-                let localRes = await fetch("loyverse_products.json?t=" + Date.now());
-                if (!localRes.ok) {
-                    localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
+                // 1. Fetch LIVE from Cloudflare Server connected directly to Loyverse
+                const liveRes = await fetch("/api/catalog?t=" + Date.now()).catch(() => null);
+                if (liveRes && liveRes.ok) {
+                    const liveData = await liveRes.json().catch(() => null);
+                    if (Array.isArray(liveData) && liveData.length > 0) {
+                        console.log("⚡ Catálogo en vivo recibido directamente desde Loyverse Server:", liveData.length);
+                        renderCatalogDataset(liveData);
+                        return;
+                    }
                 }
-                if (localRes.ok) {
+
+                // 2. Static JSON Fallback if server is starting
+                let localRes = await fetch("loyverse_products.json?t=" + Date.now()).catch(() => null);
+                if (!localRes || !localRes.ok) {
+                    localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now()).catch(() => null);
+                }
+                if (localRes && localRes.ok) {
                     const data = await localRes.json();
                     if (Array.isArray(data) && data.length > 0) {
                         renderCatalogDataset(data);
                     }
                 }
-
-                // 2. Background Revalidation with Live Loyverse Catalog via Cloudflare Edge
-                revalidateCatalogInBackground();
             } catch (error) {
                 console.error("Error al cargar catálogo:", error);
-            }
-        }
-
-        async function revalidateCatalogInBackground() {
-            try {
-                const res = await fetch("/api/catalog?t=" + Date.now());
-                if (!res.ok) return;
-                const freshProducts = await res.json();
-                if (Array.isArray(freshProducts) && freshProducts.length > 0) {
-                    // Check if signature changed
-                    const currentSig = (products || []).map(p => `${p.id}:${(p.variants||[]).map(v=>v.stock).join(',')}:${p.updated_at}`).join('|');
-                    const freshSig = freshProducts.map(p => `${p.id}:${(p.variants||[]).map(v=>v.stock).join(',')}:${p.updated_at}`).join('|');
-                    
-                    if (currentSig !== freshSig) {
-                        console.log("⚡ Live changes detected in Loyverse, updating catalog smoothly...");
-                        renderCatalogDataset(freshProducts);
-                    }
-                }
-            } catch(e) {
-                // Silent failover to static dataset
             }
         }
 
