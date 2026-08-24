@@ -6020,9 +6020,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=2026-06-19T17%3A29%3A46.000Z",
+    "image": "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=2026-08-24T18%3A25%3A47.000Z",
     "images": [
-      "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=2026-06-19T17%3A29%3A46.000Z"
+      "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=2026-08-24T18%3A25%3A47.000Z"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -6108,7 +6108,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-06-19T17:29:46.000Z"
+    "updated_at": "2026-08-24T18:25:47.000Z"
   },
   {
     "id": "53485099-2953-46b9-9219-555841b9df6e",
@@ -6117,9 +6117,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=2026-06-19T17%3A42%3A10.000Z",
+    "image": "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=2026-08-24T18%3A25%3A34.000Z",
     "images": [
-      "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=2026-06-19T17%3A42%3A10.000Z"
+      "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=2026-08-24T18%3A25%3A34.000Z"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -6225,7 +6225,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-06-19T17:42:10.000Z"
+    "updated_at": "2026-08-24T18:25:34.000Z"
   },
   {
     "id": "02fc2488-6c32-4a1b-b677-944610fb4fc3",

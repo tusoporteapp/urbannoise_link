@@ -824,10 +824,7 @@
         // Image Optimizer Helper: Automatically converts any heavy PNG/JPG to ultra-light WebP thumbnail (~15KB)
         function getOptimizedImageUrl(url, width = 400, quality = 80) {
             if (!url || typeof url !== 'string') return 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
-            if (url.includes('data:image') || url.includes('wsrv.nl')) return url;
-            if (url.startsWith('../assets/') || url.startsWith('/assets/')) return url;
-            
-            return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=${width}&q=${quality}&output=webp&default=https%3A%2F%2Furbannoise.cc%2Fassets%2Fimg%2Flogo%2FLOGO_WEB.png`;
+            return url;
         }
         
         // Global State
@@ -1073,42 +1070,19 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                // --- STEP 1: INSTANT HYDRATION (< 50ms) ---
-                let initialData = null;
-                
-                // Try session cache first (0ms)
-                const cachedCatalog = sessionStorage.getItem('un_catalog_cache');
-                if (cachedCatalog) {
-                    try {
-                        const parsed = JSON.parse(cachedCatalog);
-                        if (Array.isArray(parsed) && parsed.length > 0) {
-                            initialData = parsed;
-                        }
-                    } catch(e) {}
+                // Load direct static JSON dataset (0ms server load)
+                let localRes = await fetch("loyverse_products.json?t=" + Date.now());
+                if (!localRes.ok) {
+                    localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
                 }
-
-                // If not in session cache, fetch static CDN json (~30ms)
-                if (!initialData) {
-                    let localRes = await fetch("loyverse_products.json?t=" + Date.now());
-                    if (!localRes.ok) {
-                        localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now());
-                    }
-                    if (localRes.ok) {
-                        initialData = await localRes.json();
+                if (localRes.ok) {
+                    const data = await localRes.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        renderCatalogDataset(data);
                     }
                 }
-
-                if (initialData && Array.isArray(initialData)) {
-                    renderCatalogDataset(initialData);
-                }
-
-                // --- STEP 2: ASYNC REAL-TIME REVALIDATION (SWR) ---
-                // Silently fetch fresh API data from Cloudflare Edge and update on any image or stock changes
-                revalidateCatalogInBackground();
-
             } catch (error) {
-                console.error("Error al cargar productos:", error);
-                revalidateCatalogInBackground();
+                console.error("Error al cargar catálogo:", error);
             }
         }
 
@@ -1136,32 +1110,6 @@
 
             // Check for 24h wholesale guide modal
             check24HourWholesaleGuideAutoPush();
-
-            // Save to session cache for sub-millisecond future loads
-            try {
-                sessionStorage.setItem('un_catalog_cache', JSON.stringify(dataset));
-            } catch(e) {}
-        }
-
-        async function revalidateCatalogInBackground() {
-            try {
-                // Fetch fresh data with cache buster in background without blocking screen
-                const apiRes = await fetch("/api/catalog?fresh=true&t=" + Date.now());
-                if (apiRes.ok) {
-                    const freshData = await apiRes.json();
-                    if (Array.isArray(freshData) && freshData.length > 0) {
-                        const currentSignature = (products || []).map(p => `${p.id}:${p.image}:${p.price}:${(p.variants||[]).reduce((s,v)=>s+(v.stock||0),0)}`).join('|');
-                        const freshSignature = freshData.filter(p => !p.variants || p.variants.some(v => v.stock > 0)).map(p => `${p.id}:${p.image}:${p.price}:${(p.variants||[]).reduce((s,v)=>s+(v.stock||0),0)}`).join('|');
-
-                        if (currentSignature !== freshSignature || products.length === 0) {
-                            console.log("⚡ Live update detected from Loyverse! Refreshing catalog smoothly...");
-                            renderCatalogDataset(freshData);
-                        }
-                    }
-                }
-            } catch (e) {
-                console.warn("Background catalog revalidation error:", e);
-            }
         }
 
         function renderLatestArrivalsCarousel() {
@@ -1897,64 +1845,10 @@
 
         // Layer 1: Silent Background Polling (Every 30 seconds)
         function startSilentStockPolling() {
+            // Background polling disabled to ensure 0 server requests
             if (silentStockPollingInterval) clearInterval(silentStockPollingInterval);
-            
-            silentStockPollingInterval = setInterval(async () => {
-                try {
-                    if (document.hidden) return; // Save battery & bandwidth if tab inactive
-                    
-                    const res = await fetch("/api/stock?t=" + Date.now());
-                    if (!res.ok) return;
-                    const data = await res.json();
-                    if (!data || !data.stockMap) return;
-                    
-                    const stockMap = data.stockMap;
-                    let anyChanged = false;
-                    
-                    products.forEach(p => {
-                        let productTotalStock = 0;
-                        (p.variants || []).forEach(v => {
-                            if (stockMap[v.id] !== undefined && stockMap[v.id] !== v.stock) {
-                                v.stock = stockMap[v.id];
-                                v.inStock = v.stock > 0;
-                                anyChanged = true;
-                            }
-                            productTotalStock += (v.stock || 0);
-                        });
-                        
-                        // Update live badge on grid card if visible
-                        const badgeEl = document.querySelector(`[data-stock-badge-id="${p.id}"]`);
-                        if (badgeEl) {
-                            if (productTotalStock <= 5 && productTotalStock > 0) {
-                                badgeEl.className = "text-[11px] font-black text-rose-600 bg-rose-50 border border-rose-200/80 px-2 py-0.5 rounded-md";
-                                badgeEl.innerHTML = `⚠️ Quedan <span class="text-xs font-black text-rose-950">${productTotalStock}</span>`;
-                            } else if (productTotalStock > 5) {
-                                badgeEl.className = "text-[11px] font-extrabold text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-md";
-                                badgeEl.innerHTML = `🟢 Stock: <span class="text-xs font-black text-emerald-950">${productTotalStock}</span>`;
-                            } else {
-                                badgeEl.className = "text-[10px] font-bold text-zinc-400 bg-zinc-100 border border-zinc-200 px-1.5 py-0.5 rounded-md";
-                                badgeEl.innerText = "Agotado";
-                            }
-                        }
-                    });
-                    
-                    // If current open modal product updated, refresh its matrix
-                    if (currentModalProduct && anyChanged) {
-                        const fresh = products.find(p => p.id === currentModalProduct.id);
-                        if (fresh) {
-                            currentModalProduct = fresh;
-                            renderWholesaleMatrix(fresh);
-                            updateModalBatchSummary();
-                            lucide.createIcons();
-                        }
-                    }
-                } catch (e) {
-                    // Silent fail
-                }
-            }, 30000);
         }
 
-        // Layer 2: Just-In-Time Stock Check when opening product detail
         async function verifyLiveProductStock(productId) {
             try {
                 const res = await fetch(`/api/stock?id=${productId}&t=` + Date.now());
