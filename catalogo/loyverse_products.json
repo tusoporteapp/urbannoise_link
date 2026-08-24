@@ -6,8 +6,10 @@
     "price": 65000,
     "retailPrice": 95000,
     "modifierApplied": "Bermuda Acid Wash",
-    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
-    "images": [],
+    "image": "https://api.loyverse.com/image/855c5ed4-20a6-44b1-8173-1523352793eb?v=1787606985000",
+    "images": [
+      "https://api.loyverse.com/image/855c5ed4-20a6-44b1-8173-1523352793eb?v=1787606985000"
+    ],
     "category": "Conjuntos",
     "rawCategory": "Bermudas",
     "variants": [
@@ -92,7 +94,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T21:19:18.000Z"
+    "updated_at": "2026-08-24T21:29:45.000Z"
   },
   {
     "id": "6ee5aaae-349e-4694-90ec-ed63a9d44daf",
@@ -101,9 +103,9 @@
     "price": 90000,
     "retailPrice": 125000,
     "modifierApplied": "Pantalon AcidWash",
-    "image": "https://api.loyverse.com/image/6ee5aaae-349e-4694-90ec-ed63a9d44daf?v=2026-08-24T21%3A19%3A39.000Z",
+    "image": "https://api.loyverse.com/image/6ee5aaae-349e-4694-90ec-ed63a9d44daf?v=1787606379000",
     "images": [
-      "https://api.loyverse.com/image/6ee5aaae-349e-4694-90ec-ed63a9d44daf?v=2026-08-24T21%3A19%3A39.000Z"
+      "https://api.loyverse.com/image/6ee5aaae-349e-4694-90ec-ed63a9d44daf?v=1787606379000"
     ],
     "category": "Conjuntos",
     "rawCategory": "CONJUNTO SUDADERA",
@@ -198,9 +200,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/5fc2bea9-3222-4aa2-b55c-e2298f19f5be?v=2026-08-24T15%3A24%3A50.000Z",
+    "image": "https://api.loyverse.com/image/5fc2bea9-3222-4aa2-b55c-e2298f19f5be?v=1787585090000",
     "images": [
-      "https://api.loyverse.com/image/5fc2bea9-3222-4aa2-b55c-e2298f19f5be?v=2026-08-24T15%3A24%3A50.000Z"
+      "https://api.loyverse.com/image/5fc2bea9-3222-4aa2-b55c-e2298f19f5be?v=1787585090000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -255,9 +257,9 @@
     "price": 41000,
     "retailPrice": 60000,
     "modifierApplied": "Esqueleto AcidWash",
-    "image": "https://api.loyverse.com/image/14be4863-0c49-4113-8320-0ef8c3403ddc?v=2026-08-24T14%3A07%3A53.000Z",
+    "image": "https://api.loyverse.com/image/14be4863-0c49-4113-8320-0ef8c3403ddc?v=1787580473000",
     "images": [
-      "https://api.loyverse.com/image/14be4863-0c49-4113-8320-0ef8c3403ddc?v=2026-08-24T14%3A07%3A53.000Z"
+      "https://api.loyverse.com/image/14be4863-0c49-4113-8320-0ef8c3403ddc?v=1787580473000"
     ],
     "category": "Acidwash",
     "rawCategory": "Esqueleto AcidWash",
@@ -332,9 +334,9 @@
     "price": 41000,
     "retailPrice": 60000,
     "modifierApplied": "Esqueleto AcidWash",
-    "image": "https://api.loyverse.com/image/e05d1ff3-8cab-4c15-93ae-dd2b42ee7813?v=2026-08-24T13%3A52%3A47.000Z",
+    "image": "https://api.loyverse.com/image/e05d1ff3-8cab-4c15-93ae-dd2b42ee7813?v=1787579567000",
     "images": [
-      "https://api.loyverse.com/image/e05d1ff3-8cab-4c15-93ae-dd2b42ee7813?v=2026-08-24T13%3A52%3A47.000Z"
+      "https://api.loyverse.com/image/e05d1ff3-8cab-4c15-93ae-dd2b42ee7813?v=1787579567000"
     ],
     "category": "Acidwash",
     "rawCategory": "Esqueleto AcidWash",
@@ -409,9 +411,9 @@
     "price": 40000,
     "retailPrice": 60000,
     "modifierApplied": "Prueba",
-    "image": "https://api.loyverse.com/image/ea52e235-7bdd-479f-bcd1-d4f3b83d99db?v=2026-08-22T14%3A11%3A50.000Z",
+    "image": "https://api.loyverse.com/image/ea52e235-7bdd-479f-bcd1-d4f3b83d99db?v=1787407910000",
     "images": [
-      "https://api.loyverse.com/image/ea52e235-7bdd-479f-bcd1-d4f3b83d99db?v=2026-08-22T14%3A11%3A50.000Z"
+      "https://api.loyverse.com/image/ea52e235-7bdd-479f-bcd1-d4f3b83d99db?v=1787407910000"
     ],
     "category": "PRUEBA",
     "rawCategory": "PRUEBA",
@@ -506,9 +508,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "BUZO DOBLE CREM",
-    "image": "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=2026-08-24T19%3A53%3A21.000Z",
+    "image": "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=1787601201000",
     "images": [
-      "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=2026-08-24T19%3A53%3A21.000Z"
+      "https://api.loyverse.com/image/6d564857-76c2-4ec6-8b00-617770ef188d?v=1787601201000"
     ],
     "category": "Conjuntos",
     "rawCategory": "CONJUNTO SUDADERA",
@@ -618,9 +620,9 @@
     "price": 45000,
     "retailPrice": 58000,
     "modifierApplied": "T-Shirt",
-    "image": "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=2026-08-20T20%3A27%3A45.000Z",
+    "image": "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=1787257665000",
     "images": [
-      "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=2026-08-20T20%3A27%3A45.000Z"
+      "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=1787257665000"
     ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
@@ -655,9 +657,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/3cf76027-5cf8-47d0-9f66-c44de641b616?v=2026-08-18T17%3A33%3A57.000Z",
+    "image": "https://api.loyverse.com/image/3cf76027-5cf8-47d0-9f66-c44de641b616?v=1787074437000",
     "images": [
-      "https://api.loyverse.com/image/3cf76027-5cf8-47d0-9f66-c44de641b616?v=2026-08-18T17%3A33%3A57.000Z"
+      "https://api.loyverse.com/image/3cf76027-5cf8-47d0-9f66-c44de641b616?v=1787074437000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -772,9 +774,9 @@
     "price": 120000,
     "retailPrice": 150000,
     "modifierApplied": "Buzo GoldCrem",
-    "image": "https://api.loyverse.com/image/09bf0107-021e-4188-b8a8-4792d0a5bd94?v=2026-08-15T00%3A39%3A58.000Z",
+    "image": "https://api.loyverse.com/image/09bf0107-021e-4188-b8a8-4792d0a5bd94?v=1786754398000",
     "images": [
-      "https://api.loyverse.com/image/09bf0107-021e-4188-b8a8-4792d0a5bd94?v=2026-08-15T00%3A39%3A58.000Z"
+      "https://api.loyverse.com/image/09bf0107-021e-4188-b8a8-4792d0a5bd94?v=1786754398000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo GoldCrem",
@@ -829,9 +831,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/e3a13515-5285-49ce-8a71-2a6c8ce50ad9?v=2026-08-24T15%3A32%3A42.000Z",
+    "image": "https://api.loyverse.com/image/e3a13515-5285-49ce-8a71-2a6c8ce50ad9?v=1787585562000",
     "images": [
-      "https://api.loyverse.com/image/e3a13515-5285-49ce-8a71-2a6c8ce50ad9?v=2026-08-24T15%3A32%3A42.000Z"
+      "https://api.loyverse.com/image/e3a13515-5285-49ce-8a71-2a6c8ce50ad9?v=1787585562000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -946,9 +948,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/aebf86c1-62f0-4d28-a0b1-91a6f0d81403?v=2026-08-24T13%3A52%3A31.000Z",
+    "image": "https://api.loyverse.com/image/aebf86c1-62f0-4d28-a0b1-91a6f0d81403?v=1787579551000",
     "images": [
-      "https://api.loyverse.com/image/aebf86c1-62f0-4d28-a0b1-91a6f0d81403?v=2026-08-24T13%3A52%3A31.000Z"
+      "https://api.loyverse.com/image/aebf86c1-62f0-4d28-a0b1-91a6f0d81403?v=1787579551000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -1118,9 +1120,9 @@
     "price": 120000,
     "retailPrice": 150000,
     "modifierApplied": "Buzo GoldCrem",
-    "image": "https://api.loyverse.com/image/21ad4e93-d44e-49be-9e19-44ca71ccb63e?v=2026-08-24T15%3A32%3A54.000Z",
+    "image": "https://api.loyverse.com/image/21ad4e93-d44e-49be-9e19-44ca71ccb63e?v=1787585574000",
     "images": [
-      "https://api.loyverse.com/image/21ad4e93-d44e-49be-9e19-44ca71ccb63e?v=2026-08-24T15%3A32%3A54.000Z"
+      "https://api.loyverse.com/image/21ad4e93-d44e-49be-9e19-44ca71ccb63e?v=1787585574000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo GoldCrem",
@@ -1175,9 +1177,9 @@
     "price": 120000,
     "retailPrice": 150000,
     "modifierApplied": "Buzo GoldCrem",
-    "image": "https://api.loyverse.com/image/497b92be-eb31-499e-8a9e-42325d87efb4?v=2026-08-24T13%3A52%3A06.000Z",
+    "image": "https://api.loyverse.com/image/497b92be-eb31-499e-8a9e-42325d87efb4?v=1787579526000",
     "images": [
-      "https://api.loyverse.com/image/497b92be-eb31-499e-8a9e-42325d87efb4?v=2026-08-24T13%3A52%3A06.000Z"
+      "https://api.loyverse.com/image/497b92be-eb31-499e-8a9e-42325d87efb4?v=1787579526000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo GoldCrem",
@@ -1232,9 +1234,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/925415f4-1b66-4241-beb7-6702128edbe8?v=2026-08-22T13%3A26%3A11.000Z",
+    "image": "https://api.loyverse.com/image/925415f4-1b66-4241-beb7-6702128edbe8?v=1787405171000",
     "images": [
-      "https://api.loyverse.com/image/925415f4-1b66-4241-beb7-6702128edbe8?v=2026-08-22T13%3A26%3A11.000Z"
+      "https://api.loyverse.com/image/925415f4-1b66-4241-beb7-6702128edbe8?v=1787405171000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -1299,9 +1301,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/d3d115ee-31ea-4cbd-a858-d7882fb0491e?v=2026-08-21T15%3A16%3A42.000Z",
+    "image": "https://api.loyverse.com/image/d3d115ee-31ea-4cbd-a858-d7882fb0491e?v=1787325402000",
     "images": [
-      "https://api.loyverse.com/image/d3d115ee-31ea-4cbd-a858-d7882fb0491e?v=2026-08-21T15%3A16%3A42.000Z"
+      "https://api.loyverse.com/image/d3d115ee-31ea-4cbd-a858-d7882fb0491e?v=1787325402000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -1366,9 +1368,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/01b8ccf9-7cad-45a5-855d-f743276b2eca?v=2026-08-21T15%3A16%3A29.000Z",
+    "image": "https://api.loyverse.com/image/01b8ccf9-7cad-45a5-855d-f743276b2eca?v=1787325389000",
     "images": [
-      "https://api.loyverse.com/image/01b8ccf9-7cad-45a5-855d-f743276b2eca?v=2026-08-21T15%3A16%3A29.000Z"
+      "https://api.loyverse.com/image/01b8ccf9-7cad-45a5-855d-f743276b2eca?v=1787325389000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -1463,9 +1465,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=2026-08-24T21%3A17%3A23.000Z",
+    "image": "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=1787606243000",
     "images": [
-      "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=2026-08-24T21%3A17%3A23.000Z"
+      "https://api.loyverse.com/image/344c20c1-9e36-4494-8c33-dda8fef46fb8?v=1787606243000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -1560,9 +1562,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/adfd1823-268b-4145-a3a7-af4cd0a2d0f2?v=2026-08-21T15%3A55%3A46.000Z",
+    "image": "https://api.loyverse.com/image/adfd1823-268b-4145-a3a7-af4cd0a2d0f2?v=1787327746000",
     "images": [
-      "https://api.loyverse.com/image/adfd1823-268b-4145-a3a7-af4cd0a2d0f2?v=2026-08-21T15%3A55%3A46.000Z"
+      "https://api.loyverse.com/image/adfd1823-268b-4145-a3a7-af4cd0a2d0f2?v=1787327746000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -1627,9 +1629,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/d6afe05f-4d6e-4b9a-93e3-b763303b1d22?v=2026-08-21T16%3A59%3A47.000Z",
+    "image": "https://api.loyverse.com/image/d6afe05f-4d6e-4b9a-93e3-b763303b1d22?v=1787331587000",
     "images": [
-      "https://api.loyverse.com/image/d6afe05f-4d6e-4b9a-93e3-b763303b1d22?v=2026-08-21T16%3A59%3A47.000Z"
+      "https://api.loyverse.com/image/d6afe05f-4d6e-4b9a-93e3-b763303b1d22?v=1787331587000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -1684,9 +1686,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/92af4827-7923-4685-96d4-0f746dd02516?v=2026-08-21T15%3A55%3A31.000Z",
+    "image": "https://api.loyverse.com/image/92af4827-7923-4685-96d4-0f746dd02516?v=1787327731000",
     "images": [
-      "https://api.loyverse.com/image/92af4827-7923-4685-96d4-0f746dd02516?v=2026-08-21T15%3A55%3A31.000Z"
+      "https://api.loyverse.com/image/92af4827-7923-4685-96d4-0f746dd02516?v=1787327731000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -1781,9 +1783,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/dd67bc3c-313f-4466-851a-cdba99ed36db?v=2026-08-21T15%3A55%3A18.000Z",
+    "image": "https://api.loyverse.com/image/dd67bc3c-313f-4466-851a-cdba99ed36db?v=1787327718000",
     "images": [
-      "https://api.loyverse.com/image/dd67bc3c-313f-4466-851a-cdba99ed36db?v=2026-08-21T15%3A55%3A18.000Z"
+      "https://api.loyverse.com/image/dd67bc3c-313f-4466-851a-cdba99ed36db?v=1787327718000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -1838,9 +1840,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/ab1a19d0-1d31-44f7-9159-7b38eb799596?v=2026-08-21T15%3A53%3A49.000Z",
+    "image": "https://api.loyverse.com/image/ab1a19d0-1d31-44f7-9159-7b38eb799596?v=1787327629000",
     "images": [
-      "https://api.loyverse.com/image/ab1a19d0-1d31-44f7-9159-7b38eb799596?v=2026-08-21T15%3A53%3A49.000Z"
+      "https://api.loyverse.com/image/ab1a19d0-1d31-44f7-9159-7b38eb799596?v=1787327629000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -1935,9 +1937,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/bc83d2b4-9d50-4736-9008-309d31f5daf9?v=2026-08-21T16%3A59%3A17.000Z",
+    "image": "https://api.loyverse.com/image/bc83d2b4-9d50-4736-9008-309d31f5daf9?v=1787331557000",
     "images": [
-      "https://api.loyverse.com/image/bc83d2b4-9d50-4736-9008-309d31f5daf9?v=2026-08-21T16%3A59%3A17.000Z"
+      "https://api.loyverse.com/image/bc83d2b4-9d50-4736-9008-309d31f5daf9?v=1787331557000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -1992,9 +1994,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/929a2a54-d336-467c-a74d-a9a159b65eb8?v=2026-08-21T16%3A59%3A03.000Z",
+    "image": "https://api.loyverse.com/image/929a2a54-d336-467c-a74d-a9a159b65eb8?v=1787331543000",
     "images": [
-      "https://api.loyverse.com/image/929a2a54-d336-467c-a74d-a9a159b65eb8?v=2026-08-21T16%3A59%3A03.000Z"
+      "https://api.loyverse.com/image/929a2a54-d336-467c-a74d-a9a159b65eb8?v=1787331543000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -2089,9 +2091,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/dabc60d1-108f-485d-8851-f058adc564eb?v=2026-08-21T16%3A58%3A46.000Z",
+    "image": "https://api.loyverse.com/image/dabc60d1-108f-485d-8851-f058adc564eb?v=1787331526000",
     "images": [
-      "https://api.loyverse.com/image/dabc60d1-108f-485d-8851-f058adc564eb?v=2026-08-21T16%3A58%3A46.000Z"
+      "https://api.loyverse.com/image/dabc60d1-108f-485d-8851-f058adc564eb?v=1787331526000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -2146,9 +2148,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=2026-08-24T20%3A36%3A04.000Z",
+    "image": "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=1787603764000",
     "images": [
-      "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=2026-08-24T20%3A36%3A04.000Z"
+      "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=1787603764000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -2203,9 +2205,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/6acfe0bf-cf43-4634-bb63-fa60afe0a74a?v=2026-08-21T15%3A05%3A14.000Z",
+    "image": "https://api.loyverse.com/image/6acfe0bf-cf43-4634-bb63-fa60afe0a74a?v=1787324714000",
     "images": [
-      "https://api.loyverse.com/image/6acfe0bf-cf43-4634-bb63-fa60afe0a74a?v=2026-08-21T15%3A05%3A14.000Z"
+      "https://api.loyverse.com/image/6acfe0bf-cf43-4634-bb63-fa60afe0a74a?v=1787324714000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -2260,9 +2262,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/68d6f844-4193-4fce-a5f9-bde762535ba3?v=2026-08-21T15%3A04%3A59.000Z",
+    "image": "https://api.loyverse.com/image/68d6f844-4193-4fce-a5f9-bde762535ba3?v=1787324699000",
     "images": [
-      "https://api.loyverse.com/image/68d6f844-4193-4fce-a5f9-bde762535ba3?v=2026-08-21T15%3A04%3A59.000Z"
+      "https://api.loyverse.com/image/68d6f844-4193-4fce-a5f9-bde762535ba3?v=1787324699000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -2357,9 +2359,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/c2058ae6-ffd0-47eb-aede-1ced17448cb3?v=2026-08-21T15%3A04%3A44.000Z",
+    "image": "https://api.loyverse.com/image/c2058ae6-ffd0-47eb-aede-1ced17448cb3?v=1787324684000",
     "images": [
-      "https://api.loyverse.com/image/c2058ae6-ffd0-47eb-aede-1ced17448cb3?v=2026-08-21T15%3A04%3A44.000Z"
+      "https://api.loyverse.com/image/c2058ae6-ffd0-47eb-aede-1ced17448cb3?v=1787324684000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -2454,9 +2456,9 @@
     "price": 41000,
     "retailPrice": 60000,
     "modifierApplied": "Esqueleto AcidWash",
-    "image": "https://api.loyverse.com/image/1655b2c5-9501-4508-a7fb-504795585dcb?v=2026-08-21T15%3A04%3A27.000Z",
+    "image": "https://api.loyverse.com/image/1655b2c5-9501-4508-a7fb-504795585dcb?v=1787324667000",
     "images": [
-      "https://api.loyverse.com/image/1655b2c5-9501-4508-a7fb-504795585dcb?v=2026-08-21T15%3A04%3A27.000Z"
+      "https://api.loyverse.com/image/1655b2c5-9501-4508-a7fb-504795585dcb?v=1787324667000"
     ],
     "category": "Acidwash",
     "rawCategory": "Esqueleto AcidWash",
@@ -2511,9 +2513,9 @@
     "price": 45000,
     "retailPrice": 70000,
     "modifierApplied": "Oversize Pedreria",
-    "image": "https://api.loyverse.com/image/faff7ff2-f705-4f1d-874a-f9da87f7ab3d?v=2026-08-21T20%3A20%3A59.000Z",
+    "image": "https://api.loyverse.com/image/faff7ff2-f705-4f1d-874a-f9da87f7ab3d?v=1787343659000",
     "images": [
-      "https://api.loyverse.com/image/faff7ff2-f705-4f1d-874a-f9da87f7ab3d?v=2026-08-21T20%3A20%3A59.000Z"
+      "https://api.loyverse.com/image/faff7ff2-f705-4f1d-874a-f9da87f7ab3d?v=1787343659000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Pedreria",
@@ -2568,9 +2570,9 @@
     "price": 45000,
     "retailPrice": 70000,
     "modifierApplied": "Oversize Pedreria",
-    "image": "https://api.loyverse.com/image/ed481b51-64cd-4db1-8bd8-68a082e82fd5?v=2026-08-21T20%3A28%3A14.000Z",
+    "image": "https://api.loyverse.com/image/ed481b51-64cd-4db1-8bd8-68a082e82fd5?v=1787344094000",
     "images": [
-      "https://api.loyverse.com/image/ed481b51-64cd-4db1-8bd8-68a082e82fd5?v=2026-08-21T20%3A28%3A14.000Z"
+      "https://api.loyverse.com/image/ed481b51-64cd-4db1-8bd8-68a082e82fd5?v=1787344094000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Pedreria",
@@ -2625,9 +2627,9 @@
     "price": 45000,
     "retailPrice": 70000,
     "modifierApplied": "Oversize Pedreria",
-    "image": "https://api.loyverse.com/image/71c2ea18-cf2a-45d9-9734-49d01484b2dc?v=2026-08-21T20%3A59%3A27.000Z",
+    "image": "https://api.loyverse.com/image/71c2ea18-cf2a-45d9-9734-49d01484b2dc?v=1787345967000",
     "images": [
-      "https://api.loyverse.com/image/71c2ea18-cf2a-45d9-9734-49d01484b2dc?v=2026-08-21T20%3A59%3A27.000Z"
+      "https://api.loyverse.com/image/71c2ea18-cf2a-45d9-9734-49d01484b2dc?v=1787345967000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Pedreria",
@@ -2682,9 +2684,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=2026-08-24T20%3A03%3A25.000Z",
+    "image": "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=1787601805000",
     "images": [
-      "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=2026-08-24T20%3A03%3A25.000Z"
+      "https://api.loyverse.com/image/90e0de6e-a58d-4eed-b561-056563dafb7d?v=1787601805000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -2739,9 +2741,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/28f57d39-7c77-49ee-944d-d07f4512b9b4?v=2026-08-21T15%3A38%3A55.000Z",
+    "image": "https://api.loyverse.com/image/28f57d39-7c77-49ee-944d-d07f4512b9b4?v=1787326735000",
     "images": [
-      "https://api.loyverse.com/image/28f57d39-7c77-49ee-944d-d07f4512b9b4?v=2026-08-21T15%3A38%3A55.000Z"
+      "https://api.loyverse.com/image/28f57d39-7c77-49ee-944d-d07f4512b9b4?v=1787326735000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -2836,9 +2838,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/1fc200d6-f232-45b9-9024-a8e23d9d8b89?v=2026-08-21T15%3A38%3A38.000Z",
+    "image": "https://api.loyverse.com/image/1fc200d6-f232-45b9-9024-a8e23d9d8b89?v=1787326718000",
     "images": [
-      "https://api.loyverse.com/image/1fc200d6-f232-45b9-9024-a8e23d9d8b89?v=2026-08-21T15%3A38%3A38.000Z"
+      "https://api.loyverse.com/image/1fc200d6-f232-45b9-9024-a8e23d9d8b89?v=1787326718000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -2893,9 +2895,9 @@
     "price": 41000,
     "retailPrice": 60000,
     "modifierApplied": "Esqueleto AcidWash",
-    "image": "https://api.loyverse.com/image/4825f4f0-9791-4c6e-9144-2d09bb0b5565?v=2026-08-21T15%3A38%3A26.000Z",
+    "image": "https://api.loyverse.com/image/4825f4f0-9791-4c6e-9144-2d09bb0b5565?v=1787326706000",
     "images": [
-      "https://api.loyverse.com/image/4825f4f0-9791-4c6e-9144-2d09bb0b5565?v=2026-08-21T15%3A38%3A26.000Z"
+      "https://api.loyverse.com/image/4825f4f0-9791-4c6e-9144-2d09bb0b5565?v=1787326706000"
     ],
     "category": "Acidwash",
     "rawCategory": "Esqueleto AcidWash",
@@ -2950,9 +2952,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/7369a514-00fa-402d-8231-00319bc4fd80?v=2026-08-21T15%3A37%3A52.000Z",
+    "image": "https://api.loyverse.com/image/7369a514-00fa-402d-8231-00319bc4fd80?v=1787326672000",
     "images": [
-      "https://api.loyverse.com/image/7369a514-00fa-402d-8231-00319bc4fd80?v=2026-08-21T15%3A37%3A52.000Z"
+      "https://api.loyverse.com/image/7369a514-00fa-402d-8231-00319bc4fd80?v=1787326672000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -3047,9 +3049,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=2026-08-21T20%3A20%3A45.000Z",
+    "image": "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=1787343645000",
     "images": [
-      "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=2026-08-21T20%3A20%3A45.000Z"
+      "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=1787343645000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -3114,9 +3116,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/b69a8bae-196d-4db4-b6f8-d7fccc705c59?v=2026-08-21T20%3A20%3A28.000Z",
+    "image": "https://api.loyverse.com/image/b69a8bae-196d-4db4-b6f8-d7fccc705c59?v=1787343628000",
     "images": [
-      "https://api.loyverse.com/image/b69a8bae-196d-4db4-b6f8-d7fccc705c59?v=2026-08-21T20%3A20%3A28.000Z"
+      "https://api.loyverse.com/image/b69a8bae-196d-4db4-b6f8-d7fccc705c59?v=1787343628000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -3211,9 +3213,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/b0f42c6b-ea04-42c8-9c06-f1201ee0f1c1?v=2026-08-21T21%3A01%3A55.000Z",
+    "image": "https://api.loyverse.com/image/b0f42c6b-ea04-42c8-9c06-f1201ee0f1c1?v=1787346115000",
     "images": [
-      "https://api.loyverse.com/image/b0f42c6b-ea04-42c8-9c06-f1201ee0f1c1?v=2026-08-21T21%3A01%3A55.000Z"
+      "https://api.loyverse.com/image/b0f42c6b-ea04-42c8-9c06-f1201ee0f1c1?v=1787346115000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -3328,9 +3330,9 @@
     "price": 41000,
     "retailPrice": 60000,
     "modifierApplied": "Esqueleto AcidWash",
-    "image": "https://api.loyverse.com/image/42041318-8059-46f7-81bb-e4e9e4db76b4?v=2026-08-21T21%3A00%3A05.000Z",
+    "image": "https://api.loyverse.com/image/42041318-8059-46f7-81bb-e4e9e4db76b4?v=1787346005000",
     "images": [
-      "https://api.loyverse.com/image/42041318-8059-46f7-81bb-e4e9e4db76b4?v=2026-08-21T21%3A00%3A05.000Z"
+      "https://api.loyverse.com/image/42041318-8059-46f7-81bb-e4e9e4db76b4?v=1787346005000"
     ],
     "category": "Acidwash",
     "rawCategory": "Esqueleto AcidWash",
@@ -3425,9 +3427,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/ec1e7b11-03f6-4d7e-9889-aa35e20e001e?v=2026-08-21T20%3A59%3A43.000Z",
+    "image": "https://api.loyverse.com/image/ec1e7b11-03f6-4d7e-9889-aa35e20e001e?v=1787345983000",
     "images": [
-      "https://api.loyverse.com/image/ec1e7b11-03f6-4d7e-9889-aa35e20e001e?v=2026-08-21T20%3A59%3A43.000Z"
+      "https://api.loyverse.com/image/ec1e7b11-03f6-4d7e-9889-aa35e20e001e?v=1787345983000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -3482,9 +3484,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=2026-08-22T13%3A44%3A27.000Z",
+    "image": "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=1787406267000",
     "images": [
-      "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=2026-08-22T13%3A44%3A27.000Z"
+      "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=1787406267000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -3539,9 +3541,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/a6a9caa9-a2cc-460a-9e3a-332fa6aed660?v=2026-08-22T13%3A45%3A12.000Z",
+    "image": "https://api.loyverse.com/image/a6a9caa9-a2cc-460a-9e3a-332fa6aed660?v=1787406312000",
     "images": [
-      "https://api.loyverse.com/image/a6a9caa9-a2cc-460a-9e3a-332fa6aed660?v=2026-08-22T13%3A45%3A12.000Z"
+      "https://api.loyverse.com/image/a6a9caa9-a2cc-460a-9e3a-332fa6aed660?v=1787406312000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -3596,9 +3598,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/5ae87b1c-dcc1-4ece-b6ed-45ef71ada9cd?v=2026-08-22T13%3A44%3A40.000Z",
+    "image": "https://api.loyverse.com/image/5ae87b1c-dcc1-4ece-b6ed-45ef71ada9cd?v=1787406280000",
     "images": [
-      "https://api.loyverse.com/image/5ae87b1c-dcc1-4ece-b6ed-45ef71ada9cd?v=2026-08-22T13%3A44%3A40.000Z"
+      "https://api.loyverse.com/image/5ae87b1c-dcc1-4ece-b6ed-45ef71ada9cd?v=1787406280000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -3693,9 +3695,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/9b709908-e01c-407c-9af1-61365258d333?v=2026-08-22T13%3A43%3A42.000Z",
+    "image": "https://api.loyverse.com/image/9b709908-e01c-407c-9af1-61365258d333?v=1787406222000",
     "images": [
-      "https://api.loyverse.com/image/9b709908-e01c-407c-9af1-61365258d333?v=2026-08-22T13%3A43%3A42.000Z"
+      "https://api.loyverse.com/image/9b709908-e01c-407c-9af1-61365258d333?v=1787406222000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -3835,9 +3837,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/f2bac87e-7d9e-43e9-b888-7f7ca1f37691?v=2026-08-24T16%3A49%3A48.000Z",
+    "image": "https://api.loyverse.com/image/f2bac87e-7d9e-43e9-b888-7f7ca1f37691?v=1787590188000",
     "images": [
-      "https://api.loyverse.com/image/f2bac87e-7d9e-43e9-b888-7f7ca1f37691?v=2026-08-24T16%3A49%3A48.000Z"
+      "https://api.loyverse.com/image/f2bac87e-7d9e-43e9-b888-7f7ca1f37691?v=1787590188000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -3892,9 +3894,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/38c884bd-2366-4da3-a4e7-17a7dd6beaa0?v=2026-08-24T16%3A50%3A03.000Z",
+    "image": "https://api.loyverse.com/image/38c884bd-2366-4da3-a4e7-17a7dd6beaa0?v=1787590203000",
     "images": [
-      "https://api.loyverse.com/image/38c884bd-2366-4da3-a4e7-17a7dd6beaa0?v=2026-08-24T16%3A50%3A03.000Z"
+      "https://api.loyverse.com/image/38c884bd-2366-4da3-a4e7-17a7dd6beaa0?v=1787590203000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -3949,9 +3951,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/ec3e63dc-b959-4c16-916b-7841b7b45152?v=2026-08-24T16%3A49%3A32.000Z",
+    "image": "https://api.loyverse.com/image/ec3e63dc-b959-4c16-916b-7841b7b45152?v=1787590172000",
     "images": [
-      "https://api.loyverse.com/image/ec3e63dc-b959-4c16-916b-7841b7b45152?v=2026-08-24T16%3A49%3A32.000Z"
+      "https://api.loyverse.com/image/ec3e63dc-b959-4c16-916b-7841b7b45152?v=1787590172000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -4046,9 +4048,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/52558b7b-62c7-4fd4-8ae0-73e85ccb1c4c?v=2026-08-21T16%3A45%3A53.000Z",
+    "image": "https://api.loyverse.com/image/52558b7b-62c7-4fd4-8ae0-73e85ccb1c4c?v=1787330753000",
     "images": [
-      "https://api.loyverse.com/image/52558b7b-62c7-4fd4-8ae0-73e85ccb1c4c?v=2026-08-21T16%3A45%3A53.000Z"
+      "https://api.loyverse.com/image/52558b7b-62c7-4fd4-8ae0-73e85ccb1c4c?v=1787330753000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -4103,9 +4105,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/590e58b3-be5e-498d-89b1-3b983601f813?v=2026-08-24T17%3A04%3A07.000Z",
+    "image": "https://api.loyverse.com/image/590e58b3-be5e-498d-89b1-3b983601f813?v=1787591047000",
     "images": [
-      "https://api.loyverse.com/image/590e58b3-be5e-498d-89b1-3b983601f813?v=2026-08-24T17%3A04%3A07.000Z"
+      "https://api.loyverse.com/image/590e58b3-be5e-498d-89b1-3b983601f813?v=1787591047000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -4200,9 +4202,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/a9afc049-8670-4f5f-93e7-6ba38aa4796c?v=2026-08-21T20%3A28%3A26.000Z",
+    "image": "https://api.loyverse.com/image/a9afc049-8670-4f5f-93e7-6ba38aa4796c?v=1787344106000",
     "images": [
-      "https://api.loyverse.com/image/a9afc049-8670-4f5f-93e7-6ba38aa4796c?v=2026-08-21T20%3A28%3A26.000Z"
+      "https://api.loyverse.com/image/a9afc049-8670-4f5f-93e7-6ba38aa4796c?v=1787344106000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -4247,9 +4249,9 @@
     "price": 23000,
     "retailPrice": 40000,
     "modifierApplied": "Body",
-    "image": "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=2026-08-24T17%3A22%3A19.000Z",
+    "image": "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=1787592139000",
     "images": [
-      "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=2026-08-24T17%3A22%3A19.000Z"
+      "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=1787592139000"
     ],
     "category": "Linea de Damas",
     "rawCategory": "Body",
@@ -4304,9 +4306,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/0753855f-2c3e-44c3-b6be-25a3fa1b9fae?v=2026-08-21T20%3A28%3A01.000Z",
+    "image": "https://api.loyverse.com/image/0753855f-2c3e-44c3-b6be-25a3fa1b9fae?v=1787344081000",
     "images": [
-      "https://api.loyverse.com/image/0753855f-2c3e-44c3-b6be-25a3fa1b9fae?v=2026-08-21T20%3A28%3A01.000Z"
+      "https://api.loyverse.com/image/0753855f-2c3e-44c3-b6be-25a3fa1b9fae?v=1787344081000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -4401,9 +4403,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/ba34794f-1c4c-4ca8-a4ea-dea3828b6a9a?v=2026-08-21T20%3A27%3A45.000Z",
+    "image": "https://api.loyverse.com/image/ba34794f-1c4c-4ca8-a4ea-dea3828b6a9a?v=1787344065000",
     "images": [
-      "https://api.loyverse.com/image/ba34794f-1c4c-4ca8-a4ea-dea3828b6a9a?v=2026-08-21T20%3A27%3A45.000Z"
+      "https://api.loyverse.com/image/ba34794f-1c4c-4ca8-a4ea-dea3828b6a9a?v=1787344065000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -4458,9 +4460,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/f590c58c-0d21-47ec-8ed9-04a44823d923?v=2026-08-24T17%3A43%3A54.000Z",
+    "image": "https://api.loyverse.com/image/f590c58c-0d21-47ec-8ed9-04a44823d923?v=1787593434000",
     "images": [
-      "https://api.loyverse.com/image/f590c58c-0d21-47ec-8ed9-04a44823d923?v=2026-08-24T17%3A43%3A54.000Z"
+      "https://api.loyverse.com/image/f590c58c-0d21-47ec-8ed9-04a44823d923?v=1787593434000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -4555,9 +4557,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/ca907d7f-6941-495d-b247-beffb7baa9be?v=2026-08-21T20%3A45%3A44.000Z",
+    "image": "https://api.loyverse.com/image/ca907d7f-6941-495d-b247-beffb7baa9be?v=1787345144000",
     "images": [
-      "https://api.loyverse.com/image/ca907d7f-6941-495d-b247-beffb7baa9be?v=2026-08-21T20%3A45%3A44.000Z"
+      "https://api.loyverse.com/image/ca907d7f-6941-495d-b247-beffb7baa9be?v=1787345144000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -4707,9 +4709,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=2026-08-24T21%3A10%3A23.000Z",
+    "image": "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=1787605823000",
     "images": [
-      "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=2026-08-24T21%3A10%3A23.000Z"
+      "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=1787605823000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -4844,9 +4846,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/836036b2-102f-4c8b-a64e-741a9dcf49ae?v=2026-08-21T18%3A39%3A21.000Z",
+    "image": "https://api.loyverse.com/image/836036b2-102f-4c8b-a64e-741a9dcf49ae?v=1787337561000",
     "images": [
-      "https://api.loyverse.com/image/836036b2-102f-4c8b-a64e-741a9dcf49ae?v=2026-08-21T18%3A39%3A21.000Z"
+      "https://api.loyverse.com/image/836036b2-102f-4c8b-a64e-741a9dcf49ae?v=1787337561000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -4941,9 +4943,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=2026-08-21T18%3A39%3A09.000Z",
+    "image": "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=1787337549000",
     "images": [
-      "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=2026-08-21T18%3A39%3A09.000Z"
+      "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=1787337549000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -5038,9 +5040,9 @@
     "price": 33000,
     "retailPrice": 50000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/9277df94-f46c-4d8d-a598-6023ee51e517?v=2026-08-21T18%3A48%3A39.000Z",
+    "image": "https://api.loyverse.com/image/9277df94-f46c-4d8d-a598-6023ee51e517?v=1787338119000",
     "images": [
-      "https://api.loyverse.com/image/9277df94-f46c-4d8d-a598-6023ee51e517?v=2026-08-21T18%3A48%3A39.000Z"
+      "https://api.loyverse.com/image/9277df94-f46c-4d8d-a598-6023ee51e517?v=1787338119000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -5095,9 +5097,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/8fb3a200-db93-4870-a2ca-d23a1ae60644?v=2026-08-21T18%3A48%3A28.000Z",
+    "image": "https://api.loyverse.com/image/8fb3a200-db93-4870-a2ca-d23a1ae60644?v=1787338108000",
     "images": [
-      "https://api.loyverse.com/image/8fb3a200-db93-4870-a2ca-d23a1ae60644?v=2026-08-21T18%3A48%3A28.000Z"
+      "https://api.loyverse.com/image/8fb3a200-db93-4870-a2ca-d23a1ae60644?v=1787338108000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -5192,9 +5194,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/fa6ef351-225c-46d5-aa01-958152358c77?v=2026-08-21T18%3A48%3A15.000Z",
+    "image": "https://api.loyverse.com/image/fa6ef351-225c-46d5-aa01-958152358c77?v=1787338095000",
     "images": [
-      "https://api.loyverse.com/image/fa6ef351-225c-46d5-aa01-958152358c77?v=2026-08-21T18%3A48%3A15.000Z"
+      "https://api.loyverse.com/image/fa6ef351-225c-46d5-aa01-958152358c77?v=1787338095000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -5309,9 +5311,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/99227b73-ab97-4fb3-9d26-3bb095d998ed?v=2026-08-21T20%3A45%3A23.000Z",
+    "image": "https://api.loyverse.com/image/99227b73-ab97-4fb3-9d26-3bb095d998ed?v=1787345123000",
     "images": [
-      "https://api.loyverse.com/image/99227b73-ab97-4fb3-9d26-3bb095d998ed?v=2026-08-21T20%3A45%3A23.000Z"
+      "https://api.loyverse.com/image/99227b73-ab97-4fb3-9d26-3bb095d998ed?v=1787345123000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -5426,9 +5428,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/3d47f574-1d15-436c-9607-35b595f016bf?v=2026-08-21T20%3A45%3A11.000Z",
+    "image": "https://api.loyverse.com/image/3d47f574-1d15-436c-9607-35b595f016bf?v=1787345111000",
     "images": [
-      "https://api.loyverse.com/image/3d47f574-1d15-436c-9607-35b595f016bf?v=2026-08-21T20%3A45%3A11.000Z"
+      "https://api.loyverse.com/image/3d47f574-1d15-436c-9607-35b595f016bf?v=1787345111000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -5523,9 +5525,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/677b8a75-9124-4681-8df3-46cb7376b877?v=2026-08-21T20%3A44%3A57.000Z",
+    "image": "https://api.loyverse.com/image/677b8a75-9124-4681-8df3-46cb7376b877?v=1787345097000",
     "images": [
-      "https://api.loyverse.com/image/677b8a75-9124-4681-8df3-46cb7376b877?v=2026-08-21T20%3A44%3A57.000Z"
+      "https://api.loyverse.com/image/677b8a75-9124-4681-8df3-46cb7376b877?v=1787345097000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -5620,9 +5622,9 @@
     "price": 75000,
     "retailPrice": 120000,
     "modifierApplied": "Texturizado",
-    "image": "https://api.loyverse.com/image/fd5481aa-d300-4a38-8ec5-621a15122f1e?v=2026-07-11T16%3A29%3A38.000Z",
+    "image": "https://api.loyverse.com/image/fd5481aa-d300-4a38-8ec5-621a15122f1e?v=1783787378000",
     "images": [
-      "https://api.loyverse.com/image/fd5481aa-d300-4a38-8ec5-621a15122f1e?v=2026-07-11T16%3A29%3A38.000Z"
+      "https://api.loyverse.com/image/fd5481aa-d300-4a38-8ec5-621a15122f1e?v=1783787378000"
     ],
     "category": "Conjuntos",
     "rawCategory": "Conjuntos",
@@ -5697,9 +5699,9 @@
     "price": 55000,
     "retailPrice": 75000,
     "modifierApplied": "Oversize Premium",
-    "image": "https://api.loyverse.com/image/064a9500-424a-4249-bab7-c430fc1e56eb?v=2026-08-24T17%3A39%3A33.000Z",
+    "image": "https://api.loyverse.com/image/064a9500-424a-4249-bab7-c430fc1e56eb?v=1787593173000",
     "images": [
-      "https://api.loyverse.com/image/064a9500-424a-4249-bab7-c430fc1e56eb?v=2026-08-24T17%3A39%3A33.000Z"
+      "https://api.loyverse.com/image/064a9500-424a-4249-bab7-c430fc1e56eb?v=1787593173000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Premium",
@@ -5724,9 +5726,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=2026-08-24T17%3A39%3A17.000Z",
+    "image": "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=1787593157000",
     "images": [
-      "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=2026-08-24T17%3A39%3A17.000Z"
+      "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=1787593157000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -5821,9 +5823,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/5cf4828f-f9a8-4030-ab49-01d03381eab9?v=2026-08-24T17%3A39%3A01.000Z",
+    "image": "https://api.loyverse.com/image/5cf4828f-f9a8-4030-ab49-01d03381eab9?v=1787593141000",
     "images": [
-      "https://api.loyverse.com/image/5cf4828f-f9a8-4030-ab49-01d03381eab9?v=2026-08-24T17%3A39%3A01.000Z"
+      "https://api.loyverse.com/image/5cf4828f-f9a8-4030-ab49-01d03381eab9?v=1787593141000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -5918,9 +5920,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=2026-08-24T17%3A38%3A43.000Z",
+    "image": "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=1787593123000",
     "images": [
-      "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=2026-08-24T17%3A38%3A43.000Z"
+      "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=1787593123000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -6115,9 +6117,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/74ee583d-c95c-4a91-bb0e-d5eacfacc2d7?v=2026-08-21T21%3A26%3A40.000Z",
+    "image": "https://api.loyverse.com/image/74ee583d-c95c-4a91-bb0e-d5eacfacc2d7?v=1787347600000",
     "images": [
-      "https://api.loyverse.com/image/74ee583d-c95c-4a91-bb0e-d5eacfacc2d7?v=2026-08-21T21%3A26%3A40.000Z"
+      "https://api.loyverse.com/image/74ee583d-c95c-4a91-bb0e-d5eacfacc2d7?v=1787347600000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -6212,9 +6214,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=2026-08-24T18%3A25%3A47.000Z",
+    "image": "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=1787595947000",
     "images": [
-      "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=2026-08-24T18%3A25%3A47.000Z"
+      "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=1787595947000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -6309,9 +6311,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=2026-08-24T18%3A25%3A34.000Z",
+    "image": "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=1787595934000",
     "images": [
-      "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=2026-08-24T18%3A25%3A34.000Z"
+      "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=1787595934000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -6426,9 +6428,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=2026-08-21T21%3A26%3A29.000Z",
+    "image": "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=1787347589000",
     "images": [
-      "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=2026-08-21T21%3A26%3A29.000Z"
+      "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=1787347589000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -6543,9 +6545,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=2026-08-22T13%3A32%3A10.000Z",
+    "image": "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=1787405530000",
     "images": [
-      "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=2026-08-22T13%3A32%3A10.000Z"
+      "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=1787405530000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -6785,9 +6787,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/7c6c7340-f7c3-4076-aef8-823bbc565f9b?v=2026-08-22T13%3A31%3A56.000Z",
+    "image": "https://api.loyverse.com/image/7c6c7340-f7c3-4076-aef8-823bbc565f9b?v=1787405516000",
     "images": [
-      "https://api.loyverse.com/image/7c6c7340-f7c3-4076-aef8-823bbc565f9b?v=2026-08-22T13%3A31%3A56.000Z"
+      "https://api.loyverse.com/image/7c6c7340-f7c3-4076-aef8-823bbc565f9b?v=1787405516000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -6882,9 +6884,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=2026-08-22T13%3A31%3A41.000Z",
+    "image": "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=1787405501000",
     "images": [
-      "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=2026-08-22T13%3A31%3A41.000Z"
+      "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=1787405501000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -6939,9 +6941,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=2026-08-24T15%3A48%3A42.000Z",
+    "image": "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=1787586522000",
     "images": [
-      "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=2026-08-24T15%3A48%3A42.000Z"
+      "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=1787586522000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -6996,9 +6998,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=2026-08-24T15%3A48%3A30.000Z",
+    "image": "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=1787586510000",
     "images": [
-      "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=2026-08-24T15%3A48%3A30.000Z"
+      "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=1787586510000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -7093,9 +7095,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=2026-08-24T15%3A48%3A17.000Z",
+    "image": "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=1787586497000",
     "images": [
-      "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=2026-08-24T15%3A48%3A17.000Z"
+      "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=1787586497000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7160,9 +7162,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/9c17f9fa-9196-4ce1-9fe2-d4dfc4668251?v=2026-08-24T15%3A57%3A54.000Z",
+    "image": "https://api.loyverse.com/image/9c17f9fa-9196-4ce1-9fe2-d4dfc4668251?v=1787587074000",
     "images": [
-      "https://api.loyverse.com/image/9c17f9fa-9196-4ce1-9fe2-d4dfc4668251?v=2026-08-24T15%3A57%3A54.000Z"
+      "https://api.loyverse.com/image/9c17f9fa-9196-4ce1-9fe2-d4dfc4668251?v=1787587074000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -7297,9 +7299,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/5ad2614e-7813-4cf7-85d3-2e5a8c6299cb?v=2026-08-24T15%3A57%3A39.000Z",
+    "image": "https://api.loyverse.com/image/5ad2614e-7813-4cf7-85d3-2e5a8c6299cb?v=1787587059000",
     "images": [
-      "https://api.loyverse.com/image/5ad2614e-7813-4cf7-85d3-2e5a8c6299cb?v=2026-08-24T15%3A57%3A39.000Z"
+      "https://api.loyverse.com/image/5ad2614e-7813-4cf7-85d3-2e5a8c6299cb?v=1787587059000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -7394,9 +7396,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=2026-08-24T15%3A57%3A18.000Z",
+    "image": "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=1787587038000",
     "images": [
-      "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=2026-08-24T15%3A57%3A18.000Z"
+      "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=1787587038000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7461,9 +7463,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=2026-06-13T02%3A10%3A43.000Z",
+    "image": "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=1781316643000",
     "images": [
-      "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=2026-06-13T02%3A10%3A43.000Z"
+      "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=1781316643000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -7518,9 +7520,9 @@
     "price": 33000,
     "retailPrice": 50000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=2026-08-24T16%3A59%3A21.000Z",
+    "image": "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=1787590761000",
     "images": [
-      "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=2026-08-24T16%3A59%3A21.000Z"
+      "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=1787590761000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -7615,9 +7617,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=2026-08-24T16%3A59%3A00.000Z",
+    "image": "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=1787590740000",
     "images": [
-      "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=2026-08-24T16%3A59%3A00.000Z"
+      "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=1787590740000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -7752,9 +7754,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=2026-06-05T21%3A02%3A01.000Z",
+    "image": "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=1780693321000",
     "images": [
-      "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=2026-06-05T21%3A02%3A01.000Z"
+      "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=1780693321000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7819,9 +7821,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=2026-08-24T17%3A32%3A51.000Z",
+    "image": "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=1787592771000",
     "images": [
-      "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=2026-08-24T17%3A32%3A51.000Z"
+      "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=1787592771000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7886,9 +7888,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/f1a3ee69-aacc-4b24-8962-3a8dea6e955b?v=2026-08-24T17%3A32%3A39.000Z",
+    "image": "https://api.loyverse.com/image/f1a3ee69-aacc-4b24-8962-3a8dea6e955b?v=1787592759000",
     "images": [
-      "https://api.loyverse.com/image/f1a3ee69-aacc-4b24-8962-3a8dea6e955b?v=2026-08-24T17%3A32%3A39.000Z"
+      "https://api.loyverse.com/image/f1a3ee69-aacc-4b24-8962-3a8dea6e955b?v=1787592759000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -8013,9 +8015,9 @@
     "price": 32000,
     "retailPrice": 45000,
     "modifierApplied": "T-Shirt",
-    "image": "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=2026-08-24T17%3A32%3A26.000Z",
+    "image": "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=1787592746000",
     "images": [
-      "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=2026-08-24T17%3A32%3A26.000Z"
+      "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=1787592746000"
     ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
@@ -8050,9 +8052,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=2026-08-24T17%3A32%3A14.000Z",
+    "image": "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=1787592734000",
     "images": [
-      "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=2026-08-24T17%3A32%3A14.000Z"
+      "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=1787592734000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -8142,9 +8144,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/68962ab5-6e8d-494d-b8a1-5d8f162fac3d?v=2026-05-29T23%3A56%3A38.000Z",
+    "image": "https://api.loyverse.com/image/68962ab5-6e8d-494d-b8a1-5d8f162fac3d?v=1780098998000",
     "images": [
-      "https://api.loyverse.com/image/68962ab5-6e8d-494d-b8a1-5d8f162fac3d?v=2026-05-29T23%3A56%3A38.000Z"
+      "https://api.loyverse.com/image/68962ab5-6e8d-494d-b8a1-5d8f162fac3d?v=1780098998000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -8219,9 +8221,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=2026-08-24T17%3A48%3A47.000Z",
+    "image": "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=1787593727000",
     "images": [
-      "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=2026-08-24T17%3A48%3A47.000Z"
+      "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=1787593727000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -8336,9 +8338,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=2026-08-24T17%3A51%3A30.000Z",
+    "image": "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=1787593890000",
     "images": [
-      "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=2026-08-24T17%3A51%3A30.000Z"
+      "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=1787593890000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -8453,9 +8455,9 @@
     "price": 32000,
     "retailPrice": 45000,
     "modifierApplied": "T-Shirt",
-    "image": "https://api.loyverse.com/image/a11c58b8-1e6a-4ad7-a3a0-275123f56e22?v=2026-05-27T00%3A28%3A31.000Z",
+    "image": "https://api.loyverse.com/image/a11c58b8-1e6a-4ad7-a3a0-275123f56e22?v=1779841711000",
     "images": [
-      "https://api.loyverse.com/image/a11c58b8-1e6a-4ad7-a3a0-275123f56e22?v=2026-05-27T00%3A28%3A31.000Z"
+      "https://api.loyverse.com/image/a11c58b8-1e6a-4ad7-a3a0-275123f56e22?v=1779841711000"
     ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
@@ -8490,9 +8492,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=2026-05-27T00%3A19%3A33.000Z",
+    "image": "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=1779841173000",
     "images": [
-      "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=2026-05-27T00%3A19%3A33.000Z"
+      "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=1779841173000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -8632,9 +8634,9 @@
     "price": 32000,
     "retailPrice": 45000,
     "modifierApplied": "T-Shirt",
-    "image": "https://api.loyverse.com/image/25906f6d-81b2-47ab-8f2e-7f512979635d?v=2026-05-22T20%3A55%3A52.000Z",
+    "image": "https://api.loyverse.com/image/25906f6d-81b2-47ab-8f2e-7f512979635d?v=1779483352000",
     "images": [
-      "https://api.loyverse.com/image/25906f6d-81b2-47ab-8f2e-7f512979635d?v=2026-05-22T20%3A55%3A52.000Z"
+      "https://api.loyverse.com/image/25906f6d-81b2-47ab-8f2e-7f512979635d?v=1779483352000"
     ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
@@ -8669,9 +8671,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=2026-05-22T20%3A53%3A17.000Z",
+    "image": "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=1779483197000",
     "images": [
-      "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=2026-05-22T20%3A53%3A17.000Z"
+      "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=1779483197000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -8786,9 +8788,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/ccdfc9e2-ca04-437b-8c83-e4d8d7d6fa7a?v=2026-06-02T14%3A33%3A15.000Z",
+    "image": "https://api.loyverse.com/image/ccdfc9e2-ca04-437b-8c83-e4d8d7d6fa7a?v=1780410795000",
     "images": [
-      "https://api.loyverse.com/image/ccdfc9e2-ca04-437b-8c83-e4d8d7d6fa7a?v=2026-06-02T14%3A33%3A15.000Z"
+      "https://api.loyverse.com/image/ccdfc9e2-ca04-437b-8c83-e4d8d7d6fa7a?v=1780410795000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -8883,9 +8885,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/6df4655f-c470-4bb4-b09a-15f7b9d57d8f?v=2026-05-22T20%3A54%3A39.000Z",
+    "image": "https://api.loyverse.com/image/6df4655f-c470-4bb4-b09a-15f7b9d57d8f?v=1779483279000",
     "images": [
-      "https://api.loyverse.com/image/6df4655f-c470-4bb4-b09a-15f7b9d57d8f?v=2026-05-22T20%3A54%3A39.000Z"
+      "https://api.loyverse.com/image/6df4655f-c470-4bb4-b09a-15f7b9d57d8f?v=1779483279000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -9060,9 +9062,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/d9d692d2-1fc2-458a-a0e2-bf222f80b17e?v=2026-05-16T21%3A58%3A06.000Z",
+    "image": "https://api.loyverse.com/image/d9d692d2-1fc2-458a-a0e2-bf222f80b17e?v=1778968686000",
     "images": [
-      "https://api.loyverse.com/image/d9d692d2-1fc2-458a-a0e2-bf222f80b17e?v=2026-05-16T21%3A58%3A06.000Z"
+      "https://api.loyverse.com/image/d9d692d2-1fc2-458a-a0e2-bf222f80b17e?v=1778968686000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -9127,9 +9129,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=2026-06-01T16%3A18%3A59.000Z",
+    "image": "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=1780330739000",
     "images": [
-      "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=2026-06-01T16%3A18%3A59.000Z"
+      "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=1780330739000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -9194,9 +9196,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/33e1e9e6-fba4-4185-9b74-325011e355df?v=2026-05-21T16%3A46%3A42.000Z",
+    "image": "https://api.loyverse.com/image/33e1e9e6-fba4-4185-9b74-325011e355df?v=1779382002000",
     "images": [
-      "https://api.loyverse.com/image/33e1e9e6-fba4-4185-9b74-325011e355df?v=2026-05-21T16%3A46%3A42.000Z"
+      "https://api.loyverse.com/image/33e1e9e6-fba4-4185-9b74-325011e355df?v=1779382002000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -9386,9 +9388,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/70d3ebbb-dd5e-4938-9072-09cb9f77ebb9?v=2026-05-15T06%3A44%3A12.000Z",
+    "image": "https://api.loyverse.com/image/70d3ebbb-dd5e-4938-9072-09cb9f77ebb9?v=1778827452000",
     "images": [
-      "https://api.loyverse.com/image/70d3ebbb-dd5e-4938-9072-09cb9f77ebb9?v=2026-05-15T06%3A44%3A12.000Z"
+      "https://api.loyverse.com/image/70d3ebbb-dd5e-4938-9072-09cb9f77ebb9?v=1778827452000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -9483,9 +9485,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/fb7d0860-51a3-4ddd-8ad6-73c17c12982b?v=2026-05-15T06%3A48%3A17.000Z",
+    "image": "https://api.loyverse.com/image/fb7d0860-51a3-4ddd-8ad6-73c17c12982b?v=1778827697000",
     "images": [
-      "https://api.loyverse.com/image/fb7d0860-51a3-4ddd-8ad6-73c17c12982b?v=2026-05-15T06%3A48%3A17.000Z"
+      "https://api.loyverse.com/image/fb7d0860-51a3-4ddd-8ad6-73c17c12982b?v=1778827697000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -9540,9 +9542,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/be10ad63-fd32-4a9a-a447-77f9d22fed4d?v=2026-05-21T22%3A09%3A05.000Z",
+    "image": "https://api.loyverse.com/image/be10ad63-fd32-4a9a-a447-77f9d22fed4d?v=1779401345000",
     "images": [
-      "https://api.loyverse.com/image/be10ad63-fd32-4a9a-a447-77f9d22fed4d?v=2026-05-21T22%3A09%3A05.000Z"
+      "https://api.loyverse.com/image/be10ad63-fd32-4a9a-a447-77f9d22fed4d?v=1779401345000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -9637,9 +9639,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/aa788241-419f-4c52-b206-ce420b23149f?v=2026-06-01T14%3A46%3A37.000Z",
+    "image": "https://api.loyverse.com/image/aa788241-419f-4c52-b206-ce420b23149f?v=1780325197000",
     "images": [
-      "https://api.loyverse.com/image/aa788241-419f-4c52-b206-ce420b23149f?v=2026-06-01T14%3A46%3A37.000Z"
+      "https://api.loyverse.com/image/aa788241-419f-4c52-b206-ce420b23149f?v=1780325197000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -9714,9 +9716,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/0b3b820e-e33d-4f79-89a9-e13f937f8e9b?v=2026-05-21T22%3A08%3A11.000Z",
+    "image": "https://api.loyverse.com/image/0b3b820e-e33d-4f79-89a9-e13f937f8e9b?v=1779401291000",
     "images": [
-      "https://api.loyverse.com/image/0b3b820e-e33d-4f79-89a9-e13f937f8e9b?v=2026-05-21T22%3A08%3A11.000Z"
+      "https://api.loyverse.com/image/0b3b820e-e33d-4f79-89a9-e13f937f8e9b?v=1779401291000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -9811,9 +9813,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/435dd600-886b-4f09-8e6a-199f65cd6948?v=2026-05-15T17%3A00%3A22.000Z",
+    "image": "https://api.loyverse.com/image/435dd600-886b-4f09-8e6a-199f65cd6948?v=1778864422000",
     "images": [
-      "https://api.loyverse.com/image/435dd600-886b-4f09-8e6a-199f65cd6948?v=2026-05-15T17%3A00%3A22.000Z"
+      "https://api.loyverse.com/image/435dd600-886b-4f09-8e6a-199f65cd6948?v=1778864422000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -9948,9 +9950,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=2026-05-15T17%3A03%3A51.000Z",
+    "image": "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=1778864631000",
     "images": [
-      "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=2026-05-15T17%3A03%3A51.000Z"
+      "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=1778864631000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -10025,9 +10027,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/5d285b55-decf-4982-b113-e3b582f795a1?v=2026-05-15T16%3A59%3A23.000Z",
+    "image": "https://api.loyverse.com/image/5d285b55-decf-4982-b113-e3b582f795a1?v=1778864363000",
     "images": [
-      "https://api.loyverse.com/image/5d285b55-decf-4982-b113-e3b582f795a1?v=2026-05-15T16%3A59%3A23.000Z"
+      "https://api.loyverse.com/image/5d285b55-decf-4982-b113-e3b582f795a1?v=1778864363000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -10197,9 +10199,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/33222955-7e82-452f-aa15-57c5db1fa3de?v=2026-05-21T22%3A07%3A50.000Z",
+    "image": "https://api.loyverse.com/image/33222955-7e82-452f-aa15-57c5db1fa3de?v=1779401270000",
     "images": [
-      "https://api.loyverse.com/image/33222955-7e82-452f-aa15-57c5db1fa3de?v=2026-05-21T22%3A07%3A50.000Z"
+      "https://api.loyverse.com/image/33222955-7e82-452f-aa15-57c5db1fa3de?v=1779401270000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -10254,9 +10256,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/5d4bb607-0047-4b44-86df-d734a4b0c091?v=2026-05-21T22%3A08%3A22.000Z",
+    "image": "https://api.loyverse.com/image/5d4bb607-0047-4b44-86df-d734a4b0c091?v=1779401302000",
     "images": [
-      "https://api.loyverse.com/image/5d4bb607-0047-4b44-86df-d734a4b0c091?v=2026-05-21T22%3A08%3A22.000Z"
+      "https://api.loyverse.com/image/5d4bb607-0047-4b44-86df-d734a4b0c091?v=1779401302000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -10426,9 +10428,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=2026-05-12T20%3A07%3A35.000Z",
+    "image": "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=1778616455000",
     "images": [
-      "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=2026-05-12T20%3A07%3A35.000Z"
+      "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=1778616455000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -10583,9 +10585,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/607ac8f5-92fb-4cd3-bd69-a53537faf1dd?v=2026-05-21T22%3A13%3A00.000Z",
+    "image": "https://api.loyverse.com/image/607ac8f5-92fb-4cd3-bd69-a53537faf1dd?v=1779401580000",
     "images": [
-      "https://api.loyverse.com/image/607ac8f5-92fb-4cd3-bd69-a53537faf1dd?v=2026-05-21T22%3A13%3A00.000Z"
+      "https://api.loyverse.com/image/607ac8f5-92fb-4cd3-bd69-a53537faf1dd?v=1779401580000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10610,9 +10612,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/c893d651-0fa2-4591-8f0c-87b31bd04e38?v=2026-05-21T22%3A11%3A22.000Z",
+    "image": "https://api.loyverse.com/image/c893d651-0fa2-4591-8f0c-87b31bd04e38?v=1779401482000",
     "images": [
-      "https://api.loyverse.com/image/c893d651-0fa2-4591-8f0c-87b31bd04e38?v=2026-05-21T22%3A11%3A22.000Z"
+      "https://api.loyverse.com/image/c893d651-0fa2-4591-8f0c-87b31bd04e38?v=1779401482000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10687,9 +10689,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/d96524fa-4970-4f89-9560-46fa2c583d23?v=2026-05-21T22%3A11%3A58.000Z",
+    "image": "https://api.loyverse.com/image/d96524fa-4970-4f89-9560-46fa2c583d23?v=1779401518000",
     "images": [
-      "https://api.loyverse.com/image/d96524fa-4970-4f89-9560-46fa2c583d23?v=2026-05-21T22%3A11%3A58.000Z"
+      "https://api.loyverse.com/image/d96524fa-4970-4f89-9560-46fa2c583d23?v=1779401518000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10714,9 +10716,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/c3b44fb2-b096-45d7-84a7-d6a0c445f312?v=2026-06-01T15%3A13%3A17.000Z",
+    "image": "https://api.loyverse.com/image/c3b44fb2-b096-45d7-84a7-d6a0c445f312?v=1780326797000",
     "images": [
-      "https://api.loyverse.com/image/c3b44fb2-b096-45d7-84a7-d6a0c445f312?v=2026-06-01T15%3A13%3A17.000Z"
+      "https://api.loyverse.com/image/c3b44fb2-b096-45d7-84a7-d6a0c445f312?v=1780326797000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10741,9 +10743,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/18e9de55-d68f-47aa-b33a-5eb469d60295?v=2026-05-21T22%3A13%3A22.000Z",
+    "image": "https://api.loyverse.com/image/18e9de55-d68f-47aa-b33a-5eb469d60295?v=1779401602000",
     "images": [
-      "https://api.loyverse.com/image/18e9de55-d68f-47aa-b33a-5eb469d60295?v=2026-05-21T22%3A13%3A22.000Z"
+      "https://api.loyverse.com/image/18e9de55-d68f-47aa-b33a-5eb469d60295?v=1779401602000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10768,9 +10770,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/3ce7e047-3792-4651-801b-f823fab6cd0b?v=2026-05-21T22%3A14%3A06.000Z",
+    "image": "https://api.loyverse.com/image/3ce7e047-3792-4651-801b-f823fab6cd0b?v=1779401646000",
     "images": [
-      "https://api.loyverse.com/image/3ce7e047-3792-4651-801b-f823fab6cd0b?v=2026-05-21T22%3A14%3A06.000Z"
+      "https://api.loyverse.com/image/3ce7e047-3792-4651-801b-f823fab6cd0b?v=1779401646000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10815,9 +10817,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/19bf556e-b465-4c02-be58-c9126220b01f?v=2026-05-21T22%3A11%3A14.000Z",
+    "image": "https://api.loyverse.com/image/19bf556e-b465-4c02-be58-c9126220b01f?v=1779401474000",
     "images": [
-      "https://api.loyverse.com/image/19bf556e-b465-4c02-be58-c9126220b01f?v=2026-05-21T22%3A11%3A14.000Z"
+      "https://api.loyverse.com/image/19bf556e-b465-4c02-be58-c9126220b01f?v=1779401474000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10852,9 +10854,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/4106ead2-a260-4157-b303-fcb8d7e7f54d?v=2026-05-21T22%3A12%3A38.000Z",
+    "image": "https://api.loyverse.com/image/4106ead2-a260-4157-b303-fcb8d7e7f54d?v=1779401558000",
     "images": [
-      "https://api.loyverse.com/image/4106ead2-a260-4157-b303-fcb8d7e7f54d?v=2026-05-21T22%3A12%3A38.000Z"
+      "https://api.loyverse.com/image/4106ead2-a260-4157-b303-fcb8d7e7f54d?v=1779401558000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10879,9 +10881,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/f8bfb318-211f-44a0-96fa-c9136472d7ec?v=2026-05-21T22%3A10%3A11.000Z",
+    "image": "https://api.loyverse.com/image/f8bfb318-211f-44a0-96fa-c9136472d7ec?v=1779401411000",
     "images": [
-      "https://api.loyverse.com/image/f8bfb318-211f-44a0-96fa-c9136472d7ec?v=2026-05-21T22%3A10%3A11.000Z"
+      "https://api.loyverse.com/image/f8bfb318-211f-44a0-96fa-c9136472d7ec?v=1779401411000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -10936,9 +10938,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/2cc1e28d-e638-47ed-94c5-30b86369b587?v=2026-05-21T22%3A10%3A02.000Z",
+    "image": "https://api.loyverse.com/image/2cc1e28d-e638-47ed-94c5-30b86369b587?v=1779401402000",
     "images": [
-      "https://api.loyverse.com/image/2cc1e28d-e638-47ed-94c5-30b86369b587?v=2026-05-21T22%3A10%3A02.000Z"
+      "https://api.loyverse.com/image/2cc1e28d-e638-47ed-94c5-30b86369b587?v=1779401402000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -11033,9 +11035,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/f907b40c-573e-45aa-840f-cae7d6de9d4c?v=2026-05-21T22%3A14%3A13.000Z",
+    "image": "https://api.loyverse.com/image/f907b40c-573e-45aa-840f-cae7d6de9d4c?v=1779401653000",
     "images": [
-      "https://api.loyverse.com/image/f907b40c-573e-45aa-840f-cae7d6de9d4c?v=2026-05-21T22%3A14%3A13.000Z"
+      "https://api.loyverse.com/image/f907b40c-573e-45aa-840f-cae7d6de9d4c?v=1779401653000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -11170,9 +11172,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/b7ce0f08-61bb-46e0-b8d5-5f809abf3485?v=2026-05-21T22%3A11%3A52.000Z",
+    "image": "https://api.loyverse.com/image/b7ce0f08-61bb-46e0-b8d5-5f809abf3485?v=1779401512000",
     "images": [
-      "https://api.loyverse.com/image/b7ce0f08-61bb-46e0-b8d5-5f809abf3485?v=2026-05-21T22%3A11%3A52.000Z"
+      "https://api.loyverse.com/image/b7ce0f08-61bb-46e0-b8d5-5f809abf3485?v=1779401512000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -11977,9 +11979,9 @@
     "price": 70000,
     "retailPrice": 95000,
     "modifierApplied": "Conjunto Cargo",
-    "image": "https://api.loyverse.com/image/6fe57058-054f-4a9c-9657-9cf54d5125c8?v=2026-06-02T20%3A43%3A20.000Z",
+    "image": "https://api.loyverse.com/image/6fe57058-054f-4a9c-9657-9cf54d5125c8?v=1780433000000",
     "images": [
-      "https://api.loyverse.com/image/6fe57058-054f-4a9c-9657-9cf54d5125c8?v=2026-06-02T20%3A43%3A20.000Z"
+      "https://api.loyverse.com/image/6fe57058-054f-4a9c-9657-9cf54d5125c8?v=1780433000000"
     ],
     "category": "Conjuntos",
     "rawCategory": "Conjuntos",
@@ -12154,9 +12156,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/bf32fd97-d64d-429a-a4dd-d02828ff1d7c?v=2026-06-01T14%3A44%3A46.000Z",
+    "image": "https://api.loyverse.com/image/bf32fd97-d64d-429a-a4dd-d02828ff1d7c?v=1780325086000",
     "images": [
-      "https://api.loyverse.com/image/bf32fd97-d64d-429a-a4dd-d02828ff1d7c?v=2026-06-01T14%3A44%3A46.000Z"
+      "https://api.loyverse.com/image/bf32fd97-d64d-429a-a4dd-d02828ff1d7c?v=1780325086000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -12251,9 +12253,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/96553996-6bfe-4f09-b13b-819f2c25c779?v=2026-06-02T14%3A32%3A23.000Z",
+    "image": "https://api.loyverse.com/image/96553996-6bfe-4f09-b13b-819f2c25c779?v=1780410743000",
     "images": [
-      "https://api.loyverse.com/image/96553996-6bfe-4f09-b13b-819f2c25c779?v=2026-06-02T14%3A32%3A23.000Z"
+      "https://api.loyverse.com/image/96553996-6bfe-4f09-b13b-819f2c25c779?v=1780410743000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -12338,9 +12340,9 @@
     "price": 32000,
     "retailPrice": 45000,
     "modifierApplied": "T-Shirt",
-    "image": "https://api.loyverse.com/image/45164a62-22b8-4934-8546-ad5752e40711?v=2026-06-01T14%3A33%3A45.000Z",
+    "image": "https://api.loyverse.com/image/45164a62-22b8-4934-8546-ad5752e40711?v=1780324425000",
     "images": [
-      "https://api.loyverse.com/image/45164a62-22b8-4934-8546-ad5752e40711?v=2026-06-01T14%3A33%3A45.000Z"
+      "https://api.loyverse.com/image/45164a62-22b8-4934-8546-ad5752e40711?v=1780324425000"
     ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
@@ -12420,9 +12422,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo NewB",
-    "image": "https://api.loyverse.com/image/f7f28342-865a-401b-9a4d-7bbe75d75d12?v=2026-06-13T02%3A22%3A34.000Z",
+    "image": "https://api.loyverse.com/image/f7f28342-865a-401b-9a4d-7bbe75d75d12?v=1781317354000",
     "images": [
-      "https://api.loyverse.com/image/f7f28342-865a-401b-9a4d-7bbe75d75d12?v=2026-06-13T02%3A22%3A34.000Z"
+      "https://api.loyverse.com/image/f7f28342-865a-401b-9a4d-7bbe75d75d12?v=1781317354000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo New/B",
@@ -12477,9 +12479,9 @@
     "price": 55000,
     "retailPrice": 75000,
     "modifierApplied": "Oversize Premium",
-    "image": "https://api.loyverse.com/image/6d853690-b309-4e5c-917e-adf4601bb673?v=2026-06-13T01%3A09%3A18.000Z",
+    "image": "https://api.loyverse.com/image/6d853690-b309-4e5c-917e-adf4601bb673?v=1781312958000",
     "images": [
-      "https://api.loyverse.com/image/6d853690-b309-4e5c-917e-adf4601bb673?v=2026-06-13T01%3A09%3A18.000Z"
+      "https://api.loyverse.com/image/6d853690-b309-4e5c-917e-adf4601bb673?v=1781312958000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Premium",
@@ -12614,9 +12616,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/869a64ce-3a2d-48f0-b797-4d487559a3ae?v=2026-06-01T16%3A10%3A05.000Z",
+    "image": "https://api.loyverse.com/image/869a64ce-3a2d-48f0-b797-4d487559a3ae?v=1780330205000",
     "images": [
-      "https://api.loyverse.com/image/869a64ce-3a2d-48f0-b797-4d487559a3ae?v=2026-06-01T16%3A10%3A05.000Z"
+      "https://api.loyverse.com/image/869a64ce-3a2d-48f0-b797-4d487559a3ae?v=1780330205000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -12731,9 +12733,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/85130264-77f7-47d3-be81-bb7311eba7cf?v=2026-05-12T20%3A50%3A04.000Z",
+    "image": "https://api.loyverse.com/image/85130264-77f7-47d3-be81-bb7311eba7cf?v=1778619004000",
     "images": [
-      "https://api.loyverse.com/image/85130264-77f7-47d3-be81-bb7311eba7cf?v=2026-05-12T20%3A50%3A04.000Z"
+      "https://api.loyverse.com/image/85130264-77f7-47d3-be81-bb7311eba7cf?v=1778619004000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -12798,9 +12800,9 @@
     "price": null,
     "retailPrice": null,
     "modifierApplied": null,
-    "image": "https://api.loyverse.com/image/1a3b7867-575d-4301-92ea-72da3300d691?v=2026-06-01T18%3A09%3A29.000Z",
+    "image": "https://api.loyverse.com/image/1a3b7867-575d-4301-92ea-72da3300d691?v=1780337369000",
     "images": [
-      "https://api.loyverse.com/image/1a3b7867-575d-4301-92ea-72da3300d691?v=2026-06-01T18%3A09%3A29.000Z"
+      "https://api.loyverse.com/image/1a3b7867-575d-4301-92ea-72da3300d691?v=1780337369000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -12865,9 +12867,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/294f95f8-62b6-4c36-a04e-4027fc4d5dc7?v=2026-05-12T20%3A39%3A13.000Z",
+    "image": "https://api.loyverse.com/image/294f95f8-62b6-4c36-a04e-4027fc4d5dc7?v=1778618353000",
     "images": [
-      "https://api.loyverse.com/image/294f95f8-62b6-4c36-a04e-4027fc4d5dc7?v=2026-05-12T20%3A39%3A13.000Z"
+      "https://api.loyverse.com/image/294f95f8-62b6-4c36-a04e-4027fc4d5dc7?v=1778618353000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -12932,9 +12934,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/db2d5b92-2abb-4392-9f6d-d8c29039827f?v=2026-06-01T18%3A00%3A48.000Z",
+    "image": "https://api.loyverse.com/image/db2d5b92-2abb-4392-9f6d-d8c29039827f?v=1780336848000",
     "images": [
-      "https://api.loyverse.com/image/db2d5b92-2abb-4392-9f6d-d8c29039827f?v=2026-06-01T18%3A00%3A48.000Z"
+      "https://api.loyverse.com/image/db2d5b92-2abb-4392-9f6d-d8c29039827f?v=1780336848000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -12999,9 +13001,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/f95f779a-9d1e-4fcb-ad9f-7ef6c80a310e?v=2026-05-12T20%3A45%3A46.000Z",
+    "image": "https://api.loyverse.com/image/f95f779a-9d1e-4fcb-ad9f-7ef6c80a310e?v=1778618746000",
     "images": [
-      "https://api.loyverse.com/image/f95f779a-9d1e-4fcb-ad9f-7ef6c80a310e?v=2026-05-12T20%3A45%3A46.000Z"
+      "https://api.loyverse.com/image/f95f779a-9d1e-4fcb-ad9f-7ef6c80a310e?v=1778618746000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -13066,9 +13068,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/6daa098a-f5c4-4d1e-8757-1fb7c0e90292?v=2026-06-01T16%3A23%3A12.000Z",
+    "image": "https://api.loyverse.com/image/6daa098a-f5c4-4d1e-8757-1fb7c0e90292?v=1780330992000",
     "images": [
-      "https://api.loyverse.com/image/6daa098a-f5c4-4d1e-8757-1fb7c0e90292?v=2026-06-01T16%3A23%3A12.000Z"
+      "https://api.loyverse.com/image/6daa098a-f5c4-4d1e-8757-1fb7c0e90292?v=1780330992000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -13133,9 +13135,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/8b05a36c-c32c-4b82-b864-b5ad033ebf62?v=2026-05-12T21%3A16%3A30.000Z",
+    "image": "https://api.loyverse.com/image/8b05a36c-c32c-4b82-b864-b5ad033ebf62?v=1778620590000",
     "images": [
-      "https://api.loyverse.com/image/8b05a36c-c32c-4b82-b864-b5ad033ebf62?v=2026-05-12T21%3A16%3A30.000Z"
+      "https://api.loyverse.com/image/8b05a36c-c32c-4b82-b864-b5ad033ebf62?v=1778620590000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13170,9 +13172,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/c038cb5b-1dca-4aa7-b7f9-939a91b107cd?v=2026-05-17T19%3A32%3A40.000Z",
+    "image": "https://api.loyverse.com/image/c038cb5b-1dca-4aa7-b7f9-939a91b107cd?v=1779046360000",
     "images": [
-      "https://api.loyverse.com/image/c038cb5b-1dca-4aa7-b7f9-939a91b107cd?v=2026-05-17T19%3A32%3A40.000Z"
+      "https://api.loyverse.com/image/c038cb5b-1dca-4aa7-b7f9-939a91b107cd?v=1779046360000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13207,9 +13209,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/928f2fd4-5d11-49f3-bfa9-13a1ff0be315?v=2026-05-12T22%3A25%3A18.000Z",
+    "image": "https://api.loyverse.com/image/928f2fd4-5d11-49f3-bfa9-13a1ff0be315?v=1778624718000",
     "images": [
-      "https://api.loyverse.com/image/928f2fd4-5d11-49f3-bfa9-13a1ff0be315?v=2026-05-12T22%3A25%3A18.000Z"
+      "https://api.loyverse.com/image/928f2fd4-5d11-49f3-bfa9-13a1ff0be315?v=1778624718000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13244,9 +13246,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/82d353fc-1c22-42a6-b6dc-b21ceda80851?v=2026-06-01T14%3A25%3A36.000Z",
+    "image": "https://api.loyverse.com/image/82d353fc-1c22-42a6-b6dc-b21ceda80851?v=1780323936000",
     "images": [
-      "https://api.loyverse.com/image/82d353fc-1c22-42a6-b6dc-b21ceda80851?v=2026-06-01T14%3A25%3A36.000Z"
+      "https://api.loyverse.com/image/82d353fc-1c22-42a6-b6dc-b21ceda80851?v=1780323936000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13281,9 +13283,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/e1cf1cce-dfcb-4e5c-bdc5-60cc6d049b82?v=2026-05-12T22%3A25%3A54.000Z",
+    "image": "https://api.loyverse.com/image/e1cf1cce-dfcb-4e5c-bdc5-60cc6d049b82?v=1778624754000",
     "images": [
-      "https://api.loyverse.com/image/e1cf1cce-dfcb-4e5c-bdc5-60cc6d049b82?v=2026-05-12T22%3A25%3A54.000Z"
+      "https://api.loyverse.com/image/e1cf1cce-dfcb-4e5c-bdc5-60cc6d049b82?v=1778624754000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13318,9 +13320,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/4d27b681-4eef-46f6-b198-0338e44c356f?v=2026-05-12T22%3A23%3A57.000Z",
+    "image": "https://api.loyverse.com/image/4d27b681-4eef-46f6-b198-0338e44c356f?v=1778624637000",
     "images": [
-      "https://api.loyverse.com/image/4d27b681-4eef-46f6-b198-0338e44c356f?v=2026-05-12T22%3A23%3A57.000Z"
+      "https://api.loyverse.com/image/4d27b681-4eef-46f6-b198-0338e44c356f?v=1778624637000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13355,9 +13357,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/008bf019-9462-4bc7-915f-4eb13746ac52?v=2026-05-12T21%3A15%3A19.000Z",
+    "image": "https://api.loyverse.com/image/008bf019-9462-4bc7-915f-4eb13746ac52?v=1778620519000",
     "images": [
-      "https://api.loyverse.com/image/008bf019-9462-4bc7-915f-4eb13746ac52?v=2026-05-12T21%3A15%3A19.000Z"
+      "https://api.loyverse.com/image/008bf019-9462-4bc7-915f-4eb13746ac52?v=1778620519000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13412,9 +13414,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/28d738f2-4d40-4d8c-9675-6f5e49304790?v=2026-05-12T21%3A10%3A30.000Z",
+    "image": "https://api.loyverse.com/image/28d738f2-4d40-4d8c-9675-6f5e49304790?v=1778620230000",
     "images": [
-      "https://api.loyverse.com/image/28d738f2-4d40-4d8c-9675-6f5e49304790?v=2026-05-12T21%3A10%3A30.000Z"
+      "https://api.loyverse.com/image/28d738f2-4d40-4d8c-9675-6f5e49304790?v=1778620230000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13469,9 +13471,9 @@
     "price": 50000,
     "retailPrice": 75000,
     "modifierApplied": "Buzo Capotero",
-    "image": "https://api.loyverse.com/image/e4805abe-43a4-4c55-83e3-2f1760092f89?v=2026-05-12T21%3A27%3A58.000Z",
+    "image": "https://api.loyverse.com/image/e4805abe-43a4-4c55-83e3-2f1760092f89?v=1778621278000",
     "images": [
-      "https://api.loyverse.com/image/e4805abe-43a4-4c55-83e3-2f1760092f89?v=2026-05-12T21%3A27%3A58.000Z"
+      "https://api.loyverse.com/image/e4805abe-43a4-4c55-83e3-2f1760092f89?v=1778621278000"
     ],
     "category": "Buzos",
     "rawCategory": "Buzo Capotero",
@@ -13526,9 +13528,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/ea99fc21-baed-482f-97c9-387027bd4324?v=2026-06-02T15%3A21%3A23.000Z",
+    "image": "https://api.loyverse.com/image/ea99fc21-baed-482f-97c9-387027bd4324?v=1780413683000",
     "images": [
-      "https://api.loyverse.com/image/ea99fc21-baed-482f-97c9-387027bd4324?v=2026-06-02T15%3A21%3A23.000Z"
+      "https://api.loyverse.com/image/ea99fc21-baed-482f-97c9-387027bd4324?v=1780413683000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -13663,9 +13665,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/57b26da8-1ffc-4f3d-8f47-d6f348554c05?v=2026-06-02T14%3A34%3A47.000Z",
+    "image": "https://api.loyverse.com/image/57b26da8-1ffc-4f3d-8f47-d6f348554c05?v=1780410887000",
     "images": [
-      "https://api.loyverse.com/image/57b26da8-1ffc-4f3d-8f47-d6f348554c05?v=2026-06-02T14%3A34%3A47.000Z"
+      "https://api.loyverse.com/image/57b26da8-1ffc-4f3d-8f47-d6f348554c05?v=1780410887000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -13760,9 +13762,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/3c1c9921-5e61-482f-80b4-f5319cf0757c?v=2026-06-01T14%3A42%3A20.000Z",
+    "image": "https://api.loyverse.com/image/3c1c9921-5e61-482f-80b4-f5319cf0757c?v=1780324940000",
     "images": [
-      "https://api.loyverse.com/image/3c1c9921-5e61-482f-80b4-f5319cf0757c?v=2026-06-01T14%3A42%3A20.000Z"
+      "https://api.loyverse.com/image/3c1c9921-5e61-482f-80b4-f5319cf0757c?v=1780324940000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -13857,9 +13859,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/1a2e5abe-726c-483a-a7df-9d02b6ffd01e?v=2026-05-13T10%3A54%3A13.000Z",
+    "image": "https://api.loyverse.com/image/1a2e5abe-726c-483a-a7df-9d02b6ffd01e?v=1778669653000",
     "images": [
-      "https://api.loyverse.com/image/1a2e5abe-726c-483a-a7df-9d02b6ffd01e?v=2026-05-13T10%3A54%3A13.000Z"
+      "https://api.loyverse.com/image/1a2e5abe-726c-483a-a7df-9d02b6ffd01e?v=1778669653000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14034,9 +14036,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/fd10434a-3759-457b-ac57-6bbc42ca1415?v=2026-06-01T14%3A43%3A38.000Z",
+    "image": "https://api.loyverse.com/image/fd10434a-3759-457b-ac57-6bbc42ca1415?v=1780325018000",
     "images": [
-      "https://api.loyverse.com/image/fd10434a-3759-457b-ac57-6bbc42ca1415?v=2026-06-01T14%3A43%3A38.000Z"
+      "https://api.loyverse.com/image/fd10434a-3759-457b-ac57-6bbc42ca1415?v=1780325018000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14131,9 +14133,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/884a5b28-7e5a-4926-a14a-fcf0d47d6dfb?v=2026-05-13T10%3A50%3A53.000Z",
+    "image": "https://api.loyverse.com/image/884a5b28-7e5a-4926-a14a-fcf0d47d6dfb?v=1778669453000",
     "images": [
-      "https://api.loyverse.com/image/884a5b28-7e5a-4926-a14a-fcf0d47d6dfb?v=2026-05-13T10%3A50%3A53.000Z"
+      "https://api.loyverse.com/image/884a5b28-7e5a-4926-a14a-fcf0d47d6dfb?v=1778669453000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14228,9 +14230,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/529081b5-c51e-456d-9904-30bb1c857dc1?v=2026-05-13T10%3A47%3A32.000Z",
+    "image": "https://api.loyverse.com/image/529081b5-c51e-456d-9904-30bb1c857dc1?v=1778669252000",
     "images": [
-      "https://api.loyverse.com/image/529081b5-c51e-456d-9904-30bb1c857dc1?v=2026-05-13T10%3A47%3A32.000Z"
+      "https://api.loyverse.com/image/529081b5-c51e-456d-9904-30bb1c857dc1?v=1778669252000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14325,9 +14327,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/1431bde0-804a-4a3b-8de5-5cfa4373b4e4?v=2026-05-13T10%3A47%3A17.000Z",
+    "image": "https://api.loyverse.com/image/1431bde0-804a-4a3b-8de5-5cfa4373b4e4?v=1778669237000",
     "images": [
-      "https://api.loyverse.com/image/1431bde0-804a-4a3b-8de5-5cfa4373b4e4?v=2026-05-13T10%3A47%3A17.000Z"
+      "https://api.loyverse.com/image/1431bde0-804a-4a3b-8de5-5cfa4373b4e4?v=1778669237000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14422,9 +14424,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/65ba9242-b6d5-40d4-970b-0ced5f8d8b78?v=2026-05-13T10%3A52%3A04.000Z",
+    "image": "https://api.loyverse.com/image/65ba9242-b6d5-40d4-970b-0ced5f8d8b78?v=1778669524000",
     "images": [
-      "https://api.loyverse.com/image/65ba9242-b6d5-40d4-970b-0ced5f8d8b78?v=2026-05-13T10%3A52%3A04.000Z"
+      "https://api.loyverse.com/image/65ba9242-b6d5-40d4-970b-0ced5f8d8b78?v=1778669524000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14519,9 +14521,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/49ff8925-e8b7-432c-9fdd-25295b072a61?v=2026-05-13T10%3A48%3A33.000Z",
+    "image": "https://api.loyverse.com/image/49ff8925-e8b7-432c-9fdd-25295b072a61?v=1778669313000",
     "images": [
-      "https://api.loyverse.com/image/49ff8925-e8b7-432c-9fdd-25295b072a61?v=2026-05-13T10%3A48%3A33.000Z"
+      "https://api.loyverse.com/image/49ff8925-e8b7-432c-9fdd-25295b072a61?v=1778669313000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14576,9 +14578,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/a004cfc8-67d7-417b-b831-c263ed83bdac?v=2026-05-13T17%3A17%3A05.000Z",
+    "image": "https://api.loyverse.com/image/a004cfc8-67d7-417b-b831-c263ed83bdac?v=1778692625000",
     "images": [
-      "https://api.loyverse.com/image/a004cfc8-67d7-417b-b831-c263ed83bdac?v=2026-05-13T17%3A17%3A05.000Z"
+      "https://api.loyverse.com/image/a004cfc8-67d7-417b-b831-c263ed83bdac?v=1778692625000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -14633,9 +14635,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/3decfd37-23c1-4f0a-97dd-3d3ac1a35477?v=2026-05-13T10%3A53%3A46.000Z",
+    "image": "https://api.loyverse.com/image/3decfd37-23c1-4f0a-97dd-3d3ac1a35477?v=1778669626000",
     "images": [
-      "https://api.loyverse.com/image/3decfd37-23c1-4f0a-97dd-3d3ac1a35477?v=2026-05-13T10%3A53%3A46.000Z"
+      "https://api.loyverse.com/image/3decfd37-23c1-4f0a-97dd-3d3ac1a35477?v=1778669626000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -15070,9 +15072,9 @@
     "price": 47000,
     "retailPrice": 66000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/0637c9f4-cc3f-4d5c-a677-78133f2bcbe0?v=2026-05-12T23%3A55%3A18.000Z",
+    "image": "https://api.loyverse.com/image/0637c9f4-cc3f-4d5c-a677-78133f2bcbe0?v=1778630118000",
     "images": [
-      "https://api.loyverse.com/image/0637c9f4-cc3f-4d5c-a677-78133f2bcbe0?v=2026-05-12T23%3A55%3A18.000Z"
+      "https://api.loyverse.com/image/0637c9f4-cc3f-4d5c-a677-78133f2bcbe0?v=1778630118000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -15167,9 +15169,9 @@
     "price": 45000,
     "retailPrice": 70000,
     "modifierApplied": "Oversize Pedreria",
-    "image": "https://api.loyverse.com/image/c3aa6e6b-badf-470d-96ef-edb381a878b1?v=2026-05-13T12%3A40%3A22.000Z",
+    "image": "https://api.loyverse.com/image/c3aa6e6b-badf-470d-96ef-edb381a878b1?v=1778676022000",
     "images": [
-      "https://api.loyverse.com/image/c3aa6e6b-badf-470d-96ef-edb381a878b1?v=2026-05-13T12%3A40%3A22.000Z"
+      "https://api.loyverse.com/image/c3aa6e6b-badf-470d-96ef-edb381a878b1?v=1778676022000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Pedreria",
@@ -15224,9 +15226,9 @@
     "price": 45000,
     "retailPrice": 70000,
     "modifierApplied": "Oversize Pedreria",
-    "image": "https://api.loyverse.com/image/1e9a2b59-5d65-4eaa-9734-8daa05de9cc9?v=2026-05-13T12%3A37%3A44.000Z",
+    "image": "https://api.loyverse.com/image/1e9a2b59-5d65-4eaa-9734-8daa05de9cc9?v=1778675864000",
     "images": [
-      "https://api.loyverse.com/image/1e9a2b59-5d65-4eaa-9734-8daa05de9cc9?v=2026-05-13T12%3A37%3A44.000Z"
+      "https://api.loyverse.com/image/1e9a2b59-5d65-4eaa-9734-8daa05de9cc9?v=1778675864000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Pedreria",
@@ -15281,9 +15283,9 @@
     "price": 45000,
     "retailPrice": 70000,
     "modifierApplied": "Oversize Pedreria",
-    "image": "https://api.loyverse.com/image/54e4453f-80a5-45b9-b068-0c846aa63b73?v=2026-05-13T12%3A36%3A03.000Z",
+    "image": "https://api.loyverse.com/image/54e4453f-80a5-45b9-b068-0c846aa63b73?v=1778675763000",
     "images": [
-      "https://api.loyverse.com/image/54e4453f-80a5-45b9-b068-0c846aa63b73?v=2026-05-13T12%3A36%3A03.000Z"
+      "https://api.loyverse.com/image/54e4453f-80a5-45b9-b068-0c846aa63b73?v=1778675763000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Pedreria",
@@ -15338,9 +15340,9 @@
     "price": 55000,
     "retailPrice": 75000,
     "modifierApplied": "Oversize Premium",
-    "image": "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=2026-06-13T01%3A07%3A06.000Z",
+    "image": "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=1781312826000",
     "images": [
-      "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=2026-06-13T01%3A07%3A06.000Z"
+      "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=1781312826000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Premium",
@@ -15475,9 +15477,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=2026-05-12T19%3A38%3A54.000Z",
+    "image": "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=1778614734000",
     "images": [
-      "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=2026-05-12T19%3A38%3A54.000Z"
+      "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=1778614734000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -15522,9 +15524,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/ad0308fb-c6a9-4c1f-9df9-048168dbca9c?v=2026-06-01T14%3A48%3A48.000Z",
+    "image": "https://api.loyverse.com/image/ad0308fb-c6a9-4c1f-9df9-048168dbca9c?v=1780325328000",
     "images": [
-      "https://api.loyverse.com/image/ad0308fb-c6a9-4c1f-9df9-048168dbca9c?v=2026-06-01T14%3A48%3A48.000Z"
+      "https://api.loyverse.com/image/ad0308fb-c6a9-4c1f-9df9-048168dbca9c?v=1780325328000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -15569,9 +15571,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/3c1bcefb-5209-433a-9ac0-c92dbfda73cc?v=2026-05-12T19%3A38%3A42.000Z",
+    "image": "https://api.loyverse.com/image/3c1bcefb-5209-433a-9ac0-c92dbfda73cc?v=1778614722000",
     "images": [
-      "https://api.loyverse.com/image/3c1bcefb-5209-433a-9ac0-c92dbfda73cc?v=2026-05-12T19%3A38%3A42.000Z"
+      "https://api.loyverse.com/image/3c1bcefb-5209-433a-9ac0-c92dbfda73cc?v=1778614722000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -15616,9 +15618,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=2026-05-13T18%3A59%3A18.000Z",
+    "image": "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=1778698758000",
     "images": [
-      "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=2026-05-13T18%3A59%3A18.000Z"
+      "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=1778698758000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -15663,9 +15665,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=2026-06-01T18%3A24%3A04.000Z",
+    "image": "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=1780338244000",
     "images": [
-      "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=2026-06-01T18%3A24%3A04.000Z"
+      "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=1780338244000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -15740,9 +15742,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/3f1ce825-9e79-40e7-be05-26b18e730b28?v=2026-05-21T22%3A08%3A57.000Z",
+    "image": "https://api.loyverse.com/image/3f1ce825-9e79-40e7-be05-26b18e730b28?v=1779401337000",
     "images": [
-      "https://api.loyverse.com/image/3f1ce825-9e79-40e7-be05-26b18e730b28?v=2026-05-21T22%3A08%3A57.000Z"
+      "https://api.loyverse.com/image/3f1ce825-9e79-40e7-be05-26b18e730b28?v=1779401337000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -15797,9 +15799,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/c0026685-8cf3-4df1-ac46-67acbe50f89b?v=2026-06-01T14%3A57%3A50.000Z",
+    "image": "https://api.loyverse.com/image/c0026685-8cf3-4df1-ac46-67acbe50f89b?v=1780325870000",
     "images": [
-      "https://api.loyverse.com/image/c0026685-8cf3-4df1-ac46-67acbe50f89b?v=2026-06-01T14%3A57%3A50.000Z"
+      "https://api.loyverse.com/image/c0026685-8cf3-4df1-ac46-67acbe50f89b?v=1780325870000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -15854,9 +15856,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/a964dfae-dca5-4700-b1bc-f0e555940bec?v=2026-05-21T22%3A08%3A00.000Z",
+    "image": "https://api.loyverse.com/image/a964dfae-dca5-4700-b1bc-f0e555940bec?v=1779401280000",
     "images": [
-      "https://api.loyverse.com/image/a964dfae-dca5-4700-b1bc-f0e555940bec?v=2026-05-21T22%3A08%3A00.000Z"
+      "https://api.loyverse.com/image/a964dfae-dca5-4700-b1bc-f0e555940bec?v=1779401280000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -15951,9 +15953,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/63559bf3-b712-4a53-a0a2-7d4d66ee5c71?v=2026-05-21T22%3A08%3A49.000Z",
+    "image": "https://api.loyverse.com/image/63559bf3-b712-4a53-a0a2-7d4d66ee5c71?v=1779401329000",
     "images": [
-      "https://api.loyverse.com/image/63559bf3-b712-4a53-a0a2-7d4d66ee5c71?v=2026-05-21T22%3A08%3A49.000Z"
+      "https://api.loyverse.com/image/63559bf3-b712-4a53-a0a2-7d4d66ee5c71?v=1779401329000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -16048,9 +16050,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/280bd28c-bba7-4ec2-bbd1-123dddf1293c?v=2026-05-21T22%3A10%3A27.000Z",
+    "image": "https://api.loyverse.com/image/280bd28c-bba7-4ec2-bbd1-123dddf1293c?v=1779401427000",
     "images": [
-      "https://api.loyverse.com/image/280bd28c-bba7-4ec2-bbd1-123dddf1293c?v=2026-05-21T22%3A10%3A27.000Z"
+      "https://api.loyverse.com/image/280bd28c-bba7-4ec2-bbd1-123dddf1293c?v=1779401427000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16105,9 +16107,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/f741509d-1ea1-4baa-9984-b8ad500c039b?v=2026-06-01T15%3A11%3A49.000Z",
+    "image": "https://api.loyverse.com/image/f741509d-1ea1-4baa-9984-b8ad500c039b?v=1780326709000",
     "images": [
-      "https://api.loyverse.com/image/f741509d-1ea1-4baa-9984-b8ad500c039b?v=2026-06-01T15%3A11%3A49.000Z"
+      "https://api.loyverse.com/image/f741509d-1ea1-4baa-9984-b8ad500c039b?v=1780326709000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16162,9 +16164,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/395dcca1-a48b-49e6-a59a-9886c3e9511e?v=2026-05-21T22%3A12%3A06.000Z",
+    "image": "https://api.loyverse.com/image/395dcca1-a48b-49e6-a59a-9886c3e9511e?v=1779401526000",
     "images": [
-      "https://api.loyverse.com/image/395dcca1-a48b-49e6-a59a-9886c3e9511e?v=2026-05-21T22%3A12%3A06.000Z"
+      "https://api.loyverse.com/image/395dcca1-a48b-49e6-a59a-9886c3e9511e?v=1779401526000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16219,9 +16221,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/c3b2cb5f-8755-40d9-b569-6b2f5d69acf5?v=2026-06-01T15%3A09%3A48.000Z",
+    "image": "https://api.loyverse.com/image/c3b2cb5f-8755-40d9-b569-6b2f5d69acf5?v=1780326588000",
     "images": [
-      "https://api.loyverse.com/image/c3b2cb5f-8755-40d9-b569-6b2f5d69acf5?v=2026-06-01T15%3A09%3A48.000Z"
+      "https://api.loyverse.com/image/c3b2cb5f-8755-40d9-b569-6b2f5d69acf5?v=1780326588000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16276,9 +16278,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/bf3cef2b-4853-452e-86d0-9923cafb1dcc?v=2026-05-21T22%3A13%3A50.000Z",
+    "image": "https://api.loyverse.com/image/bf3cef2b-4853-452e-86d0-9923cafb1dcc?v=1779401630000",
     "images": [
-      "https://api.loyverse.com/image/bf3cef2b-4853-452e-86d0-9923cafb1dcc?v=2026-05-21T22%3A13%3A50.000Z"
+      "https://api.loyverse.com/image/bf3cef2b-4853-452e-86d0-9923cafb1dcc?v=1779401630000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16333,9 +16335,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/8a303b26-798a-46f5-9e40-7d7c636c08e0?v=2026-05-21T22%3A09%3A28.000Z",
+    "image": "https://api.loyverse.com/image/8a303b26-798a-46f5-9e40-7d7c636c08e0?v=1779401368000",
     "images": [
-      "https://api.loyverse.com/image/8a303b26-798a-46f5-9e40-7d7c636c08e0?v=2026-05-21T22%3A09%3A28.000Z"
+      "https://api.loyverse.com/image/8a303b26-798a-46f5-9e40-7d7c636c08e0?v=1779401368000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16390,9 +16392,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/cffc62db-4453-43be-8138-3215ffb57b84?v=2026-06-01T15%3A14%3A32.000Z",
+    "image": "https://api.loyverse.com/image/cffc62db-4453-43be-8138-3215ffb57b84?v=1780326872000",
     "images": [
-      "https://api.loyverse.com/image/cffc62db-4453-43be-8138-3215ffb57b84?v=2026-06-01T15%3A14%3A32.000Z"
+      "https://api.loyverse.com/image/cffc62db-4453-43be-8138-3215ffb57b84?v=1780326872000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16447,9 +16449,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/75b101b9-59b4-4042-bcc8-2a8ee6e8be4a?v=2026-05-21T22%3A13%3A44.000Z",
+    "image": "https://api.loyverse.com/image/75b101b9-59b4-4042-bcc8-2a8ee6e8be4a?v=1779401624000",
     "images": [
-      "https://api.loyverse.com/image/75b101b9-59b4-4042-bcc8-2a8ee6e8be4a?v=2026-05-21T22%3A13%3A44.000Z"
+      "https://api.loyverse.com/image/75b101b9-59b4-4042-bcc8-2a8ee6e8be4a?v=1779401624000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16504,9 +16506,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/a36d7679-0541-4ced-8679-a20ad10d6846?v=2026-06-01T15%3A10%3A33.000Z",
+    "image": "https://api.loyverse.com/image/a36d7679-0541-4ced-8679-a20ad10d6846?v=1780326633000",
     "images": [
-      "https://api.loyverse.com/image/a36d7679-0541-4ced-8679-a20ad10d6846?v=2026-06-01T15%3A10%3A33.000Z"
+      "https://api.loyverse.com/image/a36d7679-0541-4ced-8679-a20ad10d6846?v=1780326633000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16561,9 +16563,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/96495579-7fac-42fd-97b3-3a861b24051f?v=2026-05-21T22%3A09%3A43.000Z",
+    "image": "https://api.loyverse.com/image/96495579-7fac-42fd-97b3-3a861b24051f?v=1779401383000",
     "images": [
-      "https://api.loyverse.com/image/96495579-7fac-42fd-97b3-3a861b24051f?v=2026-05-21T22%3A09%3A43.000Z"
+      "https://api.loyverse.com/image/96495579-7fac-42fd-97b3-3a861b24051f?v=1779401383000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16618,9 +16620,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/7413c975-aa2e-45c9-9f2f-ca1b39600aaf?v=2026-05-21T22%3A14%3A21.000Z",
+    "image": "https://api.loyverse.com/image/7413c975-aa2e-45c9-9f2f-ca1b39600aaf?v=1779401661000",
     "images": [
-      "https://api.loyverse.com/image/7413c975-aa2e-45c9-9f2f-ca1b39600aaf?v=2026-05-21T22%3A14%3A21.000Z"
+      "https://api.loyverse.com/image/7413c975-aa2e-45c9-9f2f-ca1b39600aaf?v=1779401661000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16675,9 +16677,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/b636f89d-6c02-4cc0-a290-fd0bea271f8c?v=2026-05-21T22%3A10%3A35.000Z",
+    "image": "https://api.loyverse.com/image/b636f89d-6c02-4cc0-a290-fd0bea271f8c?v=1779401435000",
     "images": [
-      "https://api.loyverse.com/image/b636f89d-6c02-4cc0-a290-fd0bea271f8c?v=2026-05-21T22%3A10%3A35.000Z"
+      "https://api.loyverse.com/image/b636f89d-6c02-4cc0-a290-fd0bea271f8c?v=1779401435000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16732,9 +16734,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/25208805-3025-4fee-80df-86bdcd680303?v=2026-05-21T22%3A12%3A53.000Z",
+    "image": "https://api.loyverse.com/image/25208805-3025-4fee-80df-86bdcd680303?v=1779401573000",
     "images": [
-      "https://api.loyverse.com/image/25208805-3025-4fee-80df-86bdcd680303?v=2026-05-21T22%3A12%3A53.000Z"
+      "https://api.loyverse.com/image/25208805-3025-4fee-80df-86bdcd680303?v=1779401573000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16789,9 +16791,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/c7e048c9-97e0-488b-b84a-c1ea3bc12ed1?v=2026-05-21T22%3A11%3A45.000Z",
+    "image": "https://api.loyverse.com/image/c7e048c9-97e0-488b-b84a-c1ea3bc12ed1?v=1779401505000",
     "images": [
-      "https://api.loyverse.com/image/c7e048c9-97e0-488b-b84a-c1ea3bc12ed1?v=2026-05-21T22%3A11%3A45.000Z"
+      "https://api.loyverse.com/image/c7e048c9-97e0-488b-b84a-c1ea3bc12ed1?v=1779401505000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16926,9 +16928,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/b07776f1-1111-4576-8e27-351ddf47c833?v=2026-05-21T22%3A13%3A59.000Z",
+    "image": "https://api.loyverse.com/image/b07776f1-1111-4576-8e27-351ddf47c833?v=1779401639000",
     "images": [
-      "https://api.loyverse.com/image/b07776f1-1111-4576-8e27-351ddf47c833?v=2026-05-21T22%3A13%3A59.000Z"
+      "https://api.loyverse.com/image/b07776f1-1111-4576-8e27-351ddf47c833?v=1779401639000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -16983,9 +16985,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/a0d9c266-e55b-4653-8e6e-d8fd3d5a6e32?v=2026-05-21T22%3A13%3A16.000Z",
+    "image": "https://api.loyverse.com/image/a0d9c266-e55b-4653-8e6e-d8fd3d5a6e32?v=1779401596000",
     "images": [
-      "https://api.loyverse.com/image/a0d9c266-e55b-4653-8e6e-d8fd3d5a6e32?v=2026-05-21T22%3A13%3A16.000Z"
+      "https://api.loyverse.com/image/a0d9c266-e55b-4653-8e6e-d8fd3d5a6e32?v=1779401596000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -17080,9 +17082,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/001b6350-2055-4a12-933a-0bc9e3191164?v=2026-05-21T22%3A11%3A00.000Z",
+    "image": "https://api.loyverse.com/image/001b6350-2055-4a12-933a-0bc9e3191164?v=1779401460000",
     "images": [
-      "https://api.loyverse.com/image/001b6350-2055-4a12-933a-0bc9e3191164?v=2026-05-21T22%3A11%3A00.000Z"
+      "https://api.loyverse.com/image/001b6350-2055-4a12-933a-0bc9e3191164?v=1779401460000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -17137,9 +17139,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/b925292f-c264-4ba9-9bcb-e3aecf7721c3?v=2026-05-21T22%3A12%3A30.000Z",
+    "image": "https://api.loyverse.com/image/b925292f-c264-4ba9-9bcb-e3aecf7721c3?v=1779401550000",
     "images": [
-      "https://api.loyverse.com/image/b925292f-c264-4ba9-9bcb-e3aecf7721c3?v=2026-05-21T22%3A12%3A30.000Z"
+      "https://api.loyverse.com/image/b925292f-c264-4ba9-9bcb-e3aecf7721c3?v=1779401550000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -17194,9 +17196,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/649a8a56-0251-46cf-8b56-8c6b5720f4cf?v=2026-05-21T22%3A12%3A19.000Z",
+    "image": "https://api.loyverse.com/image/649a8a56-0251-46cf-8b56-8c6b5720f4cf?v=1779401539000",
     "images": [
-      "https://api.loyverse.com/image/649a8a56-0251-46cf-8b56-8c6b5720f4cf?v=2026-05-21T22%3A12%3A19.000Z"
+      "https://api.loyverse.com/image/649a8a56-0251-46cf-8b56-8c6b5720f4cf?v=1779401539000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -17251,9 +17253,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/11dd8b7a-4b72-417a-bb4e-8f7e41c1b7aa?v=2026-05-21T22%3A10%3A42.000Z",
+    "image": "https://api.loyverse.com/image/11dd8b7a-4b72-417a-bb4e-8f7e41c1b7aa?v=1779401442000",
     "images": [
-      "https://api.loyverse.com/image/11dd8b7a-4b72-417a-bb4e-8f7e41c1b7aa?v=2026-05-21T22%3A10%3A42.000Z"
+      "https://api.loyverse.com/image/11dd8b7a-4b72-417a-bb4e-8f7e41c1b7aa?v=1779401442000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",
@@ -17308,9 +17310,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Burda",
-    "image": "https://api.loyverse.com/image/49169624-f47b-494a-ac4d-8d4eb2c4d770?v=2026-05-21T22%3A09%3A20.000Z",
+    "image": "https://api.loyverse.com/image/49169624-f47b-494a-ac4d-8d4eb2c4d770?v=1779401360000",
     "images": [
-      "https://api.loyverse.com/image/49169624-f47b-494a-ac4d-8d4eb2c4d770?v=2026-05-21T22%3A09%3A20.000Z"
+      "https://api.loyverse.com/image/49169624-f47b-494a-ac4d-8d4eb2c4d770?v=1779401360000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Burda",

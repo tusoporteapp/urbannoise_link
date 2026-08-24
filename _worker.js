@@ -122,7 +122,7 @@ async function handleLiveCatalog(request, env) {
                 };
             });
 
-            const vParam = item.updated_at ? `?v=${encodeURIComponent(item.updated_at)}` : '';
+            const vParam = item.updated_at ? `?v=${new Date(item.updated_at).getTime()}` : '';
             const primaryImage = item.image_url ? `${item.image_url}${vParam}` : 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
 
             return {
@@ -145,7 +145,7 @@ async function handleLiveCatalog(request, env) {
             status: 200,
             headers: {
                 ...corsHeaders,
-                "Cache-Control": "public, max-age=0, must-revalidate"
+                "Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache", "Expires": "0"
             }
         });
     } catch (error) {

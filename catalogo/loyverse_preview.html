@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Smart Real-Time Cache Validation -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Urban Noise // Catálogo & Link in Bio</title>
     <meta name="description" content="Catálogo oficial de Urban Noise Streetwear. Diseño y estética urbana premium con lavados Acid Wash exclusivos de Bogotá. Envíos nacionales.">
     
@@ -1076,7 +1081,7 @@
         async function fetchCatalog() {
             try {
                 // 1. Fetch LIVE from Cloudflare Server connected directly to Loyverse
-                const liveRes = await fetch("/api/catalog?t=" + Date.now()).catch(() => null);
+                const liveRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 if (liveRes && liveRes.ok) {
                     const liveData = await liveRes.json().catch(() => null);
                     if (Array.isArray(liveData) && liveData.length > 0) {
@@ -1087,9 +1092,9 @@
                 }
 
                 // 2. Static JSON Fallback if server is starting
-                let localRes = await fetch("loyverse_products.json?t=" + Date.now()).catch(() => null);
+                let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 if (!localRes || !localRes.ok) {
-                    localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now()).catch(() => null);
+                    localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 }
                 if (localRes && localRes.ok) {
                     const data = await localRes.json();

@@ -138,7 +138,7 @@ async function sync() {
         });
 
         // Direct Loyverse image URL with updated_at timestamp version
-        const vParam = item.updated_at ? `?v=${encodeURIComponent(item.updated_at)}` : '';
+        const vParam = item.updated_at ? `?v=${new Date(item.updated_at).getTime()}` : '';
         const primaryImage = item.image_url ? `${item.image_url}${vParam}` : 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
 
         return {
