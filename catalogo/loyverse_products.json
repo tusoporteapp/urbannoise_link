@@ -1,5 +1,135 @@
 [
   {
+    "id": "b1f4e86c-3abd-48d4-ae35-53c6c2b329ad",
+    "title": "sin nombre000",
+    "description": "Sin descripción disponible.",
+    "price": 41000,
+    "retailPrice": 60000,
+    "modifierApplied": "Esqueleto AcidWash",
+    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
+    "images": [],
+    "category": "Acidwash",
+    "rawCategory": "Esqueleto AcidWash",
+    "variants": [
+      {
+        "id": "52c0e486-bc76-4a4d-9a39-997eb6736221",
+        "sku": "11471",
+        "size": "S",
+        "color": "Negro",
+        "price": 41000,
+        "retailPrice": 60000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "8c90f2fb-c7b2-4711-ac66-e4c54396197e",
+        "sku": "11472",
+        "size": "S",
+        "color": "Gris",
+        "price": 41000,
+        "retailPrice": 60000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "0070d382-ac79-417e-aa67-8c44523c396a",
+        "sku": "11473",
+        "size": "M",
+        "color": "Negro",
+        "price": 41000,
+        "retailPrice": 60000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "1df4def7-4df9-4e4b-9f24-8a52e313a088",
+        "sku": "11474",
+        "size": "M",
+        "color": "Gris",
+        "price": 41000,
+        "retailPrice": 60000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "c49d5679-8287-4c84-829c-129bf7d91032",
+        "sku": "11475",
+        "size": "L",
+        "color": "Negro",
+        "price": 41000,
+        "retailPrice": 60000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "f8e96d4e-32e4-41ec-9340-e980e80a613b",
+        "sku": "11476",
+        "size": "L",
+        "color": "Gris",
+        "price": 41000,
+        "retailPrice": 60000,
+        "inStock": true,
+        "stock": 4
+      }
+    ],
+    "updated_at": "2026-08-24T22:05:32.000Z"
+  },
+  {
+    "id": "25622134-c9c4-486c-a8ab-9712cb3c5c63",
+    "title": "sin nombre",
+    "description": "Sin descripción disponible.",
+    "price": 46000,
+    "retailPrice": 65000,
+    "modifierApplied": "Oversize AcidWash",
+    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
+    "images": [],
+    "category": "Acidwash",
+    "rawCategory": "Oversize AcidWash",
+    "variants": [
+      {
+        "id": "d9b5f6d3-5799-48b0-9389-06c9b92bc5ab",
+        "sku": "11467",
+        "size": "S",
+        "color": "MoraLeche",
+        "price": 46000,
+        "retailPrice": 65000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "09087e55-fa18-4c80-b807-71fdd334ead6",
+        "sku": "11468",
+        "size": "M",
+        "color": "MoraLeche",
+        "price": 46000,
+        "retailPrice": 65000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "5b9688fa-63b9-4839-8cfd-a73e85dd47dd",
+        "sku": "11469",
+        "size": "L",
+        "color": "MoraLeche",
+        "price": 46000,
+        "retailPrice": 65000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "201f4d8e-0889-4c29-9d43-6c66d70b3d54",
+        "sku": "11470",
+        "size": "XL",
+        "color": "MoraLeche",
+        "price": 46000,
+        "retailPrice": 65000,
+        "inStock": true,
+        "stock": 5
+      }
+    ],
+    "updated_at": "2026-08-24T21:57:21.000Z"
+  },
+  {
     "id": "855c5ed4-20a6-44b1-8173-1523352793eb",
     "title": "Bermuda AcidWash",
     "description": "Sin descripción disponible.",
