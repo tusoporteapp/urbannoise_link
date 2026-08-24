@@ -1,5 +1,100 @@
 [
   {
+    "id": "6ee5aaae-349e-4694-90ec-ed63a9d44daf",
+    "title": "Pantalon AcidWash",
+    "description": "Sin descripción disponible.",
+    "price": 90000,
+    "retailPrice": 125000,
+    "modifierApplied": "Pantalon AcidWash",
+    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
+    "images": [],
+    "category": "Conjuntos",
+    "rawCategory": "CONJUNTO SUDADERA",
+    "variants": [
+      {
+        "id": "dc74b4d1-92c6-4ead-b9ed-5c2ff45e9cca",
+        "sku": "11451",
+        "size": "S",
+        "color": "Negro",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "45fb518c-b251-40d0-9c3e-f21d61924889",
+        "sku": "11452",
+        "size": "S",
+        "color": "Gris",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "f95378e8-1dd5-4c9d-b72d-1df816ff02ec",
+        "sku": "11453",
+        "size": "M",
+        "color": "Negro",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": true,
+        "stock": 25
+      },
+      {
+        "id": "67e3ac74-3ed4-4b2f-a43e-5fa778f02cac",
+        "sku": "11454",
+        "size": "M",
+        "color": "Gris",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "347b5854-f0d7-41a3-aa5b-b615c5d0784f",
+        "sku": "11455",
+        "size": "L",
+        "color": "Negro",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "ecce4f06-f9ae-455f-9b2a-ac2bbe3c5f78",
+        "sku": "11456",
+        "size": "L",
+        "color": "Gris",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": false,
+        "stock": 0
+      },
+      {
+        "id": "368de225-1ab4-4486-9c20-767ef75f97e3",
+        "sku": "11457",
+        "size": "XL",
+        "color": "Negro",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": true,
+        "stock": 15
+      },
+      {
+        "id": "f4b69010-b0d3-4647-bd0b-f701631bcee8",
+        "sku": "11458",
+        "size": "XL",
+        "color": "Gris",
+        "price": 90000,
+        "retailPrice": 125000,
+        "inStock": false,
+        "stock": 0
+      }
+    ],
+    "updated_at": "2026-08-24T20:45:21.000Z"
+  },
+  {
     "id": "5fc2bea9-3222-4aa2-b55c-e2298f19f5be",
     "title": "CLOTHING07",
     "description": "Sin descripción disponible.",
@@ -4515,9 +4610,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=2026-08-24T15%3A37%3A30.000Z",
+    "image": "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=2026-08-24T21%3A10%3A23.000Z",
     "images": [
-      "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=2026-08-24T15%3A37%3A30.000Z"
+      "https://api.loyverse.com/image/0f90aec8-e360-4f87-91ea-9ff136e5fa4e?v=2026-08-24T21%3A10%3A23.000Z"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -4530,7 +4625,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "3f153e4e-d7f4-4d5f-bf9c-b161906f2f45",
@@ -4570,7 +4665,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "2e310308-4414-4b33-b02c-db1c33152f2a",
@@ -4589,8 +4684,8 @@
         "color": "Cobre",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "001fe7c3-c929-42c7-8ec7-a14241bd64ca",
@@ -4643,7 +4738,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T15:37:30.000Z"
+    "updated_at": "2026-08-24T21:10:23.000Z"
   },
   {
     "id": "836036b2-102f-4c8b-a64e-741a9dcf49ae",
