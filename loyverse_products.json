@@ -412,7 +412,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "015a4a62-b967-463d-9b8f-1f116e485c50",
@@ -479,7 +479,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "4c37e6b1-93c8-426b-8282-c986b3eb48f7",
