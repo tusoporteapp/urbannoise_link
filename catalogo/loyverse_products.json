@@ -452,7 +452,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       }
     ],
     "updated_at": "2026-08-24T14:07:53.000Z"
@@ -519,7 +519,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "4edcd77a-490c-4b41-9217-07238cec090f",
@@ -1228,7 +1228,7 @@
         "price": 42000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 28
+        "stock": 27
       },
       {
         "id": "216dc202-3796-4f2c-9e22-722af34a7573",
@@ -1543,7 +1543,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "1c46051d-19ea-414d-89ab-2178702b2f22",
@@ -1948,7 +1948,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "54c358f7-720e-4718-b18c-4e3ea6107166",
@@ -2553,8 +2553,8 @@
         "color": "Marfil",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "977d9253-bf85-406b-bfcc-28559042626b",
@@ -2621,7 +2621,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "9a8278b9-62e6-46e2-949b-3a0adb417cab",
@@ -2735,7 +2735,7 @@
         "price": 45000,
         "retailPrice": 70000,
         "inStock": true,
-        "stock": 9
+        "stock": 8
       },
       {
         "id": "46e3216c-74e1-454a-a18c-67bd91544b03",
@@ -3003,7 +3003,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "eb3bff00-c545-494c-8f10-a471f6b16c05",
@@ -3060,7 +3060,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "731f7b7f-d172-4366-9aab-35abf4c6b6b7",
@@ -3706,7 +3706,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "70b80acf-28f4-421d-9498-22e43156e71a",
@@ -5291,8 +5291,8 @@
         "color": "MoraLeche",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "d02c88ab-5f18-4866-ba71-7e741cd26191",
@@ -5910,8 +5910,8 @@
         "color": "Negro",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "c22521cc-69f4-4b2a-9725-c40b8bae0166",
@@ -8742,7 +8742,7 @@
         "price": 45000,
         "retailPrice": 70000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "d0f94cc1-2260-48f0-9ce0-88981158b2a5",
@@ -12704,7 +12704,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "b77f46b8-3ce8-443e-9306-afc9326c79fa",
@@ -15524,8 +15524,8 @@
         "color": "MarfiL",
         "price": 55000,
         "retailPrice": 75000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "4b87acd2-25bf-4752-a93b-234a7db29707",
@@ -15535,7 +15535,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -2
+        "stock": -3
       },
       {
         "id": "1e34532c-2432-4c1f-8f4f-a07b6a0cecd5",
