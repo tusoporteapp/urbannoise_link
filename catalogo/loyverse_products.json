@@ -78,14 +78,14 @@
   },
   {
     "id": "25622134-c9c4-486c-a8ab-9712cb3c5c63",
-    "title": "NO RISK URBAN",
+    "title": "NO RISK URBAN 2",
     "description": "Sin descripción disponible.",
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787778005000",
+    "image": "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787778856000",
     "images": [
-      "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787778005000"
+      "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787778856000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -131,7 +131,7 @@
         "stock": 5
       }
     ],
-    "updated_at": "2026-08-26T21:00:05.000Z"
+    "updated_at": "2026-08-26T21:14:16.000Z"
   },
   {
     "id": "855c5ed4-20a6-44b1-8173-1523352793eb",

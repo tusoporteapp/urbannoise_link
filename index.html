@@ -1088,7 +1088,7 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                // 1. Direct High-Speed Cloud Cache (0 Worker Requests, Unlimited Bandwidth)
+                // 1. Carga instantánea en 0ms desde la caché local (sin pantalla en blanco)
                 let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 if (!localRes || !localRes.ok) {
                     localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
@@ -1096,13 +1096,34 @@
                 if (localRes && localRes.ok) {
                     const data = await localRes.json();
                     if (Array.isArray(data) && data.length > 0) {
-                        console.log("⚡ Catálogo cargado en 0ms desde la nube (0 Workers):", data.length);
                         renderCatalogDataset(data);
-                        return;
                     }
                 }
+
+                // 2. Revalidación en vivo en segundo plano contra el API de Loyverse
+                revalidateCatalogInBackground();
             } catch (error) {
                 console.error("Error al cargar catálogo:", error);
+            }
+        }
+
+        async function revalidateCatalogInBackground() {
+            try {
+                const liveRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                if (liveRes && liveRes.ok) {
+                    const liveData = await liveRes.json().catch(() => null);
+                    if (Array.isArray(liveData) && liveData.length > 0) {
+                        const currentFingerprint = JSON.stringify(products.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
+                        const liveFingerprint = JSON.stringify(liveData.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
+
+                        if (currentFingerprint !== liveFingerprint) {
+                            console.log("⚡ Cambio detectado en Loyverse en vivo, actualizando catálogo suavemente...");
+                            renderCatalogDataset(liveData);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn("Live revalidation skipped:", e);
             }
         }
 
