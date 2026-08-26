@@ -1088,18 +1088,7 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         async function fetchCatalog() {
             try {
-                // 1. Fetch LIVE from Cloudflare Server connected directly to Loyverse
-                const liveRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
-                if (liveRes && liveRes.ok) {
-                    const liveData = await liveRes.json().catch(() => null);
-                    if (Array.isArray(liveData) && liveData.length > 0) {
-                        console.log("⚡ Catálogo en vivo recibido directamente desde Loyverse Server:", liveData.length);
-                        renderCatalogDataset(liveData);
-                        return;
-                    }
-                }
-
-                // 2. Static JSON Fallback if server is starting
+                // 1. Direct High-Speed Cloud Cache (0 Worker Requests, Unlimited Bandwidth)
                 let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 if (!localRes || !localRes.ok) {
                     localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
@@ -1107,7 +1096,9 @@
                 if (localRes && localRes.ok) {
                     const data = await localRes.json();
                     if (Array.isArray(data) && data.length > 0) {
+                        console.log("⚡ Catálogo cargado en 0ms desde la nube (0 Workers):", data.length);
                         renderCatalogDataset(data);
+                        return;
                     }
                 }
             } catch (error) {
