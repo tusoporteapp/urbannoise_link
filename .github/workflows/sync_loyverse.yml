@@ -2,8 +2,10 @@ name: Auto Sync Loyverse Catalog
 
 on:
   schedule:
-    # Run automatically every 30 minutes
-    - cron: '*/30 * * * *'
+    # Run automatically every 10 minutes
+    - cron: '*/10 * * * *'
+  repository_dispatch:
+    types: [loyverse_update, webhook_trigger]
   workflow_dispatch: # Allows manual trigger from GitHub UI with 1 click
 
 concurrency:
@@ -34,7 +36,7 @@ jobs:
         run: |
           git config --global user.name "UrbanNoise AutoSync Bot"
           git config --global user.email "bot@urbannoise.cc"
-          git add catalogo/loyverse_products.json loyverse_products.json catalogo/loyverse_preview.html loyverse_preview.html
+          git add catalogo/loyverse_products.json loyverse_products.json catalogo/loyverse_preview.html loyverse_preview.html index.html catalogo/index.html
           if git diff --staged --quiet; then
             echo "No changes detected in Loyverse catalog. Everything is up to date."
           else
