@@ -452,7 +452,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       }
     ],
     "updated_at": "2026-08-24T14:07:53.000Z"
@@ -519,7 +519,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": true,
-        "stock": 4
+        "stock": 2
       },
       {
         "id": "4edcd77a-490c-4b41-9217-07238cec090f",
@@ -2082,7 +2082,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "652d54c0-7847-40ee-93b8-f36f5669fdb4",
@@ -2457,7 +2457,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 7
+        "stock": 6
       },
       {
         "id": "b31c2d94-8293-4d1c-9471-8fd7dc88f0f1",
@@ -3686,7 +3686,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "0d6bb13d-4dbf-4bbe-ae24-aa0c30c0fcc1",
@@ -3992,7 +3992,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "b8ade1d0-69c6-4387-b3f3-206d80ef1fb3",
@@ -14220,8 +14220,8 @@
         "color": "Negro",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "1ce73827-7050-42e3-9f14-e774ef5360b0",
@@ -14599,7 +14599,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "ab8ff206-2ab9-4689-8c5e-d8774536b7c6",
@@ -15495,7 +15495,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "c1a3551a-97ab-4b36-9786-fc70e56abad8",
@@ -19050,7 +19050,7 @@
         "price": 40000,
         "retailPrice": 32000,
         "inStock": false,
-        "stock": -22
+        "stock": -23
       },
       {
         "id": "5618b39d-fe25-44b4-96df-82ed91345698",
