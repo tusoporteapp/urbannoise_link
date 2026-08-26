@@ -1640,7 +1640,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "c32dab1a-181b-4e80-82f8-755218e3b362",
@@ -1871,7 +1871,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "62ed0ef0-0341-48ba-bd2f-52e2af7b9305",
@@ -1891,7 +1891,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "77eaa3cc-d0ae-4128-baf1-43dfb1c48d74",
@@ -2149,7 +2149,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": false,
-        "stock": 0
+        "stock": -1
       },
       {
         "id": "2bd6cf9e-7c09-4dc0-b687-c42ef4f05b87",
@@ -2199,7 +2199,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "c3687bd1-c36e-4ea3-b655-485ffacee360",
@@ -3107,7 +3107,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "da718035-bbcc-402a-8970-c20931efbf33",
@@ -3147,7 +3147,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "d506c71a-3e2f-4c52-abb6-17c6cf4c2f29",
@@ -3773,7 +3773,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "f9df9a2b-fcd8-4a4a-8af2-164f3b78cbcc",
@@ -4883,8 +4883,8 @@
         "color": "Cobre",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "9e5084d1-5d4a-4286-8df9-0b90307d2e13",
@@ -5302,7 +5302,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": false,
-        "stock": 0
+        "stock": -1
       },
       {
         "id": "020535a6-e621-43ab-aa0d-6689c1152b91",
@@ -5582,8 +5582,8 @@
         "color": "Cobre",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "f0391249-9f05-4779-a4f6-9c8791c0dada",
@@ -6038,7 +6038,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       }
     ],
     "updated_at": "2026-08-24T17:39:01.000Z"
@@ -6409,7 +6409,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "31979f34-f363-43d4-9888-047dd52ca039",
@@ -6971,8 +6971,8 @@
         "color": "Azul",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "23fb6f0a-7d34-4589-8c1c-b0e5c33b0ade",
@@ -8103,7 +8103,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "b34eca8c-cea4-45f4-9dd5-caa609d7d81d",
@@ -12370,8 +12370,8 @@
         "color": "Cobre",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
     "updated_at": "2026-06-01T14:44:46.000Z"
