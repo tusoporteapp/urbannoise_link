@@ -3706,7 +3706,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "70b80acf-28f4-421d-9498-22e43156e71a",
@@ -4049,7 +4049,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "50ee5a4a-40b5-4814-9a6f-b1d3879d1571",
@@ -10344,7 +10344,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": false,
-        "stock": 0
+        "stock": -1
       },
       {
         "id": "e8357822-ffbb-4b93-ada5-e2ef335ac06a",
@@ -15485,7 +15485,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -2
+        "stock": -3
       },
       {
         "id": "d39425e7-2da4-4ff8-8f4a-44900cdbacd4",
@@ -15495,7 +15495,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "c1a3551a-97ab-4b36-9786-fc70e56abad8",
@@ -15545,7 +15545,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "2d65de21-c884-490b-8f4d-6fc53b751fbe",
