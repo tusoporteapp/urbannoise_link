@@ -2,9 +2,13 @@ name: Auto Sync Loyverse Catalog
 
 on:
   schedule:
-    # Run automatically every 10 minutes
-    - cron: '*/10 * * * *'
+    # Run automatically every 30 minutes
+    - cron: '*/30 * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI with 1 click
+
+concurrency:
+  group: sync-loyverse-catalog
+  cancel-in-progress: false
 
 jobs:
   sync-loyverse:
@@ -15,6 +19,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,6 +39,7 @@ jobs:
             echo "No changes detected in Loyverse catalog. Everything is up to date."
           else
             git commit -m "🤖 Auto-sync: Updated Loyverse catalog, images & inventory [skip ci]"
+            git pull --rebase origin master
             git push origin master
             echo "✅ Successfully synced and pushed updated catalog to GitHub!"
           fi
