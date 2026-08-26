@@ -1,13 +1,15 @@
 [
   {
     "id": "b1f4e86c-3abd-48d4-ae35-53c6c2b329ad",
-    "title": "sin nombre000",
+    "title": "NO RISK URBAN",
     "description": "Sin descripción disponible.",
     "price": 41000,
     "retailPrice": 60000,
     "modifierApplied": "Esqueleto AcidWash",
-    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
-    "images": [],
+    "image": "https://api.loyverse.com/image/b1f4e86c-3abd-48d4-ae35-53c6c2b329ad?v=1787777986000",
+    "images": [
+      "https://api.loyverse.com/image/b1f4e86c-3abd-48d4-ae35-53c6c2b329ad?v=1787777986000"
+    ],
     "category": "Acidwash",
     "rawCategory": "Esqueleto AcidWash",
     "variants": [
@@ -72,17 +74,19 @@
         "stock": 4
       }
     ],
-    "updated_at": "2026-08-24T22:05:32.000Z"
+    "updated_at": "2026-08-26T20:59:46.000Z"
   },
   {
     "id": "25622134-c9c4-486c-a8ab-9712cb3c5c63",
-    "title": "sin nombre",
+    "title": "NO RISK URBAN",
     "description": "Sin descripción disponible.",
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://urbannoise.cc/assets/img/logo/LOGO_WEB.png",
-    "images": [],
+    "image": "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787778005000",
+    "images": [
+      "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787778005000"
+    ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
     "variants": [
@@ -127,7 +131,7 @@
         "stock": 5
       }
     ],
-    "updated_at": "2026-08-24T21:57:21.000Z"
+    "updated_at": "2026-08-26T21:00:05.000Z"
   },
   {
     "id": "855c5ed4-20a6-44b1-8173-1523352793eb",
