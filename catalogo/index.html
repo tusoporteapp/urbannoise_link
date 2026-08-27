@@ -1096,11 +1096,11 @@
         function updateAmbientGlow() {}
 
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
-        const CATALOG_CACHE_KEY = 'un_catalog_cache_v4';
+        const CATALOG_CACHE_KEY = 'un_catalog_cache_v5';
 
         async function fetchCatalog() {
             try {
-                // 1. Render instantáneo en 0ms desde localStorage si existe (cero parpadeo)
+                // 1. Render instantáneo en 0ms desde la memoria local si está disponible
                 const cached = localStorage.getItem(CATALOG_CACHE_KEY);
                 let renderedInitial = false;
                 if (cached) {
@@ -1113,7 +1113,7 @@
                     } catch(e) {}
                 }
 
-                // 2. Cargar dataset estático de alta velocidad
+                // 2. Cargar archivo maestro desde la CDN global ilimitada (0 Workers)
                 let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 if (!localRes || !localRes.ok) {
                     localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
@@ -1122,36 +1122,15 @@
                     const data = await localRes.json();
                     if (Array.isArray(data) && data.length > 0) {
                         localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(data));
+                        // Si no se había renderizado o los datos cambiaron, renderizar limpiamente
                         if (!renderedInitial || JSON.stringify(products.map(p=>p.title)) !== JSON.stringify(data.map(p=>p.title))) {
                             renderCatalogDataset(data);
                         }
                     }
                 }
-
-                // 3. Revalidación suave en segundo plano contra el API en vivo
-                revalidateCatalogInBackground();
             } catch (error) {
                 console.error("Error al cargar catálogo:", error);
             }
-        }
-
-        async function revalidateCatalogInBackground() {
-            try {
-                const liveRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
-                if (liveRes && liveRes.ok) {
-                    const liveData = await liveRes.json().catch(() => null);
-                    if (Array.isArray(liveData) && liveData.length > 0) {
-                        const currentHash = JSON.stringify(products.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
-                        const liveHash = JSON.stringify(liveData.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
-
-                        if (currentHash !== liveHash) {
-                            console.log("⚡ Cambio verificado en Loyverse, sincronizando interfaz suavemente...");
-                            localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(liveData));
-                            renderCatalogDataset(liveData);
-                        }
-                    }
-                }
-            } catch (e) {}
         }
 
         function renderCatalogDataset(dataset) {
