@@ -267,6 +267,21 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
+
+    <!-- Registro de Service Worker para Caché Permanente de Fotos en iPhone/Android -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swPath = window.location.pathname.includes('/catalogo') ? 'sw.js' : '/sw.js';
+                navigator.serviceWorker.register(swPath).then((reg) => {
+                    console.log('⚡ PWA Image Cache Service Worker activo:', reg.scope);
+                }).catch((err) => {
+                    console.warn('Service Worker registration skipped:', err);
+                });
+            });
+        }
+    </script>
+    
 </head>
 <body class="bg-zinc-100 text-zinc-900 font-sans min-h-screen flex flex-col items-center justify-between pb-24 overflow-x-hidden">
 
