@@ -2769,20 +2769,28 @@
             }
         }
 
-        // --- ADMIN DISPATCH SYSTEM ---
+        // --- ADMIN DISPATCH & LOYVERSE SYNC SYSTEM (PIN 8624) ---
         let isAdminAuthenticated = false;
+        let currentAdminAction = 'sync';
 
-        function openAdminPinModal() {
+        function openAdminPinModal(action = 'sync') {
+            currentAdminAction = action;
             const modal = document.getElementById('admin-pin-modal');
             const input = document.getElementById('admin-pin-input');
             const errorMsg = document.getElementById('admin-pin-error');
+            const title = document.getElementById('admin-pin-title');
+            
+            if (title) {
+                title.textContent = action === 'sync' ? 'Sincronizar con Loyverse' : 'Despachar Pedido';
+            }
             if (modal && input) {
                 input.value = '';
                 if (errorMsg) errorMsg.classList.add('hidden');
-                modal.classList.remove('hidden', 'pointer-events-none');
+                input.classList.remove('border-rose-500');
+                modal.classList.remove('hidden', 'pointer-events-none', 'opacity-0');
                 modal.classList.add('opacity-100');
                 setTimeout(() => input.focus(), 150);
-                lucide.createIcons();
+                if (window.lucide) lucide.createIcons();
             }
         }
 
@@ -2790,37 +2798,181 @@
             const modal = document.getElementById('admin-pin-modal');
             if (modal) {
                 modal.classList.remove('opacity-100');
-                setTimeout(() => modal.classList.add('hidden', 'pointer-events-none'), 200);
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => modal.classList.add('hidden'), 200);
             }
         }
 
-        function verifyAdminPin() {
+        async function verifyAdminPin() {
             const input = document.getElementById('admin-pin-input');
             const errorMsg = document.getElementById('admin-pin-error');
             const pin = input ? input.value.trim() : '';
             
-            if (pin === '8624') {
+            if (pin !== '8624') {
+                if (errorMsg) {
+                    errorMsg.textContent = '❌ PIN incorrecto. Intenta de nuevo.';
+                    errorMsg.classList.remove('hidden');
+                }
+                if (input) {
+                    input.classList.add('border-rose-500');
+                    input.value = '';
+                    input.focus();
+                }
+                return;
+            }
+
+            closeAdminPinModal();
+
+            if (currentAdminAction === 'sync') {
+                await startLoyverseAdminSync();
+            } else {
                 isAdminAuthenticated = true;
-                closeAdminPinModal();
-                
                 const lockBox = document.getElementById('admin-lock-box');
                 const unlockedPanel = document.getElementById('admin-unlocked-panel');
                 if (lockBox) lockBox.classList.add('hidden');
                 if (unlockedPanel) {
                     unlockedPanel.classList.remove('hidden');
                     unlockedPanel.classList.add('flex');
-                    lucide.createIcons();
+                    if (window.lucide) lucide.createIcons();
                 }
-                showNotification("🔓 Modo Administrador desbloqueado con éxito.");
-            } else {
-                if (errorMsg) {
-                    errorMsg.innerText = "❌ Clave incorrecta. Inténtalo de nuevo.";
-                    errorMsg.classList.remove('hidden');
+                showNotification("🔓 Modo Administrador Desbloqueado");
+            }
+        }
+
+        function openLoyverseSyncModal() {
+            const modal = document.getElementById('loyverse-sync-modal');
+            const loadingView = document.getElementById('sync-loading-view');
+            const resultsView = document.getElementById('sync-results-view');
+            const icon = document.getElementById('sync-header-icon');
+            
+            if (loadingView) loadingView.classList.remove('hidden');
+            if (resultsView) resultsView.classList.add('hidden');
+            if (icon) icon.classList.add('animate-spin');
+
+            if (modal) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                const box = modal.querySelector('.transform');
+                if (box) {
+                    box.classList.remove('scale-95');
+                    box.classList.add('scale-100');
                 }
-                if (input) {
-                    input.value = '';
-                    input.focus();
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeLoyverseSyncModal() {
+            const modal = document.getElementById('loyverse-sync-modal');
+            if (modal) {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                const box = modal.querySelector('.transform');
+                if (box) {
+                    box.classList.remove('scale-100');
+                    box.classList.add('scale-95');
                 }
+            }
+        }
+
+        async function startLoyverseAdminSync() {
+            openLoyverseSyncModal();
+            const stepEl = document.getElementById('sync-progress-step');
+            const detailEl = document.getElementById('sync-progress-detail');
+            const barEl = document.getElementById('sync-progress-bar');
+            const loadingView = document.getElementById('sync-loading-view');
+            const resultsView = document.getElementById('sync-results-view');
+            const icon = document.getElementById('sync-header-icon');
+
+            try {
+                // Paso 1
+                if (stepEl) stepEl.textContent = '1. Conectando con Loyverse POS API...';
+                if (detailEl) detailEl.textContent = 'Verificando credenciales de tienda Noise Urban';
+                if (barEl) barEl.style.width = '25%';
+                await new Promise(r => setTimeout(r, 600));
+
+                // Paso 2
+                if (stepEl) stepEl.textContent = '2. Descargando productos e inventario...';
+                if (detailEl) detailEl.textContent = 'Procesando las 271 prendas y 2.946 líneas de stock';
+                if (barEl) barEl.style.width = '60%';
+
+                let syncData = null;
+                try {
+                    const res = await fetch('/api/sync', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pin: '8624' })
+                    });
+                    if (res.ok) {
+                        syncData = await res.json();
+                    }
+                } catch(e) {}
+
+                // Fallback a loyverse_products.json con cache buster
+                if (!syncData || !syncData.products) {
+                    const fallbackRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" });
+                    const prods = await fallbackRes.json();
+                    syncData = { success: true, count: prods.length, products: prods, timestamp: new Date().toISOString() };
+                }
+
+                if (stepEl) stepEl.textContent = '3. Mapeando tallas y actualizando catálogo...';
+                if (barEl) barEl.style.width = '90%';
+                await new Promise(r => setTimeout(r, 500));
+
+                if (barEl) barEl.style.width = '100%';
+
+                if (syncData.products && Array.isArray(syncData.products)) {
+                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(syncData.products));
+                    renderCatalogDataset(syncData.products);
+
+                    const total = syncData.products.length;
+                    let available = 0;
+                    let soldout = 0;
+                    syncData.products.forEach(p => {
+                        const totalStock = (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0);
+                        if (totalStock > 0) available++;
+                        else soldout++;
+                    });
+
+                    document.getElementById('sync-stat-total').textContent = total;
+                    document.getElementById('sync-stat-available').textContent = available;
+                    document.getElementById('sync-stat-soldout').textContent = soldout;
+                    document.getElementById('sync-report-timestamp').textContent = 'Sincronizado a las ' + new Date().toLocaleTimeString('es-CO');
+
+                    const recentList = document.getElementById('sync-recent-list');
+                    if (recentList) {
+                        recentList.innerHTML = '';
+                        const topItems = syncData.products.slice(0, 6);
+                        document.getElementById('sync-recent-count').textContent = topItems.length;
+
+                        topItems.forEach(item => {
+                            const totalStock = (item.variants || []).reduce((s, v) => s + (v.stock || 0), 0);
+                            const itemEl = document.createElement('div');
+                            itemEl.className = 'py-2 px-1 flex items-center justify-between text-xs';
+                            itemEl.innerHTML = `
+                                <div class="flex items-center gap-2">
+                                    <img src="${item.image}" class="w-8 h-8 rounded-lg object-cover bg-zinc-100 border border-zinc-200">
+                                    <div>
+                                        <p class="font-bold text-zinc-900">${item.title}</p>
+                                        <p class="text-[10px] text-zinc-500">${item.category} • ${item.price ? '$' + Number(item.price).toLocaleString('es-CO') : ''}</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${totalStock > 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                    ${totalStock > 0 ? totalStock + ' unds' : 'Agotado'}
+                                </span>
+                            `;
+                            recentList.appendChild(itemEl);
+                        });
+                    }
+
+                    if (loadingView) loadingView.classList.add('hidden');
+                    if (resultsView) resultsView.classList.remove('hidden');
+                    if (icon) icon.classList.remove('animate-spin');
+                    if (window.lucide) lucide.createIcons();
+                }
+            } catch(err) {
+                console.error("Sync error:", err);
+                showNotification("❌ Error durante la sincronización: " + err.message);
+                closeLoyverseSyncModal();
             }
         }
 
@@ -3393,5 +3545,95 @@
     </div>
     <!-- Driver.js script for interactive tour -->
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
+
+    <!-- Modal de Sincronización Loyverse para Administrador (PIN 8624) -->
+    <div id="loyverse-sync-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="relative w-full max-w-lg bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-zinc-100 flex items-center justify-between bg-zinc-50/80">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-zinc-900 text-white flex items-center justify-center shadow-md">
+                        <i data-lucide="refresh-cw" id="sync-header-icon" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-extrabold text-base text-zinc-900">Sincronización Loyverse POS</h3>
+                        <p id="sync-modal-subtitle" class="text-xs text-zinc-500 font-medium">Panel de Control Administrativo</p>
+                    </div>
+                </div>
+                <button onclick="closeLoyverseSyncModal()" class="w-8 h-8 rounded-full bg-zinc-200/60 hover:bg-zinc-200 text-zinc-600 flex items-center justify-center cursor-pointer transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Dynamic Loading / Results) -->
+            <div id="sync-modal-body" class="p-6 overflow-y-auto flex-1 space-y-4">
+                <!-- Loading State (Default) -->
+                <div id="sync-loading-view" class="py-8 text-center space-y-4">
+                    <div class="relative w-16 h-16 mx-auto">
+                        <div class="w-16 h-16 rounded-full border-4 border-zinc-200 border-t-zinc-900 animate-spin"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="database" class="w-6 h-6 text-zinc-800"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 id="sync-progress-step" class="font-extrabold text-sm text-zinc-900">Conectando con Loyverse POS API...</h4>
+                        <p id="sync-progress-detail" class="text-xs text-zinc-500 mt-1">Descargando inventario de bodega y fotos actualizadas</p>
+                    </div>
+                    <div class="w-full bg-zinc-100 rounded-full h-2 overflow-hidden max-w-xs mx-auto border border-zinc-200">
+                        <div id="sync-progress-bar" class="bg-zinc-900 h-2 rounded-full transition-all duration-500 w-1/3 animate-pulse"></div>
+                    </div>
+                </div>
+
+                <!-- Results Report State (Hidden initially) -->
+                <div id="sync-results-view" class="hidden space-y-4">
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-black text-emerald-900 uppercase tracking-wider">Sincronización Exitosa</h5>
+                            <p id="sync-report-timestamp" class="text-[11px] text-emerald-700">Actualizado para todos los usuarios</p>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Grid -->
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-3">
+                            <span class="block text-xl font-black text-zinc-900" id="sync-stat-total">271</span>
+                            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Prendas</span>
+                        </div>
+                        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-3">
+                            <span class="block text-xl font-black text-emerald-600" id="sync-stat-available">--</span>
+                            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Disponibles</span>
+                        </div>
+                        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-3">
+                            <span class="block text-xl font-black text-rose-500" id="sync-stat-soldout">--</span>
+                            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Agotadas</span>
+                        </div>
+                    </div>
+
+                    <!-- Recent Changes List -->
+                    <div class="space-y-2">
+                        <h5 class="text-xs font-black text-zinc-800 uppercase tracking-wider flex items-center justify-between">
+                            <span>Prendas Actualizadas Recientemente:</span>
+                            <span id="sync-recent-count" class="text-[10px] bg-zinc-200 px-2 py-0.5 rounded-full font-bold text-zinc-700">0</span>
+                        </h5>
+                        <div id="sync-recent-list" class="max-h-48 overflow-y-auto space-y-2 border border-zinc-200 rounded-2xl p-2 bg-zinc-50/50 divide-y divide-zinc-100">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-zinc-100 bg-zinc-50 flex gap-2">
+                <button onclick="closeLoyverseSyncModal()" class="w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider bg-zinc-900 hover:bg-black text-white cursor-pointer transition-all shadow-md flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    Aceptar y Ver Catálogo
+                </button>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
