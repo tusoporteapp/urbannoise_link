@@ -283,7 +283,7 @@
     </script>
     
 </head>
-<body class="bg-zinc-100 text-zinc-900 font-sans min-h-screen flex flex-col items-center justify-between pb-24 overflow-x-hidden">
+<body class="bg-zinc-100 text-zinc-900 font-sans min-h-screen flex flex-col items-center justify-between pb-32 overflow-x-hidden">
 
     <!-- STICKY TOP APP HEADER (Fixed on Mobile & Desktop) -->
     <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-zinc-200/90 shadow-xs">
@@ -1505,17 +1505,28 @@
         }
 
         
+        function scrollToTopAndReset() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (typeof selectCategory === 'function') {
+                selectCategory('Todos');
+            }
+        }
+
         function updateListTriggerBadge() {
             const badge = document.getElementById('list-count-badge');
-            if (!badge) return;
+            const bottomBadge = document.getElementById('bottom-list-count-badge');
             const totalQty = (orderList || []).reduce((acc, item) => acc + (item.qty || 0), 0);
-            if (totalQty > 0) {
-                badge.innerText = totalQty;
-                badge.classList.remove('hidden');
-            } else {
-                badge.innerText = '0';
-                badge.classList.add('hidden');
-            }
+
+            [badge, bottomBadge].forEach(b => {
+                if (!b) return;
+                if (totalQty > 0) {
+                    b.innerText = totalQty > 99 ? '99+' : totalQty;
+                    b.classList.remove('hidden');
+                } else {
+                    b.innerText = '0';
+                    b.classList.add('hidden');
+                }
+            });
         }
 
         // --- TOP NAVIGATION MENU HANDLERS ---
@@ -3816,5 +3827,52 @@ async function executeOrderDispatch() {
         </div>
     </div>
     
+
+    <!-- Barra de Navegación Inferior Nativa (Bottom Navigation Bar) -->
+    <nav id="bottom-native-nav" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-zinc-200/90 shadow-[0_-8px_30px_rgba(0,0,0,0.06)] pb-[max(0.25rem,env(safe-area-inset-bottom))]">
+        <div class="max-w-md mx-auto px-4 h-16 sm:h-18 flex items-center justify-between relative">
+            <!-- 1. Categorías -->
+            <button type="button" onclick="toggleNavMenu()" class="flex flex-col items-center justify-center w-14 h-full text-zinc-600 hover:text-black active:scale-90 transition-all cursor-pointer group" aria-label="Categorías">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-zinc-100 transition-colors">
+                    <i data-lucide="layout-grid" class="w-5 h-5 text-zinc-700 group-hover:text-black"></i>
+                </div>
+                <span class="text-[10px] font-extrabold tracking-tight text-zinc-600 group-hover:text-black mt-0.5">Categorías</span>
+            </button>
+
+            <!-- 2. Buscar -->
+            <button type="button" onclick="openSearchModal()" class="flex flex-col items-center justify-center w-14 h-full text-zinc-600 hover:text-black active:scale-90 transition-all cursor-pointer group" aria-label="Buscar Prenda">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-zinc-100 transition-colors">
+                    <i data-lucide="search" class="w-5 h-5 text-zinc-700 group-hover:text-black"></i>
+                </div>
+                <span class="text-[10px] font-extrabold tracking-tight text-zinc-600 group-hover:text-black mt-0.5">Buscar</span>
+            </button>
+
+            <!-- 3. CENTRO: Botón Elevado Urban Noise (Home / Top) -->
+            <div class="relative flex items-center justify-center -mt-6">
+                <button type="button" onclick="scrollToTopAndReset();" class="w-14 h-14 sm:w-15 sm:h-15 rounded-full bg-zinc-950 hover:bg-black text-white shadow-xl shadow-zinc-950/30 flex items-center justify-center border-4 border-white active:scale-95 transition-all cursor-pointer group" aria-label="Inicio Urban Noise">
+                    <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Urban Noise" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" onerror="this.src='../assets/img/logo/LOGO_WEB.png'" />
+                </button>
+            </div>
+
+            <!-- 4. WhatsApp Asesor -->
+            <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20tengo%20una%20consulta%20del%20cat%C3%A1logo%20mayorista." target="_blank" class="flex flex-col items-center justify-center w-14 h-full text-emerald-600 hover:text-emerald-700 active:scale-90 transition-all cursor-pointer group" aria-label="WhatsApp Asesor">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-emerald-50 transition-colors">
+                    <i data-lucide="message-circle" class="w-5 h-5 text-emerald-600"></i>
+                </div>
+                <span class="text-[10px] font-extrabold tracking-tight text-emerald-700 mt-0.5">Asesor</span>
+            </a>
+
+            <!-- 5. Mi Pedido Mayorista (con Contador Flotante) -->
+            <button type="button" onclick="openOrderList()" class="relative flex flex-col items-center justify-center w-14 h-full text-zinc-800 hover:text-black active:scale-90 transition-all cursor-pointer group" id="bottom-list-trigger-btn" aria-label="Mi Pedido">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-zinc-100 transition-colors relative">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-zinc-900"></i>
+                    <!-- Badge Flotante en Vivo -->
+                    <span id="bottom-list-count-badge" class="absolute -top-1 -right-1 bg-rose-600 text-white font-black text-[9px] min-w-[17px] h-[17px] flex items-center justify-center px-1 rounded-full shadow-xs hidden">0</span>
+                </div>
+                <span class="text-[10px] font-extrabold tracking-tight text-zinc-800 group-hover:text-black mt-0.5">Mi Pedido</span>
+            </button>
+        </div>
+    </nav>
+
 </body>
 </html>
