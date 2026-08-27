@@ -8,6 +8,16 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    
+    <!-- PWA & Apple Web App Mobile Standalone Shield -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Urban Noise">
+    <link rel="apple-touch-icon" href="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png">
+    <link rel="stylesheet" href="assets/css/pwa-styles.css">
+    
     <title>Urban Noise // Catálogo & Link in Bio</title>
     <meta name="description" content="Catálogo oficial de Urban Noise Streetwear. Diseño y estética urbana premium con lavados Acid Wash exclusivos de Bogotá. Envíos nacionales.">
     
@@ -1086,9 +1096,24 @@
         function updateAmbientGlow() {}
 
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
+        const CATALOG_CACHE_KEY = 'un_catalog_cache_v4';
+
         async function fetchCatalog() {
             try {
-                // 1. Carga instantánea en 0ms desde la caché local (sin pantalla en blanco)
+                // 1. Render instantáneo en 0ms desde localStorage si existe (cero parpadeo)
+                const cached = localStorage.getItem(CATALOG_CACHE_KEY);
+                let renderedInitial = false;
+                if (cached) {
+                    try {
+                        const parsed = JSON.parse(cached);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            renderCatalogDataset(parsed);
+                            renderedInitial = true;
+                        }
+                    } catch(e) {}
+                }
+
+                // 2. Cargar dataset estático de alta velocidad
                 let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 if (!localRes || !localRes.ok) {
                     localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
@@ -1096,11 +1121,14 @@
                 if (localRes && localRes.ok) {
                     const data = await localRes.json();
                     if (Array.isArray(data) && data.length > 0) {
-                        renderCatalogDataset(data);
+                        localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(data));
+                        if (!renderedInitial || JSON.stringify(products.map(p=>p.title)) !== JSON.stringify(data.map(p=>p.title))) {
+                            renderCatalogDataset(data);
+                        }
                     }
                 }
 
-                // 2. Revalidación en vivo en segundo plano contra el API de Loyverse
+                // 3. Revalidación suave en segundo plano contra el API en vivo
                 revalidateCatalogInBackground();
             } catch (error) {
                 console.error("Error al cargar catálogo:", error);
@@ -1113,18 +1141,17 @@
                 if (liveRes && liveRes.ok) {
                     const liveData = await liveRes.json().catch(() => null);
                     if (Array.isArray(liveData) && liveData.length > 0) {
-                        const currentFingerprint = JSON.stringify(products.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
-                        const liveFingerprint = JSON.stringify(liveData.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
+                        const currentHash = JSON.stringify(products.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
+                        const liveHash = JSON.stringify(liveData.map(p => ({ id: p.id, title: p.title, price: p.price, stock: (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0) })));
 
-                        if (currentFingerprint !== liveFingerprint) {
-                            console.log("⚡ Cambio detectado en Loyverse en vivo, actualizando catálogo suavemente...");
+                        if (currentHash !== liveHash) {
+                            console.log("⚡ Cambio verificado en Loyverse, sincronizando interfaz suavemente...");
+                            localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(liveData));
                             renderCatalogDataset(liveData);
                         }
                     }
                 }
-            } catch (e) {
-                console.warn("Live revalidation skipped:", e);
-            }
+            } catch (e) {}
         }
 
         function renderCatalogDataset(dataset) {
