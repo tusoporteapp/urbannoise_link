@@ -1087,40 +1087,57 @@
         function updateAmbientGlow() {}
 
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
-        const CATALOG_CACHE_KEY = 'un_catalog_cache_v5';
+        const CATALOG_CACHE_KEY = 'un_catalog_live_v6';
 
         async function fetchCatalog() {
             try {
-                // 1. Render instantáneo en 0ms desde la memoria local si está disponible
+                // 1. Carga inicial instantánea en 0ms desde la memoria local para evitar pantallas en blanco
                 const cached = localStorage.getItem(CATALOG_CACHE_KEY);
-                let renderedInitial = false;
+                let renderedFromCache = false;
                 if (cached) {
                     try {
                         const parsed = JSON.parse(cached);
                         if (Array.isArray(parsed) && parsed.length > 0) {
                             renderCatalogDataset(parsed);
-                            renderedInitial = true;
+                            renderedFromCache = true;
                         }
                     } catch(e) {}
                 }
 
-                // 2. Cargar archivo maestro desde la CDN global ilimitada (0 Workers)
-                let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
-                if (!localRes || !localRes.ok) {
-                    localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                // 2. Consulta en Tiempo Real al Servidor Mediador Cloudflare (/api/catalog)
+                let apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                
+                // Si la ruta relativa falla por subdirectorio, intentar ruta absoluta
+                if (!apiRes || !apiRes.ok) {
+                    apiRes = await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 }
-                if (localRes && localRes.ok) {
-                    const data = await localRes.json();
-                    if (Array.isArray(data) && data.length > 0) {
-                        localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(data));
-                        // Si no se había renderizado o los datos cambiaron, renderizar limpiamente
-                        if (!renderedInitial || JSON.stringify(products.map(p=>p.title)) !== JSON.stringify(data.map(p=>p.title))) {
-                            renderCatalogDataset(data);
+
+                if (apiRes && apiRes.ok) {
+                    const liveProducts = await apiRes.json();
+                    if (Array.isArray(liveProducts) && liveProducts.length > 0) {
+                        localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(liveProducts));
+                        renderCatalogDataset(liveProducts);
+                        console.log("⚡ Catálogo sincronizado en tiempo real desde Cloudflare Serverless:", liveProducts.length, "prendas");
+                        return;
+                    }
+                }
+
+                // 3. Fallback de emergencia a archivo estático solo si el API no responde
+                if (!renderedFromCache) {
+                    let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                    if (!localRes || !localRes.ok) {
+                        localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                    }
+                    if (localRes && localRes.ok) {
+                        const fallbackData = await localRes.json();
+                        if (Array.isArray(fallbackData) && fallbackData.length > 0) {
+                            localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(fallbackData));
+                            renderCatalogDataset(fallbackData);
                         }
                     }
                 }
             } catch (error) {
-                console.error("Error al cargar catálogo:", error);
+                console.error("Error al sincronizar con Cloudflare:", error);
             }
         }
 

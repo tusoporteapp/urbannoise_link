@@ -1,5 +1,433 @@
 [
   {
+    "id": "c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8",
+    "title": "CLOTHING 07",
+    "description": "Sin descripción disponible.",
+    "price": 38000,
+    "retailPrice": 55000,
+    "modifierApplied": "Esqueleto",
+    "image": "https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=1787931861000",
+    "images": [
+      "https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=1787931861000"
+    ],
+    "category": "Esqueleto",
+    "rawCategory": "Esqueleto",
+    "variants": [
+      {
+        "id": "639ff432-8280-438c-bcb2-1958f8f512df",
+        "sku": "11505",
+        "size": "S",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "38539015-a9fa-4b2a-b2de-72199ad81d5c",
+        "sku": "11506",
+        "size": "S",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "01af5330-4a9b-4c32-ad36-301e0dad56ab",
+        "sku": "11507",
+        "size": "M",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "4669449c-b50e-47b9-9a09-08c19bcfc693",
+        "sku": "11508",
+        "size": "M",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "1cd01186-7b07-40fb-9900-53d313cf2c32",
+        "sku": "11509",
+        "size": "L",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "0ac80927-3bc3-4a39-9945-5b6ae4b6e7c4",
+        "sku": "11510",
+        "size": "L",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "d7674f6a-f33b-4f33-b6a0-306c7d3315ec",
+        "sku": "11511",
+        "size": "XL",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 3
+      },
+      {
+        "id": "35b65352-3fb9-403a-ab2e-e532374af662",
+        "sku": "11512",
+        "size": "XL",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 3
+      }
+    ],
+    "updated_at": "2026-08-28T15:44:21.000Z"
+  },
+  {
+    "id": "9c1c3f74-ddd4-49a8-b571-9d5688d0b374",
+    "title": "NO RISK URBAN",
+    "description": "Sin descripción disponible.",
+    "price": 38000,
+    "retailPrice": 55000,
+    "modifierApplied": "Esqueleto",
+    "image": "https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=1787931830000",
+    "images": [
+      "https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=1787931830000"
+    ],
+    "category": "Esqueleto",
+    "rawCategory": "Esqueleto",
+    "variants": [
+      {
+        "id": "d5eb66af-1a21-4fcd-857d-a1f306eb9bb5",
+        "sku": "11497",
+        "size": "S",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "fbf59698-2984-4bfd-ad82-1bbe5ea23abf",
+        "sku": "11498",
+        "size": "S",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "06647566-8c93-499c-8191-2f51e28cf3ae",
+        "sku": "11499",
+        "size": "M",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "2b4388bf-9301-45fd-9727-9e7904b0b57f",
+        "sku": "11500",
+        "size": "M",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "463fbf23-b734-4ead-82bf-43739669c6b2",
+        "sku": "11501",
+        "size": "L",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "70e34638-fd76-4eee-9ad7-ebda10991563",
+        "sku": "11502",
+        "size": "L",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 5
+      },
+      {
+        "id": "00d56451-3fa7-4e2b-b2ec-7e7e76117a79",
+        "sku": "11503",
+        "size": "XL",
+        "color": "Marfil",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 2
+      },
+      {
+        "id": "86c8b218-be51-4248-af99-99c379c282d7",
+        "sku": "11504",
+        "size": "XL",
+        "color": "Negro",
+        "price": 38000,
+        "retailPrice": 55000,
+        "inStock": true,
+        "stock": 2
+      }
+    ],
+    "updated_at": "2026-08-28T15:43:50.000Z"
+  },
+  {
+    "id": "537eae00-4b6d-4b6e-be0a-0c2eabc7f548",
+    "title": "CLOTHING 07",
+    "description": "Sin descripción disponible.",
+    "price": 108000,
+    "retailPrice": 140000,
+    "modifierApplied": "Buzo AcidWash",
+    "image": "https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=1787933142000",
+    "images": [
+      "https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=1787933142000"
+    ],
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
+    "variants": [
+      {
+        "id": "3bf7d84b-2e06-454e-95c1-97a383c8b1dc",
+        "sku": "11477",
+        "size": "S",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "b2f5bf03-de0c-4aa3-9f57-25f65ff6e8ac",
+        "sku": "11478",
+        "size": "S",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "f8290b17-db7a-48b0-9fa2-8250a1034abb",
+        "sku": "11479",
+        "size": "M",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "d19d686b-63ff-4e1e-9946-d3615dd9e955",
+        "sku": "11480",
+        "size": "M",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "f316c8a2-a0e4-416d-9e09-e26b9fa563c0",
+        "sku": "11481",
+        "size": "L",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "a9b8b2bd-065f-4fe3-912a-9c51431ce4a8",
+        "sku": "11482",
+        "size": "L",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "b49444df-b83f-4b4e-badc-0ff750918718",
+        "sku": "11483",
+        "size": "XL",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "131313c6-9b6d-4ba0-8351-0d203d45f36f",
+        "sku": "11484",
+        "size": "XL",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "0f7322f5-1f27-42d3-a23e-b3a7a47c5a98",
+        "sku": "11485",
+        "size": "XXL",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "8b803352-f3e7-47ec-80be-2e6722d163d4",
+        "sku": "11486",
+        "size": "XXL",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      }
+    ],
+    "updated_at": "2026-08-28T16:05:42.000Z"
+  },
+  {
+    "id": "4b6185e5-b504-4bfc-b11e-1107015b7fcf",
+    "title": "NO RISK URBAN",
+    "description": "Sin descripción disponible.",
+    "price": 108000,
+    "retailPrice": 140000,
+    "modifierApplied": "Buzo AcidWash",
+    "image": "https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=1787933092000",
+    "images": [
+      "https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=1787933092000"
+    ],
+    "category": "Acidwash",
+    "rawCategory": "Buzo AcidWash",
+    "variants": [
+      {
+        "id": "957ae369-59db-4080-94c4-786a7a06fed7",
+        "sku": "11487",
+        "size": "S",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "3d622d80-d169-437b-b88e-e4d8142cf8d1",
+        "sku": "11488",
+        "size": "S",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "7e132d7f-d5e1-4879-8178-4a17f1fa5e8d",
+        "sku": "11489",
+        "size": "M",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "b26e8c23-6808-4bfa-ac5a-f53373512fae",
+        "sku": "11490",
+        "size": "M",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "b492099a-29d4-42d3-b8b5-7f45d06397f4",
+        "sku": "11491",
+        "size": "L",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "8c695182-56e0-4d7d-a884-5e6dbebdd9e2",
+        "sku": "11492",
+        "size": "L",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "95aa0ed9-6cd0-47b7-86c7-8e1488ba7848",
+        "sku": "11493",
+        "size": "XL",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "d5ab6f39-9daa-4185-943f-b5cb2eceb615",
+        "sku": "11494",
+        "size": "XL",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      },
+      {
+        "id": "d0b65abb-65a7-4784-b5fc-024aac67268a",
+        "sku": "11495",
+        "size": "XXL",
+        "color": "Cobre",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 40
+      },
+      {
+        "id": "fc6c0b0f-9942-42fe-a7ab-119f54643611",
+        "sku": "11496",
+        "size": "XXL",
+        "color": "Azul",
+        "price": 108000,
+        "retailPrice": 140000,
+        "inStock": true,
+        "stock": 4
+      }
+    ],
+    "updated_at": "2026-08-28T16:04:52.000Z"
+  },
+  {
     "id": "b1f4e86c-3abd-48d4-ae35-53c6c2b329ad",
     "title": "NO RISK URBAN",
     "description": "Sin descripción disponible.",
@@ -83,9 +511,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787779184000",
+    "image": "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787933879000",
     "images": [
-      "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787779184000"
+      "https://api.loyverse.com/image/25622134-c9c4-486c-a8ab-9712cb3c5c63?v=1787933879000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -131,7 +559,7 @@
         "stock": 5
       }
     ],
-    "updated_at": "2026-08-26T21:19:44.000Z"
+    "updated_at": "2026-08-28T16:17:59.000Z"
   },
   {
     "id": "855c5ed4-20a6-44b1-8173-1523352793eb",
