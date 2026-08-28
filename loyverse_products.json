@@ -8614,9 +8614,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=1787592734000",
+    "image": "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=1787935532000",
     "images": [
-      "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=1787592734000"
+      "https://api.loyverse.com/image/8d582871-3fcd-493c-bc60-fba7ececddcd?v=1787935532000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -8628,8 +8628,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "2f8f7559-097b-44f7-b9c4-cd3bd13e6f69",
@@ -8668,11 +8668,11 @@
         "color": "Negro",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T17:32:14.000Z"
+    "updated_at": "2026-08-28T16:45:32.000Z"
   },
   {
     "id": "d6cc5e74-fffe-48ab-bd86-7d070b545e6d",
@@ -9054,9 +9054,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=1779841173000",
+    "image": "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=1787935486000",
     "images": [
-      "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=1779841173000"
+      "https://api.loyverse.com/image/6aae6b79-1ca2-4fb8-ae74-233239c50d22?v=1787935486000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -9068,8 +9068,8 @@
         "color": "Negro",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "80e5a54c-d3f8-4f92-8f56-59e2c8ee843c",
@@ -9088,8 +9088,8 @@
         "color": "Negro",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "dcbfa398-9a9c-4063-bafb-2d0d48a33047",
@@ -9098,8 +9098,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "2e377ff9-7a6b-40e0-9ed6-84645795d3ea",
@@ -9108,8 +9108,8 @@
         "color": "Negro",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "3e0c00e9-c72b-4568-b1b7-3c1d75733272",
@@ -9118,11 +9118,11 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-27T00:19:33.000Z"
+    "updated_at": "2026-08-28T16:44:46.000Z"
   },
   {
     "id": "42a194a2-5e7c-4ff8-a19f-663aa301a89f",
@@ -10512,9 +10512,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=1778864631000",
+    "image": "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=1787935463000",
     "images": [
-      "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=1778864631000"
+      "https://api.loyverse.com/image/91a940f9-3cd0-409a-832c-d3ddf80cd59c?v=1787935463000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -10536,8 +10536,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "42af7feb-90c9-4ad0-858a-364f7e5ab1c2",
@@ -10546,8 +10546,8 @@
         "color": "Negro",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "f15ff89c-ceb5-4f94-9b12-3f2bca4bb3e5",
@@ -10556,8 +10556,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "607119bc-24c5-4110-82c7-cd38095f538d",
@@ -10566,8 +10566,8 @@
         "color": "Negro",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "f8da2d0a-b369-4f3e-a51e-bdba76a17070",
@@ -10576,11 +10576,11 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 3
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-15T17:03:51.000Z"
+    "updated_at": "2026-08-28T16:44:23.000Z"
   },
   {
     "id": "5d285b55-decf-4982-b113-e3b582f795a1",
@@ -10990,9 +10990,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=1778616455000",
+    "image": "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=1787935509000",
     "images": [
-      "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=1778616455000"
+      "https://api.loyverse.com/image/bf3032cb-8d80-4d92-9794-735621e03f7c?v=1787935509000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -11005,7 +11005,7 @@
         "price": 36000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       },
       {
         "id": "8e4c8bf4-80f0-497e-9cdd-58731829fa78",
@@ -11014,8 +11014,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "6829ee7e-f69a-456a-8af8-67dc065fc8ef",
@@ -11025,7 +11025,7 @@
         "price": 36000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "d961ad28-feb0-4bea-8270-8d73031ecfd1",
@@ -11034,8 +11034,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 3
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "a0e6bc71-9c6d-484c-bb7a-a4cf173ca565",
@@ -11058,7 +11058,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-12T20:07:35.000Z"
+    "updated_at": "2026-08-28T16:45:09.000Z"
   },
   {
     "id": "e6ded485-a783-4895-97e6-0fc952000e25",
@@ -16039,9 +16039,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=1778614734000",
+    "image": "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=1787935450000",
     "images": [
-      "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=1778614734000"
+      "https://api.loyverse.com/image/f9e3eb88-7525-481d-87e0-2a01e5f2c2ea?v=1787935450000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -16054,7 +16054,7 @@
         "price": 36000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "37c4c2d3-565c-4955-b25a-46a4f49a93ed",
@@ -16064,7 +16064,7 @@
         "price": 36000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "7d8c26a7-1e9b-446c-abd7-c59a4f705ab8",
@@ -16074,10 +16074,10 @@
         "price": 36000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-12T19:38:54.000Z"
+    "updated_at": "2026-08-28T16:44:10.000Z"
   },
   {
     "id": "ad0308fb-c6a9-4c1f-9df9-048168dbca9c",
@@ -16180,9 +16180,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=1778698758000",
+    "image": "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=1787935496000",
     "images": [
-      "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=1778698758000"
+      "https://api.loyverse.com/image/40d6e244-7052-4b23-9b0e-c57a1f6efc7c?v=1787935496000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -16194,8 +16194,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "6565750a-de3c-4d16-8ec1-73cf9aa0d870",
@@ -16218,7 +16218,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-13T18:59:18.000Z"
+    "updated_at": "2026-08-28T16:44:56.000Z"
   },
   {
     "id": "1b713eaf-a527-4f05-a3f8-a3c24440d890",
@@ -16227,9 +16227,9 @@
     "price": 36000,
     "retailPrice": 60000,
     "modifierApplied": "Boxi Fit",
-    "image": "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=1780338244000",
+    "image": "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=1787935520000",
     "images": [
-      "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=1780338244000"
+      "https://api.loyverse.com/image/1b713eaf-a527-4f05-a3f8-a3c24440d890?v=1787935520000"
     ],
     "category": "Oversize",
     "rawCategory": "Boxi Fit",
@@ -16271,8 +16271,8 @@
         "color": "Marfil",
         "price": 36000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "66c8ff59-8293-45b0-8679-b9d1ec4773ad",
@@ -16295,7 +16295,7 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-06-01T18:24:04.000Z"
+    "updated_at": "2026-08-28T16:45:20.000Z"
   },
   {
     "id": "3f1ce825-9e79-40e7-be05-26b18e730b28",
