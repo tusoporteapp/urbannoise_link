@@ -1917,48 +1917,117 @@
 
         async function verifyLiveProductStock(productId) {
             try {
-                const res = await fetch(`/api/stock?id=${productId}&t=` + Date.now());
-                if (!res.ok) return;
-                const liveData = await res.json();
-                if (!liveData || !liveData.variants) return;
-                
                 const product = products.find(p => p.id === productId);
-                if (product) {
-                    liveData.variants.forEach(lv => {
-                        const matchedVar = (product.variants || []).find(v => v.id === lv.id);
-                        if (matchedVar) {
-                            matchedVar.stock = lv.stock;
-                            matchedVar.inStock = lv.inStock;
-                        }
-                    });
-                }
-                
-                if (currentModalProduct && currentModalProduct.id === productId) {
-                    currentModalProduct.variants = product ? product.variants : liveData.variants;
-                    const newTotalStock = (currentModalProduct.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-                    
-                    const stockBadgeEl = document.getElementById('modal-product-total-stock');
-                    if (stockBadgeEl) {
-                        if (newTotalStock <= 5 && newTotalStock > 0) {
-                            stockBadgeEl.className = "text-xs font-black text-rose-700 flex items-center gap-1.5 bg-rose-50 border border-rose-200 px-3 py-1 rounded-xl animate-pulse shadow-2xs";
-                            stockBadgeEl.innerHTML = `<i data-lucide="flame" class="w-4 h-4 text-rose-600 shrink-0"></i> <span>¡ÚLTIMAS <b class="text-sm text-rose-950 font-black">${newTotalStock}</b> UNIDADES!</span>`;
-                        } else if (newTotalStock > 5) {
-                            stockBadgeEl.className = "text-xs font-black text-emerald-800 flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-xl shadow-2xs";
-                            stockBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 inline-block shrink-0 animate-pulse"></span> <span>DISPONIBLE: <b class="text-sm text-emerald-950 font-black">${newTotalStock}</b> UNIDADES</span>`;
-                        } else {
-                            stockBadgeEl.className = "text-xs font-bold text-zinc-500 bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-xl";
-                            stockBadgeEl.innerText = "Agotado en Bodega";
-                        }
-                    }
+                if (!product) return;
 
-                    // CRITICAL: Re-render the Wholesale Matrix to disable 0-stock size inputs!
+                // Throttling: If checked less than 30s ago, skip network call
+                if (product._last_stock_verified && (Date.now() - product._last_stock_verified < 30000)) {
+                    return;
+                }
+
+                // Show subtle live pulse verifying indicator
+                const stockBadgeEl = document.getElementById('modal-product-total-stock');
+                if (stockBadgeEl && currentModalProduct && currentModalProduct.id === productId) {
+                    stockBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 inline-block shrink-0 animate-ping"></span> <span class="text-amber-800 text-[11px] font-bold">Verificando disponibilidad en tienda...</span>`;
+                }
+
+                const variantIds = (product.variants || []).map(v => v.id || v.variant_id).filter(Boolean);
+                const queryStr = variantIds.length > 0 ? ('variants=' + variantIds.join(',')) : ('id=' + productId);
+                
+                let res = await fetch('/api/stock?' + queryStr).catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch('https://urbannoise.cc/api/stock?' + queryStr).catch(() => null);
+                }
+
+                if (!res || !res.ok) {
+                    // Restore regular badge if network fails
+                    updateModalStockBadge(product);
+                    return;
+                }
+
+                const liveData = await res.json();
+                if (!liveData || !liveData.ok || !liveData.inventory) {
+                    updateModalStockBadge(product);
+                    return;
+                }
+
+                // Mark verified timestamp
+                product._last_stock_verified = Date.now();
+
+                // Update product variants with live inventory
+                let newTotalStock = 0;
+                (product.variants || []).forEach(v => {
+                    const vId = v.id || v.variant_id;
+                    if (liveData.inventory[vId] !== undefined) {
+                        v.stock = Math.max(0, liveData.inventory[vId]);
+                        v.inStock = v.stock > 0;
+                    }
+                    newTotalStock += (v.stock || 0);
+                });
+
+                product.in_stock = newTotalStock;
+                product.is_sold_out = (newTotalStock <= 0);
+
+                // Update open modal if still looking at this product
+                if (currentModalProduct && currentModalProduct.id === productId) {
+                    currentModalProduct = product;
+                    updateModalStockBadge(product);
                     renderWholesaleMatrix(currentModalProduct);
                     updateModalBatchSummary();
-                    lucide.createIcons();
+                    if (window.lucide) lucide.createIcons();
                 }
+
+                // Update Grid and Carousel cards in real-time
+                updateProductCardInDom(product);
+
+                // Save updated stock to local storage so future page views remember it
+                localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(products));
+
             } catch (error) {
-                console.warn("Error en verificación Just-In-Time:", error);
+                console.warn("Error en micro-verificación de stock:", error);
             }
+        }
+
+        function updateModalStockBadge(product) {
+            const stockBadgeEl = document.getElementById('modal-product-total-stock');
+            if (!stockBadgeEl) return;
+
+            const totalStock = (product.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+            if (totalStock <= 5 && totalStock > 0) {
+                stockBadgeEl.className = "text-xs font-black text-rose-700 flex items-center gap-1.5 bg-rose-50 border border-rose-200 px-3 py-1 rounded-xl animate-pulse shadow-2xs";
+                stockBadgeEl.innerHTML = `<i data-lucide="flame" class="w-4 h-4 text-rose-600 shrink-0"></i> <span>¡ÚLTIMAS <b class="text-sm text-rose-950 font-black">${totalStock}</b> UNIDADES!</span>`;
+            } else if (totalStock > 5) {
+                stockBadgeEl.className = "text-xs font-black text-emerald-800 flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-xl shadow-2xs";
+                stockBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 inline-block shrink-0 animate-pulse"></span> <span>DISPONIBLE: <b class="text-sm text-emerald-950 font-black">${totalStock}</b> UNIDADES</span>`;
+            } else {
+                stockBadgeEl.className = "text-xs font-bold text-zinc-500 bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-xl";
+                stockBadgeEl.innerText = "Agotado en Tienda";
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function updateProductCardInDom(product) {
+            try {
+                const totalStock = (product.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const isSoldOut = totalStock <= 0;
+
+                // Find cards matching product.id
+                const cards = document.querySelectorAll(`[data-product-id="${product.id}"]`);
+                cards.forEach(card => {
+                    const overlay = card.querySelector('.sold-out-overlay');
+                    if (isSoldOut && !overlay) {
+                        const imgWrap = card.querySelector('.aspect-square');
+                        if (imgWrap) {
+                            const newOverlay = document.createElement('div');
+                            newOverlay.className = "sold-out-overlay absolute inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center";
+                            newOverlay.innerHTML = '<span class="text-xs font-black tracking-wider text-white uppercase bg-red-600/90 px-2.5 py-1 rounded-lg shadow-sm">Agotado</span>';
+                            imgWrap.appendChild(newOverlay);
+                        }
+                    } else if (!isSoldOut && overlay) {
+                        overlay.remove();
+                    }
+                });
+            } catch(e) {}
         }
 
         function openProductDetail(productId) {
