@@ -1192,14 +1192,15 @@
                     <div onclick="openProductDetail('${p.id}')" class="flex-shrink-0 w-36 bg-white border border-zinc-200 hover:border-zinc-400 rounded-2xl p-2 flex flex-col gap-2 cursor-pointer group transition-all duration-300 snap-start shadow-xs hover:shadow-md">
                         <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-100">
                             <img src="${getOptimizedImageUrl(p.image, 300, 80)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" ${loadingAttr} decoding="async" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                            <span class="absolute top-1.5 left-1.5 bg-black/80 backdrop-blur-xs text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider">
-                                Nuevo
-                            </span>
                             ${isLow ? `
-                            <span class="absolute bottom-1.5 right-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase">
-                                ${totalStock} unds
+                            <span class="absolute top-1.5 left-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase shadow-xs flex items-center gap-0.5">
+                                <i data-lucide="flame" class="w-2.5 h-2.5"></i> ¡Últimas ${totalStock}!
                             </span>
-                            ` : ''}
+                            ` : `
+                            <span class="absolute top-1.5 left-1.5 bg-black/80 backdrop-blur-xs text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider">
+                                Destacado
+                            </span>
+                            `}
                         </div>
 
                         <div class="flex flex-col text-left px-0.5">
@@ -1318,35 +1319,34 @@
         let currentStrategicallyOrderedProducts = [];
 
         function generateProductCardHtml(p, index) {
-            const isAcid = p.title.toLowerCase().includes('acid');
-            const isNew = p.title.toLowerCase().includes('esqueleto') || p.title.toLowerCase().includes('cargo') || p.title.toLowerCase().includes('ondas');
-            
-            let badgeHtml = '';
-            if (isAcid) {
-                badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-10">Acid Wash</span>`;
-            } else if (isNew) {
-                badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md uppercase z-10">¡Nuevo!</span>`;
-            }
-
-            // Total stock calculation & urgency badge
             const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+            const isAcid = p.title.toLowerCase().includes('acid') || (p.category && p.category.toLowerCase().includes('acid'));
+            
+            // Exclusive single badge logic (No contradictory badges!)
+            let badgeHtml = '';
             let urgencyBadgeHtml = '';
             let stockLabelHtml = '';
 
-            if (totalStock <= 5 && totalStock > 0) {
-                urgencyBadgeHtml = `<span class="absolute top-2.5 right-2.5 text-[10px] sm:text-[11px] font-black bg-rose-600 text-white px-2 py-0.5 rounded-lg uppercase shadow-md flex items-center gap-1 z-10 animate-pulse"><i data-lucide="flame" class="w-3 h-3"></i> ¡Últimas ${totalStock}!</span>`;
+            if (totalStock <= 0) {
+                // Caso 1: Agotado
+                stockLabelHtml = `<div data-stock-badge-id="${p.id}" class="inline-flex items-center gap-1 bg-zinc-100 border border-zinc-200 px-2.5 py-1 rounded-xl text-zinc-500 font-bold text-xs">
+                    <span>Agotado</span>
+                </div>`;
+            } else if (totalStock <= 5) {
+                // Caso 2: Últimas unidades (1 a 5 unds) -> SOLO badge de urgencia, NUNCA "Nuevo"
+                urgencyBadgeHtml = `<span class="absolute top-2.5 left-2.5 text-[10px] sm:text-[11px] font-black bg-rose-600 text-white px-2 py-0.5 rounded-lg uppercase shadow-md flex items-center gap-1 z-10 animate-pulse"><i data-lucide="flame" class="w-3 h-3"></i> ¡Últimas ${totalStock}!</span>`;
                 stockLabelHtml = `<div data-stock-badge-id="${p.id}" class="inline-flex items-center gap-1.5 bg-rose-50 border border-rose-200/90 px-2.5 py-1 rounded-xl text-rose-700 font-extrabold text-xs shadow-2xs">
                     <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-rose-600 shrink-0"></i>
                     <span>Quedan <b class="text-sm text-rose-950 font-black">${totalStock}</b> unds</span>
                 </div>`;
-            } else if (totalStock > 5) {
+            } else {
+                // Caso 3: Stock saludable (> 5 unds)
+                if (isAcid) {
+                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-10">Acid Wash</span>`;
+                }
                 stockLabelHtml = `<div data-stock-badge-id="${p.id}" class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-xl text-emerald-800 font-extrabold text-xs shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block shrink-0 animate-pulse"></span>
                     <span>Stock: <b class="text-sm text-emerald-950 font-black">${totalStock}</b> unds</span>
-                </div>`;
-            } else {
-                stockLabelHtml = `<div data-stock-badge-id="${p.id}" class="inline-flex items-center gap-1 bg-zinc-100 border border-zinc-200 px-2.5 py-1 rounded-xl text-zinc-500 font-bold text-xs">
-                    <span>Agotado</span>
                 </div>`;
             }
             
