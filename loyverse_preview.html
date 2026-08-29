@@ -1590,6 +1590,91 @@
         // --- 5-MINUTE SILENT DIFFERENTIAL SYNC ENGINE ---
         let backgroundSyncInterval = null;
 
+        
+        // --- PREDICTIVE SCROLL SWARM SYNC ENGINE ---
+        const productScrollCheckTimestamps = new Map();
+        let scrollObserver = null;
+
+        function initPredictiveScrollSync() {
+            if (!('IntersectionObserver' in window)) return;
+
+            scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const cardEl = entry.target;
+                        const productId = cardEl.getAttribute('data-product-id');
+                        if (productId) {
+                            checkProductStockOnScrollPredictive(productId);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '250px 0px', // Anticipar 250px antes de que entre a la vista
+                threshold: 0.05
+            });
+
+            observeVisibleProductCards();
+        }
+
+        function observeVisibleProductCards() {
+            if (!scrollObserver) return;
+            const cards = document.querySelectorAll('[data-product-id]');
+            cards.forEach(card => scrollObserver.observe(card));
+        }
+
+        async function checkProductStockOnScrollPredictive(productId) {
+            const lastCheck = productScrollCheckTimestamps.get(productId) || 0;
+            const COOLDOWN = 45 * 1000; // 45 segundos de enfriamiento por producto
+
+            if (Date.now() - lastCheck < COOLDOWN) return;
+            productScrollCheckTimestamps.set(productId, Date.now());
+
+            const product = allProductsList.find(p => p.id === productId);
+            if (!product) return;
+
+            const variantIds = (product.variants || []).map(v => v.id).filter(Boolean);
+            if (variantIds.length === 0) return;
+
+            try {
+                const stockUrl = `/api/stock?id=${encodeURIComponent(productId)}&variants=${encodeURIComponent(variantIds.join(','))}`;
+                const res = await fetch(stockUrl).catch(() => null);
+                if (!res || !res.ok) return;
+
+                const data = await res.json();
+                if (!data || !data.ok || !data.inventory) return;
+
+                let hasChanged = false;
+                let newTotal = 0;
+
+                product.variants.forEach(v => {
+                    if (data.inventory[v.id] !== undefined) {
+                        const newQty = data.inventory[v.id];
+                        if (v.stock !== newQty) {
+                            hasChanged = true;
+                            v.stock = newQty;
+                            v.inStock = newQty > 0;
+                        }
+                    }
+                    newTotal += (v.stock || 0);
+                });
+
+                if (product.totalStock !== newTotal) {
+                    hasChanged = true;
+                    product.totalStock = newTotal;
+                    product.inStock = newTotal > 0;
+                }
+
+                if (hasChanged) {
+                    console.log(`⚡ [Swarm Sync] Actualizado en vivo por scroll: ${product.title} (Stock: ${newTotal})`);
+                    updateProductCardInDOM(product);
+                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(allProductsList));
+                }
+            } catch (err) {
+                // Silencioso en segundo plano
+            }
+        }
+    
+
         function startPeriodicBackgroundSync() {
             if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
             // Ejecutar cada 5 minutos (300,000 ms)
