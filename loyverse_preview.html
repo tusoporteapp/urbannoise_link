@@ -2196,14 +2196,19 @@
             // Show Full Screen Modal
             const modal = document.getElementById('product-detail-modal');
             if (modal) {
-                modal.classList.remove('pointer-events-none', 'opacity-0');
+                modal.classList.remove('hidden');
+                modal.classList.remove('pointer-events-none');
+                modal.classList.remove('opacity-0');
                 modal.classList.add('opacity-100');
+                modal.style.display = 'flex';
                 modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
                 
                 const scrollBody = document.getElementById('modal-scrollable-body');
                 if (scrollBody) scrollBody.scrollTop = 0;
                 
                 document.body.style.overflow = 'hidden';
+                document.body.style.touchAction = 'none';
             }
             
             lucide.createIcons();
@@ -2217,13 +2222,18 @@
             if (modal) {
                 modal.classList.remove('opacity-100');
                 modal.classList.add('opacity-0');
+                modal.classList.add('pointer-events-none');
                 modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
                 
                 document.body.style.overflow = '';
+                document.body.style.touchAction = '';
+                document.documentElement.style.overflow = '';
                 
                 setTimeout(() => {
-                    modal.classList.add('pointer-events-none');
-                }, 300);
+                    modal.classList.add('hidden');
+                    modal.style.display = 'none';
+                }, 250);
             }
         }
 
