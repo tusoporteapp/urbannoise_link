@@ -425,7 +425,7 @@
             </div>
 
             <!-- Horizontal Scrollable Container Top Ventas -->
-            <div id="top-ventas-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar">
+            <div id="top-ventas-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar touch-pan-x overscroll-x-contain" style="-webkit-overflow-scrolling: touch;">
                 <!-- Dynamically rendered Top Ventas cards -->
             </div>
         </div>
@@ -446,7 +446,7 @@
             </div>
 
             <!-- Horizontal Scrollable Container Nuevos Lanzamientos -->
-            <div id="latest-arrivals-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar">
+            <div id="latest-arrivals-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar touch-pan-x overscroll-x-contain" style="-webkit-overflow-scrolling: touch;">
                 <!-- Dynamically rendered New Arrivals cards -->
             </div>
         </div>
@@ -506,7 +506,7 @@
     </footer>
 
     <!-- PRODUCT DETAIL MODAL (FULL SCREEN VIEW) -->
-    <div id="product-detail-modal" class="fixed inset-0 z-50 w-full h-full bg-white flex flex-col opacity-0 pointer-events-none transition-all duration-300 overflow-hidden select-none">
+    <div id="product-detail-modal" class="fixed inset-0 z-50 w-full h-full bg-white flex flex-col opacity-0 pointer-events-none transition-all duration-300 overflow-hidden select-none hidden" style="display: none;">
         <!-- Native Fullscreen Wrapper -->
         <div class="relative w-full max-w-md mx-auto h-full flex flex-col bg-white overflow-hidden" id="detail-modal-content">
             
