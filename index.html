@@ -935,6 +935,36 @@
                 </button>
             </div>
 
+    <!-- ADMIN ADD PRODUCT TO SHARED ORDER MODAL -->
+    <div id="admin-add-product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md hidden opacity-0 pointer-events-none transition-all duration-300">
+        <div class="relative w-full max-w-md bg-white border border-zinc-200 rounded-[32px] p-5 flex flex-col gap-3.5 max-h-[85vh] overflow-hidden shadow-2xl text-left">
+            <div class="flex items-center justify-between pb-2 border-b border-zinc-200">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-zinc-950 text-white flex items-center justify-center">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black uppercase text-zinc-950">Añadir Prenda al Pedido</h3>
+                        <p class="text-[10px] text-zinc-500 font-semibold">Selecciona una prenda del catálogo</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeAdminAddProductModal()" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 flex items-center justify-center cursor-pointer">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <div class="relative">
+                <input type="text" id="admin-product-search-input" placeholder="Buscar por nombre o categoría..." oninput="filterAdminProductsList()" class="w-full text-xs font-bold py-2.5 pl-9 pr-3 rounded-xl border border-zinc-300 bg-zinc-50 focus:bg-white focus:border-zinc-900 focus:outline-none" />
+                <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3 top-3"></i>
+            </div>
+
+            <div id="admin-products-picker-list" class="flex-grow overflow-y-auto max-h-[48vh] flex flex-col gap-2 pr-1">
+                <!-- Garments list renders here -->
+            </div>
+        </div>
+    </div>
+
+
             <!-- Intro text -->
             <p class="text-xs text-zinc-500 leading-normal">
                 Estás viendo una lista de pedido compartida por un cliente para verificar disponibilidad.
@@ -964,7 +994,7 @@
                     <div id="admin-lock-box">
                         <button onclick="openAdminPinModal()" class="w-full text-center py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-zinc-800 shadow-sm">
                             <i data-lucide="shield-check" class="w-4 h-4 text-zinc-700"></i>
-                            <span>🔒 Panel de Despacho (Solo Admin)</span>
+                            <span>⚡ MODO ADMIN (PIN 8624)</span>
                         </button>
                     </div>
 
@@ -1649,7 +1679,7 @@
             if (Date.now() - lastCheck < COOLDOWN) return;
             productScrollCheckTimestamps.set(productId, Date.now());
 
-            const product = allProductsList.find(p => p.id === productId);
+            const product = products.find(p => p.id === productId);
             if (!product) return;
 
             const variantIds = (product.variants || []).map(v => v.id).filter(Boolean);
@@ -1687,7 +1717,7 @@
                 if (hasChanged) {
                     console.log(`⚡ [Swarm Sync] Actualizado en vivo por scroll: ${product.title} (Stock: ${newTotal})`);
                     updateProductCardInDOM(product);
-                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(allProductsList));
+                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(products));
                 }
             } catch (err) {
                 // Silencioso en segundo plano
@@ -1712,7 +1742,7 @@
                 const freshProducts = await apiRes.json();
                 if (!Array.isArray(freshProducts) || freshProducts.length === 0) return;
 
-                const currentMap = new Map(allProductsList.map(item => [item.id, item]));
+                const currentMap = new Map(products.map(item => [item.id, item]));
                 const freshMap = new Map(freshProducts.map(item => [item.id, item]));
 
                 let hasStructuralChanges = false;
@@ -1744,7 +1774,7 @@
                 // Si hay cambios estructurales (prendas nuevas/borradas), actualizamos el dataset completo
                 if (hasStructuralChanges) {
                     console.log("⚡ [Sync 5m] Cambio estructural detectado (nuevos ítems/eliminaciones). Actualizando vistas.");
-                    allProductsList = freshProducts;
+                    products = freshProducts;
                     localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(freshProducts));
                     localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
                     applyFiltersAndRender();
@@ -1756,16 +1786,16 @@
                 // Si solo cambiaron stocks/colores/precios en prendas específicas, actualizamos SELECTIVAMENTE esas prendas
                 console.log(`⚡ [Sync 5m] Sincronizando selectivamente ${updatedProducts.length} prenda(s) con cambios.`);
                 updatedProducts.forEach(freshP => {
-                    const idx = allProductsList.findIndex(x => x.id === freshP.id);
+                    const idx = products.findIndex(x => x.id === freshP.id);
                     if (idx !== -1) {
-                        allProductsList[idx] = freshP;
+                        products[idx] = freshP;
                     }
                     if (typeof updateProductCardInDOM === 'function') {
                         updateProductCardInDOM(freshP);
                     }
                 });
 
-                localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(allProductsList));
+                localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(products));
                 localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
 
             } catch (e) {
@@ -3314,6 +3344,10 @@
             }, 300);
         }
 
+        
+        // === MODO ADMIN: EDICIÓN MAESTRA DE PEDIDOS COMPARTIDOS ===
+        let isAdminOrderEditingActive = false;
+
         function renderSharedOrderItems() {
             const container = document.getElementById('shared-order-items');
             const countLabel = document.getElementById('shared-items-count');
@@ -3325,12 +3359,25 @@
             let totalQty = 0;
             let totalPrice = 0;
             
-            sharedOrderList.forEach(item => {
+            if (sharedOrderList.length === 0) {
+                container.innerHTML = `
+                    <div class="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl text-center flex flex-col items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-8 h-8 text-zinc-400"></i>
+                        <span class="text-xs font-bold text-zinc-600">No hay prendas en este pedido.</span>
+                    </div>
+                `;
+                if (countLabel) countLabel.innerText = '0';
+                if (priceLabel) priceLabel.innerText = 'COP 0.00';
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            sharedOrderList.forEach((item, index) => {
                 const product = products.find(p => p.id === String(item.id) || p.id === item.id);
                 
-                const title = product ? product.title : `Prenda #${item.id}`;
-                const image = product ? product.image : 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
-                const price = product ? product.price : 0;
+                const title = product ? product.title : (item.title || `Prenda #${item.id}`);
+                const image = product ? product.image : (item.image || 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png');
+                const price = product ? product.price : (item.price || 0);
                 const subtotal = price * item.qty;
                 
                 totalQty += item.qty;
@@ -3338,25 +3385,222 @@
                 
                 const subtotalFormatted = price === 0 ? 'Por Consultar' : formatCOP(subtotal);
                 
-                html += `
-                <div class="flex gap-3 items-center bg-zinc-50 border border-zinc-200 p-2.5 rounded-2xl">
-                    <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-12 h-12 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                    <div class="flex-grow text-left">
-                        <h4 class="text-xs font-bold text-zinc-900 leading-snug line-clamp-1">${title}</h4>
-                        <div class="flex justify-between items-center mt-1">
-                            <span class="text-[10px] text-zinc-500 font-bold uppercase">Talla: <span class="text-zinc-900">${item.size}</span> | Cant: <span class="text-zinc-900">${item.qty}</span></span>
-                            <span class="text-xs font-extrabold text-zinc-950">${subtotalFormatted}</span>
+                if (isAdminOrderEditingActive) {
+                    // Vista Interactiva MODO ADMIN (Editar cantidades, tallas, eliminar)
+                    html += `
+                    <div class="flex flex-col gap-2 bg-emerald-50/40 border border-emerald-300/70 p-3 rounded-2xl transition-all shadow-xs">
+                        <div class="flex gap-3 items-center">
+                            <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-13 h-13 aspect-square object-cover rounded-xl bg-zinc-200 shrink-0 border border-zinc-200" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                            <div class="flex-grow text-left">
+                                <h4 class="text-xs font-black text-zinc-950 leading-snug line-clamp-1">${title}</h4>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="text-[10.5px] font-bold text-zinc-600 bg-white border border-zinc-200 px-2 py-0.5 rounded-md">Talla: <b class="text-zinc-900">${item.size}</b></span>
+                                    ${item.color ? `<span class="text-[10.5px] font-bold text-zinc-600 bg-white border border-zinc-200 px-2 py-0.5 rounded-md">Color: <b class="text-zinc-900">${item.color}</b></span>` : ''}
+                                </div>
+                            </div>
+                            <button type="button" onclick="deleteSharedOrderItem(${index})" class="w-8 h-8 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0 cursor-pointer active:scale-90 transition-all" title="Eliminar Prenda">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-emerald-200/60 mt-0.5">
+                            <div class="flex items-center gap-1 bg-white p-0.5 rounded-xl border border-zinc-300 shadow-2xs select-none">
+                                <button type="button" onclick="changeSharedItemQty(${index}, -1)" class="w-7 h-7 rounded-lg bg-zinc-100 text-zinc-800 font-black text-sm flex items-center justify-center hover:bg-zinc-200 active:scale-90 transition-all cursor-pointer">-</button>
+                                <span class="w-8 text-center text-xs font-black text-zinc-950">${item.qty}</span>
+                                <button type="button" onclick="changeSharedItemQty(${index}, 1)" class="w-7 h-7 rounded-lg bg-black text-white font-black text-sm flex items-center justify-center hover:bg-zinc-800 active:scale-90 transition-all cursor-pointer">+</button>
+                            </div>
+                            <span class="text-xs font-black text-zinc-950">${subtotalFormatted}</span>
                         </div>
                     </div>
-                </div>
-                `;
+                    `;
+                } else {
+                    // Vista Estándar del Cliente
+                    html += `
+                    <div class="flex gap-3 items-center bg-zinc-50 border border-zinc-200 p-2.5 rounded-2xl">
+                        <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-12 h-12 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <div class="flex-grow text-left">
+                            <h4 class="text-xs font-bold text-zinc-900 leading-snug line-clamp-1">${title}</h4>
+                            <div class="flex justify-between items-center mt-1">
+                                <span class="text-[10px] text-zinc-500 font-bold uppercase">Talla: <span class="text-zinc-900">${item.size}</span>${item.color ? ` | Color: <span class="text-zinc-900">${item.color}</span>` : ''} | Cant: <span class="text-zinc-900">${item.qty}</span></span>
+                                <span class="text-xs font-extrabold text-zinc-950">${subtotalFormatted}</span>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }
             });
             
             container.innerHTML = html;
-            countLabel.innerText = totalQty;
-            priceLabel.innerText = formatCOP(totalPrice);
-            lucide.createIcons();
+            if (countLabel) countLabel.innerText = totalQty;
+            if (priceLabel) priceLabel.innerText = formatCOP(totalPrice);
+            if (window.lucide) lucide.createIcons();
         }
+
+        function changeSharedItemQty(index, delta) {
+            if (!sharedOrderList[index]) return;
+            sharedOrderList[index].qty += delta;
+            if (sharedOrderList[index].qty <= 0) {
+                sharedOrderList.splice(index, 1);
+            }
+            renderSharedOrderItems();
+        }
+
+        function deleteSharedOrderItem(index) {
+            if (!sharedOrderList[index]) return;
+            sharedOrderList.splice(index, 1);
+            renderSharedOrderItems();
+            showNotification("🗑️ Prenda eliminada de la lista.");
+        }
+
+        function openAdminAddProductModal() {
+            const modal = document.getElementById('admin-add-product-modal');
+            if (modal) {
+                modal.classList.remove('hidden', 'pointer-events-none', 'opacity-0');
+                modal.classList.add('opacity-100');
+                renderAdminProductPickerItems(products);
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        function closeAdminAddProductModal() {
+            const modal = document.getElementById('admin-add-product-modal');
+            if (modal) {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => modal.classList.add('hidden'), 200);
+            }
+        }
+
+        function filterAdminProductsList() {
+            const input = document.getElementById('admin-product-search-input');
+            const q = input ? input.value.toLowerCase().trim() : '';
+            if (!q) {
+                renderAdminProductPickerItems(products);
+                return;
+            }
+            const filtered = products.filter(p => p.title.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q)));
+            renderAdminProductPickerItems(filtered);
+        }
+
+        function renderAdminProductPickerItems(list) {
+            const container = document.getElementById('admin-products-picker-list');
+            if (!container) return;
+
+            if (!list || list.length === 0) {
+                container.innerHTML = `<div class="text-xs text-zinc-500 py-6 text-center">No se encontraron prendas.</div>`;
+                return;
+            }
+
+            let html = '';
+            list.slice(0, 30).forEach(p => {
+                const availableVariants = (p.variants || []).filter(v => v.stock > 0 || v.inStock);
+                const sizes = [...new Set(availableVariants.map(v => v.size || 'U'))];
+                const colors = [...new Set(availableVariants.map(v => v.color).filter(Boolean))];
+
+                html += `
+                    <div class="flex flex-col gap-2 p-2.5 bg-zinc-50 border border-zinc-200 rounded-2xl text-left">
+                        <div class="flex items-center gap-2.5">
+                            <img src="${getOptimizedImageUrl(p.image, 120, 75)}" alt="${p.title}" class="w-11 h-11 rounded-lg object-cover bg-zinc-200 shrink-0" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                            <div class="flex-grow">
+                                <h4 class="text-xs font-black text-zinc-950 line-clamp-1">${p.title}</h4>
+                                <span class="text-xs font-extrabold text-rose-600">${formatCOP(p.price)}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-1 border-t border-zinc-200/80">
+                            ${colors.length > 0 ? `
+                            <select id="admin-add-color-${p.id}" class="text-[11px] font-bold bg-white border border-zinc-300 rounded-lg px-2 py-1 focus:outline-none">
+                                ${colors.map(c => `<option value="${c}">${c}</option>`).join('')}
+                            </select>
+                            ` : '<input type="hidden" id="admin-add-color-' + p.id + '" value="" />'}
+
+                            <select id="admin-add-size-${p.id}" class="text-[11px] font-bold bg-white border border-zinc-300 rounded-lg px-2 py-1 focus:outline-none">
+                                ${sizes.length > 0 ? sizes.map(s => `<option value="${s}">Talla ${s}</option>`).join('') : '<option value="U">Talla U</option>'}
+                            </select>
+
+                            <input type="number" id="admin-add-qty-${p.id}" value="1" min="1" max="99" class="w-12 text-center text-xs font-black bg-white border border-zinc-300 rounded-lg py-1 focus:outline-none" />
+
+                            <button type="button" onclick="executeAdminAddProduct('${p.id}')" class="ml-auto px-3 py-1 bg-zinc-950 hover:bg-zinc-800 text-white rounded-lg text-xs font-black uppercase tracking-wider active:scale-95 transition-all cursor-pointer">
+                                ➕ Añadir
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function executeAdminAddProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const sizeEl = document.getElementById('admin-add-size-' + productId);
+            const colorEl = document.getElementById('admin-add-color-' + productId);
+            const qtyEl = document.getElementById('admin-add-qty-' + productId);
+
+            const size = sizeEl ? sizeEl.value : 'U';
+            const color = colorEl ? colorEl.value : '';
+            const qty = qtyEl ? Math.max(1, parseInt(qtyEl.value, 10) || 1) : 1;
+
+            const existing = sharedOrderList.find(item => item.id === productId && item.size === size && (item.color || '') === color);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                sharedOrderList.push({
+                    id: productId,
+                    title: product.title,
+                    image: product.image,
+                    price: product.price,
+                    size: size,
+                    color: color || null,
+                    qty: qty
+                });
+            }
+
+            closeAdminAddProductModal();
+            renderSharedOrderItems();
+            showNotification(`✅ Se añadió "${product.title}" (x${qty}) al pedido.`);
+        }
+
+        function sendUpdatedOrderToWhatsApp() {
+            if (sharedOrderList.length === 0) {
+                showNotification("⚠️ La lista de pedido está vacía.");
+                return;
+            }
+
+            const compactOrder = sharedOrderList.map(item => ({
+                id: item.id,
+                size: item.size,
+                color: item.color || '',
+                qty: item.qty
+            }));
+
+            const jsonStr = JSON.stringify(compactOrder);
+            const encodedOrder = encodeURIComponent(btoa(unescape(encodeURIComponent(jsonStr))));
+            const shareUrl = `${window.location.origin}${window.location.pathname}?order=${encodedOrder}`;
+
+            let totalQty = 0;
+            let totalPrice = 0;
+            let itemsText = '';
+
+            sharedOrderList.forEach(item => {
+                const product = products.find(p => p.id === String(item.id) || p.id === item.id);
+                const title = product ? product.title : (item.title || `Prenda #${item.id}`);
+                const price = product ? product.price : (item.price || 0);
+                const subtotal = price * item.qty;
+                totalQty += item.qty;
+                totalPrice += subtotal;
+
+                itemsText += `• *${title}* (Talla ${item.size}${item.color ? ` - ${item.color}` : ''}) x${item.qty} = ${formatCOP(subtotal)}\n`;
+            });
+
+            const message = `👑 *PEDIDO ACTUALIZADO // URBAN NOISE MAYORISTA*\n\nHola, tu pedido ha sido verificado y actualizado por administración con las prendas y cantidades acordadas:\n\n${itemsText}\n📦 *Total Prendas:* ${totalQty} unds\n💰 *Total Estimado:* ${formatCOP(totalPrice)}\n\n🔗 *Ver tu Pedido Actualizado en Vivo:*\n${shareUrl}\n\nQuedamos atentos para despachar tu envío. 🚀`;
+
+            const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
 
         function importSharedOrder() {
             if (sharedOrderList.length === 0) return;
@@ -3443,6 +3687,8 @@
                 await startLoyverseAdminSync();
             } else {
                 isAdminAuthenticated = true;
+                isAdminOrderEditingActive = true;
+                renderSharedOrderItems();
                 const lockBox = document.getElementById('admin-lock-box');
                 const unlockedPanel = document.getElementById('admin-unlocked-panel');
                 if (lockBox) lockBox.classList.add('hidden');
@@ -3455,8 +3701,6 @@
             }
         }
 
-        
-        
         // === MOTOR DE INTELIGENCIA DE CAMBIOS Y AUDITORÍA LOYVERSE (PIN 8624) ===
         let detectedSyncChanges = [];
         let activeDiffFilter = 'all';
