@@ -299,7 +299,7 @@
             try {
                 const lastSync = parseInt(localStorage.getItem('urbannoise_catalog_last_full_sync') || '0', 10);
                 const isFresh = (Date.now() - lastSync) < (24 * 60 * 60 * 1000);
-                const cached = localStorage.getItem('urbannoise_loyverse_catalog_cache_v2');
+                const cached = localStorage.getItem('un_catalog_live_v6');
                 if (isFresh && cached) {
                     document.documentElement.classList.add('has-fresh-catalog');
                 }
