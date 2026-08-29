@@ -2296,9 +2296,29 @@
 
             colorKeys.forEach(colorName => {
                 const variants = groupedByColor[colorName];
-                const totalColorStock = variants.reduce((sum, v) => sum + (v.stock || 0), 0);
+                const availableVariants = variants.filter(v => v.inStock && v.stock > 0);
+                const soldOutVariants = variants.filter(v => !v.inStock || v.stock <= 0);
+                const totalColorStock = availableVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
                 const hasColor = colorName !== 'Color Único' && colorName !== 'null' && colorName !== 'undefined';
 
+                // Caso A: Tono completamente agotado en todas las tallas
+                if (availableVariants.length === 0) {
+                    html += `
+                        <div class="bg-zinc-50/75 border border-zinc-200/90 rounded-2xl p-3 flex items-center justify-between shadow-2xs opacity-80 select-none">
+                            <div class="flex items-center gap-2 text-left">
+                                <span class="w-2.5 h-2.5 rounded-full bg-zinc-400 inline-block"></span>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-black text-zinc-700 uppercase">${hasColor ? `Color: ${colorName}` : 'Esta Prenda'}</span>
+                                    <span class="text-[10px] font-bold text-zinc-500">Agotado en tallas (${soldOutVariants.map(v => v.size).join(', ')})</span>
+                                </div>
+                            </div>
+                            <span class="text-[9px] font-black uppercase text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-lg shadow-2xs">Agotado</span>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Caso B: Tono con tallas disponibles
                 html += `
                     <div class="bg-zinc-50/90 border border-zinc-200 rounded-2xl p-3.5 flex flex-col gap-2.5 shadow-xs">
                         ${hasColor ? `
@@ -2316,14 +2336,12 @@
                         <div class="flex flex-col gap-2">
                 `;
 
-                variants.forEach(v => {
-                    const isAvailable = v.inStock && v.stock > 0;
+                // Renderizar únicamente las tallas con stock real disponible
+                availableVariants.forEach(v => {
                     const isLow = v.stock > 0 && v.stock <= 5;
-                    const stockBadge = isAvailable
-                        ? (isLow
-                            ? `<span class="text-[10px] font-black text-rose-600 flex items-center gap-0.5">🔥 ¡Últimas ${v.stock}!</span>`
-                            : `<span class="text-[10px] font-bold text-zinc-500">${v.stock} disponibles</span>`)
-                        : `<span class="text-[10px] font-bold text-zinc-400">Agotado</span>`;
+                    const stockBadge = isLow
+                        ? `<span class="text-[10px] font-black text-rose-600 flex items-center gap-0.5">🔥 ¡Últimas ${v.stock}!</span>`
+                        : `<span class="text-[10px] font-bold text-zinc-500">${v.stock} disponibles</span>`;
 
                     html += `
                         <div class="flex items-center justify-between p-2.5 bg-white border border-zinc-200 rounded-xl transition-all hover:border-zinc-300">
@@ -2335,18 +2353,24 @@
                                 ${stockBadge}
                             </div>
 
-                            ${isAvailable ? `
                             <div class="flex items-center gap-1 bg-zinc-100 p-1 rounded-xl border border-zinc-200 select-none">
-                                <button type="button" onclick="changeMatrixVariantQty('${v.id}', -1)" class="w-8 h-8 rounded-lg bg-white hover:bg-zinc-200 text-zinc-900 font-black text-sm flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90">-</button>
-                                <span id="matrix-qty-${v.id}" class="w-8 text-center text-xs font-black text-zinc-950">0</span>
-                                <button type="button" onclick="changeMatrixVariantQty('${v.id}', 1)" class="w-8 h-8 rounded-lg bg-white hover:bg-zinc-200 text-zinc-900 font-black text-sm flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90">+</button>
+                                <button type="button" onclick="changeMatrixVariantQty('${v.id}', -1)" class="w-7 h-7 rounded-lg bg-white border border-zinc-200 text-zinc-700 font-black text-sm flex items-center justify-center cursor-pointer hover:bg-zinc-200 active:scale-90 transition-all">-</button>
+                                <span id="matrix-qty-${v.id}" class="w-8 text-center text-xs font-black text-zinc-900">0</span>
+                                <button type="button" onclick="changeMatrixVariantQty('${v.id}', 1)" class="w-7 h-7 rounded-lg bg-black text-white font-black text-sm flex items-center justify-center cursor-pointer hover:bg-zinc-800 active:scale-90 transition-all">+</button>
                             </div>
-                            ` : `
-                            <span class="text-[10px] font-bold text-zinc-400 bg-zinc-100 px-2.5 py-1.5 rounded-lg border border-zinc-200 select-none">Agotado</span>
-                            `}
                         </div>
                     `;
                 });
+
+                // Micro-indicador elegante de tallas que ya se agotaron en este tono
+                if (soldOutVariants.length > 0) {
+                    html += `
+                        <div class="mt-1 flex items-center gap-1.5 text-[10px] font-bold text-zinc-500 bg-white/90 border border-zinc-200/90 px-2.5 py-1.5 rounded-xl">
+                            <i data-lucide="info" class="w-3.5 h-3.5 text-zinc-400 shrink-0"></i>
+                            <span>Tallas agotadas en este tono: <b class="text-rose-600 font-extrabold line-through">${soldOutVariants.map(v => v.size).join(', ')}</b></span>
+                        </div>
+                    `;
+                }
 
                 html += `
                         </div>
@@ -2356,7 +2380,7 @@
 
             container.innerHTML = html;
             updateModalBatchSummary();
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         }
 
         function changeMatrixVariantQty(variantId, delta) {
