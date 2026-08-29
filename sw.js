@@ -3,8 +3,8 @@
  * Stores Loyverse product photos locally on iPhone & Android for instant 0ms loading
  */
 
-const CACHE_NAME = 'un-image-cache-v2';
-const STATIC_CACHE = 'un-static-assets-v2';
+const CACHE_NAME = 'un-image-cache-v4';
+const STATIC_CACHE = 'un-static-assets-v4';
 
 const STATIC_ASSETS = [
     '/',
