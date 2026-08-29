@@ -1586,6 +1586,89 @@
         let progressiveObserver = null;
         let currentStrategicallyOrderedProducts = [];
 
+        
+        // --- 5-MINUTE SILENT DIFFERENTIAL SYNC ENGINE ---
+        let backgroundSyncInterval = null;
+
+        function startPeriodicBackgroundSync() {
+            if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
+            // Ejecutar cada 5 minutos (300,000 ms)
+            backgroundSyncInterval = setInterval(() => {
+                syncCatalogChangesSilently();
+            }, 5 * 60 * 1000);
+        }
+
+        async function syncCatalogChangesSilently() {
+            try {
+                const apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null)
+                    || await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+
+                if (!apiRes || !apiRes.ok) return;
+                const freshProducts = await apiRes.json();
+                if (!Array.isArray(freshProducts) || freshProducts.length === 0) return;
+
+                const currentMap = new Map(allProductsList.map(item => [item.id, item]));
+                const freshMap = new Map(freshProducts.map(item => [item.id, item]));
+
+                let hasStructuralChanges = false;
+                const updatedProducts = [];
+
+                // 1. Detectar prendas actualizadas o nuevas
+                for (const [id, freshP] of freshMap.entries()) {
+                    const currentP = currentMap.get(id);
+                    if (!currentP) {
+                        hasStructuralChanges = true; // Prenda nueva agregada
+                    } else if (JSON.stringify(currentP) !== JSON.stringify(freshP)) {
+                        updatedProducts.push(freshP);
+                    }
+                }
+
+                // 2. Detectar prendas eliminadas
+                for (const [id] of currentMap.entries()) {
+                    if (!freshMap.has(id)) {
+                        hasStructuralChanges = true;
+                    }
+                }
+
+                // Si NO hay ningún cambio en ninguna prenda, no hacemos nada (0 consumo de recursos)
+                if (!hasStructuralChanges && updatedProducts.length === 0) {
+                    console.log("⚡ [Sync 5m] Catálogo analizado en segundo plano: Sin cambios en ninguna prenda.");
+                    return;
+                }
+
+                // Si hay cambios estructurales (prendas nuevas/borradas), actualizamos el dataset completo
+                if (hasStructuralChanges) {
+                    console.log("⚡ [Sync 5m] Cambio estructural detectado (nuevos ítems/eliminaciones). Actualizando vistas.");
+                    allProductsList = freshProducts;
+                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(freshProducts));
+                    localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+                    applyFiltersAndRender();
+                    renderTopVentasCarousel();
+                    renderLatestArrivalsCarousel();
+                    return;
+                }
+
+                // Si solo cambiaron stocks/colores/precios en prendas específicas, actualizamos SELECTIVAMENTE esas prendas
+                console.log(`⚡ [Sync 5m] Sincronizando selectivamente ${updatedProducts.length} prenda(s) con cambios.`);
+                updatedProducts.forEach(freshP => {
+                    const idx = allProductsList.findIndex(x => x.id === freshP.id);
+                    if (idx !== -1) {
+                        allProductsList[idx] = freshP;
+                    }
+                    if (typeof updateProductCardInDOM === 'function') {
+                        updateProductCardInDOM(freshP);
+                    }
+                });
+
+                localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(allProductsList));
+                localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+
+            } catch (e) {
+                console.warn("Aviso en sincronización en segundo plano:", e);
+            }
+        }
+    
+
         function generateColorChipsHtml(p) {
             const colorStockMap = {};
             (p.variants || []).forEach(v => {
