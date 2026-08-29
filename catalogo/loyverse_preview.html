@@ -533,7 +533,7 @@
             </div>
 
             <!-- Horizontal Scrollable Container Top Ventas -->
-            <div id="top-ventas-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar touch-pan-x overscroll-x-contain" style="-webkit-overflow-scrolling: touch;">
+            <div id="top-ventas-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar touch-pan-x overscroll-x-contain" style="-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;">
                 <div class="flex-shrink-0 w-36 bg-white border border-zinc-200 rounded-2xl p-2 flex flex-col gap-2 animate-pulse shadow-xs">
                     <div class="w-full aspect-square bg-zinc-200/90 rounded-xl"></div>
                     <div class="flex flex-col gap-1.5 px-0.5">
@@ -593,7 +593,7 @@
             </div>
 
             <!-- Horizontal Scrollable Container Nuevos Lanzamientos -->
-            <div id="latest-arrivals-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar touch-pan-x overscroll-x-contain" style="-webkit-overflow-scrolling: touch;">
+            <div id="latest-arrivals-carousel" class="w-full flex gap-3 overflow-x-auto pb-2 pt-0.5 snap-x no-scrollbar touch-pan-x overscroll-x-contain" style="-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;">
                 <div class="flex-shrink-0 w-36 bg-white border border-zinc-200 rounded-2xl p-2 flex flex-col gap-2 animate-pulse shadow-xs">
                     <div class="w-full aspect-square bg-zinc-200/90 rounded-xl"></div>
                     <div class="flex flex-col gap-1.5 px-0.5">
@@ -1729,7 +1729,7 @@
             }, 5 * 60 * 1000);
         }
 
-        async function syncCatalogChangesSilently() {
+                async function syncCatalogChangesSilently() {
             try {
                 const apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null)
                     || await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
@@ -1741,64 +1741,37 @@
                 const currentMap = new Map(products.map(item => [item.id, item]));
                 const freshMap = new Map(freshProducts.map(item => [item.id, item]));
 
-                let hasStructuralChanges = false;
-                const updatedProducts = [];
+                let hasChanges = false;
 
-                // 1. Detectar prendas actualizadas o nuevas
-                for (const [id, freshP] of freshMap.entries()) {
-                    const currentP = currentMap.get(id);
-                    if (!currentP) {
-                        hasStructuralChanges = true; // Prenda nueva agregada
-                    } else if (JSON.stringify(currentP) !== JSON.stringify(freshP)) {
-                        updatedProducts.push(freshP);
+                // 1. Detectar si cambió la cantidad de prendas
+                if (products.length !== freshProducts.length) {
+                    hasChanges = true;
+                } else {
+                    // 2. Detectar si alguna prenda cambió de título, categoría, precio, foto o variantes
+                    for (const [id, freshP] of freshMap.entries()) {
+                        const currentP = currentMap.get(id);
+                        if (!currentP || JSON.stringify(currentP) !== JSON.stringify(freshP)) {
+                            hasChanges = true;
+                            break;
+                        }
                     }
                 }
 
-                // 2. Detectar prendas eliminadas
-                for (const [id] of currentMap.entries()) {
-                    if (!freshMap.has(id)) {
-                        hasStructuralChanges = true;
-                    }
-                }
-
-                // Si NO hay ningún cambio en ninguna prenda, no hacemos nada (0 consumo de recursos)
-                if (!hasStructuralChanges && updatedProducts.length === 0) {
-                    console.log("⚡ [Sync 5m] Catálogo analizado en segundo plano: Sin cambios en ninguna prenda.");
+                // Si NO hay cambios, no hacemos re-render innecesario
+                if (!hasChanges) {
+                    console.log("⚡ [Sync 5m] Catálogo analizado: Sin cambios en Loyverse.");
                     return;
                 }
 
-                // Si hay cambios estructurales (prendas nuevas/borradas), actualizamos el dataset completo
-                if (hasStructuralChanges) {
-                    console.log("⚡ [Sync 5m] Cambio estructural detectado (nuevos ítems/eliminaciones). Actualizando vistas.");
-                    products = freshProducts;
-                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(freshProducts));
-                    localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
-                    applyFiltersAndRender();
-                    renderTopVentasCarousel();
-                    renderLatestArrivalsCarousel();
-                    return;
-                }
-
-                // Si solo cambiaron stocks/colores/precios en prendas específicas, actualizamos SELECTIVAMENTE esas prendas
-                console.log(`⚡ [Sync 5m] Sincronizando selectivamente ${updatedProducts.length} prenda(s) con cambios.`);
-                updatedProducts.forEach(freshP => {
-                    const idx = products.findIndex(x => x.id === freshP.id);
-                    if (idx !== -1) {
-                        products[idx] = freshP;
-                    }
-                    if (typeof updateProductCardInDOM === 'function') {
-                        updateProductCardInDOM(freshP);
-                    }
-                });
-
-                localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(products));
+                console.log("⚡ [Sync 5m] Cambios detectados en Loyverse. Actualizando catálogo y vistas en vivo.");
+                localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(freshProducts));
                 localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+                renderCatalogDataset(freshProducts);
 
             } catch (e) {
                 console.warn("Aviso en sincronización en segundo plano:", e);
             }
         }
-    
 
         function generateColorChipsHtml(p) {
             const colorStockMap = {};
@@ -2635,7 +2608,7 @@
                 if (scrollBody) scrollBody.scrollTop = 0;
                 
                 document.body.style.overflow = 'hidden';
-                document.body.style.touchAction = 'none';
+                // touchAction preserved for fluid carousel gestures
             }
             
             lucide.createIcons();
@@ -2654,7 +2627,7 @@
                 modal.style.pointerEvents = 'none';
                 
                 document.body.style.overflow = '';
-                document.body.style.touchAction = '';
+                
                 document.documentElement.style.overflow = '';
                 
                 setTimeout(() => {
