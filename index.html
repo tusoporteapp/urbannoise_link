@@ -38,25 +38,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
-    <!-- Suppress Tailwind CDN production notice -->
-    <script>
-        (function() {
-            const _warn = console.warn;
-            console.warn = function(...args) {
-                if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
-                _warn.apply(console, args);
-            };
-        })();
-    </script>
+    <!-- Tailwind CSS (Play CDN Standalone) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Driver.js CSS for interactive tour -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css"/>
-    
     <script>
-        window.tailwind = window.tailwind || {};
-        window.tailwind.config = {
+        tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
@@ -78,6 +63,12 @@
             }
         };
     </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Driver.js CSS for interactive tour -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css"/>
+    
+    
     
     <style>
         /* Personalización de barra de scroll para estética clara */
