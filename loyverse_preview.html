@@ -1212,12 +1212,20 @@
 
         function getLatestArrivals(rawList, count = 10) {
             if (!rawList || rawList.length === 0) return [];
+            
+            // Ordenamiento estricto por fecha exacta de creación en Loyverse POS (los más recientes primero)
+            const sorted = [...rawList].sort((a, b) => {
+                const timeA = new Date(a.created_at || a.updated_at || 0).getTime();
+                const timeB = new Date(b.created_at || b.updated_at || 0).getTime();
+                return timeB - timeA;
+            });
+
             const topSellers = getTopSellingProducts(rawList, 10);
             const topIds = new Set(topSellers.map(p => p.id));
             const seenTitles = new Set(topSellers.map(p => (p.title || '').toLowerCase().trim()));
             const newItems = [];
 
-            rawList.forEach(p => {
+            sorted.forEach(p => {
                 const titleNorm = (p.title || '').toLowerCase().trim();
                 if (!topIds.has(p.id) && !seenTitles.has(titleNorm)) {
                     newItems.push(p);

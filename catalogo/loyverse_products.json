@@ -94,6 +94,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-08-28T15:43:24.000Z",
     "updated_at": "2026-08-28T15:44:21.000Z"
   },
   {
@@ -191,6 +192,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-08-28T15:36:41.000Z",
     "updated_at": "2026-08-28T15:43:50.000Z"
   },
   {
@@ -285,7 +287,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": true,
-        "stock": 4
+        "stock": 3
       },
       {
         "id": "0f7322f5-1f27-42d3-a23e-b3a7a47c5a98",
@@ -308,6 +310,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-08-28T15:29:14.000Z",
     "updated_at": "2026-08-28T16:05:42.000Z"
   },
   {
@@ -425,6 +428,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-08-28T15:17:13.000Z",
     "updated_at": "2026-08-28T16:04:52.000Z"
   },
   {
@@ -502,6 +506,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-08-24T22:05:32.000Z",
     "updated_at": "2026-08-26T20:59:46.000Z"
   },
   {
@@ -559,6 +564,7 @@
         "stock": 5
       }
     ],
+    "created_at": "2026-08-24T21:57:21.000Z",
     "updated_at": "2026-08-28T16:17:59.000Z"
   },
   {
@@ -656,6 +662,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-08-24T21:19:18.000Z",
     "updated_at": "2026-08-24T21:29:45.000Z"
   },
   {
@@ -753,6 +760,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-08-24T20:45:21.000Z",
     "updated_at": "2026-08-24T21:19:39.000Z"
   },
   {
@@ -810,6 +818,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-08-22T15:49:33.000Z",
     "updated_at": "2026-08-24T15:24:50.000Z"
   },
   {
@@ -887,6 +896,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-08-22T15:45:56.000Z",
     "updated_at": "2026-08-24T14:07:53.000Z"
   },
   {
@@ -964,104 +974,8 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-08-22T15:44:04.000Z",
     "updated_at": "2026-08-24T13:52:47.000Z"
-  },
-  {
-    "id": "ea52e235-7bdd-479f-bcd1-d4f3b83d99db",
-    "title": "PRUEBA",
-    "description": "Sin descripción disponible.",
-    "price": 40000,
-    "retailPrice": 60000,
-    "modifierApplied": "Prueba",
-    "image": "https://api.loyverse.com/image/ea52e235-7bdd-479f-bcd1-d4f3b83d99db?v=1787407910000",
-    "images": [
-      "https://api.loyverse.com/image/ea52e235-7bdd-479f-bcd1-d4f3b83d99db?v=1787407910000"
-    ],
-    "category": "PRUEBA",
-    "rawCategory": "PRUEBA",
-    "variants": [
-      {
-        "id": "ec7a0d98-1329-4bbb-a0d0-1334b73ca6fa",
-        "sku": "11427",
-        "size": "S",
-        "color": "NEGRO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 9
-      },
-      {
-        "id": "bd29153c-1fc0-4c9b-800b-439132337210",
-        "sku": "11428",
-        "size": "S",
-        "color": "ROJO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 9
-      },
-      {
-        "id": "a73d1eaa-ee15-4476-ab63-005b9bbd2b2d",
-        "sku": "11429",
-        "size": "M",
-        "color": "NEGRO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 9
-      },
-      {
-        "id": "d85db33b-e071-41ad-9fb2-0d57e0ef3ff7",
-        "sku": "11430",
-        "size": "M",
-        "color": "ROJO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 9
-      },
-      {
-        "id": "c17b8f28-40e0-4665-a949-f4966cdd74bf",
-        "sku": "11431",
-        "size": "L",
-        "color": "NEGRO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 9
-      },
-      {
-        "id": "aeba7496-9167-448f-be71-7538e6ac7168",
-        "sku": "11432",
-        "size": "L",
-        "color": "ROJO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 10
-      },
-      {
-        "id": "bd2527b1-4c73-4a8b-8fa4-14e4fb7f8599",
-        "sku": "11433",
-        "size": "XL",
-        "color": "NEGRO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 9
-      },
-      {
-        "id": "fd616a64-043d-4e1a-a7b3-7f532cd839e1",
-        "sku": "11434",
-        "size": "XL",
-        "color": "ROJO",
-        "price": 40000,
-        "retailPrice": 60000,
-        "inStock": true,
-        "stock": 10
-      }
-    ],
-    "updated_at": "2026-08-22T14:11:50.000Z"
   },
   {
     "id": "6d564857-76c2-4ec6-8b00-617770ef188d",
@@ -1085,7 +999,7 @@
         "price": 50000,
         "retailPrice": 75000,
         "inStock": true,
-        "stock": 10
+        "stock": 9
       },
       {
         "id": "95694aff-a7c1-438c-a42f-3f78c9c00c47",
@@ -1118,6 +1032,7 @@
         "stock": 10
       }
     ],
+    "created_at": "2026-08-22T11:36:54.000Z",
     "updated_at": "2026-08-24T19:53:21.000Z"
   },
   {
@@ -1140,7 +1055,7 @@
         "price": 40000,
         "retailPrice": 65000,
         "inStock": true,
-        "stock": 8
+        "stock": 7
       },
       {
         "id": "9d1aa7bb-e452-4391-af20-20c45371f71f",
@@ -1173,18 +1088,19 @@
         "stock": 10
       }
     ],
+    "created_at": "2026-08-22T11:34:30.000Z",
     "updated_at": "2026-08-22T11:45:54.000Z"
   },
   {
     "id": "474cb990-012e-4dcb-a26c-b396c117616c",
-    "title": "Pola DAM",
+    "title": "POLO DAMA",
     "description": "Sin descripción disponible.",
     "price": 45000,
     "retailPrice": 58000,
     "modifierApplied": "T-Shirt",
-    "image": "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=1787257665000",
+    "image": "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=1788009833000",
     "images": [
-      "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=1787257665000"
+      "https://api.loyverse.com/image/474cb990-012e-4dcb-a26c-b396c117616c?v=1788009833000"
     ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
@@ -1210,7 +1126,8 @@
         "stock": 9
       }
     ],
-    "updated_at": "2026-08-20T20:27:45.000Z"
+    "created_at": "2026-08-18T17:54:03.000Z",
+    "updated_at": "2026-08-29T13:23:53.000Z"
   },
   {
     "id": "3cf76027-5cf8-47d0-9f66-c44de641b616",
@@ -1327,6 +1244,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-08-15T01:00:56.000Z",
     "updated_at": "2026-08-25T14:53:06.000Z"
   },
   {
@@ -1384,6 +1302,7 @@
         "stock": 9
       }
     ],
+    "created_at": "2026-08-15T00:39:58.000Z",
     "updated_at": "2026-08-25T14:50:36.000Z"
   },
   {
@@ -1501,6 +1420,7 @@
         "stock": 5
       }
     ],
+    "created_at": "2026-08-14T23:59:25.000Z",
     "updated_at": "2026-08-24T15:32:42.000Z"
   },
   {
@@ -1618,6 +1538,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-08-14T23:43:20.000Z",
     "updated_at": "2026-08-24T13:52:31.000Z"
   },
   {
@@ -1673,6 +1594,7 @@
         "stock": 31
       }
     ],
+    "created_at": "2026-08-12T01:45:56.000Z",
     "updated_at": "2026-08-12T01:47:52.000Z"
   },
   {
@@ -1730,6 +1652,7 @@
         "stock": 7
       }
     ],
+    "created_at": "2026-08-07T18:59:49.000Z",
     "updated_at": "2026-08-24T15:32:54.000Z"
   },
   {
@@ -1787,6 +1710,7 @@
         "stock": 7
       }
     ],
+    "created_at": "2026-08-07T18:56:56.000Z",
     "updated_at": "2026-08-24T13:52:06.000Z"
   },
   {
@@ -1854,6 +1778,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-08-07T17:42:09.000Z",
     "updated_at": "2026-08-22T13:26:11.000Z"
   },
   {
@@ -1878,7 +1803,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "40ab62e0-9c75-415e-a024-b864049b612c",
@@ -1921,6 +1846,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-08-05T00:02:31.000Z",
     "updated_at": "2026-08-21T15:16:42.000Z"
   },
   {
@@ -2018,6 +1944,7 @@
         "stock": 5
       }
     ],
+    "created_at": "2026-08-04T21:32:24.000Z",
     "updated_at": "2026-08-21T15:16:29.000Z"
   },
   {
@@ -2115,6 +2042,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-08-04T21:26:13.000Z",
     "updated_at": "2026-08-24T21:17:23.000Z"
   },
   {
@@ -2182,6 +2110,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-08-01T01:04:16.000Z",
     "updated_at": "2026-08-21T15:55:46.000Z"
   },
   {
@@ -2239,6 +2168,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-08-01T00:17:41.000Z",
     "updated_at": "2026-08-21T16:59:47.000Z"
   },
   {
@@ -2336,6 +2266,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-07-31T23:11:35.000Z",
     "updated_at": "2026-08-21T15:55:31.000Z"
   },
   {
@@ -2393,6 +2324,7 @@
         "stock": 8
       }
     ],
+    "created_at": "2026-07-31T23:09:32.000Z",
     "updated_at": "2026-08-21T15:55:18.000Z"
   },
   {
@@ -2490,6 +2422,7 @@
         "stock": 9
       }
     ],
+    "created_at": "2026-07-31T23:05:21.000Z",
     "updated_at": "2026-08-21T15:53:49.000Z"
   },
   {
@@ -2547,6 +2480,7 @@
         "stock": 8
       }
     ],
+    "created_at": "2026-07-31T17:58:06.000Z",
     "updated_at": "2026-08-21T16:59:17.000Z"
   },
   {
@@ -2644,6 +2578,7 @@
         "stock": 9
       }
     ],
+    "created_at": "2026-07-31T17:55:56.000Z",
     "updated_at": "2026-08-21T16:59:03.000Z"
   },
   {
@@ -2701,6 +2636,7 @@
         "stock": 8
       }
     ],
+    "created_at": "2026-07-31T17:49:24.000Z",
     "updated_at": "2026-08-21T16:58:46.000Z"
   },
   {
@@ -2710,9 +2646,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=1787603764000",
+    "image": "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=1787952315000",
     "images": [
-      "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=1787603764000"
+      "https://api.loyverse.com/image/ba3be14e-8526-4b82-affc-bd352c3ea09e?v=1787952315000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -2758,7 +2694,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T20:36:04.000Z"
+    "created_at": "2026-07-28T04:51:05.000Z",
+    "updated_at": "2026-08-28T21:25:15.000Z"
   },
   {
     "id": "6acfe0bf-cf43-4634-bb63-fa60afe0a74a",
@@ -2815,6 +2752,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-07-28T04:49:17.000Z",
     "updated_at": "2026-08-21T15:05:14.000Z"
   },
   {
@@ -2912,6 +2850,7 @@
         "stock": 9
       }
     ],
+    "created_at": "2026-07-28T04:47:16.000Z",
     "updated_at": "2026-08-21T15:04:59.000Z"
   },
   {
@@ -2956,7 +2895,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 3
+        "stock": 2
       },
       {
         "id": "b9ed6c3d-0762-451c-82f6-4a2a12880533",
@@ -3006,9 +2945,10 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": true,
-        "stock": 6
+        "stock": 5
       }
     ],
+    "created_at": "2026-07-28T04:45:45.000Z",
     "updated_at": "2026-08-21T15:04:44.000Z"
   },
   {
@@ -3066,6 +3006,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-07-28T04:43:46.000Z",
     "updated_at": "2026-08-21T15:04:27.000Z"
   },
   {
@@ -3110,7 +3051,7 @@
         "price": 45000,
         "retailPrice": 70000,
         "inStock": true,
-        "stock": 9
+        "stock": 8
       },
       {
         "id": "258e3dcf-9510-4203-8c20-1b2883a10d43",
@@ -3123,6 +3064,7 @@
         "stock": 9
       }
     ],
+    "created_at": "2026-07-27T21:49:15.000Z",
     "updated_at": "2026-08-21T20:20:59.000Z"
   },
   {
@@ -3180,6 +3122,7 @@
         "stock": 10
       }
     ],
+    "created_at": "2026-07-27T21:47:57.000Z",
     "updated_at": "2026-08-21T20:28:14.000Z"
   },
   {
@@ -3237,6 +3180,7 @@
         "stock": 9
       }
     ],
+    "created_at": "2026-07-27T21:46:11.000Z",
     "updated_at": "2026-08-21T20:59:27.000Z"
   },
   {
@@ -3294,6 +3238,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-07-25T17:22:39.000Z",
     "updated_at": "2026-08-24T20:03:25.000Z"
   },
   {
@@ -3391,6 +3336,7 @@
         "stock": 7
       }
     ],
+    "created_at": "2026-07-25T17:20:50.000Z",
     "updated_at": "2026-08-21T15:38:55.000Z"
   },
   {
@@ -3448,6 +3394,7 @@
         "stock": 6
       }
     ],
+    "created_at": "2026-07-25T16:51:23.000Z",
     "updated_at": "2026-08-21T15:38:38.000Z"
   },
   {
@@ -3505,6 +3452,7 @@
         "stock": 5
       }
     ],
+    "created_at": "2026-07-25T16:48:54.000Z",
     "updated_at": "2026-08-21T15:38:26.000Z"
   },
   {
@@ -3602,6 +3550,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-07-25T16:46:07.000Z",
     "updated_at": "2026-08-21T15:37:52.000Z"
   },
   {
@@ -3611,9 +3560,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=1787343645000",
+    "image": "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=1788010095000",
     "images": [
-      "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=1787343645000"
+      "https://api.loyverse.com/image/829e9f59-29e5-491e-8f23-c21a13ebe194?v=1788010095000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -3625,8 +3574,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 3
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "c88f26c8-e64b-42d1-84a1-4f26eb2e24bb",
@@ -3635,8 +3584,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "acf285ba-87c8-4755-a017-566f90a78a83",
@@ -3645,8 +3594,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "20a36574-e877-4c59-a19f-427c828a42cf",
@@ -3655,8 +3604,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "30aa98c8-0b2c-4362-a976-7d88e5ba979e",
@@ -3665,11 +3614,12 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-21T20:20:45.000Z"
+    "created_at": "2026-07-21T20:43:08.000Z",
+    "updated_at": "2026-08-29T13:28:15.000Z"
   },
   {
     "id": "b69a8bae-196d-4db4-b6f8-d7fccc705c59",
@@ -3766,6 +3716,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-07-21T20:36:29.000Z",
     "updated_at": "2026-08-21T20:20:28.000Z"
   },
   {
@@ -3883,6 +3834,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-07-21T18:36:21.000Z",
     "updated_at": "2026-08-21T21:01:55.000Z"
   },
   {
@@ -3980,6 +3932,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-07-21T16:41:23.000Z",
     "updated_at": "2026-08-21T21:00:05.000Z"
   },
   {
@@ -4037,6 +3990,7 @@
         "stock": 8
       }
     ],
+    "created_at": "2026-07-21T16:28:00.000Z",
     "updated_at": "2026-08-21T20:59:43.000Z"
   },
   {
@@ -4046,9 +4000,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=1787406267000",
+    "image": "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=1788010279000",
     "images": [
-      "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=1787406267000"
+      "https://api.loyverse.com/image/a325a186-ca3b-4780-866c-ba4b831dc645?v=1788010279000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -4060,8 +4014,8 @@
         "color": "Cobre",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "279167a8-39d4-4fcd-8d01-4b0f8cf14e5c",
@@ -4070,8 +4024,8 @@
         "color": "Cobre",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "c385bc56-f0f1-4ab2-89cd-dc9876945e70",
@@ -4080,8 +4034,8 @@
         "color": "Cobre",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 3
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "5c91cb85-2683-4baa-826d-13ebb7af928c",
@@ -4090,11 +4044,12 @@
         "color": "Cobre",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 3
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-22T13:44:27.000Z"
+    "created_at": "2026-07-17T18:36:07.000Z",
+    "updated_at": "2026-08-29T13:31:19.000Z"
   },
   {
     "id": "a6a9caa9-a2cc-460a-9e3a-332fa6aed660",
@@ -4151,6 +4106,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-07-17T02:30:52.000Z",
     "updated_at": "2026-08-22T13:45:12.000Z"
   },
   {
@@ -4248,6 +4204,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-07-17T02:29:08.000Z",
     "updated_at": "2026-08-22T13:44:40.000Z"
   },
   {
@@ -4302,7 +4259,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 5
+        "stock": 4
       },
       {
         "id": "7909c75d-b193-46dc-80bd-63d879ad8043",
@@ -4345,6 +4302,7 @@
         "stock": 7
       }
     ],
+    "created_at": "2026-07-17T02:26:38.000Z",
     "updated_at": "2026-08-22T13:43:42.000Z"
   },
   {
@@ -4390,6 +4348,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-07-15T05:17:42.000Z",
     "updated_at": "2026-07-15T16:53:31.000Z"
   },
   {
@@ -4447,6 +4406,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-07-15T04:34:41.000Z",
     "updated_at": "2026-08-24T16:49:48.000Z"
   },
   {
@@ -4504,6 +4464,7 @@
         "stock": 8
       }
     ],
+    "created_at": "2026-07-15T04:32:24.000Z",
     "updated_at": "2026-08-24T16:50:03.000Z"
   },
   {
@@ -4601,6 +4562,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-07-15T04:30:17.000Z",
     "updated_at": "2026-08-24T16:49:32.000Z"
   },
   {
@@ -4658,6 +4620,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-07-15T04:01:26.000Z",
     "updated_at": "2026-08-21T16:45:53.000Z"
   },
   {
@@ -4755,6 +4718,7 @@
         "stock": 6
       }
     ],
+    "created_at": "2026-07-15T03:56:10.000Z",
     "updated_at": "2026-08-24T17:04:07.000Z"
   },
   {
@@ -4802,6 +4766,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-07-10T22:55:52.000Z",
     "updated_at": "2026-08-21T20:28:26.000Z"
   },
   {
@@ -4811,9 +4776,9 @@
     "price": 23000,
     "retailPrice": 40000,
     "modifierApplied": "Body",
-    "image": "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=1787592139000",
+    "image": "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=1788010664000",
     "images": [
-      "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=1787592139000"
+      "https://api.loyverse.com/image/aa528cb6-2324-47c2-890f-5b1d8802fd9e?v=1788010664000"
     ],
     "category": "Linea de Damas",
     "rawCategory": "Body",
@@ -4825,8 +4790,8 @@
         "color": "Marfil/cafe",
         "price": 23000,
         "retailPrice": 40000,
-        "inStock": true,
-        "stock": 5
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "6bb42814-fb92-44bd-9ae6-7b387d9dfe3c",
@@ -4836,7 +4801,7 @@
         "price": 23000,
         "retailPrice": 40000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "85b93621-00b3-4278-9122-9d4b0f7b6b64",
@@ -4845,8 +4810,8 @@
         "color": "Negro",
         "price": 23000,
         "retailPrice": 40000,
-        "inStock": true,
-        "stock": 11
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "3f45bdfe-9b8c-44ba-8fbe-fd3abcdad4d4",
@@ -4859,7 +4824,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T17:22:19.000Z"
+    "created_at": "2026-07-10T20:50:00.000Z",
+    "updated_at": "2026-08-29T13:37:44.000Z"
   },
   {
     "id": "0753855f-2c3e-44c3-b6be-25a3fa1b9fae",
@@ -4912,8 +4878,8 @@
         "color": "Negro",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": -1
       },
       {
         "id": "0468ae91-2040-402d-9a2c-0bb948b5dc20",
@@ -4956,6 +4922,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-07-10T17:37:44.000Z",
     "updated_at": "2026-08-21T20:28:01.000Z"
   },
   {
@@ -5013,6 +4980,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-07-10T17:34:06.000Z",
     "updated_at": "2026-08-21T20:27:45.000Z"
   },
   {
@@ -5110,6 +5078,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-07-10T15:38:27.000Z",
     "updated_at": "2026-08-24T17:43:54.000Z"
   },
   {
@@ -5167,6 +5136,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-07-10T15:33:42.000Z",
     "updated_at": "2026-08-21T20:45:44.000Z"
   },
   {
@@ -5219,7 +5189,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 2
+        "stock": 1
       },
       {
         "id": "588d8e82-7bdd-43a5-a240-71b2c6ec2c1b",
@@ -5262,6 +5232,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-07-08T10:37:33.000Z",
     "updated_at": "2026-07-08T10:37:33.000Z"
   },
   {
@@ -5399,6 +5370,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-07-03T19:59:25.000Z",
     "updated_at": "2026-08-24T21:10:23.000Z"
   },
   {
@@ -5496,6 +5468,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-07-01T10:49:37.000Z",
     "updated_at": "2026-08-21T18:39:21.000Z"
   },
   {
@@ -5505,9 +5478,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=1787337549000",
+    "image": "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=1788009392000",
     "images": [
-      "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=1787337549000"
+      "https://api.loyverse.com/image/9c2336b9-d7cb-4e1d-8716-5faa5e75ffe9?v=1788009392000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -5539,8 +5512,8 @@
         "color": "Gris",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 3
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "e653bbf9-037a-440a-a5e1-1d77b7a9c17e",
@@ -5549,8 +5522,8 @@
         "color": "Marfil",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "91bf597c-1de1-4958-bcdb-65969d7258ed",
@@ -5593,7 +5566,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-21T18:39:09.000Z"
+    "created_at": "2026-07-01T10:45:17.000Z",
+    "updated_at": "2026-08-29T13:16:32.000Z"
   },
   {
     "id": "9277df94-f46c-4d8d-a598-6023ee51e517",
@@ -5650,6 +5624,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-06-26T16:22:13.000Z",
     "updated_at": "2026-08-21T18:48:39.000Z"
   },
   {
@@ -5747,6 +5722,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-06-26T16:19:02.000Z",
     "updated_at": "2026-08-21T18:48:28.000Z"
   },
   {
@@ -5864,6 +5840,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-26T16:14:43.000Z",
     "updated_at": "2026-08-21T18:48:15.000Z"
   },
   {
@@ -5981,6 +5958,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-26T14:53:20.000Z",
     "updated_at": "2026-08-21T20:45:23.000Z"
   },
   {
@@ -6078,6 +6056,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-06-26T14:46:13.000Z",
     "updated_at": "2026-08-21T20:45:11.000Z"
   },
   {
@@ -6175,6 +6154,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-26T14:41:49.000Z",
     "updated_at": "2026-08-21T20:44:57.000Z"
   },
   {
@@ -6252,6 +6232,7 @@
         "stock": -10
       }
     ],
+    "created_at": "2026-06-24T13:50:52.000Z",
     "updated_at": "2026-07-11T16:29:38.000Z"
   },
   {
@@ -6279,6 +6260,7 @@
         "stock": 6
       }
     ],
+    "created_at": "2026-06-23T21:24:49.000Z",
     "updated_at": "2026-08-24T17:39:33.000Z"
   },
   {
@@ -6288,9 +6270,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=1787593157000",
+    "image": "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=1788009465000",
     "images": [
-      "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=1787593157000"
+      "https://api.loyverse.com/image/267af233-1b84-498f-a825-460a47d73d27?v=1788009465000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -6302,8 +6284,8 @@
         "color": "Negro",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "a437d309-e79b-47bd-97a8-4b602ba5ac53",
@@ -6323,7 +6305,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "7c6fd103-695a-4d38-90b4-87b6100dbdfe",
@@ -6332,8 +6314,8 @@
         "color": "Marfil",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "fe00e58f-9af8-4d27-bd6d-c33f0c56f150",
@@ -6376,7 +6358,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T17:39:17.000Z"
+    "created_at": "2026-06-23T21:17:42.000Z",
+    "updated_at": "2026-08-29T13:17:45.000Z"
   },
   {
     "id": "5cf4828f-f9a8-4030-ab49-01d03381eab9",
@@ -6473,6 +6456,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-06-23T21:09:19.000Z",
     "updated_at": "2026-08-24T17:39:01.000Z"
   },
   {
@@ -6482,9 +6466,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=1787593123000",
+    "image": "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=1788009509000",
     "images": [
-      "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=1787593123000"
+      "https://api.loyverse.com/image/be2fbcde-b6dc-42ab-a2a3-81af6c5b12b6?v=1788009509000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -6526,8 +6510,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "e302c42b-ac57-4765-8735-4a11d4caa76a",
@@ -6590,7 +6574,8 @@
         "stock": 1
       }
     ],
-    "updated_at": "2026-08-24T17:38:43.000Z"
+    "created_at": "2026-06-23T21:06:56.000Z",
+    "updated_at": "2026-08-29T13:18:29.000Z"
   },
   {
     "id": "1722f12a-a954-420d-8ce6-67d7a848236a",
@@ -6612,10 +6597,11 @@
         "price": 32000,
         "retailPrice": 45000,
         "inStock": false,
-        "stock": -7
+        "stock": 0
       }
     ],
-    "updated_at": "2026-06-19T17:39:08.000Z"
+    "created_at": "2026-06-19T17:38:36.000Z",
+    "updated_at": "2026-08-28T21:44:13.000Z"
   },
   {
     "id": "f9a85cd5-3213-439f-859a-d618795edf7c",
@@ -6637,7 +6623,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "93be7e37-9ece-484f-9d97-6e903480dc68",
@@ -6670,7 +6656,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-06-23T21:26:36.000Z"
+    "created_at": "2026-06-19T17:32:21.000Z",
+    "updated_at": "2026-08-28T21:46:01.000Z"
   },
   {
     "id": "74ee583d-c95c-4a91-bb0e-d5eacfacc2d7",
@@ -6767,6 +6754,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-06-19T17:04:09.000Z",
     "updated_at": "2026-08-21T21:26:40.000Z"
   },
   {
@@ -6776,9 +6764,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=1787595947000",
+    "image": "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=1788011098000",
     "images": [
-      "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=1787595947000"
+      "https://api.loyverse.com/image/0f1692b8-fd91-46b8-b6a0-2c4752ae92fc?v=1788011098000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -6840,8 +6828,8 @@
         "color": "Gris",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "31979f34-f363-43d4-9888-047dd52ca039",
@@ -6864,7 +6852,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T18:25:47.000Z"
+    "created_at": "2026-06-19T17:00:25.000Z",
+    "updated_at": "2026-08-29T13:44:58.000Z"
   },
   {
     "id": "53485099-2953-46b9-9219-555841b9df6e",
@@ -6873,9 +6862,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=1787595934000",
+    "image": "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=1788011186000",
     "images": [
-      "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=1787595934000"
+      "https://api.loyverse.com/image/53485099-2953-46b9-9219-555841b9df6e?v=1788011186000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -6887,8 +6876,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "dbad796e-c8da-4470-84a7-a507a60573b0",
@@ -6927,8 +6916,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "01f751d5-660a-46ee-9f4b-07bfae4700b1",
@@ -6937,8 +6926,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "ae77ade0-2eef-4ba5-94f0-d672531c4a72",
@@ -6947,8 +6936,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "bbeb47fa-f7af-458e-b7e5-42b4df57305e",
@@ -6957,8 +6946,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "473d7bfe-1f14-47f6-82b6-57a339aca7c7",
@@ -6967,8 +6956,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "b757ae57-00af-45dd-96b3-9f60a51a4467",
@@ -6981,7 +6970,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T18:25:34.000Z"
+    "created_at": "2026-06-19T16:43:01.000Z",
+    "updated_at": "2026-08-29T13:46:26.000Z"
   },
   {
     "id": "02fc2488-6c32-4a1b-b677-944610fb4fc3",
@@ -6990,9 +6980,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=1787347589000",
+    "image": "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=1788009549000",
     "images": [
-      "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=1787347589000"
+      "https://api.loyverse.com/image/02fc2488-6c32-4a1b-b677-944610fb4fc3?v=1788009549000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7025,7 +7015,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "2b8db8d5-0211-4dcf-a860-67cb4bbe511b",
@@ -7044,8 +7034,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "8b53a3c4-22c3-44f4-8e60-b551274b1804",
@@ -7054,8 +7044,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "c2519ccf-fa95-45b3-8990-09fdef09112f",
@@ -7064,8 +7054,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "1fad6055-627e-4fb4-a873-396c79a6772a",
@@ -7098,7 +7088,8 @@
         "stock": 1
       }
     ],
-    "updated_at": "2026-08-21T21:26:29.000Z"
+    "created_at": "2026-06-19T16:38:00.000Z",
+    "updated_at": "2026-08-29T13:19:09.000Z"
   },
   {
     "id": "de0f9287-dd44-4428-a9e7-4511285ddc42",
@@ -7107,9 +7098,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=1787405530000",
+    "image": "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=1788009811000",
     "images": [
-      "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=1787405530000"
+      "https://api.loyverse.com/image/de0f9287-dd44-4428-a9e7-4511285ddc42?v=1788009811000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7131,8 +7122,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "cd767483-21da-4c62-ac45-389b19be8302",
@@ -7141,8 +7132,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "6a32fea5-9bb9-4a16-8232-5c022565cb2c",
@@ -7161,8 +7152,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "6b15d77d-20d9-47b3-bf31-627f06a5746f",
@@ -7171,8 +7162,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "8713339f-435a-4119-b5bb-95e2b3b3547c",
@@ -7215,7 +7206,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-22T13:32:10.000Z"
+    "created_at": "2026-06-16T21:54:47.000Z",
+    "updated_at": "2026-08-29T13:23:31.000Z"
   },
   {
     "id": "35431a9e-a049-4dec-b1d9-cdad86a58501",
@@ -7250,6 +7242,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-13T01:20:15.000Z",
     "updated_at": "2026-06-13T02:13:52.000Z"
   },
   {
@@ -7285,6 +7278,7 @@
         "stock": -1
       }
     ],
+    "created_at": "2026-06-13T01:17:10.000Z",
     "updated_at": "2026-06-13T02:21:40.000Z"
   },
   {
@@ -7340,6 +7334,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-13T01:13:05.000Z",
     "updated_at": "2026-06-13T01:13:05.000Z"
   },
   {
@@ -7437,6 +7432,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-12T21:59:20.000Z",
     "updated_at": "2026-08-22T13:31:56.000Z"
   },
   {
@@ -7446,9 +7442,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=1787405501000",
+    "image": "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=1788011234000",
     "images": [
-      "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=1787405501000"
+      "https://api.loyverse.com/image/93138547-0ed7-4708-aeff-e795a7f5d993?v=1788011234000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -7481,7 +7477,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "34b4d8ef-428b-4f65-b58d-59a145433f8b",
@@ -7490,11 +7486,12 @@
         "color": "Marfil",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-22T13:31:41.000Z"
+    "created_at": "2026-06-12T21:55:14.000Z",
+    "updated_at": "2026-08-29T13:47:14.000Z"
   },
   {
     "id": "aa42c8ba-0177-4455-9ca7-ac27f7a828f8",
@@ -7503,9 +7500,9 @@
     "price": 38000,
     "retailPrice": 55000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=1787586522000",
+    "image": "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=1787953134000",
     "images": [
-      "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=1787586522000"
+      "https://api.loyverse.com/image/aa42c8ba-0177-4455-9ca7-ac27f7a828f8?v=1787953134000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -7518,7 +7515,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "b4eddff9-6b58-4f8d-bca8-d4eaf6295828",
@@ -7527,8 +7524,8 @@
         "color": "Camell",
         "price": 38000,
         "retailPrice": 55000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "8501caf8-e49c-4e73-b0be-89f8079ea718",
@@ -7551,7 +7548,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T15:48:42.000Z"
+    "created_at": "2026-06-12T21:51:42.000Z",
+    "updated_at": "2026-08-28T21:38:54.000Z"
   },
   {
     "id": "7e9c2a4e-2822-485b-a11f-0667ff55a0a2",
@@ -7560,9 +7558,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=1787586510000",
+    "image": "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=1788010148000",
     "images": [
-      "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=1787586510000"
+      "https://api.loyverse.com/image/7e9c2a4e-2822-485b-a11f-0667ff55a0a2?v=1788010148000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -7594,8 +7592,8 @@
         "color": "Negro",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "9bf30d13-6d09-49ef-b784-f35602ab51ac",
@@ -7614,8 +7612,8 @@
         "color": "Negro",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "0ac496c2-7381-414e-a00e-cd91d2fd1718",
@@ -7624,8 +7622,8 @@
         "color": "MoraLeche",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "3c8fbdcb-1925-40ea-a3af-15f0241a1c31",
@@ -7635,7 +7633,7 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "f90a87a4-dc55-4a27-af95-1a7e5e5623c4",
@@ -7645,10 +7643,11 @@
         "price": 46000,
         "retailPrice": 65000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T15:48:30.000Z"
+    "created_at": "2026-06-12T21:46:54.000Z",
+    "updated_at": "2026-08-29T13:29:08.000Z"
   },
   {
     "id": "c6b55134-f64c-4aaa-88f7-e6e4455cf262",
@@ -7657,9 +7656,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=1787586497000",
+    "image": "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=1788010217000",
     "images": [
-      "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=1787586497000"
+      "https://api.loyverse.com/image/c6b55134-f64c-4aaa-88f7-e6e4455cf262?v=1788010217000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7701,8 +7700,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "77df65e0-8e33-49cf-9f81-8804ace553ba",
@@ -7715,7 +7714,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T15:48:17.000Z"
+    "created_at": "2026-06-12T21:40:03.000Z",
+    "updated_at": "2026-08-29T13:30:17.000Z"
   },
   {
     "id": "9c17f9fa-9196-4ce1-9fe2-d4dfc4668251",
@@ -7852,6 +7852,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-10T00:00:41.000Z",
     "updated_at": "2026-08-24T15:57:54.000Z"
   },
   {
@@ -7949,6 +7950,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-06-09T23:50:49.000Z",
     "updated_at": "2026-08-24T15:57:39.000Z"
   },
   {
@@ -7958,9 +7960,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=1787587038000",
+    "image": "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=1788010250000",
     "images": [
-      "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=1787587038000"
+      "https://api.loyverse.com/image/39f1fe1e-c8e3-4694-b0e6-0ae5a6316bd8?v=1788010250000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -7982,8 +7984,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "54511799-6a88-49aa-9439-9aaee451ae82",
@@ -7992,8 +7994,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "efb1ee81-ce51-4c49-9335-13ac27b2448a",
@@ -8016,7 +8018,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T15:57:18.000Z"
+    "created_at": "2026-06-09T23:50:11.000Z",
+    "updated_at": "2026-08-29T13:30:50.000Z"
   },
   {
     "id": "c65163b9-6167-40d2-a4ff-fc6a2824cffb",
@@ -8025,9 +8028,9 @@
     "price": 33000,
     "retailPrice": 53000,
     "modifierApplied": "Oversize Algodon",
-    "image": "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=1781316643000",
+    "image": "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=1787953503000",
     "images": [
-      "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=1781316643000"
+      "https://api.loyverse.com/image/c65163b9-6167-40d2-a4ff-fc6a2824cffb?v=1787953503000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Algodon",
@@ -8050,7 +8053,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": false,
-        "stock": -5
+        "stock": 0
       },
       {
         "id": "fcd1eee3-8461-41de-a764-eb8dc418486b",
@@ -8073,7 +8076,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-06-13T02:10:43.000Z"
+    "created_at": "2026-06-05T21:24:19.000Z",
+    "updated_at": "2026-08-28T21:45:03.000Z"
   },
   {
     "id": "a3875dcb-0fe7-4b27-b6c1-46c4e7cca460",
@@ -8082,9 +8086,9 @@
     "price": 33000,
     "retailPrice": 50000,
     "modifierApplied": "Esqueleto",
-    "image": "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=1787590761000",
+    "image": "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=1787953200000",
     "images": [
-      "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=1787590761000"
+      "https://api.loyverse.com/image/a3875dcb-0fe7-4b27-b6c1-46c4e7cca460?v=1787953200000"
     ],
     "category": "Esqueleto",
     "rawCategory": "Esqueleto",
@@ -8126,8 +8130,8 @@
         "color": "Negro",
         "price": 33000,
         "retailPrice": 50000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "3f686b40-c0df-4a47-9f5d-23d41800fa73",
@@ -8136,8 +8140,8 @@
         "color": "Camell",
         "price": 33000,
         "retailPrice": 50000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "f8073f86-a0c1-472f-8215-b3781e3d0800",
@@ -8146,8 +8150,8 @@
         "color": "Negro",
         "price": 33000,
         "retailPrice": 50000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "856c5d8b-f9ab-4b60-9e9b-00c871bdb600",
@@ -8170,7 +8174,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T16:59:21.000Z"
+    "created_at": "2026-06-05T21:20:04.000Z",
+    "updated_at": "2026-08-28T21:40:00.000Z"
   },
   {
     "id": "6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b",
@@ -8179,9 +8184,9 @@
     "price": 46000,
     "retailPrice": 65000,
     "modifierApplied": "Oversize AcidWash",
-    "image": "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=1787590740000",
+    "image": "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=1787953164000",
     "images": [
-      "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=1787590740000"
+      "https://api.loyverse.com/image/6ffb575b-9bf6-4d2c-96ef-1a580e24fb6b?v=1787953164000"
     ],
     "category": "Acidwash",
     "rawCategory": "Oversize AcidWash",
@@ -8233,8 +8238,8 @@
         "color": "Negro",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "25eaf09c-b145-422b-91c6-82290ab8b50a",
@@ -8263,8 +8268,8 @@
         "color": "Negro",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "c51c465e-13af-4a6b-91e2-c54bf2294e92",
@@ -8273,8 +8278,8 @@
         "color": "Gris",
         "price": 46000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "84307cfa-5f14-4e86-9bd0-ff366030d79e",
@@ -8307,7 +8312,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T16:59:00.000Z"
+    "created_at": "2026-06-05T21:09:25.000Z",
+    "updated_at": "2026-08-28T21:39:24.000Z"
   },
   {
     "id": "baf488d2-2044-4684-acff-e40b5ca2ba5c",
@@ -8316,9 +8322,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=1780693321000",
+    "image": "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=1787952174000",
     "images": [
-      "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=1780693321000"
+      "https://api.loyverse.com/image/baf488d2-2044-4684-acff-e40b5ca2ba5c?v=1787952174000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -8331,7 +8337,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       },
       {
         "id": "b96fdb1a-2448-4715-ba63-c351c3ee5b14",
@@ -8361,7 +8367,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "4ec778ce-0bc2-4b4a-adad-05123351d081",
@@ -8374,7 +8380,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-06-05T21:02:01.000Z"
+    "created_at": "2026-06-05T21:02:01.000Z",
+    "updated_at": "2026-08-28T21:22:54.000Z"
   },
   {
     "id": "219dbb26-191f-40b1-aa0f-aabfc478bb42",
@@ -8383,9 +8390,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=1787592771000",
+    "image": "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=1788010627000",
     "images": [
-      "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=1787592771000"
+      "https://api.loyverse.com/image/219dbb26-191f-40b1-aa0f-aabfc478bb42?v=1788010627000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -8397,8 +8404,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "cd102459-a882-4534-b35a-ceed9b3dde96",
@@ -8437,11 +8444,12 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T17:32:51.000Z"
+    "created_at": "2026-06-02T16:36:29.000Z",
+    "updated_at": "2026-08-29T13:37:07.000Z"
   },
   {
     "id": "f1a3ee69-aacc-4b24-8962-3a8dea6e955b",
@@ -8568,6 +8576,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-02T16:15:11.000Z",
     "updated_at": "2026-08-24T17:32:39.000Z"
   },
   {
@@ -8577,9 +8586,9 @@
     "price": 32000,
     "retailPrice": 45000,
     "modifierApplied": "T-Shirt",
-    "image": "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=1787592746000",
+    "image": "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=1788010921000",
     "images": [
-      "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=1787592746000"
+      "https://api.loyverse.com/image/a384f582-7e6a-44f7-b4d4-b36c82464a23?v=1788010921000"
     ],
     "category": "Oversize",
     "rawCategory": "T-Shirt",
@@ -8591,8 +8600,8 @@
         "color": "Negro",
         "price": 32000,
         "retailPrice": 45000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "63ccb93a-6193-43eb-82a8-bec78d62f605",
@@ -8601,11 +8610,12 @@
         "color": "Marfil",
         "price": 32000,
         "retailPrice": 45000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T17:32:26.000Z"
+    "created_at": "2026-06-02T15:56:04.000Z",
+    "updated_at": "2026-08-29T13:42:01.000Z"
   },
   {
     "id": "8d582871-3fcd-493c-bc60-fba7ececddcd",
@@ -8672,6 +8682,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-06-02T15:51:32.000Z",
     "updated_at": "2026-08-28T16:45:32.000Z"
   },
   {
@@ -8697,6 +8708,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-06-01T14:27:52.000Z",
     "updated_at": "2026-06-01T14:27:52.000Z"
   },
   {
@@ -8774,6 +8786,7 @@
         "stock": -1
       }
     ],
+    "created_at": "2026-05-29T23:56:38.000Z",
     "updated_at": "2026-05-29T23:56:38.000Z"
   },
   {
@@ -8783,9 +8796,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=1787593727000",
+    "image": "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=1788009290000",
     "images": [
-      "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=1787593727000"
+      "https://api.loyverse.com/image/4989c941-1ab9-4b54-bf74-70f211681c6a?v=1788009290000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -8817,8 +8830,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "53d43fdd-8e93-4db6-b74c-5016b0e59966",
@@ -8837,8 +8850,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "5c52f292-b870-4cbc-a83f-29ca231fa64f",
@@ -8857,8 +8870,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "6dee763f-3d44-4e2d-a6b9-746d9b4819ba",
@@ -8867,8 +8880,8 @@
         "color": "Azul",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "b3fb083f-482c-40d0-a2ed-e777697ba4bd",
@@ -8891,7 +8904,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T17:48:47.000Z"
+    "created_at": "2026-05-29T22:23:10.000Z",
+    "updated_at": "2026-08-29T13:14:50.000Z"
   },
   {
     "id": "25f246e2-c7c8-4146-a4c5-515137604a93",
@@ -8900,9 +8914,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=1787593890000",
+    "image": "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=1787952357000",
     "images": [
-      "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=1787593890000"
+      "https://api.loyverse.com/image/25f246e2-c7c8-4146-a4c5-515137604a93?v=1787952357000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -8935,7 +8949,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       },
       {
         "id": "af48a750-8573-4a8e-ae57-d95c345bc119",
@@ -8974,8 +8988,8 @@
         "color": "Azul",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "85a4d845-746d-4e58-aabe-c3f646fa3ea6",
@@ -8984,8 +8998,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "bf46f301-462e-4626-ab57-bc59ea3d164c",
@@ -8994,8 +9008,8 @@
         "color": "Azul",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "75de45d0-49c0-4ac9-bc5c-9cc893535a5f",
@@ -9004,11 +9018,12 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-24T17:51:30.000Z"
+    "created_at": "2026-05-29T22:16:38.000Z",
+    "updated_at": "2026-08-28T21:25:57.000Z"
   },
   {
     "id": "a11c58b8-1e6a-4ad7-a3a0-275123f56e22",
@@ -9045,6 +9060,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-27T00:28:31.000Z",
     "updated_at": "2026-05-27T00:28:31.000Z"
   },
   {
@@ -9122,6 +9138,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-27T00:19:33.000Z",
     "updated_at": "2026-08-28T16:44:46.000Z"
   },
   {
@@ -9187,6 +9204,7 @@
         "stock": -2
       }
     ],
+    "created_at": "2026-05-27T00:12:47.000Z",
     "updated_at": "2026-06-02T16:02:21.000Z"
   },
   {
@@ -9224,6 +9242,7 @@
         "stock": 5
       }
     ],
+    "created_at": "2026-05-22T15:29:45.000Z",
     "updated_at": "2026-08-25T14:42:29.000Z"
   },
   {
@@ -9233,9 +9252,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=1787668930000",
+    "image": "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=1788011217000",
     "images": [
-      "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=1787668930000"
+      "https://api.loyverse.com/image/1a798779-4003-4d50-b078-0f66a0d3e582?v=1788011217000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -9247,8 +9266,8 @@
         "color": "Azul",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "f1bfef92-794f-42f6-9961-ca14811cf349",
@@ -9287,8 +9306,8 @@
         "color": "Azul",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "f573dd44-3061-40bc-8a53-296b811760a9",
@@ -9307,8 +9326,8 @@
         "color": "Azul",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "86f2e29b-741f-43e0-be08-a0ac807b5656",
@@ -9317,8 +9336,8 @@
         "color": "Negro",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "171e53d8-aa2d-488f-bc3a-ca5f932bfda6",
@@ -9327,8 +9346,8 @@
         "color": "Azul",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "8a2512dc-8ee8-4ca3-a49b-1221c3760598",
@@ -9338,10 +9357,11 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
-    "updated_at": "2026-08-25T14:42:10.000Z"
+    "created_at": "2026-05-22T13:45:20.000Z",
+    "updated_at": "2026-08-29T13:46:57.000Z"
   },
   {
     "id": "ccdfc9e2-ca04-437b-8c83-e4d8d7d6fa7a",
@@ -9438,6 +9458,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-22T13:40:26.000Z",
     "updated_at": "2026-08-25T14:41:25.000Z"
   },
   {
@@ -9615,6 +9636,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-22T13:32:45.000Z",
     "updated_at": "2026-08-25T14:41:09.000Z"
   },
   {
@@ -9682,6 +9704,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-16T21:40:38.000Z",
     "updated_at": "2026-08-25T14:46:06.000Z"
   },
   {
@@ -9691,9 +9714,9 @@
     "price": 108000,
     "retailPrice": 140000,
     "modifierApplied": "Buzo AcidWash",
-    "image": "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=1780330739000",
+    "image": "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=1788011485000",
     "images": [
-      "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=1780330739000"
+      "https://api.loyverse.com/image/2e91c7d4-70f1-4649-bfe1-b072075a215b?v=1788011485000"
     ],
     "category": "Acidwash",
     "rawCategory": "Buzo AcidWash",
@@ -9706,7 +9729,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       },
       {
         "id": "4f1c4ea1-13de-4418-998d-dc36648162fa",
@@ -9725,8 +9748,8 @@
         "color": "Gris",
         "price": 108000,
         "retailPrice": 140000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "a15aab67-28d8-4d32-b77d-453f0f6b5d4a",
@@ -9736,7 +9759,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "d62a8da0-3d99-4588-8eb3-f45194e674c1",
@@ -9746,10 +9769,11 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       }
     ],
-    "updated_at": "2026-06-01T16:18:59.000Z"
+    "created_at": "2026-05-16T21:39:05.000Z",
+    "updated_at": "2026-08-29T13:51:25.000Z"
   },
   {
     "id": "33e1e9e6-fba4-4185-9b74-325011e355df",
@@ -9846,6 +9870,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-16T21:36:02.000Z",
     "updated_at": "2026-05-21T16:46:42.000Z"
   },
   {
@@ -9871,6 +9896,7 @@
         "stock": -2
       }
     ],
+    "created_at": "2026-05-15T17:26:49.000Z",
     "updated_at": "2026-05-15T17:26:49.000Z"
   },
   {
@@ -9906,6 +9932,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-15T17:18:25.000Z",
     "updated_at": "2026-05-15T17:18:25.000Z"
   },
   {
@@ -9941,6 +9968,7 @@
         "stock": 10
       }
     ],
+    "created_at": "2026-05-15T17:08:46.000Z",
     "updated_at": "2026-05-15T17:29:19.000Z"
   },
   {
@@ -10038,6 +10066,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-15T02:30:18.000Z",
     "updated_at": "2026-05-15T06:44:12.000Z"
   },
   {
@@ -10095,6 +10124,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-15T01:37:48.000Z",
     "updated_at": "2026-05-15T06:48:17.000Z"
   },
   {
@@ -10192,6 +10222,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-05-15T00:04:31.000Z",
     "updated_at": "2026-05-21T22:09:05.000Z"
   },
   {
@@ -10269,6 +10300,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-14T23:56:26.000Z",
     "updated_at": "2026-06-01T14:46:37.000Z"
   },
   {
@@ -10366,6 +10398,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-14T23:53:55.000Z",
     "updated_at": "2026-05-21T22:08:11.000Z"
   },
   {
@@ -10503,6 +10536,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-13T21:57:11.000Z",
     "updated_at": "2026-05-15T17:00:22.000Z"
   },
   {
@@ -10580,6 +10614,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-13T21:50:22.000Z",
     "updated_at": "2026-08-28T16:44:23.000Z"
   },
   {
@@ -10697,6 +10732,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-13T21:35:29.000Z",
     "updated_at": "2026-05-15T16:59:23.000Z"
   },
   {
@@ -10752,6 +10788,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-05-13T18:01:36.000Z",
     "updated_at": "2026-06-02T14:30:47.000Z"
   },
   {
@@ -10809,6 +10846,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-13T12:30:23.000Z",
     "updated_at": "2026-05-21T22:07:50.000Z"
   },
   {
@@ -10866,6 +10904,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-13T12:20:09.000Z",
     "updated_at": "2026-05-21T22:08:22.000Z"
   },
   {
@@ -10891,6 +10930,7 @@
         "stock": 5
       }
     ],
+    "created_at": "2026-05-12T22:54:10.000Z",
     "updated_at": "2026-05-12T23:15:09.000Z"
   },
   {
@@ -10946,6 +10986,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T22:35:53.000Z",
     "updated_at": "2026-06-13T02:23:07.000Z"
   },
   {
@@ -10981,6 +11022,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-12T22:28:51.000Z",
     "updated_at": "2026-05-12T22:28:51.000Z"
   },
   {
@@ -11058,6 +11100,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T19:59:24.000Z",
     "updated_at": "2026-08-28T16:45:09.000Z"
   },
   {
@@ -11113,6 +11156,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T19:28:00.000Z",
     "updated_at": "2026-06-01T16:04:46.000Z"
   },
   {
@@ -11138,6 +11182,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T18:54:34.000Z",
     "updated_at": "2026-05-21T22:11:08.000Z"
   },
   {
@@ -11165,6 +11210,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T18:48:11.000Z",
     "updated_at": "2026-05-21T22:13:00.000Z"
   },
   {
@@ -11242,6 +11288,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T18:41:12.000Z",
     "updated_at": "2026-05-21T22:11:22.000Z"
   },
   {
@@ -11269,6 +11316,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-12T18:33:18.000Z",
     "updated_at": "2026-05-21T22:11:58.000Z"
   },
   {
@@ -11296,6 +11344,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-05-12T18:30:00.000Z",
     "updated_at": "2026-06-01T15:13:17.000Z"
   },
   {
@@ -11323,6 +11372,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T18:25:32.000Z",
     "updated_at": "2026-05-21T22:13:22.000Z"
   },
   {
@@ -11370,6 +11420,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-12T18:21:46.000Z",
     "updated_at": "2026-05-21T22:14:06.000Z"
   },
   {
@@ -11407,6 +11458,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-12T18:08:15.000Z",
     "updated_at": "2026-05-21T22:11:14.000Z"
   },
   {
@@ -11434,6 +11486,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-12T18:07:06.000Z",
     "updated_at": "2026-05-21T22:12:38.000Z"
   },
   {
@@ -11491,6 +11544,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-12T18:01:27.000Z",
     "updated_at": "2026-05-21T22:10:11.000Z"
   },
   {
@@ -11588,6 +11642,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T17:47:37.000Z",
     "updated_at": "2026-05-21T22:10:02.000Z"
   },
   {
@@ -11725,6 +11780,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T17:34:57.000Z",
     "updated_at": "2026-05-21T22:14:13.000Z"
   },
   {
@@ -11782,6 +11838,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-12T17:10:11.000Z",
     "updated_at": "2026-05-21T22:11:52.000Z"
   },
   {
@@ -11807,6 +11864,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T18:14:29.000Z",
     "updated_at": "2026-05-11T18:14:29.000Z"
   },
   {
@@ -11828,11 +11886,12 @@
         "color": null,
         "price": 45000,
         "retailPrice": 45000,
-        "inStock": true,
-        "stock": 1
+        "inStock": false,
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-13T18:54:57.000Z"
+    "created_at": "2026-05-11T18:14:07.000Z",
+    "updated_at": "2026-08-28T21:31:57.000Z"
   },
   {
     "id": "e0195b48-28b6-4f4b-9b1a-ce86a44e9ec8",
@@ -11854,7 +11913,7 @@
         "price": 40000,
         "retailPrice": 40000,
         "inStock": false,
-        "stock": -15
+        "stock": 0
       },
       {
         "id": "f52294d0-0bd2-47cb-b9f6-05aba3e5568d",
@@ -11867,7 +11926,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-13T18:50:17.000Z"
+    "created_at": "2026-05-11T18:13:44.000Z",
+    "updated_at": "2026-08-28T21:31:30.000Z"
   },
   {
     "id": "6a3be319-3265-4f64-9357-3250c633d45d",
@@ -11932,6 +11992,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T18:12:42.000Z",
     "updated_at": "2026-05-11T18:12:42.000Z"
   },
   {
@@ -11954,7 +12015,7 @@
         "price": 50000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       },
       {
         "id": "2d7d3100-7c60-4054-a6fd-4b5001ef0f0f",
@@ -12027,7 +12088,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-12T22:51:41.000Z"
+    "created_at": "2026-05-11T18:11:20.000Z",
+    "updated_at": "2026-08-28T21:42:31.000Z"
   },
   {
     "id": "98ec92cb-6502-4014-befc-0455fddbb269",
@@ -12062,6 +12124,7 @@
         "stock": 5
       }
     ],
+    "created_at": "2026-05-11T18:09:22.000Z",
     "updated_at": "2026-05-16T15:16:49.000Z"
   },
   {
@@ -12117,6 +12180,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-05-11T18:06:50.000Z",
     "updated_at": "2026-08-20T17:29:21.000Z"
   },
   {
@@ -12149,7 +12213,7 @@
         "price": 130000,
         "retailPrice": 130000,
         "inStock": false,
-        "stock": -4
+        "stock": 0
       },
       {
         "id": "a7fc892b-51ca-46c0-a78f-453ec4c80c85",
@@ -12212,7 +12276,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-11T18:05:43.000Z"
+    "created_at": "2026-05-11T18:05:43.000Z",
+    "updated_at": "2026-08-28T21:26:43.000Z"
   },
   {
     "id": "9c61ad68-ded4-47a8-9643-8157ff5f24a7",
@@ -12237,6 +12302,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T18:03:53.000Z",
     "updated_at": "2026-05-11T18:03:53.000Z"
   },
   {
@@ -12349,7 +12415,7 @@
         "price": null,
         "retailPrice": null,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "5e0f0f08-e0c3-4d93-a1c4-22e0a1d45484",
@@ -12369,7 +12435,7 @@
         "price": null,
         "retailPrice": null,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "ed4992b6-aaea-4c9c-8f5e-de0eb98eb458",
@@ -12532,7 +12598,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-11T17:56:39.000Z"
+    "created_at": "2026-05-11T17:56:39.000Z",
+    "updated_at": "2026-08-28T21:41:08.000Z"
   },
   {
     "id": "6fe57058-054f-4a9c-9657-9cf54d5125c8",
@@ -12709,6 +12776,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-11T15:16:18.000Z",
     "updated_at": "2026-06-02T20:43:20.000Z"
   },
   {
@@ -12806,6 +12874,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T15:13:22.000Z",
     "updated_at": "2026-06-01T14:44:46.000Z"
   },
   {
@@ -12893,6 +12962,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-11T15:11:30.000Z",
     "updated_at": "2026-06-02T14:32:23.000Z"
   },
   {
@@ -12940,6 +13010,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T15:07:52.000Z",
     "updated_at": "2026-06-01T14:33:45.000Z"
   },
   {
@@ -12975,6 +13046,7 @@
         "stock": 12
       }
     ],
+    "created_at": "2026-05-11T15:04:57.000Z",
     "updated_at": "2026-05-13T19:00:35.000Z"
   },
   {
@@ -13032,6 +13104,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T15:02:43.000Z",
     "updated_at": "2026-06-13T02:22:34.000Z"
   },
   {
@@ -13169,6 +13242,7 @@
         "stock": 3
       }
     ],
+    "created_at": "2026-05-11T14:59:15.000Z",
     "updated_at": "2026-06-13T01:09:18.000Z"
   },
   {
@@ -13286,6 +13360,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-11T14:54:47.000Z",
     "updated_at": "2026-06-01T16:10:05.000Z"
   },
   {
@@ -13353,6 +13428,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:53:37.000Z",
     "updated_at": "2026-05-12T20:50:04.000Z"
   },
   {
@@ -13420,6 +13496,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-11T14:52:35.000Z",
     "updated_at": "2026-06-01T18:09:29.000Z"
   },
   {
@@ -13487,6 +13564,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:51:32.000Z",
     "updated_at": "2026-05-12T20:39:13.000Z"
   },
   {
@@ -13554,6 +13632,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:49:55.000Z",
     "updated_at": "2026-06-01T18:00:48.000Z"
   },
   {
@@ -13621,6 +13700,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:46:39.000Z",
     "updated_at": "2026-05-12T20:45:46.000Z"
   },
   {
@@ -13688,6 +13768,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:44:28.000Z",
     "updated_at": "2026-06-01T16:23:12.000Z"
   },
   {
@@ -13725,6 +13806,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:41:28.000Z",
     "updated_at": "2026-05-12T21:16:30.000Z"
   },
   {
@@ -13762,6 +13844,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:40:03.000Z",
     "updated_at": "2026-05-17T19:32:40.000Z"
   },
   {
@@ -13799,6 +13882,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-11T14:37:23.000Z",
     "updated_at": "2026-05-12T22:25:18.000Z"
   },
   {
@@ -13836,6 +13920,7 @@
         "stock": 4
       }
     ],
+    "created_at": "2026-05-11T14:31:41.000Z",
     "updated_at": "2026-06-01T14:25:36.000Z"
   },
   {
@@ -13873,6 +13958,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-11T14:23:59.000Z",
     "updated_at": "2026-05-12T22:25:54.000Z"
   },
   {
@@ -13910,6 +13996,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-11T14:21:26.000Z",
     "updated_at": "2026-05-12T22:23:57.000Z"
   },
   {
@@ -13967,6 +14054,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T14:19:46.000Z",
     "updated_at": "2026-05-12T21:15:19.000Z"
   },
   {
@@ -14024,6 +14112,7 @@
         "stock": 2
       }
     ],
+    "created_at": "2026-05-11T14:18:12.000Z",
     "updated_at": "2026-05-12T21:10:30.000Z"
   },
   {
@@ -14081,6 +14170,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-11T14:16:03.000Z",
     "updated_at": "2026-05-12T21:27:58.000Z"
   },
   {
@@ -14218,6 +14308,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:59:30.000Z",
     "updated_at": "2026-06-02T15:21:23.000Z"
   },
   {
@@ -14315,6 +14406,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:58:20.000Z",
     "updated_at": "2026-06-02T14:34:47.000Z"
   },
   {
@@ -14412,6 +14504,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:57:09.000Z",
     "updated_at": "2026-06-01T14:42:20.000Z"
   },
   {
@@ -14589,6 +14682,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:55:50.000Z",
     "updated_at": "2026-05-13T10:54:13.000Z"
   },
   {
@@ -14686,6 +14780,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:45:57.000Z",
     "updated_at": "2026-06-01T14:43:38.000Z"
   },
   {
@@ -14783,6 +14878,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:44:20.000Z",
     "updated_at": "2026-05-13T10:50:53.000Z"
   },
   {
@@ -14880,6 +14976,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:42:52.000Z",
     "updated_at": "2026-05-13T10:47:32.000Z"
   },
   {
@@ -14977,6 +15074,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:39:35.000Z",
     "updated_at": "2026-05-13T10:47:17.000Z"
   },
   {
@@ -15074,6 +15172,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:31:53.000Z",
     "updated_at": "2026-05-13T10:52:04.000Z"
   },
   {
@@ -15131,6 +15230,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:30:24.000Z",
     "updated_at": "2026-05-13T10:48:33.000Z"
   },
   {
@@ -15188,6 +15288,7 @@
         "stock": -1
       }
     ],
+    "created_at": "2026-05-11T13:28:50.000Z",
     "updated_at": "2026-05-13T17:17:05.000Z"
   },
   {
@@ -15285,6 +15386,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-11T13:26:59.000Z",
     "updated_at": "2026-05-13T10:53:46.000Z"
   },
   {
@@ -15420,6 +15522,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-09T16:41:06.000Z",
     "updated_at": "2026-05-13T17:11:31.000Z"
   },
   {
@@ -15515,6 +15618,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-09T16:37:44.000Z",
     "updated_at": "2026-05-13T10:47:54.000Z"
   },
   {
@@ -15570,6 +15674,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-09T16:35:22.000Z",
     "updated_at": "2026-05-13T10:51:02.000Z"
   },
   {
@@ -15625,6 +15730,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-09T16:33:42.000Z",
     "updated_at": "2026-05-13T18:26:48.000Z"
   },
   {
@@ -15722,6 +15828,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-09T16:28:40.000Z",
     "updated_at": "2026-05-12T23:55:18.000Z"
   },
   {
@@ -15779,6 +15886,7 @@
         "stock": -2
       }
     ],
+    "created_at": "2026-05-05T03:14:13.000Z",
     "updated_at": "2026-05-13T12:40:22.000Z"
   },
   {
@@ -15836,6 +15944,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T03:12:28.000Z",
     "updated_at": "2026-05-13T12:37:44.000Z"
   },
   {
@@ -15893,6 +16002,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T03:10:23.000Z",
     "updated_at": "2026-05-13T12:36:03.000Z"
   },
   {
@@ -15902,9 +16012,9 @@
     "price": 55000,
     "retailPrice": 75000,
     "modifierApplied": "Oversize Premium",
-    "image": "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=1781312826000",
+    "image": "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=1787953330000",
     "images": [
-      "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=1781312826000"
+      "https://api.loyverse.com/image/6b987eae-d0a1-443c-9f46-7c90b9d76a85?v=1787953330000"
     ],
     "category": "Oversize",
     "rawCategory": "Oversize Premium",
@@ -15917,7 +16027,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -4
+        "stock": 0
       },
       {
         "id": "d39425e7-2da4-4ff8-8f4a-44900cdbacd4",
@@ -15937,7 +16047,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "56679783-afc0-4185-94ae-34324047666a",
@@ -15947,7 +16057,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "ae9b9be4-007d-4509-8b81-39701b88336b",
@@ -15967,7 +16077,7 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "1e34532c-2432-4c1f-8f4f-a07b6a0cecd5",
@@ -16027,10 +16137,11 @@
         "price": 55000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
-    "updated_at": "2026-06-13T01:07:06.000Z"
+    "created_at": "2026-05-05T03:04:39.000Z",
+    "updated_at": "2026-08-28T21:42:10.000Z"
   },
   {
     "id": "f9e3eb88-7525-481d-87e0-2a01e5f2c2ea",
@@ -16077,6 +16188,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:57:04.000Z",
     "updated_at": "2026-08-28T16:44:10.000Z"
   },
   {
@@ -16124,6 +16236,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-05T02:55:36.000Z",
     "updated_at": "2026-06-01T14:48:48.000Z"
   },
   {
@@ -16171,6 +16284,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:52:27.000Z",
     "updated_at": "2026-05-12T19:38:42.000Z"
   },
   {
@@ -16218,6 +16332,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:50:44.000Z",
     "updated_at": "2026-08-28T16:44:56.000Z"
   },
   {
@@ -16295,6 +16410,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:48:57.000Z",
     "updated_at": "2026-08-28T16:45:20.000Z"
   },
   {
@@ -16352,6 +16468,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:43:39.000Z",
     "updated_at": "2026-05-21T22:08:57.000Z"
   },
   {
@@ -16409,6 +16526,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:28:44.000Z",
     "updated_at": "2026-06-01T14:57:50.000Z"
   },
   {
@@ -16506,6 +16624,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:26:46.000Z",
     "updated_at": "2026-05-21T22:08:00.000Z"
   },
   {
@@ -16603,6 +16722,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:22:31.000Z",
     "updated_at": "2026-05-21T22:08:49.000Z"
   },
   {
@@ -16660,6 +16780,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:16:14.000Z",
     "updated_at": "2026-05-21T22:10:27.000Z"
   },
   {
@@ -16717,6 +16838,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:12:37.000Z",
     "updated_at": "2026-06-01T15:11:49.000Z"
   },
   {
@@ -16751,7 +16873,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": true,
-        "stock": 6
+        "stock": 5
       },
       {
         "id": "301f221c-c501-4ca1-bf49-eb8e75df68ec",
@@ -16774,6 +16896,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:10:40.000Z",
     "updated_at": "2026-05-21T22:12:06.000Z"
   },
   {
@@ -16831,6 +16954,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:08:16.000Z",
     "updated_at": "2026-06-01T15:09:48.000Z"
   },
   {
@@ -16888,6 +17012,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:05:11.000Z",
     "updated_at": "2026-05-21T22:13:50.000Z"
   },
   {
@@ -16945,6 +17070,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T02:02:21.000Z",
     "updated_at": "2026-05-21T22:09:28.000Z"
   },
   {
@@ -17002,6 +17128,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:59:51.000Z",
     "updated_at": "2026-06-01T15:14:32.000Z"
   },
   {
@@ -17059,6 +17186,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:51:57.000Z",
     "updated_at": "2026-05-21T22:13:44.000Z"
   },
   {
@@ -17116,6 +17244,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:50:26.000Z",
     "updated_at": "2026-06-01T15:10:33.000Z"
   },
   {
@@ -17173,6 +17302,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:47:42.000Z",
     "updated_at": "2026-05-21T22:09:43.000Z"
   },
   {
@@ -17230,6 +17360,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:45:55.000Z",
     "updated_at": "2026-05-21T22:14:21.000Z"
   },
   {
@@ -17287,6 +17418,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:42:53.000Z",
     "updated_at": "2026-05-21T22:10:35.000Z"
   },
   {
@@ -17344,6 +17476,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:34:30.000Z",
     "updated_at": "2026-05-21T22:12:53.000Z"
   },
   {
@@ -17481,6 +17614,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:30:45.000Z",
     "updated_at": "2026-05-21T22:11:45.000Z"
   },
   {
@@ -17538,6 +17672,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:26:02.000Z",
     "updated_at": "2026-05-21T22:13:59.000Z"
   },
   {
@@ -17635,6 +17770,7 @@
         "stock": -1
       }
     ],
+    "created_at": "2026-05-05T01:23:42.000Z",
     "updated_at": "2026-05-21T22:13:16.000Z"
   },
   {
@@ -17692,6 +17828,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:21:35.000Z",
     "updated_at": "2026-05-21T22:11:00.000Z"
   },
   {
@@ -17749,6 +17886,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-05T01:19:21.000Z",
     "updated_at": "2026-05-21T22:12:30.000Z"
   },
   {
@@ -17806,6 +17944,7 @@
         "stock": 1
       }
     ],
+    "created_at": "2026-05-05T01:16:56.000Z",
     "updated_at": "2026-05-21T22:12:19.000Z"
   },
   {
@@ -17863,6 +18002,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2026-05-04T23:15:06.000Z",
     "updated_at": "2026-05-21T22:10:42.000Z"
   },
   {
@@ -17920,6 +18060,7 @@
         "stock": 7
       }
     ],
+    "created_at": "2026-05-04T18:47:34.000Z",
     "updated_at": "2026-05-21T22:09:20.000Z"
   },
   {
@@ -17942,7 +18083,7 @@
         "price": 45000,
         "retailPrice": 45000,
         "inStock": false,
-        "stock": -6
+        "stock": 0
       },
       {
         "id": "1b7011de-7ca1-4571-9b26-fe4bcc9bb1d7",
@@ -17952,7 +18093,7 @@
         "price": 45000,
         "retailPrice": 48000,
         "inStock": false,
-        "stock": -6
+        "stock": 0
       },
       {
         "id": "4570d345-679b-400c-876f-dd5e63941445",
@@ -17962,7 +18103,7 @@
         "price": 45000,
         "retailPrice": 32000,
         "inStock": false,
-        "stock": -8
+        "stock": 0
       },
       {
         "id": "316ff087-2790-4c58-a29a-f10c4e16a027",
@@ -17975,7 +18116,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-02T15:51:11.000Z"
+    "created_at": "2026-05-02T15:49:51.000Z",
+    "updated_at": "2026-08-28T21:34:20.000Z"
   },
   {
     "id": "3fd65cc3-c970-40e9-81a2-f8329da1addd",
@@ -17997,7 +18139,7 @@
         "price": 140000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -13
+        "stock": 0
       },
       {
         "id": "0cf53f27-5b6b-43fa-8650-d534c37605a5",
@@ -18007,7 +18149,7 @@
         "price": 140000,
         "retailPrice": 143000,
         "inStock": false,
-        "stock": -5
+        "stock": 0
       },
       {
         "id": "805bab04-894e-48ad-96f0-0ca3f72355c5",
@@ -18017,10 +18159,11 @@
         "price": 140000,
         "retailPrice": 108000,
         "inStock": false,
-        "stock": -4
+        "stock": 0
       }
     ],
-    "updated_at": "2026-04-11T16:06:12.000Z"
+    "created_at": "2026-04-11T16:04:40.000Z",
+    "updated_at": "2026-08-28T21:28:59.000Z"
   },
   {
     "id": "432655b8-e328-488f-89d2-ee395afecbea",
@@ -18042,7 +18185,7 @@
         "price": 60000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -21
+        "stock": 0
       },
       {
         "id": "a92799f3-01c8-4be2-807b-1fe62a875d56",
@@ -18052,7 +18195,7 @@
         "price": 60000,
         "retailPrice": 36000,
         "inStock": false,
-        "stock": -125
+        "stock": 0
       },
       {
         "id": "f8b0d022-3686-433b-92fc-d906bebc40f1",
@@ -18062,7 +18205,7 @@
         "price": 60000,
         "retailPrice": 63000,
         "inStock": false,
-        "stock": -16
+        "stock": 0
       },
       {
         "id": "fbcc51d3-4f0a-4cbd-b6c5-f28f615f9f6a",
@@ -18075,7 +18218,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-04-08T17:20:32.000Z"
+    "created_at": "2026-04-08T17:19:18.000Z",
+    "updated_at": "2026-08-28T21:27:42.000Z"
   },
   {
     "id": "f4b99e51-e825-4610-af10-d91b9d6e502b",
@@ -18097,7 +18241,7 @@
         "price": 75000,
         "retailPrice": 75000,
         "inStock": false,
-        "stock": -18
+        "stock": 0
       },
       {
         "id": "4255f260-5ca5-4cca-b49b-dc3ccf0d503c",
@@ -18107,7 +18251,7 @@
         "price": 75000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -42
+        "stock": 0
       },
       {
         "id": "2ea4b41d-abb3-4d73-91ea-597a2496afd5",
@@ -18117,7 +18261,7 @@
         "price": 75000,
         "retailPrice": 78000,
         "inStock": false,
-        "stock": -15
+        "stock": 0
       },
       {
         "id": "a497440d-aaa4-4516-a1f0-b0cb5d07d585",
@@ -18130,7 +18274,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-03-11T18:34:28.000Z"
+    "created_at": "2026-03-11T18:32:39.000Z",
+    "updated_at": "2026-08-28T21:47:53.000Z"
   },
   {
     "id": "9872e829-3a05-4c6f-8e12-cb7ab1849ce1",
@@ -18152,7 +18297,7 @@
         "price": 70000,
         "retailPrice": 70000,
         "inStock": false,
-        "stock": -55
+        "stock": 0
       },
       {
         "id": "38b81a39-2f97-4dff-accf-7ebeb48b86aa",
@@ -18162,7 +18307,7 @@
         "price": 70000,
         "retailPrice": 45000,
         "inStock": false,
-        "stock": -42
+        "stock": 0
       },
       {
         "id": "8c44d63c-6a73-4b77-9a3f-e7d0745d00b4",
@@ -18172,7 +18317,7 @@
         "price": 70000,
         "retailPrice": 83000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "021069f3-969a-44b2-b427-dd4a97ea9a94",
@@ -18185,7 +18330,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-03-26T18:44:48.000Z"
+    "created_at": "2025-12-13T13:28:57.000Z",
+    "updated_at": "2026-08-28T21:48:43.000Z"
   },
   {
     "id": "42edde27-1109-4b84-878d-2cd3f3bf5618",
@@ -18207,7 +18353,7 @@
         "price": 50000,
         "retailPrice": 50000,
         "inStock": false,
-        "stock": -78
+        "stock": 0
       },
       {
         "id": "fc8eb773-71af-44f7-886a-bddb006f0453",
@@ -18217,7 +18363,7 @@
         "price": 50000,
         "retailPrice": 46000,
         "inStock": false,
-        "stock": -10
+        "stock": 0
       },
       {
         "id": "141e6a32-2d48-4420-a8e7-6334d6ba249b",
@@ -18227,7 +18373,7 @@
         "price": 50000,
         "retailPrice": 40000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "6292d8a9-6b09-4d11-83b2-1a9d6023582c",
@@ -18237,10 +18383,11 @@
         "price": 50000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -38
+        "stock": 0
       }
     ],
-    "updated_at": "2025-12-04T22:02:52.000Z"
+    "created_at": "2025-12-04T22:00:59.000Z",
+    "updated_at": "2026-08-28T21:30:44.000Z"
   },
   {
     "id": "865f617e-80ea-4e77-aba2-dd08bcfaaadf",
@@ -18285,6 +18432,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2025-11-29T17:12:35.000Z",
     "updated_at": "2025-12-20T16:50:33.000Z"
   },
   {
@@ -18307,7 +18455,7 @@
         "price": 140000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -49
+        "stock": 0
       },
       {
         "id": "92efd68c-93d6-494f-af8e-d05202cf4e9c",
@@ -18317,7 +18465,7 @@
         "price": 140000,
         "retailPrice": 110000,
         "inStock": false,
-        "stock": -19
+        "stock": 0
       },
       {
         "id": "f7d1bcf4-f11b-427b-b4d8-06478388ab18",
@@ -18327,7 +18475,7 @@
         "price": 140000,
         "retailPrice": 143000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "f8751e20-ac44-424a-aefe-5ee23b4a2330",
@@ -18340,7 +18488,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-03-11T18:19:03.000Z"
+    "created_at": "2025-11-13T19:06:34.000Z",
+    "updated_at": "2026-08-28T21:28:40.000Z"
   },
   {
     "id": "e7b62b50-bb29-4449-9307-93012e327a65",
@@ -18362,7 +18511,7 @@
         "price": 140000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -67
+        "stock": 0
       },
       {
         "id": "5385b704-7c72-4278-9888-e1b39837e9c3",
@@ -18372,7 +18521,7 @@
         "price": 140000,
         "retailPrice": 108000,
         "inStock": false,
-        "stock": -113
+        "stock": 0
       },
       {
         "id": "91cab09b-5938-4d1f-87ba-ff620c2b4673",
@@ -18382,7 +18531,7 @@
         "price": 140000,
         "retailPrice": 143000,
         "inStock": false,
-        "stock": -20
+        "stock": 0
       },
       {
         "id": "10a46dda-8175-4c21-90b1-a9b825dd7c98",
@@ -18395,7 +18544,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-03-11T18:17:56.000Z"
+    "created_at": "2025-09-20T17:53:59.000Z",
+    "updated_at": "2026-08-28T21:28:21.000Z"
   },
   {
     "id": "a84970a4-19aa-4157-97a3-cd715796fb35",
@@ -18416,8 +18566,8 @@
         "color": null,
         "price": 60000,
         "retailPrice": 60000,
-        "inStock": true,
-        "stock": 27
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "0e7e6282-a69b-413e-99fb-0e19eecbcf88",
@@ -18440,7 +18590,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-03-09T16:28:25.000Z"
+    "created_at": "2025-07-29T15:00:02.000Z",
+    "updated_at": "2026-08-28T21:33:04.000Z"
   },
   {
     "id": "95675c55-1284-48ad-b351-897e9bd12040",
@@ -18462,7 +18613,7 @@
         "price": 85000,
         "retailPrice": 85000,
         "inStock": false,
-        "stock": -66
+        "stock": 0
       },
       {
         "id": "505c11a9-1842-4443-aae9-1c19ce70ffb8",
@@ -18472,7 +18623,7 @@
         "price": 85000,
         "retailPrice": 65000,
         "inStock": false,
-        "stock": -9
+        "stock": 0
       },
       {
         "id": "14cb90db-6310-45a0-a866-d0a0506410e4",
@@ -18492,10 +18643,11 @@
         "price": 85000,
         "retailPrice": 88000,
         "inStock": false,
-        "stock": -20
+        "stock": 0
       }
     ],
-    "updated_at": "2026-03-11T18:27:03.000Z"
+    "created_at": "2025-06-06T16:01:21.000Z",
+    "updated_at": "2026-08-28T21:48:21.000Z"
   },
   {
     "id": "3754246f-2e8b-4833-8a63-982faf1f4873",
@@ -18517,7 +18669,7 @@
         "price": 60000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -85
+        "stock": 0
       },
       {
         "id": "39a47874-3284-4ac5-a799-38819a8bc4de",
@@ -18527,7 +18679,7 @@
         "price": 60000,
         "retailPrice": 40000,
         "inStock": false,
-        "stock": -84
+        "stock": 0
       },
       {
         "id": "7dffada2-188b-4e8c-aaae-16e56c728376",
@@ -18537,10 +18689,11 @@
         "price": 60000,
         "retailPrice": 63000,
         "inStock": false,
-        "stock": -31
+        "stock": 0
       }
     ],
-    "updated_at": "2025-10-08T18:27:07.000Z"
+    "created_at": "2025-05-08T15:58:23.000Z",
+    "updated_at": "2026-08-28T21:29:38.000Z"
   },
   {
     "id": "bacf32c2-de7a-4f6e-b258-4eb0c56825c8",
@@ -18595,6 +18748,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2025-04-09T11:22:16.000Z",
     "updated_at": "2026-03-11T18:21:30.000Z"
   },
   {
@@ -18617,10 +18771,11 @@
         "price": null,
         "retailPrice": null,
         "inStock": false,
-        "stock": -270
+        "stock": 0
       }
     ],
-    "updated_at": "2025-05-01T15:43:53.000Z"
+    "created_at": "2025-03-01T12:44:37.000Z",
+    "updated_at": "2026-08-28T21:44:48.000Z"
   },
   {
     "id": "025e6277-6fac-4d8f-bb7c-41ccdc46e3ed",
@@ -18641,8 +18796,8 @@
         "color": null,
         "price": 130000,
         "retailPrice": 130000,
-        "inStock": true,
-        "stock": 17
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "5fa76ca8-bd17-4665-8b94-58589bcc9b35",
@@ -18652,7 +18807,7 @@
         "price": 130000,
         "retailPrice": 90000,
         "inStock": false,
-        "stock": -20
+        "stock": 0
       },
       {
         "id": "44cdfe1c-39ed-4e8e-9742-d2ed429d1e6b",
@@ -18662,10 +18817,11 @@
         "price": 130000,
         "retailPrice": 133000,
         "inStock": false,
-        "stock": -4
+        "stock": 0
       }
     ],
-    "updated_at": "2026-03-09T16:06:03.000Z"
+    "created_at": "2025-03-01T12:40:55.000Z",
+    "updated_at": "2026-08-28T21:29:25.000Z"
   },
   {
     "id": "00c9cf35-3458-435b-b0d8-4251d6b35fb1",
@@ -18686,8 +18842,8 @@
         "color": null,
         "price": 68000,
         "retailPrice": 68000,
-        "inStock": true,
-        "stock": 2
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "184c9730-c359-47f6-8bc2-5163d10826e8",
@@ -18697,7 +18853,7 @@
         "price": 68000,
         "retailPrice": 48000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "a0de6156-8348-43f2-81e7-287e04896ae4",
@@ -18710,7 +18866,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-03-09T16:27:15.000Z"
+    "created_at": "2025-03-01T12:25:42.000Z",
+    "updated_at": "2026-08-28T21:33:17.000Z"
   },
   {
     "id": "491f2644-0652-4b39-af7c-06222eb791cc",
@@ -18731,8 +18888,8 @@
         "color": null,
         "price": 75000,
         "retailPrice": 75000,
-        "inStock": true,
-        "stock": 5
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "08dd81b9-ccac-4f67-ab90-4f4d59cafb47",
@@ -18742,7 +18899,7 @@
         "price": 75000,
         "retailPrice": 95000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "5574bcb1-b0a0-4a16-aafe-4009f073b0c2",
@@ -18752,10 +18909,11 @@
         "price": 75000,
         "retailPrice": 98000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
-    "updated_at": "2025-10-08T18:46:49.000Z"
+    "created_at": "2025-03-01T12:17:34.000Z",
+    "updated_at": "2026-08-28T21:32:28.000Z"
   },
   {
     "id": "afafd56c-4856-434d-b12e-aa39e3536ed9",
@@ -18776,8 +18934,8 @@
         "color": null,
         "price": 65000,
         "retailPrice": 65000,
-        "inStock": true,
-        "stock": 107
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "13aeae51-99b9-4678-adc3-6acbad3a9a79",
@@ -18787,7 +18945,7 @@
         "price": 65000,
         "retailPrice": 46000,
         "inStock": false,
-        "stock": -139
+        "stock": 0
       },
       {
         "id": "4ad8e525-ba29-4d2c-9ff6-c6ab99628dcf",
@@ -18797,7 +18955,7 @@
         "price": 65000,
         "retailPrice": 68000,
         "inStock": false,
-        "stock": -19
+        "stock": 0
       },
       {
         "id": "b68e6775-4a2b-4a28-ae91-bd4b20b44204",
@@ -18817,10 +18975,11 @@
         "price": 65000,
         "retailPrice": 43000,
         "inStock": false,
-        "stock": -175
+        "stock": 0
       }
     ],
-    "updated_at": "2026-04-06T17:38:38.000Z"
+    "created_at": "2025-02-26T18:34:37.000Z",
+    "updated_at": "2026-08-28T21:47:11.000Z"
   },
   {
     "id": "66ca3b68-b255-4168-83c5-03420390985c",
@@ -18855,6 +19014,7 @@
         "stock": 9
       }
     ],
+    "created_at": "2024-12-11T13:45:02.000Z",
     "updated_at": "2026-05-05T03:18:04.000Z"
   },
   {
@@ -18876,8 +19036,8 @@
         "color": null,
         "price": 75000,
         "retailPrice": 75000,
-        "inStock": true,
-        "stock": 14
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "91617000-a15f-49e6-9515-76a1f9768ef0",
@@ -18887,7 +19047,7 @@
         "price": 75000,
         "retailPrice": 50000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "5552d9d4-17a6-4521-bb29-852f96d105d4",
@@ -18900,7 +19060,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-09-14T16:45:24.000Z",
+    "updated_at": "2026-08-28T21:30:28.000Z"
   },
   {
     "id": "5415a1c8-3b6e-4653-b7cd-6d8c6c7e81ae",
@@ -18945,6 +19106,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2024-07-20T15:55:02.000Z",
     "updated_at": "2026-05-05T03:18:04.000Z"
   },
   {
@@ -18990,6 +19152,7 @@
         "stock": -4
       }
     ],
+    "created_at": "2024-07-20T15:54:28.000Z",
     "updated_at": "2026-05-05T03:18:04.000Z"
   },
   {
@@ -19011,8 +19174,8 @@
         "color": null,
         "price": 53000,
         "retailPrice": 53000,
-        "inStock": true,
-        "stock": 81
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "a41a5685-77b3-429e-94b5-88580bea13a5",
@@ -19022,7 +19185,7 @@
         "price": 53000,
         "retailPrice": 33000,
         "inStock": false,
-        "stock": -148
+        "stock": 0
       },
       {
         "id": "b3e152d2-20f0-4d2a-9881-a3b043a278e3",
@@ -19032,7 +19195,7 @@
         "price": 53000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -15
+        "stock": 0
       },
       {
         "id": "83d6ca7c-2abb-4fc2-b1a2-611f945f69ee",
@@ -19042,10 +19205,11 @@
         "price": 53000,
         "retailPrice": 54990,
         "inStock": false,
-        "stock": -5
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T21:51:29.000Z"
+    "created_at": "2024-04-20T12:25:27.000Z",
+    "updated_at": "2026-08-28T21:47:30.000Z"
   },
   {
     "id": "7a6b5ec3-9949-4302-a4d8-9726767b4247",
@@ -19067,7 +19231,7 @@
         "price": 65000,
         "retailPrice": 65000,
         "inStock": false,
-        "stock": -24
+        "stock": 0
       },
       {
         "id": "f2be374c-2e07-4a1a-a0af-087d7bb108d5",
@@ -19076,8 +19240,8 @@
         "color": null,
         "price": 65000,
         "retailPrice": 40000,
-        "inStock": true,
-        "stock": 10
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "7176a10f-4696-4594-b44f-4eee9595ffd5",
@@ -19087,10 +19251,11 @@
         "price": 65000,
         "retailPrice": 68000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-03-14T17:00:37.000Z",
+    "updated_at": "2026-08-28T21:46:47.000Z"
   },
   {
     "id": "6ab2960c-9dc1-4691-9570-1c251c06fd37",
@@ -19111,8 +19276,8 @@
         "color": null,
         "price": 28000,
         "retailPrice": 28000,
-        "inStock": true,
-        "stock": 46
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "d6f96c8b-e35d-4941-960c-6132be8d53ec",
@@ -19122,7 +19287,7 @@
         "price": 28000,
         "retailPrice": 25000,
         "inStock": false,
-        "stock": -206
+        "stock": 0
       },
       {
         "id": "3d8213fa-7ae3-47b9-b104-795ba83aa8df",
@@ -19132,10 +19297,11 @@
         "price": 28000,
         "retailPrice": 10000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       }
     ],
-    "updated_at": "2025-12-03T09:26:26.000Z"
+    "created_at": "2024-03-14T16:59:34.000Z",
+    "updated_at": "2026-08-28T21:49:06.000Z"
   },
   {
     "id": "c32e60ad-9bd2-4b3c-acac-151ca1d8ab13",
@@ -19180,6 +19346,7 @@
         "stock": -2
       }
     ],
+    "created_at": "2024-03-14T16:48:29.000Z",
     "updated_at": "2026-05-05T03:18:04.000Z"
   },
   {
@@ -19202,7 +19369,7 @@
         "price": 40000,
         "retailPrice": 40000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "55b75182-a476-42fd-bee0-aa7c10d07328",
@@ -19211,8 +19378,8 @@
         "color": null,
         "price": 40000,
         "retailPrice": 35000,
-        "inStock": true,
-        "stock": 7
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "b6d4fb80-7ee7-42d9-89c7-8f7ca862cd02",
@@ -19225,7 +19392,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2025-10-08T18:53:49.000Z"
+    "created_at": "2024-03-14T16:46:23.000Z",
+    "updated_at": "2026-08-28T21:32:54.000Z"
   },
   {
     "id": "3c798182-2da8-48f8-bc09-9378a9b52f9f",
@@ -19246,8 +19414,8 @@
         "color": null,
         "price": 25000,
         "retailPrice": 25000,
-        "inStock": true,
-        "stock": 9
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "4eec5e4e-2504-4c97-bfb2-d3f1b6aba2ff",
@@ -19257,7 +19425,7 @@
         "price": 25000,
         "retailPrice": 16000,
         "inStock": false,
-        "stock": -6
+        "stock": 0
       },
       {
         "id": "8f3f98ba-0bb1-40e0-b9ee-0f68337a8ea2",
@@ -19270,7 +19438,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-03-14T16:40:05.000Z",
+    "updated_at": "2026-08-28T21:33:36.000Z"
   },
   {
     "id": "a8142ad6-3540-45c3-b704-94e6dc3c69fa",
@@ -19291,8 +19460,8 @@
         "color": null,
         "price": 30000,
         "retailPrice": 30000,
-        "inStock": true,
-        "stock": 18
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "2a4a5efe-a53c-462d-b855-96a0404c1742",
@@ -19302,7 +19471,7 @@
         "price": 30000,
         "retailPrice": 20000,
         "inStock": false,
-        "stock": -12
+        "stock": 0
       },
       {
         "id": "2877f685-0752-42e5-a500-4d8762832930",
@@ -19312,10 +19481,11 @@
         "price": 30000,
         "retailPrice": 33000,
         "inStock": false,
-        "stock": -5
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-03-14T16:35:46.000Z",
+    "updated_at": "2026-08-28T21:34:04.000Z"
   },
   {
     "id": "e8b2b8c3-f6f7-40ee-bd38-4a26a82491d7",
@@ -19336,8 +19506,8 @@
         "color": null,
         "price": 38000,
         "retailPrice": 38000,
-        "inStock": true,
-        "stock": 91
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "65333663-4ea1-45aa-88b0-ddabc64e1c1e",
@@ -19347,7 +19517,7 @@
         "price": 38000,
         "retailPrice": 20000,
         "inStock": false,
-        "stock": -37
+        "stock": 0
       },
       {
         "id": "71e6c890-b43b-4ca1-8ebd-f6ee5b450166",
@@ -19360,7 +19530,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-03-14T16:30:26.000Z",
+    "updated_at": "2026-08-28T21:32:43.000Z"
   },
   {
     "id": "2f8ac5dd-deb2-4440-a68c-041469673907",
@@ -19382,7 +19553,7 @@
         "price": 90000,
         "retailPrice": 90000,
         "inStock": false,
-        "stock": -21
+        "stock": 0
       },
       {
         "id": "73ce193e-3d23-4897-b31e-95d359d6b6d3",
@@ -19392,7 +19563,7 @@
         "price": 90000,
         "retailPrice": 66000,
         "inStock": false,
-        "stock": -13
+        "stock": 0
       },
       {
         "id": "79ec6724-6a91-4970-884a-c5c7014fe50b",
@@ -19402,10 +19573,11 @@
         "price": 90000,
         "retailPrice": 93000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-03-14T16:25:28.000Z",
+    "updated_at": "2026-08-28T21:43:26.000Z"
   },
   {
     "id": "580d14a0-adab-44d5-90e1-19a47d25ecbb",
@@ -19427,7 +19599,7 @@
         "price": 90000,
         "retailPrice": 90000,
         "inStock": false,
-        "stock": -8
+        "stock": 0
       },
       {
         "id": "ffaa22e4-d274-412d-b022-3e282d5ee292",
@@ -19436,8 +19608,8 @@
         "color": null,
         "price": 90000,
         "retailPrice": 66000,
-        "inStock": true,
-        "stock": 10
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "6b5fd457-e598-4a4f-97ff-701a40668490",
@@ -19450,7 +19622,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-03-14T16:16:38.000Z",
+    "updated_at": "2026-08-28T21:29:49.000Z"
   },
   {
     "id": "f4a4c69d-a40f-4655-a13f-e8483b2f5611",
@@ -19471,8 +19644,8 @@
         "color": null,
         "price": 40000,
         "retailPrice": 40000,
-        "inStock": true,
-        "stock": 77
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "274bf28a-a84f-47cc-be80-388ba6f1f363",
@@ -19482,7 +19655,7 @@
         "price": 40000,
         "retailPrice": 32000,
         "inStock": false,
-        "stock": -23
+        "stock": 0
       },
       {
         "id": "5618b39d-fe25-44b4-96df-82ed91345698",
@@ -19492,7 +19665,7 @@
         "price": 40000,
         "retailPrice": 43000,
         "inStock": false,
-        "stock": -9
+        "stock": 0
       },
       {
         "id": "42457bde-4572-4439-a5e9-b1fa07727d5c",
@@ -19505,7 +19678,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-03-11T18:14:38.000Z"
+    "created_at": "2024-03-14T16:09:25.000Z",
+    "updated_at": "2026-08-28T21:27:21.000Z"
   },
   {
     "id": "4f202430-e157-43a2-b9d0-8e729b3f3031",
@@ -19526,8 +19700,8 @@
         "color": null,
         "price": 75000,
         "retailPrice": 75000,
-        "inStock": true,
-        "stock": 29
+        "inStock": false,
+        "stock": 0
       },
       {
         "id": "bd525518-736b-4c4e-b740-a08dc1530649",
@@ -19537,7 +19711,7 @@
         "price": 75000,
         "retailPrice": 50000,
         "inStock": false,
-        "stock": -51
+        "stock": 0
       },
       {
         "id": "47b988fe-ce24-4ec7-ac02-3834abb5264f",
@@ -19547,7 +19721,7 @@
         "price": 75000,
         "retailPrice": 78000,
         "inStock": false,
-        "stock": -14
+        "stock": 0
       },
       {
         "id": "97bc2c2f-b734-445f-bdaf-fe446a9bd793",
@@ -19560,7 +19734,8 @@
         "stock": 0
       }
     ],
-    "updated_at": "2026-05-05T03:18:04.000Z"
+    "created_at": "2024-03-14T16:07:29.000Z",
+    "updated_at": "2026-08-28T21:28:08.000Z"
   },
   {
     "id": "d6377bfc-a073-4928-81fa-e5822d0217ca",
@@ -19605,6 +19780,7 @@
         "stock": -2
       }
     ],
+    "created_at": "2024-03-14T15:33:12.000Z",
     "updated_at": "2026-05-05T03:18:04.000Z"
   },
   {
@@ -19660,6 +19836,7 @@
         "stock": 0
       }
     ],
+    "created_at": "2024-03-14T15:15:55.000Z",
     "updated_at": "2026-05-05T21:51:14.000Z"
   }
 ]

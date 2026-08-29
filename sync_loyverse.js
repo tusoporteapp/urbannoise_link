@@ -153,7 +153,9 @@ async function sync() {
             category: categoryName,
             rawCategory: item.category_id ? (categoryMap[item.category_id] || '') : '',
             variants: variants,
-            updated_at: item.updated_at || ''
+            created_at: item.created_at || '',
+                created_at: item.created_at,
+                updated_at: item.updated_at || ''
         };
     });
 

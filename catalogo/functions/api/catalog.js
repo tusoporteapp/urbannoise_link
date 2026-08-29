@@ -174,6 +174,8 @@ export async function onRequestGet(context) {
                 category: categoryName,
                 rawCategory: item.category_id ? (categoryMap[item.category_id] || '') : '',
                 variants: variants,
+                created_at: item.created_at || '',
+                created_at: item.created_at,
                 updated_at: item.updated_at || ''
             };
         });
