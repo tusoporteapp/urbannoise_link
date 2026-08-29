@@ -295,6 +295,88 @@
 </head>
 <body class="bg-zinc-100 text-zinc-900 font-sans min-h-screen flex flex-col items-center justify-between pb-32 overflow-x-hidden">
 
+    <!-- URBAN NOISE LIGHT THEME ARCADE SNAKE LOADING SCREEN -->
+    <div id="snake-loading-screen" class="fixed inset-0 z-[100] bg-zinc-100 text-zinc-900 flex flex-col items-center justify-between p-4 select-none transition-opacity duration-300 overflow-y-auto" style="touch-action: manipulation;">
+        <!-- Top App Bar -->
+        <div class="w-full max-w-sm flex items-center justify-between pt-2">
+            <div class="flex items-center gap-2">
+                <span class="p-1.5 bg-zinc-950 text-white rounded-xl shadow-xs">
+                    <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+                </span>
+                <div class="flex flex-col text-left">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-emerald-600">Urban Arcade</span>
+                    <span class="text-xs font-extrabold uppercase tracking-tight text-zinc-900" id="snake-loading-status-text">Cargando Catálogo...</span>
+                </div>
+            </div>
+            <button type="button" ontouchstart="dismissSnakeLoader(); event.preventDefault();" onclick="dismissSnakeLoader()" class="text-[10px] font-black uppercase tracking-wider text-zinc-700 hover:text-black bg-white border border-zinc-300 shadow-2xs px-3.5 py-1.5 rounded-xl transition-all cursor-pointer active:scale-95">
+                Saltar ✕
+            </button>
+        </div>
+
+        <!-- Arcade Main Center -->
+        <div class="w-full max-w-sm flex flex-col items-center gap-2.5 my-auto py-2">
+            <p class="text-xs text-zinc-600 text-center px-2 leading-relaxed font-medium">
+                Mientras sincronizamos el catálogo, ¡juega la culebrita! 🐍<br>
+                <span class="text-[10.5px] text-zinc-400 font-semibold">¡Aumenta de velocidad con cada manzana!</span>
+            </p>
+
+            <!-- Score Bar -->
+            <div class="w-full flex items-center justify-between bg-white border border-zinc-200 shadow-xs px-4 py-2 rounded-2xl">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-700">
+                    <span>🍎 Puntos:</span>
+                    <b id="snake-score" class="text-sm font-black text-emerald-600">0</b>
+                </div>
+                <div class="flex items-center gap-1 text-[11px] font-extrabold text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded-lg">
+                    <span>⚡ Vel:</span>
+                    <b id="snake-speed-level" class="text-zinc-900 font-black">1.0x</b>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-700">
+                    <span>🏆 Récord:</span>
+                    <b id="snake-high-score" class="text-sm font-black text-amber-600">0</b>
+                </div>
+            </div>
+
+            <!-- Canvas Frame -->
+            <div class="relative w-[280px] h-[280px] bg-white border-2 border-zinc-300 rounded-3xl overflow-hidden shadow-sm flex items-center justify-center">
+                <canvas id="snake-canvas" width="280" height="280" class="w-full h-full block bg-zinc-50 cursor-pointer"></canvas>
+                
+                <!-- Game Over Overlay inside Canvas -->
+                <div id="snake-game-over" class="hidden absolute inset-0 bg-white/95 backdrop-blur-xs flex flex-col items-center justify-center gap-3 p-4">
+                    <span class="text-sm font-black uppercase tracking-widest text-rose-600">¡Juego Terminado!</span>
+                    <span id="snake-final-score" class="text-xs font-bold text-zinc-600">Puntos: 0</span>
+                    <button type="button" ontouchstart="restartSnakeGame(); event.preventDefault();" onclick="restartSnakeGame()" class="px-5 py-2.5 rounded-2xl bg-zinc-950 hover:bg-zinc-800 text-white font-black text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md active:scale-95">
+                        Jugar de Nuevo ↺
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Touch D-Pad Controls -->
+            <div class="flex flex-col items-center gap-1.5 mt-1 sm:hidden select-none">
+                <button type="button" ontouchstart="setSnakeDirection('UP'); event.preventDefault();" onclick="setSnakeDirection('UP')" class="w-14 h-11 rounded-2xl bg-white active:bg-zinc-200 active:scale-95 border border-zinc-300 shadow-xs flex items-center justify-center font-black text-xl text-zinc-900 cursor-pointer">▲</button>
+                <div class="flex items-center gap-3">
+                    <button type="button" ontouchstart="setSnakeDirection('LEFT'); event.preventDefault();" onclick="setSnakeDirection('LEFT')" class="w-14 h-11 rounded-2xl bg-white active:bg-zinc-200 active:scale-95 border border-zinc-300 shadow-xs flex items-center justify-center font-black text-xl text-zinc-900 cursor-pointer">◄</button>
+                    <div class="w-10 h-10 rounded-full bg-zinc-200/80 flex items-center justify-center text-[10px] text-zinc-600 font-black">D-PAD</div>
+                    <button type="button" ontouchstart="setSnakeDirection('RIGHT'); event.preventDefault();" onclick="setSnakeDirection('RIGHT')" class="w-14 h-11 rounded-2xl bg-white active:bg-zinc-200 active:scale-95 border border-zinc-300 shadow-xs flex items-center justify-center font-black text-xl text-zinc-900 cursor-pointer">►</button>
+                </div>
+                <button type="button" ontouchstart="setSnakeDirection('DOWN'); event.preventDefault();" onclick="setSnakeDirection('DOWN')" class="w-14 h-11 rounded-2xl bg-white active:bg-zinc-200 active:scale-95 border border-zinc-300 shadow-xs flex items-center justify-center font-black text-xl text-zinc-900 cursor-pointer">▼</button>
+            </div>
+        </div>
+
+        <!-- CATALOG READY BANNER (Pops up when catalog is ready) -->
+        <div id="catalog-ready-banner" class="hidden w-full max-w-sm bg-white border-2 border-emerald-500 p-4 rounded-3xl shadow-lg flex flex-col gap-2 text-center mb-2 animate-bounce">
+            <div class="flex items-center justify-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="text-xs font-black uppercase tracking-wider text-emerald-700">¡Catálogo 100% Listo!</span>
+            </div>
+            <p class="text-[11px] text-zinc-600 font-medium">Prendas y stock sincronizados en tiempo real.</p>
+            <button type="button" ontouchstart="dismissSnakeLoader(); event.preventDefault();" onclick="dismissSnakeLoader()" class="w-full py-3.5 rounded-2xl bg-zinc-950 hover:bg-zinc-800 active:scale-98 text-white font-black text-xs uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer">
+                <span>🚀 Ver Catálogo</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-white"></i>
+            </button>
+        </div>
+    </div>
+
+
     <!-- STICKY TOP APP HEADER (Fixed on Mobile & Desktop) -->
     <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-zinc-200/90 shadow-2xs flex items-center justify-center h-16 sm:h-18">
         <div class="max-w-md w-full mx-auto px-4 flex items-center justify-center">
@@ -1266,6 +1348,7 @@
             renderTopVentasCarousel();
             renderLatestArrivalsCarousel();
             renderProductsGrid();
+            if (typeof window.notifyCatalogReadyInSnakeLoader === "function") window.notifyCatalogReadyInSnakeLoader();
 
             // Update product count label
             const countEl = document.getElementById('product-count');
@@ -4153,6 +4236,258 @@ async function executeOrderDispatch() {
             </button>
         </div>
     </nav>
+
+
+    <!-- Dedicated Urban Noise Arcade Snake Engine -->
+    <script>
+        (function() {
+            let snakeTimeout = null;
+            let canvas = null;
+            let ctx = null;
+            const GRID = 14;
+            const TILES = 20; // 280 / 14 = 20
+            let snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
+            let dir = {x: 1, y: 0};
+            let nextDir = {x: 1, y: 0};
+            let food = {x: 15, y: 10};
+            let score = 0;
+            let highScore = parseInt(localStorage.getItem('un_snake_high_score') || '0', 10);
+            let isOver = false;
+            let isActive = true;
+
+            function getSpeed() {
+                const apples = Math.floor(score / 10);
+                return Math.max(45, 130 - (apples * 4));
+            }
+
+            function getMultiplier() {
+                const apples = Math.floor(score / 10);
+                return (1 + (apples * 0.1)).toFixed(1) + 'x';
+            }
+
+            function spawnFood() {
+                food = {
+                    x: Math.floor(Math.random() * TILES),
+                    y: Math.floor(Math.random() * TILES)
+                };
+            }
+
+            window.setSnakeDirection = function(newDir) {
+                if (newDir === 'UP' && dir.y === 0) nextDir = {x: 0, y: -1};
+                else if (newDir === 'DOWN' && dir.y === 0) nextDir = {x: 0, y: 1};
+                else if (newDir === 'LEFT' && dir.x === 0) nextDir = {x: -1, y: 0};
+                else if (newDir === 'RIGHT' && dir.x === 0) nextDir = {x: 1, y: 0};
+            };
+
+            window.restartSnakeGame = function() {
+                canvas = document.getElementById('snake-canvas');
+                if (canvas) ctx = canvas.getContext('2d');
+                
+                snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
+                dir = {x: 1, y: 0};
+                nextDir = {x: 1, y: 0};
+                score = 0;
+                isOver = false;
+                isActive = true;
+
+                const scoreEl = document.getElementById('snake-score');
+                if (scoreEl) scoreEl.innerText = '0';
+
+                const speedEl = document.getElementById('snake-speed-level');
+                if (speedEl) speedEl.innerText = '1.0x';
+
+                const gameOverEl = document.getElementById('snake-game-over');
+                if (gameOverEl) gameOverEl.classList.add('hidden');
+
+                spawnFood();
+                clearTimeout(snakeTimeout);
+                draw();
+                tick();
+            };
+
+            function tick() {
+                if (!isActive || isOver) return;
+                update();
+                if (!isOver && isActive) {
+                    snakeTimeout = setTimeout(tick, getSpeed());
+                }
+            }
+
+            function update() {
+                if (isOver || !ctx) return;
+
+                dir = nextDir;
+                const head = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
+
+                // Wrap around edges
+                if (head.x < 0) head.x = TILES - 1;
+                if (head.x >= TILES) head.x = 0;
+                if (head.y < 0) head.y = TILES - 1;
+                if (head.y >= TILES) head.y = 0;
+
+                // Self collision
+                for (let i = 0; i < snake.length; i++) {
+                    if (snake[i].x === head.x && snake[i].y === head.y) {
+                        isOver = true;
+                        clearTimeout(snakeTimeout);
+                        const gameOverEl = document.getElementById('snake-game-over');
+                        const finalScoreEl = document.getElementById('snake-final-score');
+                        if (finalScoreEl) finalScoreEl.innerText = 'Puntos: ' + score + ' pts';
+                        if (gameOverEl) gameOverEl.classList.remove('hidden');
+                        return;
+                    }
+                }
+
+                snake.unshift(head);
+
+                // Eat food
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    const scoreEl = document.getElementById('snake-score');
+                    if (scoreEl) scoreEl.innerText = score;
+
+                    const speedEl = document.getElementById('snake-speed-level');
+                    if (speedEl) speedEl.innerText = getMultiplier();
+
+                    if (score > highScore) {
+                        highScore = score;
+                        localStorage.setItem('un_snake_high_score', highScore);
+                        const highScoreEl = document.getElementById('snake-high-score');
+                        if (highScoreEl) highScoreEl.innerText = highScore;
+                    }
+                    spawnFood();
+                } else {
+                    snake.pop();
+                }
+
+                draw();
+            }
+
+            function draw() {
+                if (!ctx) return;
+
+                // 1. Clean Canvas Background
+                ctx.fillStyle = '#fafafa';
+                ctx.fillRect(0, 0, 280, 280);
+
+                // 2. Subtle Grid Lines
+                ctx.strokeStyle = '#e4e4e7';
+                ctx.lineWidth = 0.5;
+                for (let i = 0; i <= 280; i += GRID) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i, 280);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(0, i);
+                    ctx.lineTo(280, i);
+                    ctx.stroke();
+                }
+
+                // 3. Apple Food (Red Circle + Highlight)
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath();
+                ctx.arc(food.x * GRID + GRID/2, food.y * GRID + GRID/2, GRID/2 - 1, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#fca5a5';
+                ctx.beginPath();
+                ctx.arc(food.x * GRID + GRID/2 - 2, food.y * GRID + GRID/2 - 2, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 4. Snake Body & Head
+                snake.forEach((seg, index) => {
+                    if (index === 0) {
+                        ctx.fillStyle = '#18181b'; // Head in black
+                    } else {
+                        ctx.fillStyle = '#059669'; // Body in emerald
+                    }
+                    ctx.fillRect(seg.x * GRID + 1, seg.y * GRID + 1, GRID - 2, GRID - 2);
+
+                    // Draw eyes on head
+                    if (index === 0) {
+                        ctx.fillStyle = '#ffffff';
+                        let eye1X = seg.x * GRID + 4, eye1Y = seg.y * GRID + 4;
+                        let eye2X = seg.x * GRID + 10, eye2Y = seg.y * GRID + 4;
+                        if (dir.y === 1) { eye1Y = seg.y * GRID + 10; eye2Y = seg.y * GRID + 10; }
+                        else if (dir.x === 1) { eye1X = seg.y * GRID + 10; eye2X = seg.x * GRID + 10; eye2Y = seg.y * GRID + 10; }
+                        ctx.fillRect(eye1X, eye1Y, 2, 2);
+                        ctx.fillRect(eye2X, eye2Y, 2, 2);
+                    }
+                });
+            }
+
+            window.notifyCatalogReadyInSnakeLoader = function() {
+                const banner = document.getElementById('catalog-ready-banner');
+                const statusText = document.getElementById('snake-loading-status-text');
+                if (statusText) statusText.innerText = '¡Catálogo Listo!';
+                if (banner) {
+                    banner.classList.remove('hidden');
+                    banner.classList.add('flex');
+                }
+            };
+
+            window.dismissSnakeLoader = function() {
+                isActive = false;
+                clearTimeout(snakeTimeout);
+                const loader = document.getElementById('snake-loading-screen');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.classList.add('hidden');
+                        loader.style.display = 'none';
+                    }, 300);
+                }
+            };
+
+            function setupSnake() {
+                canvas = document.getElementById('snake-canvas');
+                if (!canvas) return;
+                ctx = canvas.getContext('2d');
+                
+                const highScoreEl = document.getElementById('snake-high-score');
+                if (highScoreEl) highScoreEl.innerText = highScore;
+
+                // Touch gestures on canvas
+                let touchStartX = 0, touchStartY = 0;
+                canvas.addEventListener('touchstart', e => {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+
+                canvas.addEventListener('touchend', e => {
+                    const diffX = e.changedTouches[0].clientX - touchStartX;
+                    const diffY = e.changedTouches[0].clientY - touchStartY;
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (diffX > 20) window.setSnakeDirection('RIGHT');
+                        else if (diffX < -20) window.setSnakeDirection('LEFT');
+                    } else {
+                        if (diffY > 20) window.setSnakeDirection('DOWN');
+                        else if (diffY < -20) window.setSnakeDirection('UP');
+                    }
+                }, { passive: true });
+
+                // Keyboard
+                window.addEventListener('keydown', e => {
+                    const loader = document.getElementById('snake-loading-screen');
+                    if (!loader || loader.style.display === 'none' || loader.classList.contains('hidden')) return;
+
+                    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { window.setSnakeDirection('UP'); e.preventDefault(); }
+                    else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') { window.setSnakeDirection('DOWN'); e.preventDefault(); }
+                    else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { window.setSnakeDirection('LEFT'); e.preventDefault(); }
+                    else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { window.setSnakeDirection('RIGHT'); e.preventDefault(); }
+                });
+
+                window.restartSnakeGame();
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setupSnake);
+            } else {
+                setupSnake();
+            }
+        })();
+    </script>
 
 </body>
 </html>
