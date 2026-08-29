@@ -1281,25 +1281,56 @@
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
         const CATALOG_CACHE_KEY = 'un_catalog_live_v6';
 
+        const CATALOG_LAST_SYNC_KEY = 'urbannoise_catalog_last_full_sync';
+        const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+        async function preloadKeyImages(products) {
+            if (!Array.isArray(products) || products.length === 0) return;
+            const keyImages = products.slice(0, 12).map(p => p.image).filter(Boolean);
+            const promises = keyImages.map(src => new Promise(resolve => {
+                const img = new Image();
+                img.onload = resolve;
+                img.onerror = resolve;
+                img.src = src;
+            }));
+            await Promise.all(promises);
+        }
+
         async function fetchCatalog() {
             try {
                 // 1. Carga inicial instantánea en 0ms desde la memoria local para evitar pantallas en blanco
                 const cached = localStorage.getItem(CATALOG_CACHE_KEY);
+                const lastSync = parseInt(localStorage.getItem(CATALOG_LAST_SYNC_KEY) || '0', 10);
+                const isCacheFresh = (Date.now() - lastSync) < ONE_DAY_MS;
                 let renderedFromCache = false;
+
                 if (cached) {
                     try {
                         const parsed = JSON.parse(cached);
                         if (Array.isArray(parsed) && parsed.length > 0) {
                             renderCatalogDataset(parsed);
                             renderedFromCache = true;
+                            // Si la caché tiene menos de 24 horas, no mostramos el loader de juego
+                            if (isCacheFresh) {
+                                const loader = document.getElementById('snake-loading-screen');
+                                if (loader) {
+                                    loader.classList.add('hidden');
+                                    loader.style.display = 'none';
+                                }
+                            }
                         }
                     } catch(e) {}
                 }
 
-                // 2. Consulta en Tiempo Real al Servidor Mediador Cloudflare (/api/catalog)
+                // Si la caché está fresca (< 24h), no necesitamos re-descargar todo el catálogo de nuevo
+                if (isCacheFresh && renderedFromCache) {
+                    console.log("⚡ Catálogo cargado desde caché ultra-rápida (vigencia 24h)");
+                    return;
+                }
+
+                // 2. Consulta en Tiempo Real al Servidor Mediador Cloudflare (/api/catalog) para sincronización cada 24h
                 let apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 
-                // Si la ruta relativa falla por subdirectorio, intentar ruta absoluta
                 if (!apiRes || !apiRes.ok) {
                     apiRes = await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 }
@@ -1309,27 +1340,35 @@
                     if (Array.isArray(liveProducts) && liveProducts.length > 0) {
                         localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(liveProducts));
                         renderCatalogDataset(liveProducts);
-                        console.log("⚡ Catálogo sincronizado en tiempo real desde Cloudflare Serverless:", liveProducts.length, "prendas");
+                        
+                        // Precarga de imágenes clave antes de activar el botón "Catálogo Listo"
+                        await preloadKeyImages(liveProducts);
+                        localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+
+                        if (typeof window.notifyCatalogReadyInSnakeLoader === "function") {
+                            window.notifyCatalogReadyInSnakeLoader();
+                        }
+                        console.log("⚡ Catálogo sincronizado en tiempo real desde Cloudflare Serverless: " + liveProducts.length + " prendas");
                         return;
                     }
                 }
 
-                // 3. Fallback de emergencia a archivo estático solo si el API no responde
+                // 3. Fallback si el API está inaccesible y no hay caché
                 if (!renderedFromCache) {
-                    let localRes = await fetch("loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
-                    if (!localRes || !localRes.ok) {
-                        localRes = await fetch("../catalogo/loyverse_products.json?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
-                    }
-                    if (localRes && localRes.ok) {
-                        const fallbackData = await localRes.json();
-                        if (Array.isArray(fallbackData) && fallbackData.length > 0) {
-                            localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(fallbackData));
-                            renderCatalogDataset(fallbackData);
+                    const fallbackRes = await fetch("loyverse_products.json?t=" + Date.now()).catch(() => null);
+                    if (fallbackRes && fallbackRes.ok) {
+                        const fallbackProducts = await fallbackRes.json();
+                        localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(fallbackProducts));
+                        renderCatalogDataset(fallbackProducts);
+                        await preloadKeyImages(fallbackProducts);
+                        localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+                        if (typeof window.notifyCatalogReadyInSnakeLoader === "function") {
+                            window.notifyCatalogReadyInSnakeLoader();
                         }
                     }
                 }
-            } catch (error) {
-                console.error("Error al sincronizar con Cloudflare:", error);
+            } catch (err) {
+                console.error("Error sincronizando catálogo:", err);
             }
         }
 
@@ -4441,6 +4480,17 @@ async function executeOrderDispatch() {
             };
 
             function setupSnake() {
+                const lastSync = parseInt(localStorage.getItem('urbannoise_catalog_last_full_sync') || '0', 10);
+                const isCacheFresh = (Date.now() - lastSync) < (24 * 60 * 60 * 1000);
+                const cached = localStorage.getItem('urbannoise_loyverse_catalog_cache_v2');
+                if (isCacheFresh && cached) {
+                    const loader = document.getElementById('snake-loading-screen');
+                    if (loader) {
+                        loader.classList.add('hidden');
+                        loader.style.display = 'none';
+                    }
+                    return;
+                }
                 canvas = document.getElementById('snake-canvas');
                 if (!canvas) return;
                 ctx = canvas.getContext('2d');
