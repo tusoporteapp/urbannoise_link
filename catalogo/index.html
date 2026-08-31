@@ -1368,13 +1368,18 @@
                     } catch(e) {}
                 }
 
-                // Si la caché está fresca (< 24h), no necesitamos re-descargar todo el catálogo de nuevo
-                if (isCacheFresh && renderedFromCache) {
-                    console.log("⚡ Catálogo cargado desde caché ultra-rápida (vigencia 24h)");
+                // Iniciar sincronización diferencial en segundo plano SIEMPRE
+                startBackgroundDifferentialSync();
+
+                // Si fue cargado desde caché local, consultamos inmediatamente en segundo plano (1.5s) para traer cambios recientes de Loyverse (fotos, precios, títulos)
+                if (renderedFromCache) {
+                    setTimeout(() => {
+                        syncCatalogChangesSilently();
+                    }, 1500);
                     return;
                 }
 
-                // 2. Consulta en Tiempo Real al Servidor Mediador Cloudflare (/api/catalog) para sincronización cada 24h
+                // 2. Consulta en Tiempo Real al Servidor Mediador Cloudflare (/api/catalog) para primera visita o caché vencida
                 let apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
                 
                 if (!apiRes || !apiRes.ok) {
@@ -1385,36 +1390,33 @@
                     const liveProducts = await apiRes.json();
                     if (Array.isArray(liveProducts) && liveProducts.length > 0) {
                         localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(liveProducts));
+                        localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
                         renderCatalogDataset(liveProducts);
                         
-                        // Precarga de imágenes clave antes de activar el botón "Catálogo Listo"
+                        console.log(`⚡ Catálogo sincronizado en tiempo real desde Cloudflare Serverless: ${liveProducts.length} prendas`);
                         await preloadKeyImages(liveProducts);
-                        localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
-
                         if (typeof window.notifyCatalogReadyInSnakeLoader === "function") {
                             window.notifyCatalogReadyInSnakeLoader();
                         }
-                        console.log("⚡ Catálogo sincronizado en tiempo real desde Cloudflare Serverless: " + liveProducts.length + " prendas");
                         return;
                     }
                 }
 
-                // 3. Fallback si el API está inaccesible y no hay caché
-                if (!renderedFromCache) {
-                    const fallbackRes = await fetch("loyverse_products.json?t=" + Date.now()).catch(() => null);
-                    if (fallbackRes && fallbackRes.ok) {
-                        const fallbackProducts = await fallbackRes.json();
-                        localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(fallbackProducts));
-                        renderCatalogDataset(fallbackProducts);
-                        await preloadKeyImages(fallbackProducts);
-                        localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
-                        if (typeof window.notifyCatalogReadyInSnakeLoader === "function") {
-                            window.notifyCatalogReadyInSnakeLoader();
-                        }
+                // Fallback de contingencia si el servidor no responde
+                const fallbackRes = await fetch("loyverse_products.json?t=" + Date.now()).catch(() => null);
+                if (fallbackRes && fallbackRes.ok) {
+                    const fallbackProducts = await fallbackRes.json();
+                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(fallbackProducts));
+                    localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+                    renderCatalogDataset(fallbackProducts);
+                    await preloadKeyImages(fallbackProducts);
+                    if (typeof window.notifyCatalogReadyInSnakeLoader === "function") {
+                        window.notifyCatalogReadyInSnakeLoader();
                     }
                 }
-            } catch (err) {
-                console.error("Error sincronizando catálogo:", err);
+
+            } catch (error) {
+                console.error("Error sincronizando catálogo:", error);
             }
         }
 
@@ -1633,8 +1635,7 @@
         let currentStrategicallyOrderedProducts = [];
 
         
-        // --- 5-MINUTE SILENT DIFFERENTIAL SYNC ENGINE ---
-        let backgroundSyncInterval = null;
+        
 
         
         // --- PREDICTIVE SCROLL SWARM SYNC ENGINE ---
@@ -1721,18 +1722,22 @@
         }
     
 
-        function startPeriodicBackgroundSync() {
+        // --- 5-MINUTE SILENT DIFFERENTIAL SYNC ENGINE ---
+        let backgroundSyncInterval = null;
+
+        function startBackgroundDifferentialSync() {
             if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
-            // Ejecutar cada 5 minutos (300,000 ms)
             backgroundSyncInterval = setInterval(() => {
                 syncCatalogChangesSilently();
             }, 5 * 60 * 1000);
         }
 
-                async function syncCatalogChangesSilently() {
+        async function syncCatalogChangesSilently() {
             try {
-                const apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null)
-                    || await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                let apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                if (!apiRes || !apiRes.ok) {
+                    apiRes = await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                }
 
                 if (!apiRes || !apiRes.ok) return;
                 const freshProducts = await apiRes.json();
@@ -1759,17 +1764,17 @@
 
                 // Si NO hay cambios, no hacemos re-render innecesario
                 if (!hasChanges) {
-                    console.log("⚡ [Sync 5m] Catálogo analizado: Sin cambios en Loyverse.");
+                    console.log("⚡ [Sync] Catálogo analizado: Sin cambios en Loyverse.");
                     return;
                 }
 
-                console.log("⚡ [Sync 5m] Cambios detectados en Loyverse. Actualizando catálogo y vistas en vivo.");
+                console.log("⚡ [Sync] Cambios detectados en Loyverse (imágenes, precios, títulos o inventario). Actualizando catálogo y vistas en vivo.");
                 localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(freshProducts));
                 localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
                 renderCatalogDataset(freshProducts);
 
             } catch (e) {
-                console.warn("Aviso en sincronización en segundo plano:", e);
+                console.warn("Aviso en sincronización silenciosa:", e);
             }
         }
 
