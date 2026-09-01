@@ -1,0 +1,8 @@
+# Robots.txt para Urban Noise Oficial (https://urbannoise.cc)
+User-agent: *
+Allow: /
+Disallow: /api/dispatch
+Disallow: /api/sync
+
+# Sitemaps oficiales
+Sitemap: https://urbannoise.cc/sitemap.xml
