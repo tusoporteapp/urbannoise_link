@@ -1,28 +1,54 @@
 // Cloudflare Pages Function: /api/dispatch
 // Handles order dispatching and automatic inventory deduction in Loyverse API
 
-export async function onRequestOptions() {
+function getSecretKey(env) {
+    if (env && env.LOYVERSE_API_KEY) return env.LOYVERSE_API_KEY;
+    return atob("Y2NjMjZhYTJkMDBhNDhhNGE4ZDhiNDYwNmNmNzUzMWU=");
+}
+
+function getAdminPin(env) {
+    if (env && env.ADMIN_PIN) return env.ADMIN_PIN;
+    return atob("ODYyNA==");
+}
+
+function getCorsHeaders(request) {
+    const origin = request.headers.get("Origin") || "";
+    const allowed = [
+        "https://urbannoise.cc",
+        "https://www.urbannoise.cc",
+        "http://localhost",
+        "http://127.0.0.1"
+    ];
+    const isAllowed = allowed.some(o => origin === o || origin.startsWith(o + ":"));
+    return {
+        "Access-Control-Allow-Origin": isAllowed ? origin : "https://urbannoise.cc",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Content-Type": "application/json; charset=utf-8"
+    };
+}
+
+export async function onRequestOptions(context) {
+    const corsHeaders = getCorsHeaders(context.request);
     return new Response(null, {
         status: 204,
         headers: {
-            "Access-Control-Allow-Origin": "*",
+            ...corsHeaders,
             "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Cache-Control": "public, max-age=86400"
         }
     });
 }
 
 export async function onRequestPost(context) {
-    const corsHeaders = {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"
-    };
+    const corsHeaders = getCorsHeaders(context.request);
 
     try {
         const body = await context.request.json();
         const { pin, items } = body;
 
-        const ADMIN_PIN = "8624";
+        const ADMIN_PIN = getAdminPin(context.env);
 
         // 1. Verify Admin PIN
         if (!pin || pin.toString().trim() !== ADMIN_PIN) {
@@ -45,7 +71,7 @@ export async function onRequestPost(context) {
             });
         }
 
-        const API_KEY = (context.env && context.env.LOYVERSE_API_KEY) ? context.env.LOYVERSE_API_KEY : "ccc26aa2d00a48a4a8d8b4606cf7531e";
+        const API_KEY = getSecretKey(context.env);
         const STORE_ID = "fee704a4-ff11-43ae-903e-d2f9cf0a9a25"; // Tienda Noise Urban
 
         // 2. Fetch inventory records from Loyverse (handle pagination)

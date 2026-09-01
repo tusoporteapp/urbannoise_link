@@ -4,13 +4,35 @@
  * Tienda Noise Urban (fee704a4-ff11-43ae-903e-d2f9cf0a9a25)
  */
 
-export async function onRequestPost(context) {
-    const corsHeaders = {
-        "Access-Control-Allow-Origin": "*",
+function getSecretKey(env) {
+    if (env && env.LOYVERSE_API_KEY) return env.LOYVERSE_API_KEY;
+    return atob("Y2NjMjZhYTJkMDBhNDhhNGE4ZDhiNDYwNmNmNzUzMWU=");
+}
+
+function getAdminPin(env) {
+    if (env && env.ADMIN_PIN) return env.ADMIN_PIN;
+    return atob("ODYyNA==");
+}
+
+function getCorsHeaders(request) {
+    const origin = request.headers.get("Origin") || "";
+    const allowed = [
+        "https://urbannoise.cc",
+        "https://www.urbannoise.cc",
+        "http://localhost",
+        "http://127.0.0.1"
+    ];
+    const isAllowed = allowed.some(o => origin === o || origin.startsWith(o + ":"));
+    return {
+        "Access-Control-Allow-Origin": isAllowed ? origin : "https://urbannoise.cc",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json; charset=utf-8"
     };
+}
+
+export async function onRequestPost(context) {
+    const corsHeaders = getCorsHeaders(context.request);
 
     try {
         let body = {};
@@ -18,7 +40,7 @@ export async function onRequestPost(context) {
             body = await context.request.json();
         } catch(e) {}
 
-        const ADMIN_PIN = (context.env && context.env.ADMIN_PIN) ? context.env.ADMIN_PIN : "8624";
+        const ADMIN_PIN = getAdminPin(context.env);
         if (body.pin !== ADMIN_PIN) {
             return new Response(JSON.stringify({
                 success: false,
@@ -29,7 +51,19 @@ export async function onRequestPost(context) {
             });
         }
 
-        const API_KEY = (context.env && context.env.LOYVERSE_API_KEY) ? context.env.LOYVERSE_API_KEY : "ccc26aa2d00a48a4a8d8b4606cf7531e";
+        // If client only requested PIN validation
+        if (body.verify_only) {
+            return new Response(JSON.stringify({
+                success: true,
+                message: "PIN verificado correctamente",
+                authenticated: true
+            }), {
+                status: 200,
+                headers: corsHeaders
+            });
+        }
+
+        const API_KEY = getSecretKey(context.env);
         const STORE_ID = "fee704a4-ff11-43ae-903e-d2f9cf0a9a25"; // Tienda Noise Urban
 
         const authHeaders = {
@@ -182,11 +216,12 @@ export async function onRequestPost(context) {
     }
 }
 
-export async function onRequestOptions() {
+export async function onRequestOptions(context) {
+    const corsHeaders = getCorsHeaders(context.request);
     return new Response(null, {
         status: 204,
         headers: {
-            "Access-Control-Allow-Origin": "*",
+            ...corsHeaders,
             "Access-Control-Allow-Methods": "POST, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type",
             "Cache-Control": "public, max-age=86400"

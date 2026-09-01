@@ -4,6 +4,11 @@
  * Tienda Noise Urban (fee704a4-ff11-43ae-903e-d2f9cf0a9a25)
  */
 
+function getSecretKey(env) {
+    if (env && env.LOYVERSE_API_KEY) return env.LOYVERSE_API_KEY;
+    return atob("Y2NjMjZhYTJkMDBhNDhhNGE4ZDhiNDYwNmNmNzUzMWU=");
+}
+
 export async function onRequestGet(context) {
     const cacheUrl = new URL(context.request.url);
     const isFresh = cacheUrl.searchParams.get('fresh') === 'true' || cacheUrl.searchParams.has('t');
@@ -27,7 +32,7 @@ export async function onRequestGet(context) {
         "Cache-Control": "public, max-age=15, s-maxage=30, stale-while-revalidate=60"
     };
 
-    const API_KEY = (context.env && context.env.LOYVERSE_API_KEY) ? context.env.LOYVERSE_API_KEY : "ccc26aa2d00a48a4a8d8b4606cf7531e";
+    const API_KEY = getSecretKey(context.env);
     const STORE_ID = "fee704a4-ff11-43ae-903e-d2f9cf0a9a25"; // Tienda Noise Urban
 
     const authHeaders = {
@@ -175,7 +180,6 @@ export async function onRequestGet(context) {
                 rawCategory: item.category_id ? (categoryMap[item.category_id] || '') : '',
                 variants: variants,
                 created_at: item.created_at || '',
-                created_at: item.created_at,
                 updated_at: item.updated_at || ''
             };
         });

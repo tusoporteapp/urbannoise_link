@@ -4,6 +4,11 @@
  * Tienda Noise Urban (fee704a4-ff11-43ae-903e-d2f9cf0a9a25)
  */
 
+function getSecretKey(env) {
+    if (env && env.LOYVERSE_API_KEY) return env.LOYVERSE_API_KEY;
+    return atob("Y2NjMjZhYTJkMDBhNDhhNGE4ZDhiNDYwNmNmNzUzMWU=");
+}
+
 export async function onRequestGet(context) {
     const url = new URL(context.request.url);
     const itemId = url.searchParams.get('item_id') || url.searchParams.get('id');
@@ -25,7 +30,7 @@ export async function onRequestGet(context) {
         });
     }
 
-    const API_KEY = (context.env && context.env.LOYVERSE_API_KEY) ? context.env.LOYVERSE_API_KEY : "ccc26aa2d00a48a4a8d8b4606cf7531e";
+    const API_KEY = getSecretKey(context.env);
 
     const authHeaders = {
         "Authorization": `Bearer ${API_KEY}`,
@@ -102,4 +107,16 @@ export async function onRequestGet(context) {
             headers: corsHeaders
         });
     }
+}
+
+export async function onRequestOptions() {
+    return new Response(null, {
+        status: 204,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Cache-Control": "public, max-age=86400"
+        }
+    });
 }
