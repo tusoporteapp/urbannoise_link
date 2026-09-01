@@ -3332,18 +3332,30 @@
         }
 
         // ==========================================
-        // 🎟️ SISTEMA DE BONOS Y CUPONES MAYORISTAS
+        // 🎟️ SISTEMA DE DESCUENTOS OFICIAL DE LOYVERSE POS
         // ==========================================
-        const VALID_COUPONS = {
-            'BIENVENIDA': { type: 'fixed', value: 20000, minQty: 6, label: 'Bono de Bienvenida Mayorista (-$20.000 COP)' },
-            'BIENVENIDANOISE': { type: 'fixed', value: 20000, minQty: 6, label: 'Bono de Bienvenida Mayorista (-$20.000 COP)' },
-            'URBANVIP': { type: 'percent', value: 5, minQty: 6, label: 'Descuento VIP Mayorista (5% OFF)' },
-            'VIPMAYORISTA': { type: 'percent', value: 5, minQty: 6, label: 'Descuento VIP Mayorista (5% OFF)' },
-            'PROMO10': { type: 'percent', value: 10, minQty: 12, label: 'Super Promo Lote Mayorista (10% OFF >12 prendas)' },
-            'BOGOTA2026': { type: 'fixed', value: 15000, minQty: 6, label: 'Bono Especial Bogotá (-$15.000 COP)' }
-        };
-
+        let loyverseDiscounts = [];
         let appliedCoupon = null;
+
+        async function fetchLoyverseDiscounts() {
+            try {
+                const res = await fetch('/api/discounts?t=' + Date.now());
+                if (res.ok) {
+                    const data = await res.json();
+                    loyverseDiscounts = Array.isArray(data.discounts) ? data.discounts : [];
+                    console.log("⚡ Descuentos activos sincronizados desde Loyverse POS:", loyverseDiscounts.length);
+                }
+            } catch (e) {
+                console.warn("No se pudieron cargar descuentos de Loyverse:", e);
+            }
+        }
+
+        async function shareProductById(productId) {
+            const prod = (products || []).find(p => String(p.id) === String(productId));
+            if (!prod) return;
+            currentModalProduct = prod;
+            await shareCurrentProduct();
+        }
 
         function toggleCouponInput() {
             const container = document.getElementById('coupon-input-container');
@@ -3366,30 +3378,41 @@
             const code = input.value.trim().toUpperCase();
             if (!code) {
                 msgEl.className = 'text-[11px] font-bold mt-1.5 text-rose-600 block';
-                msgEl.innerText = '⚠️ Ingresa un código de bono válido.';
+                msgEl.innerText = '⚠️ Ingresa el nombre del cupón o descuento.';
                 return;
             }
             
-            const coupon = VALID_COUPONS[code];
-            if (!coupon) {
+            // Buscar descuento en vivo configurado por el administrador en Loyverse POS
+            const found = (loyverseDiscounts || []).find(d => d.name && d.name.trim().toUpperCase() === code);
+            if (!found) {
                 msgEl.className = 'text-[11px] font-bold mt-1.5 text-rose-600 block';
-                msgEl.innerText = '❌ Código no válido o no disponible.';
+                msgEl.innerText = '❌ Descuento o cupón no encontrado en Loyverse POS.';
                 return;
             }
             
             const totalQty = (orderList || []).reduce((sum, item) => sum + (item.qty || 1), 0);
-            if (totalQty < coupon.minQty) {
+            if (totalQty < 6) {
                 msgEl.className = 'text-[11px] font-bold mt-1.5 text-amber-600 block';
-                msgEl.innerText = `⚠️ Este bono requiere un mínimo de ${coupon.minQty} prendas (tienes ${totalQty}).`;
+                msgEl.innerText = `⚠️ La compra mínima mayorista para aplicar descuentos es de 6 prendas (tienes ${totalQty}).`;
                 return;
             }
             
-            appliedCoupon = { code, ...coupon };
+            const isPercent = found.type === 'FIXED_PERCENT' || (found.percent && found.percent > 0);
+            const discountLabel = isPercent ? `${found.percent}% OFF` : `-$ ${formatCOP(found.value)}`;
+
+            appliedCoupon = {
+                id: found.id,
+                code: found.name,
+                type: isPercent ? 'percent' : 'fixed',
+                value: isPercent ? found.percent : found.value,
+                label: `${found.name} (${discountLabel})`
+            };
+            
             msgEl.className = 'text-[11px] font-bold mt-1.5 text-emerald-600 block';
-            msgEl.innerText = `✅ ¡${coupon.label} aplicado!`;
+            msgEl.innerText = `✅ ¡Descuento "${found.name}" de Loyverse aplicado!`;
             
             renderOrderListItems();
-            showNotification(`🎟️ ¡${coupon.label} activado!`);
+            showNotification(`🎟️ Descuento ${found.name} aplicado con éxito`);
         }
 
         function removeAppliedCoupon() {
@@ -3402,7 +3425,7 @@
             }
             if (input) input.value = '';
             renderOrderListItems();
-            showNotification("Bono removido");
+            showNotification("Descuento removido");
         }
     
         // WhatsApp Sender Logic (Grouped by Product)
