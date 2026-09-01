@@ -944,6 +944,24 @@
 
             <!-- List Footer calculations and WhatsApp action -->
             <div class="pt-4 border-t border-zinc-200 flex flex-col gap-4">
+                <!-- WHOLESALE COUPON & BONUS ACCORDION -->
+                <div id="coupon-accordion" class="bg-zinc-50 border border-zinc-200/80 rounded-2xl p-3 mb-1 transition-all">
+                    <div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleCouponInput()">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="ticket" class="w-4 h-4 text-emerald-600"></i>
+                            <span class="text-xs font-black uppercase tracking-tight text-zinc-900">¿Tienes un Bono o Cupón?</span>
+                        </div>
+                        <span id="coupon-toggle-icon" class="text-xs font-black text-zinc-600 bg-white border border-zinc-200 w-5 h-5 rounded-md flex items-center justify-center shadow-2xs">+</span>
+                    </div>
+                    <div id="coupon-input-container" class="hidden mt-2.5 pt-2.5 border-t border-zinc-200/60">
+                        <div class="flex gap-2">
+                            <input type="text" id="coupon-code-input" placeholder="Ej: BIENVENIDA, URBANVIP" class="w-full bg-white border border-zinc-300 px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-900 focus:outline-none focus:border-zinc-950 focus:ring-1 focus:ring-zinc-950" />
+                            <button type="button" onclick="applyCouponCode()" class="bg-zinc-950 hover:bg-zinc-800 text-white px-3.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all cursor-pointer active:scale-95">Aplicar</button>
+                        </div>
+                        <div id="coupon-status-msg" class="text-[11px] font-bold mt-1.5 hidden"></div>
+                    </div>
+                </div>
+
                 <!-- Summary Calculations -->
                 <div class="flex flex-col gap-1.5">
                     <div class="flex justify-between items-baseline text-sm text-zinc-600">
@@ -3114,10 +3132,31 @@
 
             const countEl = document.getElementById('summary-items-count'); if (countEl) { countEl.textContent = totalQty; countEl.innerText = totalQty; }
             
-            if (hasConsultarPrice) {
-                document.getElementById('summary-total-price').innerText = totalVal > 0 ? `${formatCOP(totalVal)} + Consultar` : "Por Consultar";
-            } else {
-                const priceEl = document.getElementById('summary-total-price'); if (priceEl) { priceEl.textContent = formatCOP(totalVal); priceEl.innerText = formatCOP(totalVal); }
+            let discountAmount = 0;
+            if (appliedCoupon && totalQty >= (appliedCoupon.minQty || 1)) {
+                if (appliedCoupon.type === 'fixed') {
+                    discountAmount = appliedCoupon.value;
+                } else if (appliedCoupon.type === 'percent') {
+                    discountAmount = Math.round((totalVal * appliedCoupon.value) / 100);
+                }
+            }
+            const finalTotalVal = Math.max(0, totalVal - discountAmount);
+
+            const priceEl = document.getElementById('summary-total-price');
+            if (priceEl) {
+                if (discountAmount > 0) {
+                    priceEl.innerHTML = `
+                        <div class="flex flex-col items-end">
+                            <span class="text-xs text-zinc-400 line-through font-semibold">${formatCOP(totalVal)}</span>
+                            <span class="text-xl font-display font-black text-emerald-600">${formatCOP(finalTotalVal)}</span>
+                            <span class="text-[10.5px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-md border border-emerald-300 mt-0.5">🎟️ ${appliedCoupon.code} (-${formatCOP(discountAmount)})</span>
+                        </div>
+                    `;
+                } else if (hasConsultarPrice) {
+                    priceEl.innerText = totalVal > 0 ? `${formatCOP(totalVal)} + Consultar` : "Por Consultar";
+                } else {
+                    priceEl.innerText = formatCOP(totalVal);
+                }
             }
 
             // Wholesale gatekeeper button state
@@ -3235,6 +3274,137 @@
             }
         }
 
+        
+        // ==========================================
+        // 📲 SISTEMA DE COMPARTIR NATIVO (WEB SHARE)
+        // ==========================================
+        async function shareWholesaleCatalog() {
+            const shareData = {
+                title: 'Urban Noise Mayorista | Catálogo Oficial de Precios por Mayor',
+                text: '🔥 Catálogo Mayorista Oficial de Urban Noise Bogotá. Consulta precios de fábrica en buzos Acid Wash y camisetas oversize por mayor:',
+                url: 'https://urbannoise.cc/catalogo/'
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    return;
+                } catch (e) {
+                    if (e.name === 'AbortError') return;
+                }
+            }
+
+            if (navigator.clipboard) {
+                await navigator.clipboard.writeText('https://urbannoise.cc/catalogo/');
+                showNotification("🔗 Enlace del catálogo copiado al portapapeles");
+            } else {
+                showNotification("🔗 https://urbannoise.cc/catalogo/");
+            }
+        }
+
+        async function shareCurrentProduct() {
+            if (!currentModalProduct) return;
+            const prod = currentModalProduct;
+            const prodUrl = `https://urbannoise.cc/catalogo/?id=${encodeURIComponent(prod.id)}`;
+            const priceText = prod.price > 1000 ? ` ($ ${formatCOP(prod.price)})` : '';
+            
+            const shareData = {
+                title: `${prod.title} - Urban Noise Mayorista`,
+                text: `👕 Mira esta prenda en el Catálogo Mayorista de Urban Noise: ${prod.title}${priceText}\n🔗 ${prodUrl}`,
+                url: prodUrl
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    return;
+                } catch (e) {
+                    if (e.name === 'AbortError') return;
+                }
+            }
+
+            if (navigator.clipboard) {
+                await navigator.clipboard.writeText(prodUrl);
+                showNotification("🔗 Enlace de la prenda copiado al portapapeles");
+            } else {
+                showNotification(`🔗 ${prodUrl}`);
+            }
+        }
+
+        // ==========================================
+        // 🎟️ SISTEMA DE BONOS Y CUPONES MAYORISTAS
+        // ==========================================
+        const VALID_COUPONS = {
+            'BIENVENIDA': { type: 'fixed', value: 20000, minQty: 6, label: 'Bono de Bienvenida Mayorista (-$20.000 COP)' },
+            'BIENVENIDANOISE': { type: 'fixed', value: 20000, minQty: 6, label: 'Bono de Bienvenida Mayorista (-$20.000 COP)' },
+            'URBANVIP': { type: 'percent', value: 5, minQty: 6, label: 'Descuento VIP Mayorista (5% OFF)' },
+            'VIPMAYORISTA': { type: 'percent', value: 5, minQty: 6, label: 'Descuento VIP Mayorista (5% OFF)' },
+            'PROMO10': { type: 'percent', value: 10, minQty: 12, label: 'Super Promo Lote Mayorista (10% OFF >12 prendas)' },
+            'BOGOTA2026': { type: 'fixed', value: 15000, minQty: 6, label: 'Bono Especial Bogotá (-$15.000 COP)' }
+        };
+
+        let appliedCoupon = null;
+
+        function toggleCouponInput() {
+            const container = document.getElementById('coupon-input-container');
+            const icon = document.getElementById('coupon-toggle-icon');
+            if (!container) return;
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                if (icon) icon.innerText = '−';
+            } else {
+                container.classList.add('hidden');
+                if (icon) icon.innerText = '+';
+            }
+        }
+
+        function applyCouponCode() {
+            const input = document.getElementById('coupon-code-input');
+            const msgEl = document.getElementById('coupon-status-msg');
+            if (!input || !msgEl) return;
+            
+            const code = input.value.trim().toUpperCase();
+            if (!code) {
+                msgEl.className = 'text-[11px] font-bold mt-1.5 text-rose-600 block';
+                msgEl.innerText = '⚠️ Ingresa un código de bono válido.';
+                return;
+            }
+            
+            const coupon = VALID_COUPONS[code];
+            if (!coupon) {
+                msgEl.className = 'text-[11px] font-bold mt-1.5 text-rose-600 block';
+                msgEl.innerText = '❌ Código no válido o no disponible.';
+                return;
+            }
+            
+            const totalQty = (orderList || []).reduce((sum, item) => sum + (item.qty || 1), 0);
+            if (totalQty < coupon.minQty) {
+                msgEl.className = 'text-[11px] font-bold mt-1.5 text-amber-600 block';
+                msgEl.innerText = `⚠️ Este bono requiere un mínimo de ${coupon.minQty} prendas (tienes ${totalQty}).`;
+                return;
+            }
+            
+            appliedCoupon = { code, ...coupon };
+            msgEl.className = 'text-[11px] font-bold mt-1.5 text-emerald-600 block';
+            msgEl.innerText = `✅ ¡${coupon.label} aplicado!`;
+            
+            renderOrderListItems();
+            showNotification(`🎟️ ¡${coupon.label} activado!`);
+        }
+
+        function removeAppliedCoupon() {
+            appliedCoupon = null;
+            const msgEl = document.getElementById('coupon-status-msg');
+            const input = document.getElementById('coupon-code-input');
+            if (msgEl) {
+                msgEl.className = 'text-[11px] font-bold mt-1.5 hidden';
+                msgEl.innerText = '';
+            }
+            if (input) input.value = '';
+            renderOrderListItems();
+            showNotification("Bono removido");
+        }
+    
         // WhatsApp Sender Logic (Grouped by Product)
         function sendOrderToWhatsApp() {
             if (orderList.length === 0) return;
