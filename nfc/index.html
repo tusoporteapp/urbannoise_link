@@ -435,24 +435,22 @@
                 <p class="text-[10px] text-zinc-400 uppercase mt-0.5">Escríbenos para consultar disponibilidad</p>
             </div>
 
-            <!-- Product Images Grid (4 Items, 2x2 Grid, Only Images -> WhatsApp) -->
-            <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20quiero%20ver%20la%20colecci%C3%B3n%20completa%20y%20los%20nuevos%20lanzamientos." target="_blank" onclick="closePopup()" class="relative z-10 group overflow-hidden rounded-2xl cursor-pointer">
-                <div id="popup-products-grid" class="grid grid-cols-2 gap-2.5">
-                    <!-- Default 4 Items from Loyverse for instant 0ms render -->
-                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
-                        <img src="https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=2026-08-31T16%3A21%3A56.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
-                        <img src="https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=2026-08-31T16%3A47%3A21.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
-                        <img src="https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=2026-08-31T14%3A25%3A12.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
-                        <img src="https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=2026-08-28T16%3A04%3A52.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                </div>
-            </a>
+            <!-- Product Images Grid (4 Items, 2x2 Grid, Each Image links to WhatsApp with Product Name) -->
+            <div id="popup-products-grid" class="grid grid-cols-2 gap-2.5 relative z-10">
+                <!-- Default 4 Items from Loyverse for instant 0ms render -->
+                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*CLOTHING%2007*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
+                    <img src="https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=2026-08-31T16%3A21%3A56.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </a>
+                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*NO%20RISK%20URBAN*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
+                    <img src="https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=2026-08-31T16%3A47%3A21.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </a>
+                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*CLOTHING%2007*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
+                    <img src="https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=2026-08-31T14%3A25%3A12.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </a>
+                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*NO%20RISK%20URBAN*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
+                    <img src="https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=2026-08-28T16%3A04%3A52.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </a>
+            </div>
 
             <!-- Action Button -> WhatsApp -->
             <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20quiero%20ver%20la%20colecci%C3%B3n%20completa%20y%20los%20nuevos%20lanzamientos." target="_blank" onclick="closePopup()" class="relative z-10 w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 shadow-lg" style="background-color: var(--accent-color); color: var(--accent-text);">
@@ -570,10 +568,13 @@
                             const latest4 = valid.slice(0, 4);
                             grid.innerHTML = latest4.map(p => {
                                 const imgUrl = p.image || (Array.isArray(p.images) && p.images[0] ? p.images[0] : '');
+                                const title = p.title || 'Prenda Urban Noise';
+                                const waMsg = encodeURIComponent(`Hola Urban Noise, estoy interesado(a) en la prenda *${title}* que vi en el lanzamiento. ¿Me podrían dar más información?`);
+                                const waUrl = `https://wa.me/573108720491?text=${waMsg}`;
                                 return `
-                                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
-                                        <img src="${imgUrl}" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                                    </div>
+                                    <a href="${waUrl}" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
+                                        <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                                    </a>
                                 `;
                             }).join('');
                             break;
