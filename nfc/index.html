@@ -410,8 +410,8 @@
         <p class="text-[9px] text-zinc-600">Disiseñado para mentes urbanas y estética contemporánea.</p>
     </footer>
 
-    <!-- POPUP MODAL: NEW DROP PROMOTION (LOYVERSE 4 NEWEST ITEMS) -->
-    <div id="product-popup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
+    <!-- POPUP MODAL: NEW DROP PROMOTION WITH SIZE & COLOR SELECTOR -->
+    <div id="product-popup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
         <!-- Modal Backdrop click triggers close -->
         <div class="absolute inset-0 cursor-default" onclick="closePopup()"></div>
         
@@ -428,35 +428,94 @@
                 </svg>
             </button>
 
-            <!-- Header -->
-            <div class="text-center relative z-10 pt-1">
-                <span class="text-[9px] font-mono tracking-widest text-[var(--accent-color)] bg-[var(--accent-color)]/10 px-2.5 py-0.5 rounded-full uppercase font-bold">Lanzamiento Oficial</span>
-                <h3 class="font-display text-xl font-bold uppercase tracking-tighter text-white mt-1.5">Nuevos Lanzamientos</h3>
-                <p class="text-[10px] text-zinc-400 uppercase mt-0.5">Escríbenos para consultar disponibilidad</p>
+            <!-- VIEW 1: 4 LATEST PRODUCTS GRID (VISUAL LAUNCHER) -->
+            <div id="popup-view-grid" class="flex flex-col gap-3.5 relative z-10 transition-all duration-300">
+                <!-- Header -->
+                <div class="text-center pt-1">
+                    <span class="text-[9px] font-mono tracking-widest text-[var(--accent-color)] bg-[var(--accent-color)]/10 px-2.5 py-0.5 rounded-full uppercase font-bold">Lanzamiento Oficial</span>
+                    <h3 class="font-display text-xl font-bold uppercase tracking-tighter text-white mt-1.5">Nuevos Lanzamientos</h3>
+                    <p class="text-[10px] text-zinc-400 uppercase mt-0.5">Toca una prenda para ver tallas y colores</p>
+                </div>
+
+                <!-- Product Images Grid (4 Items, 2x2 Grid, Only Images) -->
+                <div id="popup-products-grid" class="grid grid-cols-2 gap-2.5">
+                    <!-- Default 4 Items from Loyverse for instant 0ms render -->
+                    <button type="button" onclick="openProductSelector(0)" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block text-left">
+                        <img src="https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=2026-08-31T16%3A21%3A56.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </button>
+                    <button type="button" onclick="openProductSelector(1)" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block text-left">
+                        <img src="https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=2026-08-31T16%3A47%3A21.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </button>
+                    <button type="button" onclick="openProductSelector(2)" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block text-left">
+                        <img src="https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=2026-08-31T14%3A25%3A12.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </button>
+                    <button type="button" onclick="openProductSelector(3)" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block text-left">
+                        <img src="https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=2026-08-28T16%3A04%3A52.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </button>
+                </div>
+
+                <!-- Action Button -> General WhatsApp -->
+                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20quiero%20ver%20la%20colecci%C3%B3n%20completa%20y%20los%20nuevos%20lanzamientos." target="_blank" onclick="closePopup()" class="w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 shadow-lg mt-1" style="background-color: var(--accent-color); color: var(--accent-text);">
+                    <span>Ver Colección Completa</span>
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                </a>
             </div>
 
-            <!-- Product Images Grid (4 Items, 2x2 Grid, Each Image links to WhatsApp with Product Name) -->
-            <div id="popup-products-grid" class="grid grid-cols-2 gap-2.5 relative z-10">
-                <!-- Default 4 Items from Loyverse for instant 0ms render -->
-                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*CLOTHING%2007*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
-                    <img src="https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=2026-08-31T16%3A21%3A56.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </a>
-                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*NO%20RISK%20URBAN*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
-                    <img src="https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=2026-08-31T16%3A47%3A21.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </a>
-                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*CLOTHING%2007*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
-                    <img src="https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=2026-08-31T14%3A25%3A12.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </a>
-                <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20estoy%20interesado(a)%20en%20la%20prenda%20*NO%20RISK%20URBAN*%20que%20vi%20en%20el%20lanzamiento.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
-                    <img src="https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=2026-08-28T16%3A04%3A52.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <!-- VIEW 2: PRODUCT DETAIL & SIZE/COLOR SELECTOR (HIDDEN BY DEFAULT) -->
+            <div id="popup-view-selector" class="hidden flex flex-col gap-4 relative z-10 transition-all duration-300">
+                <!-- Back button & Breadcrumb -->
+                <button type="button" onclick="backToPopupGrid()" class="self-start flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors group">
+                    <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span>Volver a lanzamientos</span>
+                </button>
+
+                <!-- Selected Product Preview Header -->
+                <div class="flex items-center gap-3 bg-white/[0.03] border border-white/10 p-3 rounded-2xl">
+                    <div class="w-16 h-16 rounded-xl overflow-hidden bg-zinc-900 border border-white/10 shrink-0">
+                        <img id="sel-item-img" src="" alt="Prenda" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                        <span id="sel-item-category" class="text-[9px] font-mono font-bold uppercase tracking-wider text-[var(--accent-color)]">Buzo AcidWash</span>
+                        <h4 id="sel-item-title" class="text-white font-bold text-sm truncate tracking-tight">CLOTHING 07</h4>
+                        <div class="flex items-center gap-1.5 text-[10px] text-emerald-400 mt-1 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span>Disponible en stock</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1. Color Selector -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-300 flex items-center justify-between">
+                        <span>1. Selecciona Color:</span>
+                        <span id="sel-color-name" class="text-white font-bold text-xs"></span>
+                    </label>
+                    <div id="sel-colors-container" class="flex flex-wrap gap-2">
+                        <!-- Dynamic Color Chips -->
+                    </div>
+                </div>
+
+                <!-- 2. Size Selector -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-300 flex items-center justify-between">
+                        <span>2. Selecciona Talla:</span>
+                        <span id="sel-size-name" class="text-white font-bold text-xs"></span>
+                    </label>
+                    <div id="sel-sizes-container" class="flex flex-wrap gap-2">
+                        <!-- Dynamic Size Chips -->
+                    </div>
+                </div>
+
+                <!-- WhatsApp CTA Action Button -->
+                <a id="sel-whatsapp-btn" href="#" target="_blank" onclick="closePopup()" class="w-full text-center py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 shadow-xl mt-1" style="background-color: var(--accent-color); color: var(--accent-text);">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.991.56 1.776.815 2.795.815 3.181 0 5.768-2.587 5.768-5.767 0-3.18-2.587-5.767-5.768-5.767zm9.969 5.766c0 5.485-4.484 9.969-9.969 9.969-1.745 0-3.376-.453-4.802-1.242l-5.229 1.335 1.385-5.067c-.886-1.479-1.354-3.182-1.354-4.995 0-5.485 4.484-9.969 9.969-9.969 5.485 0 9.969 4.484 9.969 9.969z"/>
+                    </svg>
+                    <span>Pedir por WhatsApp</span>
                 </a>
             </div>
-
-            <!-- Action Button -> WhatsApp -->
-            <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20quiero%20ver%20la%20colecci%C3%B3n%20completa%20y%20los%20nuevos%20lanzamientos." target="_blank" onclick="closePopup()" class="relative z-10 w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 shadow-lg" style="background-color: var(--accent-color); color: var(--accent-text);">
-                <span>Ver Colección Completa</span>
-                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-            </a>
         </div>
     </div>
 
@@ -540,11 +599,89 @@
             }, 800);
         }
 
+        // ------------------ POPUP & LOYVERSE SELECTOR LOGIC ------------------
+
+        let currentPopupProducts = [
+            {
+                title: "CLOTHING 07",
+                category: "Buzo AcidWash",
+                rawCategory: "Buzo AcidWash",
+                modifierApplied: "Buzo AcidWash",
+                image: "https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=2026-08-31T16%3A21%3A56.000Z",
+                variants: [
+                    { size: "S", color: "Cobre", inStock: true, stock: 3 },
+                    { size: "S", color: "Azul", inStock: true, stock: 3 },
+                    { size: "M", color: "Cobre", inStock: true, stock: 3 },
+                    { size: "M", color: "Azul", inStock: true, stock: 3 },
+                    { size: "L", color: "Cobre", inStock: true, stock: 2 },
+                    { size: "L", color: "Azul", inStock: true, stock: 2 },
+                    { size: "XL", color: "Cobre", inStock: true, stock: 2 },
+                    { size: "XL", color: "Azul", inStock: true, stock: 2 }
+                ]
+            },
+            {
+                title: "NO RISK URBAN",
+                category: "Buzo AcidWash",
+                rawCategory: "Buzo AcidWash",
+                modifierApplied: "Buzo AcidWash",
+                image: "https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=2026-08-31T16%3A47%3A21.000Z",
+                variants: [
+                    { size: "S", color: "Cobre", inStock: true, stock: 4 },
+                    { size: "S", color: "Azul", inStock: true, stock: 4 },
+                    { size: "M", color: "Cobre", inStock: true, stock: 4 },
+                    { size: "M", color: "Azul", inStock: true, stock: 4 },
+                    { size: "L", color: "Cobre", inStock: true, stock: 3 },
+                    { size: "L", color: "Azul", inStock: true, stock: 3 },
+                    { size: "XL", color: "Cobre", inStock: true, stock: 2 },
+                    { size: "XL", color: "Azul", inStock: true, stock: 2 }
+                ]
+            },
+            {
+                title: "CLOTHING 07",
+                category: "Esqueleto",
+                rawCategory: "Esqueleto",
+                modifierApplied: "Esqueleto",
+                image: "https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=2026-08-31T14%3A25%3A12.000Z",
+                variants: [
+                    { size: "S", color: "Marfil", inStock: true, stock: 5 },
+                    { size: "S", color: "Negro", inStock: true, stock: 5 },
+                    { size: "M", color: "Marfil", inStock: true, stock: 4 },
+                    { size: "M", color: "Negro", inStock: true, stock: 5 },
+                    { size: "L", color: "Marfil", inStock: true, stock: 5 },
+                    { size: "L", color: "Negro", inStock: true, stock: 5 }
+                ]
+            },
+            {
+                title: "NO RISK URBAN",
+                category: "Esqueleto",
+                rawCategory: "Esqueleto",
+                modifierApplied: "Esqueleto",
+                image: "https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=2026-08-28T16%3A04%3A52.000Z",
+                variants: [
+                    { size: "S", color: "Marfil", inStock: true, stock: 4 },
+                    { size: "S", color: "Negro", inStock: true, stock: 5 },
+                    { size: "M", color: "Marfil", inStock: true, stock: 5 },
+                    { size: "M", color: "Negro", inStock: true, stock: 4 },
+                    { size: "L", color: "Marfil", inStock: true, stock: 5 },
+                    { size: "L", color: "Negro", inStock: true, stock: 4 }
+                ]
+            }
+        ];
+
+        let selectedProductIndex = 0;
+        let selectedColor = null;
+        let selectedSize = null;
+
+        function getProductCategoryName(p) {
+            if (!p) return 'Prenda Urbana';
+            if (p.modifierApplied && p.modifierApplied !== 'Ninguno') return p.modifierApplied;
+            if (p.rawCategory) return p.rawCategory;
+            if (p.category) return p.category;
+            return 'Prenda Urbana';
+        }
+
         // Load latest 4 products dynamically from Loyverse API
         async function loadLoyversePopupProducts() {
-            const grid = document.getElementById('popup-products-grid');
-            if (!grid) return;
-
             const apiEndpoints = [
                 "/api/catalog?fresh=true&t=" + Date.now(),
                 "https://urbannoise.cc/api/catalog?fresh=true&t=" + Date.now(),
@@ -565,18 +702,8 @@
                                 return (dateB || 0) - (dateA || 0);
                             });
 
-                            const latest4 = valid.slice(0, 4);
-                            grid.innerHTML = latest4.map(p => {
-                                const imgUrl = p.image || (Array.isArray(p.images) && p.images[0] ? p.images[0] : '');
-                                const title = p.title || 'Prenda Urban Noise';
-                                const waMsg = encodeURIComponent(`Hola Urban Noise, estoy interesado(a) en la prenda *${title}* que vi en el lanzamiento. ¿Me podrían dar más información?`);
-                                const waUrl = `https://wa.me/573108720491?text=${waMsg}`;
-                                return `
-                                    <a href="${waUrl}" target="_blank" onclick="closePopup()" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block">
-                                        <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                                    </a>
-                                `;
-                            }).join('');
+                            currentPopupProducts = valid.slice(0, 4);
+                            renderPopupGrid();
                             break;
                         }
                     }
@@ -584,6 +711,162 @@
                     // Try next fallback endpoint
                 }
             }
+        }
+
+        function renderPopupGrid() {
+            const grid = document.getElementById('popup-products-grid');
+            if (!grid) return;
+
+            grid.innerHTML = currentPopupProducts.map((p, idx) => {
+                const imgUrl = p.image || (Array.isArray(p.images) && p.images[0] ? p.images[0] : '');
+                const title = p.title || 'Producto';
+                return `
+                    <button type="button" onclick="openProductSelector(${idx})" class="group aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5 cursor-pointer block text-left w-full transition-transform active:scale-95" title="${title}">
+                        <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function openProductSelector(index) {
+            const product = currentPopupProducts[index];
+            if (!product) return;
+
+            selectedProductIndex = index;
+            
+            // Switch views
+            document.getElementById('popup-view-grid').classList.add('hidden');
+            document.getElementById('popup-view-selector').classList.remove('hidden');
+
+            // Populate Product Header
+            const category = getProductCategoryName(product);
+            const title = product.title || 'Prenda Urban Noise';
+            document.getElementById('sel-item-category').innerText = category;
+            document.getElementById('sel-item-title').innerText = title;
+            document.getElementById('sel-item-img').src = product.image || (product.images && product.images[0]) || '';
+
+            // Extract variants
+            const variants = Array.isArray(product.variants) ? product.variants : [];
+            const availableColors = [...new Set(variants.filter(v => v.color && (v.stock > 0 || v.inStock)).map(v => v.color))];
+            const allColors = availableColors.length > 0 ? availableColors : [...new Set(variants.map(v => v.color).filter(Boolean))];
+
+            selectedColor = allColors[0] || 'Único';
+            selectedSize = null;
+
+            renderColorChips(allColors);
+            renderSizeChips(variants);
+            updateWhatsAppLink();
+        }
+
+        function backToPopupGrid() {
+            document.getElementById('popup-view-selector').classList.add('hidden');
+            document.getElementById('popup-view-grid').classList.remove('hidden');
+        }
+
+        function selectColor(color) {
+            selectedColor = color;
+            const product = currentPopupProducts[selectedProductIndex];
+            const variants = Array.isArray(product.variants) ? product.variants : [];
+            
+            const allColors = [...new Set(variants.map(v => v.color).filter(Boolean))];
+            renderColorChips(allColors.length > 0 ? allColors : [color]);
+            renderSizeChips(variants);
+            updateWhatsAppLink();
+        }
+
+        function selectSize(size) {
+            selectedSize = size;
+            const product = currentPopupProducts[selectedProductIndex];
+            const variants = Array.isArray(product.variants) ? product.variants : [];
+            renderSizeChips(variants);
+            updateWhatsAppLink();
+        }
+
+        function renderColorChips(colors) {
+            const container = document.getElementById('sel-colors-container');
+            const labelSpan = document.getElementById('sel-color-name');
+            if (!container) return;
+            
+            if (labelSpan) labelSpan.innerText = selectedColor || '';
+
+            if (colors.length === 0) {
+                container.innerHTML = `<span class="text-xs text-zinc-400">Color estándar</span>`;
+                selectedColor = "Estándar";
+                return;
+            }
+
+            container.innerHTML = colors.map(c => {
+                const isSelected = c === selectedColor;
+                const activeClass = isSelected 
+                    ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/20 text-white font-bold ring-1 ring-[var(--accent-color)]' 
+                    : 'border-white/10 bg-white/5 text-zinc-300 hover:border-white/30';
+                return `
+                    <button type="button" onclick="selectColor('${c}')" class="px-3.5 py-1.5 rounded-xl border text-xs transition-all ${activeClass}">
+                        ${c}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderSizeChips(variants) {
+            const container = document.getElementById('sel-sizes-container');
+            const labelSpan = document.getElementById('sel-size-name');
+            if (!container) return;
+
+            const colorVariants = variants.filter(v => !selectedColor || v.color === selectedColor);
+            const availableVariants = colorVariants.length > 0 ? colorVariants : variants;
+            
+            const sizes = [...new Set(availableVariants.map(v => v.size).filter(Boolean))];
+            
+            if (sizes.length === 0) {
+                container.innerHTML = `<span class="text-xs text-zinc-400">Talla única</span>`;
+                selectedSize = "Talla Única";
+                if (labelSpan) labelSpan.innerText = selectedSize;
+                return;
+            }
+
+            if (!selectedSize || !sizes.includes(selectedSize)) {
+                selectedSize = sizes[0];
+            }
+
+            if (labelSpan) labelSpan.innerText = selectedSize || '';
+
+            container.innerHTML = sizes.map(s => {
+                const isSelected = s === selectedSize;
+                const vMatch = availableVariants.find(v => v.size === s);
+                const inStock = vMatch ? (vMatch.stock > 0 || vMatch.inStock) : true;
+                
+                let styleClass = isSelected
+                    ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/20 text-white font-bold ring-1 ring-[var(--accent-color)]'
+                    : 'border-white/10 bg-white/5 text-zinc-300 hover:border-white/30';
+                    
+                if (!inStock) {
+                    styleClass = 'border-white/5 bg-white/[0.02] text-zinc-600 border-dashed';
+                }
+
+                return `
+                    <button type="button" onclick="selectSize('${s}')" class="px-3.5 py-1.5 rounded-xl border text-xs transition-all min-w-[42px] text-center ${styleClass}">
+                        ${s}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function updateWhatsAppLink() {
+            const btn = document.getElementById('sel-whatsapp-btn');
+            if (!btn) return;
+
+            const product = currentPopupProducts[selectedProductIndex];
+            if (!product) return;
+
+            const category = getProductCategoryName(product);
+            const title = product.title || 'Prenda Urban Noise';
+            const color = selectedColor || 'Consultar';
+            const size = selectedSize || 'Consultar';
+
+            const msg = `Hola Urban Noise! 👋\nEstoy interesado(a) en la siguiente prenda del lanzamiento:\n\n👕 *Prenda:* ${category} - ${title}\n🎨 *Color:* ${color}\n📏 *Talla:* ${size}\n\n¿Tienen disponibilidad para despacho?`;
+            
+            btn.href = `https://wa.me/573108720491?text=${encodeURIComponent(msg)}`;
         }
 
         // Popup Modal Management
@@ -610,6 +893,7 @@
             setTimeout(() => {
                 popup.classList.remove('opacity-100');
                 popup.classList.add('opacity-0', 'pointer-events-none');
+                backToPopupGrid(); // Reset view back to grid for next open
             }, 300);
         }
 
