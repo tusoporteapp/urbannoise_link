@@ -410,13 +410,13 @@
         <p class="text-[9px] text-zinc-600">Disiseñado para mentes urbanas y estética contemporánea.</p>
     </footer>
 
-    <!-- POPUP MODAL: NEW DROP PROMOTION -->
+    <!-- POPUP MODAL: NEW DROP PROMOTION (LOYVERSE 4 NEWEST ITEMS) -->
     <div id="product-popup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
         <!-- Modal Backdrop click triggers close -->
         <div class="absolute inset-0 cursor-default" onclick="closePopup()"></div>
         
         <!-- Modal Container -->
-        <div class="relative w-full max-w-sm glass-panel rounded-3xl p-5 border border-white/10 shadow-2xl transform scale-90 transition-all duration-500 flex flex-col gap-4 max-h-[90vh] overflow-y-auto" id="popup-content">
+        <div class="relative w-full max-w-sm glass-panel rounded-3xl p-5 border border-white/10 shadow-2xl transform scale-90 transition-all duration-500 flex flex-col gap-3.5 max-h-[90vh] overflow-y-auto" id="popup-content">
             <!-- Glow Effect -->
             <div class="absolute -inset-1 bg-gradient-to-r from-[var(--accent-color)]/20 to-transparent rounded-3xl blur opacity-30 pointer-events-none"></div>
 
@@ -429,24 +429,33 @@
             </button>
 
             <!-- Header -->
-            <div class="text-center relative z-10 pt-2">
+            <div class="text-center relative z-10 pt-1">
                 <span class="text-[9px] font-mono tracking-widest text-[var(--accent-color)] bg-[var(--accent-color)]/10 px-2.5 py-0.5 rounded-full uppercase font-bold">Lanzamiento Oficial</span>
-                <h3 class="font-display text-2xl font-bold uppercase tracking-tighter text-white mt-2">Nuevos Buzos Capoteros</h3>
-                <p class="text-[10px] text-zinc-400 uppercase mt-0.5">Disponibles ahora en nuestra tienda online</p>
+                <h3 class="font-display text-xl font-bold uppercase tracking-tighter text-white mt-1.5">Nuevos Lanzamientos</h3>
+                <p class="text-[10px] text-zinc-400 uppercase mt-0.5">Escríbenos para consultar disponibilidad</p>
             </div>
 
-            <!-- Product Images Grid -->
-            <a href="https://www.urbannoise.co" target="_blank" onclick="closePopup()" class="grid grid-cols-2 gap-3 relative z-10 group overflow-hidden rounded-2xl cursor-pointer">
-                <div class="aspect-[3/4] rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
-                    <img src="https://dcdn-us.mitiendanube.com/stores/003/262/136/products/9-43dcc5a7ab507b715e17806854269782-1024-1024.webp" alt="Producto 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <div class="aspect-[3/4] rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
-                    <img src="https://dcdn-us.mitiendanube.com/stores/003/262/136/products/11-1c9d092be26390f5a017806855395475-1024-1024.webp" alt="Producto 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <!-- Product Images Grid (4 Items, 2x2 Grid, Only Images -> WhatsApp) -->
+            <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20quiero%20ver%20la%20colecci%C3%B3n%20completa%20y%20los%20nuevos%20lanzamientos." target="_blank" onclick="closePopup()" class="relative z-10 group overflow-hidden rounded-2xl cursor-pointer">
+                <div id="popup-products-grid" class="grid grid-cols-2 gap-2.5">
+                    <!-- Default 4 Items from Loyverse for instant 0ms render -->
+                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
+                        <img src="https://api.loyverse.com/image/c552041d-3bcc-4e32-81f5-d9f7e8c4b4d8?v=2026-08-31T16%3A21%3A56.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
+                        <img src="https://api.loyverse.com/image/9c1c3f74-ddd4-49a8-b571-9d5688d0b374?v=2026-08-31T16%3A47%3A21.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
+                        <img src="https://api.loyverse.com/image/537eae00-4b6d-4b6e-be0a-0c2eabc7f548?v=2026-08-31T14%3A25%3A12.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
+                        <img src="https://api.loyverse.com/image/4b6185e5-b504-4bfc-b11e-1107015b7fcf?v=2026-08-28T16%3A04%3A52.000Z" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
                 </div>
             </a>
 
-            <!-- Action Button -->
-            <a href="https://www.urbannoise.co" target="_blank" onclick="closePopup()" class="relative z-10 w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5" style="background-color: var(--accent-color); color: var(--accent-text);">
+            <!-- Action Button -> WhatsApp -->
+            <a href="https://wa.me/573108720491?text=Hola%20Urban%20Noise,%20quiero%20ver%20la%20colecci%C3%B3n%20completa%20y%20los%20nuevos%20lanzamientos." target="_blank" onclick="closePopup()" class="relative z-10 w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 shadow-lg" style="background-color: var(--accent-color); color: var(--accent-text);">
                 <span>Ver Colección Completa</span>
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
             </a>
@@ -533,6 +542,49 @@
             }, 800);
         }
 
+        // Load latest 4 products dynamically from Loyverse API
+        async function loadLoyversePopupProducts() {
+            const grid = document.getElementById('popup-products-grid');
+            if (!grid) return;
+
+            const apiEndpoints = [
+                "/api/catalog?fresh=true&t=" + Date.now(),
+                "https://urbannoise.cc/api/catalog?fresh=true&t=" + Date.now(),
+                "../loyverse_products.json?t=" + Date.now()
+            ];
+
+            for (const endpoint of apiEndpoints) {
+                try {
+                    const res = await fetch(endpoint, { cache: "no-cache" });
+                    if (!res.ok) continue;
+                    const products = await res.json();
+                    if (Array.isArray(products) && products.length > 0) {
+                        const valid = products.filter(p => p && (p.image || (Array.isArray(p.images) && p.images.length > 0)));
+                        if (valid.length > 0) {
+                            valid.sort((a, b) => {
+                                const dateA = new Date(a.created_at || a.updated_at || 0).getTime();
+                                const dateB = new Date(b.created_at || b.updated_at || 0).getTime();
+                                return (dateB || 0) - (dateA || 0);
+                            });
+
+                            const latest4 = valid.slice(0, 4);
+                            grid.innerHTML = latest4.map(p => {
+                                const imgUrl = p.image || (Array.isArray(p.images) && p.images[0] ? p.images[0] : '');
+                                return `
+                                    <div class="aspect-square rounded-xl overflow-hidden bg-zinc-900 border border-white/5">
+                                        <img src="${imgUrl}" alt="Producto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                                    </div>
+                                `;
+                            }).join('');
+                            break;
+                        }
+                    }
+                } catch (e) {
+                    // Try next fallback endpoint
+                }
+            }
+        }
+
         // Popup Modal Management
         function showPopup() {
             const popup = document.getElementById('product-popup');
@@ -562,6 +614,7 @@
 
         // Initial loading setup
         window.onload = function() {
+            loadLoyversePopupProducts();
             setTimeout(showPopup, 1200); // 1.2 second delay for a smooth entry feeling
         }
 
