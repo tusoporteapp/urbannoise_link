@@ -1554,30 +1554,22 @@
             return matched.slice(0, count);
         }
 
-        function getLatestArrivals(rawList, count = 10) {
+        function getLatestArrivals(rawList, count = 12) {
             if (!rawList || rawList.length === 0) return [];
             
-            // Ordenamiento estricto por fecha exacta de creación en Loyverse POS (los más recientes primero)
+            // Ordenamiento estricto: De lo más nuevo a lo más viejo por fecha exacta de creación en Loyverse
             const sorted = [...rawList].sort((a, b) => {
                 const timeA = new Date(a.created_at || a.updated_at || 0).getTime();
                 const timeB = new Date(b.created_at || b.updated_at || 0).getTime();
                 return timeB - timeA;
             });
 
-            const topSellers = getTopSellingProducts(rawList, 10);
-            const topIds = new Set(topSellers.map(p => p.id));
-            const seenTitles = new Set(topSellers.map(p => (p.title || '').toLowerCase().trim()));
-            const newItems = [];
+            // Priorizar prendas con foto real disponible
+            const withImages = sorted.filter(p => p.image && !p.image.includes('LOGO_WEB'));
+            const withoutImages = sorted.filter(p => !p.image || p.image.includes('LOGO_WEB'));
+            const combined = [...withImages, ...withoutImages];
 
-            sorted.forEach(p => {
-                const titleNorm = (p.title || '').toLowerCase().trim();
-                if (!topIds.has(p.id) && !seenTitles.has(titleNorm)) {
-                    newItems.push(p);
-                    seenTitles.add(titleNorm);
-                }
-            });
-
-            return newItems.slice(0, count);
+            return count > 0 ? combined.slice(0, count) : combined;
         }
 
         function renderTopVentasCarousel() {

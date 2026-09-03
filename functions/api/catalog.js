@@ -184,6 +184,13 @@ export async function onRequestGet(context) {
             };
         });
 
+        // Sort all products strictly from newest to oldest by created_at timestamp
+        mappedProducts.sort((a, b) => {
+            const timeA = new Date(a.created_at || a.updated_at || 0).getTime();
+            const timeB = new Date(b.created_at || b.updated_at || 0).getTime();
+            return timeB - timeA;
+        });
+
         const response = new Response(JSON.stringify(mappedProducts), {
             status: 200,
             headers: corsHeaders
