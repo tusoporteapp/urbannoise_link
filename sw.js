@@ -3,7 +3,7 @@
  * Real-time updates with Network-First navigation & 0ms instant image delivery
  */
 
-const CACHE_NAME = 'un-image-cache-v6';
+const CACHE_NAME = 'un-image-cache-v7';
 const STATIC_CACHE = 'un-static-assets-v6';
 
 const STATIC_ASSETS = [
