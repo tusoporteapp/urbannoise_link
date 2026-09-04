@@ -29,7 +29,7 @@ export async function onRequestGet(context) {
         "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "public, max-age=15, s-maxage=30, stale-while-revalidate=60"
+        "Cache-Control": isFresh ? "private, no-cache, no-store, must-revalidate" : "public, max-age=10, s-maxage=15, stale-while-revalidate=30"
     };
 
     const API_KEY = getSecretKey(context.env);

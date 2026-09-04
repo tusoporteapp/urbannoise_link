@@ -1460,27 +1460,26 @@
                 // Iniciar sincronización diferencial en segundo plano SIEMPRE
                 startBackgroundDifferentialSync();
 
-                // Si fue cargado desde caché local, consultamos inmediatamente en segundo plano (1.5s) para traer cambios recientes de Loyverse (fotos, precios, títulos)
-                if (renderedFromCache) {
-                    setTimeout(() => {
-                        syncCatalogChangesSilently();
-                    }, 1500);
-                    return;
-                }
-
-                // 2. Consulta en Tiempo Real al Servidor Mediador Cloudflare (/api/catalog) para primera visita o caché vencida
-                let apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                // 2. Consulta en Tiempo Real INMEDIATA a Cloudflare (/api/catalog?fresh=true)
+                // Se ejecuta de inmediato sin esperas de 1.5s para actualizar la pantalla sin recargar
+                const freshUrl = "/api/catalog?fresh=true&t=" + Date.now();
+                let apiRes = await fetch(freshUrl, { cache: "no-store" }).catch(() => null);
                 
                 if (!apiRes || !apiRes.ok) {
-                    apiRes = await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                    apiRes = await fetch("https://urbannoise.cc/api/catalog?fresh=true&t=" + Date.now(), { cache: "no-store" }).catch(() => null);
                 }
 
                 if (apiRes && apiRes.ok) {
                     const liveProducts = await apiRes.json();
                     if (Array.isArray(liveProducts) && liveProducts.length > 0) {
+                        const hasOrderChanged = !products || products.length !== liveProducts.length || (products[0]?.id !== liveProducts[0]?.id);
                         localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(liveProducts));
                         localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
-                        renderCatalogDataset(liveProducts);
+
+                        // Si no se había renderizado desde caché o si hay cambios de prendas/orden, re-renderizar de inmediato
+                        if (!renderedFromCache || hasOrderChanged) {
+                            renderCatalogDataset(liveProducts);
+                        }
                         
                         console.log(`⚡ Catálogo sincronizado en tiempo real desde Cloudflare Serverless: ${liveProducts.length} prendas`);
                         await preloadKeyImages(liveProducts);
@@ -1491,16 +1490,18 @@
                     }
                 }
 
-                // Fallback de contingencia si el servidor no responde
-                const fallbackRes = await fetch("loyverse_products.json?t=" + Date.now()).catch(() => null);
-                if (fallbackRes && fallbackRes.ok) {
-                    const fallbackProducts = await fallbackRes.json();
-                    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(fallbackProducts));
-                    localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
-                    renderCatalogDataset(fallbackProducts);
-                    await preloadKeyImages(fallbackProducts);
-                    if (typeof window.notifyCatalogReadyInSnakeLoader === "function") {
-                        window.notifyCatalogReadyInSnakeLoader();
+                // Fallback de contingencia si el servidor no responde y no había caché
+                if (!renderedFromCache) {
+                    const fallbackRes = await fetch("loyverse_products.json?t=" + Date.now()).catch(() => null);
+                    if (fallbackRes && fallbackRes.ok) {
+                        const fallbackProducts = await fallbackRes.json();
+                        localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(fallbackProducts));
+                        localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+                        renderCatalogDataset(fallbackProducts);
+                        await preloadKeyImages(fallbackProducts);
+                        if (typeof window.notifyCatalogReadyInSnakeLoader === "function") {
+                            window.notifyCatalogReadyInSnakeLoader();
+                        }
                     }
                 }
 
@@ -1808,16 +1809,29 @@
 
         function startBackgroundDifferentialSync() {
             if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
+            // Sincronizar en segundo plano cada 30 segundos mientras la pestaña esté abierta
             backgroundSyncInterval = setInterval(() => {
                 syncCatalogChangesSilently();
-            }, 5 * 60 * 1000);
+            }, 30 * 1000);
+
+            // Sincronizar instantáneamente cuando el usuario regrese a la pestaña o abra la app en el celular
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    console.log("⚡ [Focus] Pestaña activa: Comprobando catálogo en tiempo real...");
+                    syncCatalogChangesSilently();
+                }
+            });
+            window.addEventListener('focus', () => {
+                syncCatalogChangesSilently();
+            });
         }
 
         async function syncCatalogChangesSilently() {
             try {
-                let apiRes = await fetch("/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                const freshUrl = "/api/catalog?fresh=true&t=" + Date.now();
+                let apiRes = await fetch(freshUrl, { cache: "no-store" }).catch(() => null);
                 if (!apiRes || !apiRes.ok) {
-                    apiRes = await fetch("https://urbannoise.cc/api/catalog?t=" + Date.now(), { cache: "no-cache" }).catch(() => null);
+                    apiRes = await fetch("https://urbannoise.cc/api/catalog?fresh=true&t=" + Date.now(), { cache: "no-store" }).catch(() => null);
                 }
 
                 if (!apiRes || !apiRes.ok) return;
@@ -1829,14 +1843,20 @@
 
                 let hasChanges = false;
 
-                // 1. Detectar si cambió la cantidad de prendas
-                if (products.length !== freshProducts.length) {
+                // 1. Detectar si cambió la cantidad de prendas o el primer elemento (nuevo lanzamiento)
+                if (products.length !== freshProducts.length || (products[0]?.id !== freshProducts[0]?.id)) {
                     hasChanges = true;
                 } else {
                     // 2. Detectar si alguna prenda cambió de título, categoría, precio, foto o variantes
                     for (const [id, freshP] of freshMap.entries()) {
                         const currentP = currentMap.get(id);
-                        if (!currentP || JSON.stringify(currentP) !== JSON.stringify(freshP)) {
+                        if (!currentP || currentP.price !== freshP.price || currentP.image !== freshP.image) {
+                            hasChanges = true;
+                            break;
+                        }
+                        const curStock = (currentP.variants || []).reduce((sum, v) => sum + (v.stock || 0), 0);
+                        const freshStock = (freshP.variants || []).reduce((sum, v) => sum + (v.stock || 0), 0);
+                        if (curStock !== freshStock) {
                             hasChanges = true;
                             break;
                         }
@@ -1845,15 +1865,21 @@
 
                 // Si NO hay cambios, no hacemos re-render innecesario
                 if (!hasChanges) {
-                    console.log("⚡ [Sync] Catálogo analizado: Sin cambios en Loyverse.");
                     return;
                 }
 
                 console.log("⚡ [Sync] Cambios detectados en Loyverse (imágenes, precios, títulos o inventario). Actualizando catálogo y vistas en vivo.");
                 localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(freshProducts));
                 localStorage.setItem(CATALOG_LAST_SYNC_KEY, Date.now().toString());
+
+                // Actualizar la pantalla de inmediato de forma fluida
                 renderCatalogDataset(freshProducts);
 
+                const loader = document.getElementById('snake-loading-screen');
+                if (loader) {
+                    loader.classList.add('hidden');
+                    loader.style.display = 'none';
+                }
             } catch (e) {
                 console.warn("Aviso en sincronización silenciosa:", e);
             }

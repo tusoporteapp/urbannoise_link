@@ -4,7 +4,7 @@
  */
 
 const CACHE_NAME = 'un-image-cache-v7';
-const STATIC_CACHE = 'un-static-assets-v6';
+const STATIC_CACHE = 'un-static-assets-v7';
 
 const STATIC_ASSETS = [
     '/manifest.json',
@@ -40,6 +40,11 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
+
+    // 0. Bypassing all /api/ calls to guarantee 100% real-time Loyverse synchronization
+    if (url.pathname.includes('/api/')) {
+        return;
+    }
 
     // 1. Navegación HTML -> Network-First (Garantiza ver cambios al instante)
     if (event.request.mode === 'navigate' || event.request.destination === 'document') {
