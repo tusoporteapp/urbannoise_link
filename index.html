@@ -350,7 +350,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                const swPath = (window.location.pathname.includes('/catalogo') ? 'sw.js' : '/sw.js') + '?v=6';
+                const swPath = (window.location.pathname.includes('/catalogo') ? 'sw.js' : '/sw.js') + '?v=7';
                 navigator.serviceWorker.register(swPath).then((reg) => {
                     console.log('⚡ PWA Image Cache Service Worker activo:', reg.scope);
                 }).catch((err) => {
@@ -367,7 +367,10 @@
             try {
                 const lastSync = parseInt(localStorage.getItem('urbannoise_catalog_last_full_sync') || '0', 10);
                 const isFresh = (Date.now() - lastSync) < (24 * 60 * 60 * 1000);
-                const cached = localStorage.getItem('un_catalog_live_v6');
+                // Evict obsolete legacy caches
+                localStorage.removeItem('un_catalog_live_v5');
+                localStorage.removeItem('un_catalog_live_v6');
+                const cached = localStorage.getItem('un_catalog_live_v7');
                 if (isFresh && cached) {
                     document.documentElement.classList.add('has-fresh-catalog');
                 }
@@ -1411,7 +1414,7 @@
         function updateAmbientGlow() {}
 
         // Fetch products from ReflowHQ JSON API (so we get the media array for multiple images)
-        const CATALOG_CACHE_KEY = 'un_catalog_live_v6';
+        const CATALOG_CACHE_KEY = 'un_catalog_live_v7';
 
         const CATALOG_LAST_SYNC_KEY = 'urbannoise_catalog_last_full_sync';
         const ONE_DAY_MS = 24 * 60 * 60 * 1000;
@@ -2215,7 +2218,13 @@
             renderSearchModalResults();
         }
 
-        function onSearchModalInput() { renderSearchModalResults(); }
+        let searchDebounceTimer = null;
+        function onSearchModalInput() {
+            if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(() => {
+                renderSearchModalResults();
+            }, 120);
+        }
 
         function renderSearchModalResults() {
             const container = document.getElementById('search-modal-results-container');
