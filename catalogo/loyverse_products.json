@@ -1027,7 +1027,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "015a4a62-b967-463d-9b8f-1f116e485c50",
@@ -1057,7 +1057,7 @@
         "price": 41000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "8e43bc25-43d7-4542-b858-dd7f4ea1bfe1",
@@ -2001,7 +2001,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "0d00e606-7c3a-4194-9794-de17fe8cd390",
@@ -2021,7 +2021,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
     "created_at": "2026-08-05T00:02:31.000Z",
@@ -3413,7 +3413,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
     "created_at": "2026-07-25T17:22:39.000Z",
@@ -3969,7 +3969,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "dcc7e2d6-1692-49d4-b3fb-4930dcfdcd3a",
@@ -3989,7 +3989,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "784f1af7-5626-4f78-9f71-9413f1af55bc",
@@ -4009,7 +4009,7 @@
         "price": 108000,
         "retailPrice": 140000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
     "created_at": "2026-07-21T18:36:21.000Z",
@@ -5047,7 +5047,7 @@
         "price": 38000,
         "retailPrice": 55000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "19ef4f70-eb47-4f1d-b2a2-fe35a44c6fdf",
@@ -5409,7 +5409,7 @@
         "price": 33000,
         "retailPrice": 53000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
     "created_at": "2026-07-08T10:37:33.000Z",
@@ -6359,7 +6359,7 @@
         "price": 75000,
         "retailPrice": 120000,
         "inStock": false,
-        "stock": -7
+        "stock": 0
       },
       {
         "id": "284dcd38-1442-4657-b10b-a73076d91a69",
@@ -6369,7 +6369,7 @@
         "price": 75000,
         "retailPrice": 120000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "79f890ee-bc8c-484f-b61a-299f2527ed75",
@@ -6379,7 +6379,7 @@
         "price": 75000,
         "retailPrice": 120000,
         "inStock": false,
-        "stock": -5
+        "stock": 0
       },
       {
         "id": "5ba00760-ad30-49f8-9354-24d81bdd32cc",
@@ -6389,7 +6389,7 @@
         "price": 75000,
         "retailPrice": 120000,
         "inStock": false,
-        "stock": -11
+        "stock": 0
       },
       {
         "id": "c947f12b-c43c-4ff7-beb5-4cac7a2f8368",
@@ -6399,7 +6399,7 @@
         "price": 75000,
         "retailPrice": 120000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "eb0c037c-271c-4e97-8d18-8bea30baffd2",
@@ -6409,7 +6409,7 @@
         "price": 75000,
         "retailPrice": 120000,
         "inStock": false,
-        "stock": -12
+        "stock": 0
       }
     ],
     "created_at": "2026-06-24T13:50:52.000Z",
@@ -6437,7 +6437,7 @@
         "price": 32000,
         "retailPrice": 45000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       }
     ],
     "created_at": "2026-06-23T21:24:49.000Z",
@@ -12835,7 +12835,7 @@
         "price": 70000,
         "retailPrice": 95000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "8499f798-1771-4c67-948d-50a45d3dcac2",
@@ -12895,7 +12895,7 @@
         "price": 70000,
         "retailPrice": 95000,
         "inStock": false,
-        "stock": -8
+        "stock": 0
       },
       {
         "id": "b5f89954-a1a8-47de-b6f1-00832ff92260",
@@ -12905,7 +12905,7 @@
         "price": 70000,
         "retailPrice": 95000,
         "inStock": false,
-        "stock": -4
+        "stock": 0
       },
       {
         "id": "11239fb1-eccd-477e-913b-512621d2842d",
@@ -16395,7 +16395,7 @@
         "price": 36000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "976b9e01-8b1c-4abb-bdc8-5d9685fa0790",
@@ -16443,7 +16443,7 @@
         "price": 36000,
         "retailPrice": 60000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       },
       {
         "id": "ff11dc65-6a7a-4bce-8eee-5f03c3ebe342",
@@ -18907,7 +18907,7 @@
         "price": 95000,
         "retailPrice": 70000,
         "inStock": false,
-        "stock": -11
+        "stock": 0
       },
       {
         "id": "dc9a50bb-37b9-4103-a8c4-014e5c88c7f9",
@@ -18917,7 +18917,7 @@
         "price": 95000,
         "retailPrice": 98000,
         "inStock": false,
-        "stock": -4
+        "stock": 0
       },
       {
         "id": "9a1d7431-42e7-4b5f-89df-0234859c2dd8",
@@ -19183,7 +19183,7 @@
         "price": 45000,
         "retailPrice": 45000,
         "inStock": false,
-        "stock": -3
+        "stock": 0
       },
       {
         "id": "31d10878-c116-4f8e-88b8-622d83174e3b",
@@ -19311,7 +19311,7 @@
         "price": 100000,
         "retailPrice": 100000,
         "inStock": false,
-        "stock": -23
+        "stock": 0
       },
       {
         "id": "18403192-88d4-4cb4-9db3-1374b2ec6e38",
@@ -19331,7 +19331,7 @@
         "price": 100000,
         "retailPrice": 103000,
         "inStock": false,
-        "stock": -4
+        "stock": 0
       }
     ],
     "created_at": "2024-07-20T15:54:28.000Z",
@@ -19597,7 +19597,7 @@
         "price": 25000,
         "retailPrice": 25000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       },
       {
         "id": "4eec5e4e-2504-4c97-bfb2-d3f1b6aba2ff",
@@ -19607,7 +19607,7 @@
         "price": 25000,
         "retailPrice": 16000,
         "inStock": false,
-        "stock": -7
+        "stock": 0
       },
       {
         "id": "8f3f98ba-0bb1-40e0-b9ee-0f68337a8ea2",
@@ -19949,7 +19949,7 @@
         "price": 40000,
         "retailPrice": 30000,
         "inStock": false,
-        "stock": -1
+        "stock": 0
       },
       {
         "id": "1ff8ee08-8de5-4e02-a2ab-479bd739face",
@@ -19959,7 +19959,7 @@
         "price": 40000,
         "retailPrice": 43000,
         "inStock": false,
-        "stock": -2
+        "stock": 0
       }
     ],
     "created_at": "2024-03-14T15:33:12.000Z",

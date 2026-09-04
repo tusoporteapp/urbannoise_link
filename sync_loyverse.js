@@ -123,7 +123,7 @@ async function sync() {
             const sizeVal = sizeOptionIdx === 1 ? v.option1_value : (sizeOptionIdx === 2 ? v.option2_value : (sizeOptionIdx === 3 ? v.option3_value : 'U'));
             const colorVal = colorOptionIdx === 1 ? v.option1_value : (colorOptionIdx === 2 ? v.option2_value : (colorOptionIdx === 3 ? v.option3_value : null));
             const variantWholesalePrice = wholesalePrice > 0 ? wholesalePrice : (v.default_price || retailBasePrice);
-            const currentStock = stockMap[v.variant_id] !== undefined ? stockMap[v.variant_id] : 0;
+            const currentStock = Math.max(0, stockMap[v.variant_id] || 0);
 
             return {
                 id: v.variant_id,

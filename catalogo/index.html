@@ -1513,6 +1513,14 @@
         function renderCatalogDataset(dataset) {
             if (!dataset || !Array.isArray(dataset)) return;
 
+            // Sanitize negative inventory values from Loyverse POS
+            dataset.forEach(product => {
+                (product.variants || []).forEach(v => {
+                    v.stock = Math.max(0, v.stock || 0);
+                    v.inStock = v.stock > 0;
+                });
+            });
+
             // Filter in-stock items
             products = dataset.filter(product => {
                 if (!product.variants || product.variants.length === 0) return true;
@@ -1548,7 +1556,7 @@
             rawList.forEach(p => {
                 const titleNorm = (p.title || '').toLowerCase().trim();
                 const isMatch = topSellingKeywords.some(kw => titleNorm.includes(kw));
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 if (isMatch && totalStock > 0 && !seenTitles.has(titleNorm)) {
                     matched.push(p);
                     seenTitles.add(titleNorm);
@@ -1585,7 +1593,7 @@
             let html = '';
 
             top10.forEach((p, idx) => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
                 const isLow = totalStock > 0 && totalStock <= 5;
                 const loadingAttr = idx < 3 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
@@ -1623,7 +1631,7 @@
             let html = '';
 
             latest10.forEach((p, idx) => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
                 const isLow = totalStock > 0 && totalStock <= 5;
                 const loadingAttr = idx < 3 ? 'loading="eager"' : 'loading="lazy"';
@@ -1672,8 +1680,8 @@
             if (isCategoryFiltered) {
                 // If filtered by category: order low stock first
                 return [...rawList].sort((a, b) => {
-                    const stockA = (a.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-                    const stockB = (b.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                    const stockA = (a.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
+                    const stockB = (b.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                     return stockA - stockB;
                 });
             }
@@ -1689,7 +1697,7 @@
             const regularStock = [];
 
             pool.forEach(p => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 if (totalStock > 0 && totalStock <= 5) {
                     lowStock.push(p);
                 } else {
@@ -1777,14 +1785,14 @@
 
                 product.variants.forEach(v => {
                     if (data.inventory[v.id] !== undefined) {
-                        const newQty = data.inventory[v.id];
+                        const newQty = Math.max(0, data.inventory[v.id] || 0);
                         if (v.stock !== newQty) {
                             hasChanged = true;
                             v.stock = newQty;
                             v.inStock = newQty > 0;
                         }
                     }
-                    newTotal += (v.stock || 0);
+                    newTotal += Math.max(0, v.stock || 0);
                 });
 
                 if (product.totalStock !== newTotal) {
@@ -1854,8 +1862,8 @@
                             hasChanges = true;
                             break;
                         }
-                        const curStock = (currentP.variants || []).reduce((sum, v) => sum + (v.stock || 0), 0);
-                        const freshStock = (freshP.variants || []).reduce((sum, v) => sum + (v.stock || 0), 0);
+                        const curStock = (currentP.variants || []).reduce((sum, v) => sum + Math.max(0, v.stock || 0), 0);
+                        const freshStock = (freshP.variants || []).reduce((sum, v) => sum + Math.max(0, v.stock || 0), 0);
                         if (curStock !== freshStock) {
                             hasChanges = true;
                             break;
@@ -1890,7 +1898,7 @@
             (p.variants || []).forEach(v => {
                 if (v.color && v.color.trim() !== '' && v.color.trim() !== 'U') {
                     const cName = v.color.trim();
-                    colorStockMap[cName] = (colorStockMap[cName] || 0) + (v.stock || 0);
+                    colorStockMap[cName] = (colorStockMap[cName] || 0) + Math.max(0, v.stock || 0);
                 }
             });
 
@@ -1919,7 +1927,7 @@
         }
 
         function generateProductCardHtml(p, index) {
-            const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+            const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
             const isAcid = p.title.toLowerCase().includes('acid') || (p.category && p.category.toLowerCase().includes('acid'));
             
             // Exclusive single badge logic (No contradictory badges!)
@@ -2281,7 +2289,7 @@
                 } else if (modalActiveCategory === 'Oversize') {
                     catMatch = cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
                 } else if (modalActiveCategory === 'Ultimas-Unidades') {
-                    const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                    const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                     catMatch = (totalStock > 0 && totalStock <= 5);
                 } else {
                     catMatch = (p.category === modalActiveCategory);
@@ -2330,7 +2338,7 @@
 
             let html = '';
             matches.slice(0, 50).forEach(p => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
                 const availableSizes = Array.from(new Set((p.variants || []).filter(v => v.stock > 0).map(v => v.size))).join(', ');
                 const isLow = totalStock > 0 && totalStock <= 5;
@@ -2376,7 +2384,7 @@
                 filteredProductsList = getLatestArrivals(products, 10);
             } else if (categoryName === 'Ultimas-Unidades') {
                 filteredProductsList = products.filter(p => {
-                    const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                    const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                     return totalStock > 0 && totalStock <= 5;
                 });
             } else if (categoryName === 'Todos') {
@@ -2573,7 +2581,7 @@
                         v.stock = Math.max(0, liveData.inventory[vId]);
                         v.inStock = v.stock > 0;
                     }
-                    newTotalStock += (v.stock || 0);
+                    newTotalStock += Math.max(0, v.stock || 0);
                 });
 
                 product.in_stock = newTotalStock;
@@ -2603,7 +2611,7 @@
             const stockBadgeEl = document.getElementById('modal-product-total-stock');
             if (!stockBadgeEl) return;
 
-            const totalStock = (product.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+            const totalStock = (product.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
             if (totalStock <= 5 && totalStock > 0) {
                 stockBadgeEl.className = "text-xs font-black text-rose-700 flex items-center gap-1.5 bg-rose-50 border border-rose-200 px-3 py-1 rounded-xl animate-pulse shadow-2xs";
                 stockBadgeEl.innerHTML = `<i data-lucide="flame" class="w-4 h-4 text-rose-600 shrink-0"></i> <span>¡ÚLTIMAS <b class="text-sm text-rose-950 font-black">${totalStock}</b> UNIDADES!</span>`;
@@ -2619,7 +2627,7 @@
 
         function updateProductCardInDom(product) {
             try {
-                const totalStock = (product.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (product.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 const isSoldOut = totalStock <= 0;
 
                 // Find cards matching product.id
@@ -2672,7 +2680,7 @@
             const isAcid = product.title.toLowerCase().includes('acid');
             document.getElementById('modal-product-badge').innerText = isAcid ? 'Acid Wash' : 'Streetwear';
 
-            const totalStock = (product.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+            const totalStock = (product.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
             const stockBadgeEl = document.getElementById('modal-product-total-stock');
             if (stockBadgeEl) {
                 if (totalStock <= 5 && totalStock > 0) {
@@ -2803,7 +2811,7 @@
                 const variants = groupedByColor[colorName];
                 const availableVariants = variants.filter(v => v.inStock && v.stock > 0);
                 const soldOutVariants = variants.filter(v => !v.inStock || v.stock <= 0);
-                const totalColorStock = availableVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
+                const totalColorStock = availableVariants.reduce((sum, v) => sum + Math.max(0, v.stock || 0), 0);
                 const hasColor = colorName !== 'Color Único' && colorName !== 'null' && colorName !== 'undefined';
 
                 // Caso A: Tono completamente agotado en todas las tallas
@@ -3995,7 +4003,7 @@
             const previousProducts = Array.isArray(products) ? [...products] : [];
             const prevMap = {};
             previousProducts.forEach(p => {
-                const totalStock = (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((s, v) => s + Math.max(0, v.stock || 0), 0);
                 prevMap[p.id] = { ...p, calculatedStock: totalStock };
             });
 
@@ -4045,7 +4053,7 @@
                     let infoCount = 0;
 
                     newProducts.forEach(np => {
-                        const newStock = (np.variants || []).reduce((s, v) => s + (v.stock || 0), 0);
+                        const newStock = (np.variants || []).reduce((s, v) => s + Math.max(0, v.stock || 0), 0);
                         const oldP = prevMap[np.id];
 
                         if (!oldP) {
@@ -4103,7 +4111,7 @@
 
                     if (detectedSyncChanges.length === 0) {
                         newProducts.slice(0, 5).forEach(item => {
-                            const totalStock = (item.variants || []).reduce((s, v) => s + (v.stock || 0), 0);
+                            const totalStock = (item.variants || []).reduce((s, v) => s + Math.max(0, v.stock || 0), 0);
                             detectedSyncChanges.push({
                                 type: 'info',
                                 id: item.id,
@@ -4123,7 +4131,7 @@
                     let available = 0;
                     let soldout = 0;
                     newProducts.forEach(p => {
-                        const totalStock = (p.variants || []).reduce((s, v) => s + (v.stock || 0), 0);
+                        const totalStock = (p.variants || []).reduce((s, v) => s + Math.max(0, v.stock || 0), 0);
                         if (totalStock > 0) available++;
                         else soldout++;
                     });
@@ -4302,7 +4310,7 @@ async function executeOrderDispatch() {
         // --- 24-HOUR LAST UNITS AUTO-PUSH SYSTEM ---
         function updateLastUnitsBadges() {
             const lastUnitsCount = products.filter(p => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 return totalStock > 0 && totalStock <= 5;
             }).length;
 
@@ -4344,7 +4352,7 @@ async function executeOrderDispatch() {
             if (!container) return;
 
             const lastUnitsItems = products.filter(p => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 return totalStock > 0 && totalStock <= 5;
             });
 
@@ -4359,7 +4367,7 @@ async function executeOrderDispatch() {
 
             let html = '';
             lastUnitsItems.slice(0, 10).forEach(p => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
+                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                 const priceFormatted = p.price <= 1000 ? 'Consultar' : formatCOP(p.price);
 
                 html += `
