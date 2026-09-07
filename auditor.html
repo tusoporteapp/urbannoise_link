@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-[#0a0a0c] text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Auditor de Inventario • Urban Noise</title>
+    
+    <!-- Evitar caché agresivo para asegurar datos en tiempo real -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="icon" type="image/png" href="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png">
+
+    <!-- Tailwind CSS CDN + Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#eab308',
+                        darkBg: '#09090b',
+                        darkCard: '#141417',
+                        darkBorder: '#27272a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Optimización de toques móviles */
+        * { -webkit-tap-highlight-color: transparent; }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        
+        /* Animaciones suaves */
+        .fade-in { animation: fadeIn 0.25s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .pulse-subtle { animation: pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulseSubtle { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+    </style>
+</head>
+<body class="h-full font-sans antialiased bg-[#09090b] text-zinc-100 selection:bg-yellow-500 selection:text-black">
+
+    <!-- ========================================================== -->
+    <!-- PANTALLA 1: BLOQUEO POR PIN ADMINISTRATIVO (8624)          -->
+    <!-- ========================================================== -->
+    <div id="pinGate" class="fixed inset-0 z-50 flex items-center justify-center bg-[#09090b] p-4">
+        <div class="w-full max-w-sm bg-[#141417] border border-zinc-800 rounded-3xl p-6 shadow-2xl text-center">
+            <div class="w-16 h-16 mx-auto mb-4 bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center shadow-inner">
+                <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Urban Noise" class="w-10 h-10 object-contain">
+            </div>
+            
+            <h1 class="text-xl font-bold tracking-wider text-white uppercase">Auditor de Tienda</h1>
+            <p class="text-xs text-zinc-400 mt-1 mb-6">Ingresa el PIN de administración de tienda</p>
+
+            <!-- Display de PIN -->
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <div id="dot0" class="w-4 h-4 rounded-full border border-zinc-700 bg-transparent transition-all"></div>
+                <div id="dot1" class="w-4 h-4 rounded-full border border-zinc-700 bg-transparent transition-all"></div>
+                <div id="dot2" class="w-4 h-4 rounded-full border border-zinc-700 bg-transparent transition-all"></div>
+                <div id="dot3" class="w-4 h-4 rounded-full border border-zinc-700 bg-transparent transition-all"></div>
+            </div>
+
+            <!-- Teclado Numérico Táctil -->
+            <div class="grid grid-cols-3 gap-3 max-w-[260px] mx-auto">
+                <button onclick="pressPin('1')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">1</button>
+                <button onclick="pressPin('2')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">2</button>
+                <button onclick="pressPin('3')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">3</button>
+                <button onclick="pressPin('4')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">4</button>
+                <button onclick="pressPin('5')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">5</button>
+                <button onclick="pressPin('6')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">6</button>
+                <button onclick="pressPin('7')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">7</button>
+                <button onclick="pressPin('8')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">8</button>
+                <button onclick="pressPin('9')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">9</button>
+                <button onclick="clearPin()" class="h-14 rounded-2xl bg-zinc-900/60 hover:bg-zinc-800 active:bg-red-500 border border-zinc-800 text-xs font-semibold uppercase text-zinc-400 transition-colors flex items-center justify-center">Borrar</button>
+                <button onclick="pressPin('0')" class="h-14 rounded-2xl bg-zinc-900 hover:bg-zinc-800 active:bg-yellow-500 active:text-black border border-zinc-800 text-xl font-bold text-white transition-colors">0</button>
+                <button onclick="submitPin()" class="h-14 rounded-2xl bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 text-black font-bold text-sm tracking-wider uppercase transition-colors flex items-center justify-center shadow-lg shadow-yellow-500/20">OK</button>
+            </div>
+
+            <p id="pinError" class="text-xs text-red-400 font-medium mt-4 min-h-[16px]"></p>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- PANTALLA PRINCIPAL: AUDITORÍA DE INVENTARIO                -->
+    <!-- ========================================================== -->
+    <div id="mainApp" class="hidden min-h-screen flex flex-col pb-32">
+        
+        <!-- Barra de Navegación Superior -->
+        <header class="sticky top-0 z-30 bg-[#09090b]/90 backdrop-blur-md border-b border-zinc-800 px-4 py-3">
+            <div class="max-w-4xl mx-auto flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5">
+                    <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Logo" class="w-8 h-8 rounded-lg border border-zinc-800">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-sm font-extrabold tracking-wide uppercase text-white">Auditor Urban Noise</h2>
+                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">EN VIVO</span>
+                        </div>
+                        <p class="text-[11px] text-zinc-400">Sincronizado directo con Loyverse POS</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <!-- Selector de Tienda -->
+                    <select id="storeSelector" onchange="onStoreChange()" class="bg-zinc-900 text-xs font-semibold text-zinc-200 border border-zinc-700 rounded-lg px-2.5 py-1.5 outline-none focus:border-yellow-500">
+                        <option value="fee704a4-ff11-43ae-903e-d2f9cf0a9a25">🏪 Noise Urban</option>
+                        <option value="cf0674d5-6edd-426b-a5a6-b1f65bba6770">🏪 Neos</option>
+                    </select>
+
+                    <!-- Botón Recargar -->
+                    <button onclick="loadCatalog(true)" title="Recargar del API" class="p-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 rounded-lg border border-zinc-800 transition-colors">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    </button>
+                    <!-- Botón Cerrar Sesión -->
+                    <button onclick="logout()" title="Bloquear" class="p-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-red-400 rounded-lg border border-zinc-800 transition-colors">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Métricas Rápidas y Buscador -->
+        <section class="max-w-4xl mx-auto w-full px-4 pt-4">
+            <!-- Widgets de Conteo -->
+            <div class="grid grid-cols-4 gap-2 mb-4">
+                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-2.5 text-center">
+                    <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Prendas</span>
+                    <span id="statTotalItems" class="text-base font-extrabold text-white">0</span>
+                </div>
+                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-2.5 text-center">
+                    <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Uds Sistema</span>
+                    <span id="statSystemUnits" class="text-base font-extrabold text-zinc-300">0</span>
+                </div>
+                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-2.5 text-center">
+                    <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Uds Físicas</span>
+                    <span id="statPhysicalUnits" class="text-base font-extrabold text-yellow-400">0</span>
+                </div>
+                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-2.5 text-center">
+                    <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Descuadres</span>
+                    <span id="statDiffVariants" class="text-base font-extrabold text-red-400">0</span>
+                </div>
+            </div>
+
+            <!-- Buscador en tiempo real -->
+            <div class="relative mb-3">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500"></i>
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Buscar prenda o estampado (ej. CLOTHING 07)..." 
+                    class="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-10 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-yellow-500 transition-colors">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white p-1">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Píldoras de Filtros -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none text-xs">
+                <button onclick="setCategoryFilter('ALL')" id="tabALL" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-yellow-500 text-black shadow-sm">
+                    Todos (<span id="countTabALL">0</span>)
+                </button>
+                <button onclick="setCategoryFilter('NO_PHOTO')" id="tabNO_PHOTO" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    📸 Sin Foto (<span id="countTabNO_PHOTO">0</span>)
+                </button>
+                <button onclick="setCategoryFilter('HAS_DIFF')" id="tabHAS_DIFF" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    ⚠️ Con Descuadre (<span id="countTabHAS_DIFF">0</span>)
+                </button>
+                <button onclick="setCategoryFilter('Acidwash')" id="tabAcidwash" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    Acidwash
+                </button>
+                <button onclick="setCategoryFilter('Oversize')" id="tabOversize" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    Oversize
+                </button>
+                <button onclick="setCategoryFilter('Buzos')" id="tabBuzos" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    Buzos
+                </button>
+                <button onclick="setCategoryFilter('Esqueletos')" id="tabEsqueletos" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    Esqueletos
+                </button>
+                <button onclick="setCategoryFilter('Conjuntos')" id="tabConjuntos" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    Conjuntos
+                </button>
+                <button onclick="setCategoryFilter('Linea de Damas')" id="tabDamas" class="cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">
+                    Damas
+                </button>
+            </div>
+        </section>
+
+        <!-- Skeleton Loader -->
+        <div id="loader" class="max-w-4xl mx-auto w-full px-4 py-8 text-center">
+            <div class="inline-block p-4 bg-zinc-900 rounded-2xl border border-zinc-800 mb-3 animate-spin">
+                <i data-lucide="loader-2" class="w-8 h-8 text-yellow-500"></i>
+            </div>
+            <p class="text-sm font-semibold text-zinc-300">Cargando inventario completo de Loyverse...</p>
+            <p class="text-xs text-zinc-500 mt-1">Conectando con la tienda Noise Urban</p>
+        </div>
+
+        <!-- Lista de Tarjetas de Prendas -->
+        <main id="itemsContainer" class="max-w-4xl mx-auto w-full px-4 space-y-3 pt-2">
+            <!-- Renderizado dinámico vía JavaScript -->
+        </main>
+
+        <!-- Estado Vacío -->
+        <div id="emptyState" class="hidden max-w-md mx-auto w-full px-4 py-16 text-center">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500">
+                <i data-lucide="package-x" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">No se encontraron prendas</h3>
+            <p class="text-xs text-zinc-400 mt-1">Verifica el término de búsqueda o cambia la categoría seleccionada.</p>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- BARRA FLOTANTE INFERIOR: RESUMEN Y GUARDAR EN LOYVERSE     -->
+        <!-- ========================================================== -->
+        <div class="fixed bottom-0 inset-x-0 z-40 bg-[#0c0c0e]/95 backdrop-blur-lg border-t border-zinc-800 px-4 py-3 shadow-2xl">
+            <div class="max-w-4xl mx-auto flex items-center justify-between gap-3">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-zinc-400">Variantes con cambio:</span>
+                        <span id="footerDiffCount" class="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">0</span>
+                    </div>
+                    <span id="footerSummaryText" class="text-[11px] text-zinc-500 mt-0.5">Sin cambios pendientes</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="openSyncModal()" id="saveBtn" class="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 text-black font-extrabold text-xs uppercase px-5 py-3 rounded-xl shadow-lg shadow-yellow-500/20 transition-all">
+                        <i data-lucide="check-check" class="w-4 h-4"></i>
+                        <span>Guardar en Loyverse</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MODAL 1: CONFIRMAR ACTUALIZACIÓN MASIVA EN LOYVERSE         -->
+    <!-- ========================================================== -->
+    <div id="syncModal" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="w-full max-w-lg bg-[#141417] border border-zinc-800 rounded-3xl p-6 shadow-2xl fade-in max-h-[85vh] flex flex-col">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-500">
+                        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Confirmar Conteo de Inventario</h3>
+                </div>
+                <button onclick="closeSyncModal()" class="text-zinc-400 hover:text-white p-1 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="py-4 text-xs text-zinc-300 space-y-2">
+                <p>Estás a punto de enviar el conteo físico a la tienda <strong id="modalStoreName" class="text-yellow-400">Noise Urban</strong> en Loyverse POS.</p>
+                <div class="p-3 bg-zinc-900/90 rounded-xl border border-zinc-800 space-y-1.5">
+                    <div class="flex justify-between">
+                        <span class="text-zinc-400">Variantes con descuadre a ajustar:</span>
+                        <strong id="modalDiffCount" class="text-white">0</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-zinc-400">Prendas auditadas en esta sesión:</span>
+                        <strong id="modalCountedItems" class="text-white">0</strong>
+                    </div>
+                </div>
+
+                <!-- Vista previa de cambios -->
+                <div class="mt-2">
+                    <span class="text-[11px] text-zinc-400 uppercase font-semibold block mb-1">Detalle de Variantes a Modificar:</span>
+                    <div id="modalChangesList" class="max-h-48 overflow-y-auto space-y-1.5 p-2 bg-black/40 rounded-xl border border-zinc-800/80 text-[11px]">
+                        <!-- Se llena vía JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="pt-3 border-t border-zinc-800 flex items-center justify-end gap-2">
+                <button onclick="closeSyncModal()" class="px-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-300 font-semibold text-xs hover:bg-zinc-800">
+                    Cancelar
+                </button>
+                <button onclick="executeLoyverseSync()" id="btnConfirmSync" class="px-5 py-2.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black font-extrabold text-xs uppercase flex items-center gap-2 shadow-lg shadow-yellow-500/20">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Aplicar a Loyverse Ahora</span>
+                </button>
+            </div>
+
+            <div id="syncProgress" class="hidden mt-3 text-center">
+                <div class="inline-flex items-center gap-2 text-xs text-yellow-400 font-semibold">
+                    <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
+                    <span>Actualizando Loyverse POS... por favor espera.</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Input Oculto de Captura de Cámara -->
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="handleCameraPhotoSelected(event)">
+
+    <!-- Canvas Oculto para Redimensión y Compresión de Imagen -->
+    <canvas id="compressCanvas" class="hidden"></canvas>
+
+    <!-- Notificación Toast Flotante -->
+    <div id="toastNotification" class="fixed top-4 right-4 z-50 hidden max-w-sm bg-zinc-900 border border-zinc-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 fade-in">
+        <div id="toastIcon" class="w-7 h-7 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+            <i data-lucide="check" class="w-4 h-4"></i>
+        </div>
+        <div class="text-xs">
+            <h4 id="toastTitle" class="font-bold text-white">Notificación</h4>
+            <p id="toastMessage" class="text-zinc-400 mt-0.5">Mensaje</p>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- JAVASCRIPT: LÓGICA COMPLETA DEL AUDITOR                     -->
+    <!-- ========================================================== -->
+    <script>
+        // CONFIGURACIÓN Y ESTADO GLOBAL
+        const ADMIN_PIN = "8624";
+        let enteredPin = "";
+        let fullCatalog = [];
+        let physicalCounts = {}; // { variantId: number }
+        let currentCategoryFilter = 'ALL';
+        let activeCameraItemId = null;
+        let selectedStoreId = "fee704a4-ff11-43ae-903e-d2f9cf0a9a25"; // Tienda Noise Urban
+
+        // 1. GESTIÓN DE PIN Y SESIÓN
+        function pressPin(digit) {
+            if (enteredPin.length < 4) {
+                enteredPin += digit;
+                updatePinDots();
+                if (enteredPin.length === 4) {
+                    setTimeout(submitPin, 100);
+                }
+            }
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            updatePinDots();
+            document.getElementById('pinError').textContent = "";
+        }
+
+        function updatePinDots() {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`dot${i}`);
+                if (i < enteredPin.length) {
+                    dot.className = "w-4 h-4 rounded-full border-yellow-500 bg-yellow-500 shadow-md shadow-yellow-500/40 transition-all";
+                } else {
+                    dot.className = "w-4 h-4 rounded-full border border-zinc-700 bg-transparent transition-all";
+                }
+            }
+        }
+
+        function submitPin() {
+            if (enteredPin === ADMIN_PIN) {
+                sessionStorage.setItem('urbannoise_audit_pin', enteredPin);
+                document.getElementById('pinGate').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                loadSavedLocalCounts();
+                loadCatalog(false);
+                lucide.createIcons();
+            } else {
+                document.getElementById('pinError').textContent = "PIN incorrecto. Intenta de nuevo.";
+                enteredPin = "";
+                updatePinDots();
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('urbannoise_audit_pin');
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('pinGate').classList.remove('hidden');
+            clearPin();
+        }
+
+        // Auto-login si ya tiene sesión en esta pestaña
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedPin = sessionStorage.getItem('urbannoise_audit_pin');
+            if (savedPin === ADMIN_PIN) {
+                enteredPin = savedPin;
+                submitPin();
+            } else {
+                lucide.createIcons();
+            }
+        });
+
+        // 2. PERSISTENCIA LOCAL DE CONTEOS FÍSICOS (Evita perder datos por refresco accidental)
+        function loadSavedLocalCounts() {
+            try {
+                const saved = localStorage.getItem('urbannoise_physical_counts_v1');
+                if (saved) {
+                    physicalCounts = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.warn("No se pudieron cargar conteos locales:", e);
+            }
+        }
+
+        function saveLocalCounts() {
+            try {
+                localStorage.setItem('urbannoise_physical_counts_v1', JSON.stringify(physicalCounts));
+            } catch (e) {
+                console.warn("No se pudieron guardar conteos locales:", e);
+            }
+        }
+
+        // 3. CARGA DE CATÁLOGO DESDE EL API
+        async function loadCatalog(forceFresh = false) {
+            const loader = document.getElementById('loader');
+            const container = document.getElementById('itemsContainer');
+            loader.classList.remove('hidden');
+            container.innerHTML = '';
+            
+            try {
+                const url = forceFresh ? `/api/catalog?fresh=true&t=${Date.now()}` : `/api/catalog`;
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+                
+                fullCatalog = await res.json();
+                
+                // Inicializar conteos físicos con el stock del sistema si es la primera vez
+                fullCatalog.forEach(item => {
+                    (item.variants || []).forEach(v => {
+                        if (physicalCounts[v.id] === undefined) {
+                            physicalCounts[v.id] = Math.max(0, parseInt(v.stock, 10) || 0);
+                        }
+                    });
+                });
+                saveLocalCounts();
+
+                loader.classList.add('hidden');
+                updateMetrics();
+                applyFilters();
+                showToast("Catálogo Actualizado", `Se cargaron ${fullCatalog.length} prendas desde Loyverse.`, "check");
+            } catch (err) {
+                loader.innerHTML = `
+                    <div class="p-6 bg-red-950/40 border border-red-800/80 rounded-2xl text-center">
+                        <i data-lucide="alert-triangle" class="w-8 h-8 text-red-400 mx-auto mb-2"></i>
+                        <h4 class="text-sm font-bold text-white">Error al conectar con Loyverse</h4>
+                        <p class="text-xs text-zinc-400 mt-1 mb-4">${err.message}</p>
+                        <button onclick="loadCatalog(true)" class="px-4 py-2 bg-yellow-500 text-black font-bold text-xs uppercase rounded-xl">Reintentar</button>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        }
+
+        // 4. METRICAS Y FILTROS
+        function updateMetrics() {
+            let totalSystemUnits = 0;
+            let totalPhysicalUnits = 0;
+            let totalDiffVariants = 0;
+            let itemsWithoutPhoto = 0;
+            let itemsWithDiff = 0;
+
+            fullCatalog.forEach(item => {
+                const isNoPhoto = !item.image || item.image.includes('LOGO_WEB.png') || (item.images && item.images.length === 0);
+                if (isNoPhoto) itemsWithoutPhoto++;
+
+                let itemHasDiff = false;
+                (item.variants || []).forEach(v => {
+                    const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
+                    totalSystemUnits += sysStock;
+                    totalPhysicalUnits += physStock;
+                    if (physStock !== sysStock) {
+                        totalDiffVariants++;
+                        itemHasDiff = true;
+                    }
+                });
+
+                if (itemHasDiff) itemsWithDiff++;
+            });
+
+            document.getElementById('statTotalItems').textContent = fullCatalog.length;
+            document.getElementById('statSystemUnits').textContent = totalSystemUnits;
+            document.getElementById('statPhysicalUnits').textContent = totalPhysicalUnits;
+            document.getElementById('statDiffVariants').textContent = totalDiffVariants;
+
+            document.getElementById('countTabALL').textContent = fullCatalog.length;
+            document.getElementById('countTabNO_PHOTO').textContent = itemsWithoutPhoto;
+            document.getElementById('countTabHAS_DIFF').textContent = itemsWithDiff;
+
+            document.getElementById('footerDiffCount').textContent = totalDiffVariants;
+            document.getElementById('footerSummaryText').textContent = totalDiffVariants > 0 
+                ? `${totalDiffVariants} variantes con diferencia de stock frente a Loyverse`
+                : "Todas las variantes coinciden exactamente con el sistema";
+        }
+
+        function setCategoryFilter(cat) {
+            currentCategoryFilter = cat;
+            document.querySelectorAll('.cat-tab').forEach(btn => {
+                btn.className = "cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white";
+            });
+            const activeBtn = document.getElementById(`tab${cat.replace(/\s+/g, '')}`) || document.getElementById(`tab${cat}`);
+            if (activeBtn) {
+                activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-semibold whitespace-nowrap bg-yellow-500 text-black shadow-sm";
+            }
+            applyFilters();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (query) clearBtn.classList.remove('hidden');
+            else clearBtn.classList.add('hidden');
+
+            const filtered = fullCatalog.filter(item => {
+                // Filtro por texto
+                const titleMatch = (item.title || '').toLowerCase().includes(query);
+                const descMatch = (item.description || '').toLowerCase().includes(query);
+                const skuMatch = (item.variants || []).some(v => (v.sku || '').toLowerCase().includes(query));
+                if (query && !titleMatch && !descMatch && !skuMatch) return false;
+
+                // Filtro por categoría o condición especial
+                const isNoPhoto = !item.image || item.image.includes('LOGO_WEB.png') || (item.images && item.images.length === 0);
+                const hasDiff = (item.variants || []).some(v => {
+                    const sys = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const phys = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sys;
+                    return phys !== sys;
+                });
+
+                if (currentCategoryFilter === 'ALL') return true;
+                if (currentCategoryFilter === 'NO_PHOTO') return isNoPhoto;
+                if (currentCategoryFilter === 'HAS_DIFF') return hasDiff;
+                
+                return (item.category || '').toLowerCase() === currentCategoryFilter.toLowerCase() ||
+                       (item.rawCategory || '').toLowerCase() === currentCategoryFilter.toLowerCase();
+            });
+
+            renderItems(filtered);
+        }
+
+        // 5. RENDERIZADO DE TARJETAS DE PRENDAS
+        function renderItems(items) {
+            const container = document.getElementById('itemsContainer');
+            const empty = document.getElementById('emptyState');
+
+            if (items.length === 0) {
+                container.innerHTML = '';
+                empty.classList.remove('hidden');
+                lucide.createIcons();
+                return;
+            }
+            empty.classList.add('hidden');
+
+            container.innerHTML = items.map(item => {
+                const isNoPhoto = !item.image || item.image.includes('LOGO_WEB.png') || (item.images && item.images.length === 0);
+                
+                let itemTotalSys = 0;
+                let itemTotalPhys = 0;
+                let itemDiffCount = 0;
+
+                const variantsHtml = (item.variants || []).map(v => {
+                    const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
+                    const diff = physStock - sysStock;
+                    
+                    itemTotalSys += sysStock;
+                    itemTotalPhys += physStock;
+                    if (diff !== 0) itemDiffCount++;
+
+                    let badgeClass = "bg-zinc-800/60 text-zinc-400 border border-zinc-700/50";
+                    let badgeText = "✓ OK";
+                    if (diff > 0) {
+                        badgeClass = "bg-amber-500/15 text-amber-300 border border-amber-500/30";
+                        badgeText = `+${diff} Sobra`;
+                    } else if (diff < 0) {
+                        badgeClass = "bg-red-500/15 text-red-300 border border-red-500/30";
+                        badgeText = `${diff} Falta`;
+                    }
+
+                    const label = v.color ? `${v.size} • ${v.color}` : v.size;
+
+                    return `
+                        <div class="flex items-center justify-between gap-2 p-2 bg-zinc-900/60 hover:bg-zinc-900 rounded-xl border border-zinc-800/80 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <span class="w-10 text-xs font-black uppercase text-white tracking-wider px-1.5 py-0.5 bg-zinc-800 rounded text-center">${label}</span>
+                                <div class="text-[11px] text-zinc-400">
+                                    <span>Sis: <strong class="text-zinc-200">${sysStock}</strong></span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="stepVariantStock('${v.id}', -1)" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 active:bg-yellow-500 active:text-black border border-zinc-700/60 text-white font-bold flex items-center justify-center transition-colors">
+                                    -
+                                </button>
+                                <input type="number" min="0" value="${physStock}" onchange="setVariantStock('${v.id}', this.value)" 
+                                    class="w-12 h-8 text-center text-sm font-extrabold bg-black border border-zinc-700 rounded-lg text-yellow-400 focus:outline-none focus:border-yellow-500 transition-colors">
+                                <button onclick="stepVariantStock('${v.id}', 1)" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 active:bg-yellow-500 active:text-black border border-zinc-700/60 text-white font-bold flex items-center justify-center transition-colors">
+                                    +
+                                </button>
+                                <span class="text-[10px] font-bold px-1.5 py-1 rounded-md min-w-[55px] text-center ${badgeClass}">
+                                    ${badgeText}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <div id="card-${item.id}" class="bg-[#141417] border border-zinc-800/90 rounded-2xl p-3.5 shadow-md">
+                        <!-- Cabecera de la prenda -->
+                        <div class="flex items-start gap-3 pb-3 border-b border-zinc-800/70">
+                            <!-- Foto o Botón de Cámara -->
+                            <div class="relative shrink-0 w-20 h-20 rounded-xl overflow-hidden border ${isNoPhoto ? 'border-dashed border-yellow-500/60 bg-yellow-500/5' : 'border-zinc-800 bg-zinc-900'} flex items-center justify-center group">
+                                <img id="img-${item.id}" src="${item.image}" alt="${item.title}" class="w-full h-full object-cover ${isNoPhoto ? 'opacity-30' : ''}">
+                                
+                                <!-- Botón de Captura con Cámara -->
+                                <button onclick="triggerCameraCapture('${item.id}')" title="Tomar foto del estampado con la cámara"
+                                    class="absolute inset-0 flex flex-col items-center justify-center gap-1 ${isNoPhoto ? 'bg-yellow-500/20 text-yellow-300 font-bold' : 'bg-black/60 opacity-0 group-hover:opacity-100 text-white'} transition-opacity">
+                                    <i data-lucide="camera" class="w-5 h-5"></i>
+                                    <span class="text-[9px] uppercase tracking-tighter text-center leading-tight px-1">${isNoPhoto ? 'Tomar Foto' : 'Cambiar'}</span>
+                                </button>
+
+                                <div id="imgLoader-${item.id}" class="hidden absolute inset-0 bg-black/80 flex flex-col items-center justify-center text-yellow-400">
+                                    <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
+                                    <span class="text-[8px] mt-1 font-semibold">Subiendo...</span>
+                                </div>
+                            </div>
+
+                            <!-- Información de la Prenda -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700/50">
+                                        ${item.category || 'General'}
+                                    </span>
+                                    ${itemDiffCount > 0 ? `
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                                            ⚠️ ${itemDiffCount} descuadre(s)
+                                        </span>
+                                    ` : `
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                            ✓ Cuadrado
+                                        </span>
+                                    `}
+                                </div>
+                                <h3 class="text-sm font-extrabold text-white truncate" title="${item.title}">${item.title}</h3>
+                                <div class="flex items-center gap-3 text-[11px] text-zinc-400 mt-1">
+                                    <span>Sis: <strong class="text-zinc-200">${itemTotalSys} uds</strong></span>
+                                    <span>•</span>
+                                    <span>Físico: <strong class="text-yellow-400">${itemTotalPhys} uds</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Acciones rápidas de la prenda -->
+                            <div class="flex flex-col gap-1 shrink-0">
+                                <button onclick="quickMatchItem('${item.id}')" title="Copiar todo de sistema a físico" class="px-2 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-[10px] text-zinc-300 font-semibold border border-zinc-700/50">
+                                    Cuadrar
+                                </button>
+                                <button onclick="quickZeroItem('${item.id}')" title="Poner todas las tallas en 0" class="px-2 py-1 rounded bg-zinc-800 hover:bg-red-950 text-[10px] text-zinc-400 hover:text-red-300 font-semibold border border-zinc-700/50">
+                                    Todo en 0
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Grilla de Variantes (Tallas y Colores) -->
+                        <div class="mt-3 space-y-1.5">
+                            ${variantsHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // 6. AJUSTES DE STOCK EN MEMORIA
+        function stepVariantStock(variantId, delta) {
+            const current = physicalCounts[variantId] !== undefined ? physicalCounts[variantId] : 0;
+            const updated = Math.max(0, current + delta);
+            physicalCounts[variantId] = updated;
+            saveLocalCounts();
+            updateMetrics();
+            applyFilters();
+        }
+
+        function setVariantStock(variantId, val) {
+            const parsed = Math.max(0, parseInt(val, 10) || 0);
+            physicalCounts[variantId] = parsed;
+            saveLocalCounts();
+            updateMetrics();
+            applyFilters();
+        }
+
+        function quickMatchItem(itemId) {
+            const item = fullCatalog.find(i => i.id === itemId);
+            if (!item) return;
+            (item.variants || []).forEach(v => {
+                physicalCounts[v.id] = Math.max(0, parseInt(v.stock, 10) || 0);
+            });
+            saveLocalCounts();
+            updateMetrics();
+            applyFilters();
+        }
+
+        function quickZeroItem(itemId) {
+            const item = fullCatalog.find(i => i.id === itemId);
+            if (!item) return;
+            (item.variants || []).forEach(v => {
+                physicalCounts[v.id] = 0;
+            });
+            saveLocalCounts();
+            updateMetrics();
+            applyFilters();
+        }
+
+        // 7. CAPTURA Y SUBIDA DE FOTOS CON LA CÁMARA DEL CELULAR
+        function triggerCameraCapture(itemId) {
+            activeCameraItemId = itemId;
+            const input = document.getElementById('cameraInput');
+            input.value = ''; // Reset
+            input.click();
+        }
+
+        async function handleCameraPhotoSelected(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !activeCameraItemId) return;
+
+            const itemId = activeCameraItemId;
+            const imgLoader = document.getElementById(`imgLoader-${itemId}`);
+            if (imgLoader) imgLoader.classList.remove('hidden');
+
+            try {
+                showToast("Procesando Foto", "Optimizando imagen del estampado...", "loader-2");
+
+                // 1. Redimensionar y comprimir con Canvas a máximo 1000px y 85% calidad
+                const base64Data = await compressImageFile(file, 1000, 0.85);
+
+                // 2. Enviar a nuestro endpoint /api/upload_image
+                const pin = sessionStorage.getItem('urbannoise_audit_pin') || ADMIN_PIN;
+                const response = await fetch('/api/upload_image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        pin: pin,
+                        item_id: itemId,
+                        image: base64Data,
+                        content_type: 'image/jpeg'
+                    })
+                });
+
+                const result = await response.json();
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || "Error al subir a Loyverse");
+                }
+
+                // 3. Actualizar la prenda en memoria y en la tarjeta
+                const item = fullCatalog.find(i => i.id === itemId);
+                if (item) {
+                    const freshUrl = result.image_url ? `${result.image_url}?v=${Date.now()}` : base64Data;
+                    item.image = freshUrl;
+                    if (!item.images) item.images = [];
+                    item.images[0] = freshUrl;
+                }
+
+                const imgElem = document.getElementById(`img-${itemId}`);
+                if (imgElem) {
+                    imgElem.src = base64Data;
+                    imgElem.classList.remove('opacity-30');
+                }
+
+                updateMetrics();
+                applyFilters();
+                showToast("¡Foto Guardada!", "Estampado asignado a la prenda en Loyverse.", "check");
+
+            } catch (err) {
+                console.error("Error subiendo foto:", err);
+                alert("Error al subir foto: " + err.message);
+                showToast("Error", err.message, "alert-triangle");
+            } finally {
+                if (imgLoader) imgLoader.classList.add('hidden');
+                activeCameraItemId = null;
+            }
+        }
+
+        // Comprime archivo de imagen con canvas
+        function compressImageFile(file, maxDimension, quality) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > maxDimension) {
+                                height = Math.round((height * maxDimension) / width);
+                                width = maxDimension;
+                            }
+                        } else {
+                            if (height > maxDimension) {
+                                width = Math.round((width * maxDimension) / height);
+                                height = maxDimension;
+                            }
+                        }
+
+                        const canvas = document.getElementById('compressCanvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        resolve(dataUrl);
+                    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // 8. SINCRONIZACIÓN MASIVA CON LOYVERSE
+        function onStoreChange() {
+            selectedStoreId = document.getElementById('storeSelector').value;
+            const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
+            showToast("Tienda Seleccionada", `Auditoría configurada para ${storeName}`, "check");
+        }
+
+        function openSyncModal() {
+            const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
+            document.getElementById('modalStoreName').textContent = storeName;
+
+            // Recopilar variantes que tengan discrepancia
+            const changes = [];
+            let countedCount = 0;
+
+            fullCatalog.forEach(item => {
+                let hasCounted = false;
+                (item.variants || []).forEach(v => {
+                    const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
+                    if (physicalCounts[v.id] !== undefined) hasCounted = true;
+
+                    if (physStock !== sysStock) {
+                        changes.push({
+                            variant_id: v.id,
+                            stock_after: physStock,
+                            sys_stock: sysStock,
+                            item_title: item.title,
+                            variant_label: v.color ? `${v.size} - ${v.color}` : v.size
+                        });
+                    }
+                });
+                if (hasCounted) countedCount++;
+            });
+
+            document.getElementById('modalDiffCount').textContent = changes.length;
+            document.getElementById('modalCountedItems').textContent = countedCount;
+
+            const listContainer = document.getElementById('modalChangesList');
+            if (changes.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-4 text-zinc-500">
+                        <span>No hay descuadres pendientes. El inventario físico coincide al 100% con Loyverse.</span>
+                    </div>
+                `;
+            } else {
+                listContainer.innerHTML = changes.map(c => {
+                    const diff = c.stock_after - c.sys_stock;
+                    const diffBadge = diff > 0 ? `<span class="text-amber-400 font-bold">+${diff}</span>` : `<span class="text-red-400 font-bold">${diff}</span>`;
+                    return `
+                        <div class="flex items-center justify-between py-1 border-b border-zinc-800/50">
+                            <span class="truncate pr-2 text-zinc-300 font-medium">${c.item_title} (${c.variant_label})</span>
+                            <div class="shrink-0 flex items-center gap-2">
+                                <span class="text-zinc-500 line-through">${c.sys_stock}</span>
+                                <span>→</span>
+                                <span class="text-white font-bold">${c.stock_after}</span>
+                                (${diffBadge})
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            document.getElementById('syncModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeSyncModal() {
+            document.getElementById('syncModal').classList.add('hidden');
+        }
+
+        async function executeLoyverseSync() {
+            const btn = document.getElementById('btnConfirmSync');
+            const progress = document.getElementById('syncProgress');
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+            progress.classList.remove('hidden');
+
+            try {
+                // Preparar todas las variantes con su conteo físico
+                const inventoryLevels = [];
+                fullCatalog.forEach(item => {
+                    (item.variants || []).forEach(v => {
+                        const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                        const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
+                        // Enviamos aquellas que tienen conteo físico definido
+                        inventoryLevels.push({
+                            variant_id: v.id,
+                            stock_after: physStock
+                        });
+                    });
+                });
+
+                const pin = sessionStorage.getItem('urbannoise_audit_pin') || ADMIN_PIN;
+                const res = await fetch('/api/audit_sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        pin: pin,
+                        store_id: selectedStoreId,
+                        inventory_levels: inventoryLevels
+                    })
+                });
+
+                const data = await res.json();
+                if (!res.ok || !data.success) {
+                    throw new Error(data.error || "Error al actualizar Loyverse");
+                }
+
+                closeSyncModal();
+                showToast("¡Inventario Calibrado!", data.message || "Se actualizaron las variantes en Loyverse.", "check");
+                
+                // Recargar catálogo fresco para actualizar la vista
+                setTimeout(() => loadCatalog(true), 1200);
+
+            } catch (err) {
+                alert("Error al calibrar inventario: " + err.message);
+                showToast("Error en Loyverse", err.message, "alert-triangle");
+            } finally {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50');
+                progress.classList.add('hidden');
+            }
+        }
+
+        // 9. TOAST NOTIFICACIONES
+        let toastTimeout = null;
+        function showToast(title, message, icon = "check") {
+            const toast = document.getElementById('toastNotification');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMsg = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastTitle.textContent = title;
+            toastMsg.textContent = message;
+
+            if (icon === "check") {
+                toastIcon.className = "w-7 h-7 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0";
+                toastIcon.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i>`;
+            } else if (icon === "alert-triangle") {
+                toastIcon.className = "w-7 h-7 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center shrink-0";
+                toastIcon.innerHTML = `<i data-lucide="alert-triangle" class="w-4 h-4"></i>`;
+            } else {
+                toastIcon.className = "w-7 h-7 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center shrink-0";
+                toastIcon.innerHTML = `<i data-lucide="info" class="w-4 h-4"></i>`;
+            }
+
+            lucide.createIcons();
+            toast.classList.remove('hidden');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
