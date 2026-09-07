@@ -338,27 +338,54 @@
             </button>
         </div>
 
-        <!-- Contenedor Central de la Imagen -->
+        <!-- Contenedor Central de la Imagen con Lupa Interactiva -->
         <div class="flex-1 min-h-0 flex items-center justify-center p-2 relative overflow-hidden max-w-2xl mx-auto w-full">
-            <div id="modalImgContainer" class="relative max-w-full max-h-full flex items-center justify-center">
-                <!-- Imagen Grande -->
-                <img id="modalImgPreview" src="" alt="Prenda" class="max-w-full max-h-[60vh] object-contain rounded-2xl shadow-2xl border border-slate-800 bg-slate-900 transition-all">
-                
-                <!-- Aviso si no tiene foto -->
-                <div id="modalNoPhotoNotice" class="hidden absolute inset-0 rounded-2xl bg-slate-900/95 border-2 border-dashed border-indigo-500/80 flex flex-col items-center justify-center p-6 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-3">
-                        <i data-lucide="camera-off" class="w-8 h-8"></i>
-                    </div>
-                    <h4 class="text-base font-bold text-white">Sin foto en Loyverse</h4>
-                    <p class="text-xs text-slate-400 mt-1 max-w-xs">Esta prenda aún no tiene foto asignada. Puedes tomar una foto directamente al estampado con la cámara de tu celular.</p>
-                </div>
+            
+            <!-- Barra Flotante de Controles de Zoom / Lupa -->
+            <div id="zoomControls" class="absolute top-4 right-4 z-30 flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-2xl px-2 py-1.5 shadow-2xl text-white">
+                <button onclick="changeZoom(-0.5)" title="Alejar" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 flex items-center justify-center transition-colors">
+                    <i data-lucide="minus" class="w-4 h-4"></i>
+                </button>
+                <button onclick="resetZoom()" id="zoomLevelDisplay" title="Toca para reiniciar a 100%" class="px-2 py-1 rounded-xl text-xs font-black text-amber-400 hover:bg-slate-800 transition-colors">
+                    100%
+                </button>
+                <button onclick="changeZoom(0.5)" title="Acercar" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 flex items-center justify-center transition-colors">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                </button>
+                <div class="w-px h-5 bg-slate-700/80 mx-0.5"></div>
+                <button onclick="toggleLupa()" id="btnToggleLupa" title="Lupa rápida 2.5x" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-amber-500 active:text-black flex items-center gap-1.5 text-xs font-bold text-white transition-all shadow-sm">
+                    <i data-lucide="zoom-in" class="w-4 h-4 text-amber-400"></i>
+                    <span>Lupa</span>
+                </button>
+            </div>
 
-                <!-- Loader durante la subida -->
-                <div id="modalImgUploading" class="hidden absolute inset-0 rounded-2xl bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center text-white">
-                    <i data-lucide="loader-2" class="w-10 h-10 animate-spin text-emerald-400 mb-2"></i>
-                    <h4 class="text-sm font-bold text-white">Optimizando y subiendo...</h4>
-                    <p class="text-xs text-slate-400 mt-0.5">Guardando directamente en Loyverse POS</p>
+            <!-- Viewport Interactivo con Soporte Táctil y Ratón -->
+            <div id="modalImgViewport" class="w-full h-full flex items-center justify-center overflow-hidden touch-none cursor-zoom-in">
+                <div id="modalImgContainer" class="relative max-w-full max-h-full flex items-center justify-center select-none" style="will-change: transform;">
+                    <!-- Imagen Grande con Soporte de Zoom / Escala -->
+                    <img id="modalImgPreview" src="" alt="Prenda" class="max-w-full max-h-[60vh] object-contain rounded-2xl shadow-2xl border border-slate-800 bg-slate-900 transition-transform duration-100 ease-out select-none pointer-events-none">
+                    
+                    <!-- Aviso si no tiene foto -->
+                    <div id="modalNoPhotoNotice" class="hidden absolute inset-0 rounded-2xl bg-slate-900/95 border-2 border-dashed border-indigo-500/80 flex flex-col items-center justify-center p-6 text-center pointer-events-none">
+                        <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-3">
+                            <i data-lucide="camera-off" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white">Sin foto en Loyverse</h4>
+                        <p class="text-xs text-slate-400 mt-1 max-w-xs">Esta prenda aún no tiene foto asignada. Puedes tomar una foto directamente al estampado con la cámara de tu celular.</p>
+                    </div>
+
+                    <!-- Loader durante la subida -->
+                    <div id="modalImgUploading" class="hidden absolute inset-0 rounded-2xl bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center text-white pointer-events-none">
+                        <i data-lucide="loader-2" class="w-10 h-10 animate-spin text-emerald-400 mb-2"></i>
+                        <h4 class="text-sm font-bold text-white">Optimizando y subiendo...</h4>
+                        <p class="text-xs text-slate-400 mt-0.5">Guardando directamente en Loyverse POS</p>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Ayuda rápida -->
+            <div id="zoomHint" class="absolute bottom-2 inset-x-0 mx-auto w-max max-w-[92%] pointer-events-none text-center bg-slate-900/80 backdrop-blur-sm border border-slate-800 px-3 py-1 rounded-full text-[10px] text-slate-300 font-semibold shadow-md">
+                🔍 Usa la lupa, rueda del ratón o dos dedos para ampliar detalles
             </div>
         </div>
 
@@ -871,13 +898,176 @@
             }
         }
 
-        // 7. MODAL DE FOTO EN PANTALLA COMPLETA Y TOMA DE FOTO CON CÁMARA
+        // ==========================================================
+        // 7. MOTOR DE LUPA, ZOOM Y ARRASTRE (TELÉFONO & PC)
+        // ==========================================================
         let currentModalItemId = null;
+        let zoomScale = 1.0;
+        let panX = 0;
+        let panY = 0;
+        let isPanning = false;
+        let panStartX = 0;
+        let panStartY = 0;
+        let lastTouchDist = 0;
+        let lastTapTime = 0;
+
+        function updateZoomTransform() {
+            const container = document.getElementById('modalImgContainer');
+            const display = document.getElementById('zoomLevelDisplay');
+            const btnLupa = document.getElementById('btnToggleLupa');
+            const viewport = document.getElementById('modalImgViewport');
+
+            if (!container) return;
+
+            const maxPan = Math.max(0, (zoomScale - 1) * 320);
+            panX = Math.max(-maxPan, Math.min(maxPan, panX));
+            panY = Math.max(-maxPan, Math.min(maxPan, panY));
+
+            container.style.transform = `translate3d(${panX}px, ${panY}px, 0px) scale(${zoomScale})`;
+            
+            if (display) {
+                display.textContent = `${Math.round(zoomScale * 100)}%`;
+            }
+
+            if (btnLupa) {
+                if (zoomScale > 1.0) {
+                    btnLupa.className = "px-3 py-1.5 rounded-xl bg-amber-500 text-black font-black flex items-center gap-1.5 text-xs shadow-sm";
+                    btnLupa.innerHTML = `<i data-lucide="zoom-out" class="w-4 h-4"></i><span>Reiniciar</span>`;
+                } else {
+                    btnLupa.className = "px-3 py-1.5 rounded-xl bg-slate-800 text-white hover:bg-slate-700 font-bold flex items-center gap-1.5 text-xs shadow-sm";
+                    btnLupa.innerHTML = `<i data-lucide="zoom-in" class="w-4 h-4 text-amber-400"></i><span>Lupa</span>`;
+                }
+                lucide.createIcons();
+            }
+
+            if (viewport) {
+                viewport.className = zoomScale > 1.0 
+                    ? `w-full h-full flex items-center justify-center overflow-hidden touch-none ${isPanning ? 'cursor-grabbing' : 'cursor-grab'}`
+                    : 'w-full h-full flex items-center justify-center overflow-hidden touch-none cursor-zoom-in';
+            }
+        }
+
+        function changeZoom(delta) {
+            zoomScale = Math.max(1.0, Math.min(4.5, +(zoomScale + delta).toFixed(1)));
+            if (zoomScale === 1.0) {
+                panX = 0;
+                panY = 0;
+            }
+            updateZoomTransform();
+        }
+
+        function resetZoom() {
+            zoomScale = 1.0;
+            panX = 0;
+            panY = 0;
+            updateZoomTransform();
+        }
+
+        function toggleLupa() {
+            if (zoomScale > 1.0) {
+                resetZoom();
+            } else {
+                zoomScale = 2.5;
+                panX = 0;
+                panY = 0;
+                updateZoomTransform();
+            }
+        }
+
+        function initZoomEvents() {
+            const viewport = document.getElementById('modalImgViewport');
+            if (!viewport || viewport._zoomInitialized) return;
+            viewport._zoomInitialized = true;
+
+            // 1. Rueda del ratón (PC)
+            viewport.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = e.deltaY < 0 ? 0.3 : -0.3;
+                changeZoom(delta);
+            }, { passive: false });
+
+            // 2. Doble Clic / Doble Toque
+            viewport.addEventListener('click', (e) => {
+                const now = Date.now();
+                if (now - lastTapTime < 320) {
+                    toggleLupa();
+                }
+                lastTapTime = now;
+            });
+
+            // 3. Arrastre con ratón (PC)
+            viewport.addEventListener('mousedown', (e) => {
+                if (zoomScale <= 1.0) return;
+                isPanning = true;
+                panStartX = e.clientX - panX;
+                panStartY = e.clientY - panY;
+                updateZoomTransform();
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isPanning) return;
+                panX = e.clientX - panStartX;
+                panY = e.clientY - panStartY;
+                updateZoomTransform();
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isPanning) {
+                    isPanning = false;
+                    updateZoomTransform();
+                }
+            });
+
+            // 4. Gestos táctiles en celulares (Pinch-to-zoom y Arrastre)
+            viewport.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    if (zoomScale > 1.0) {
+                        isPanning = true;
+                        panStartX = e.touches[0].clientX - panX;
+                        panStartY = e.touches[0].clientY - panY;
+                    }
+                } else if (e.touches.length === 2) {
+                    isPanning = false;
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    lastTouchDist = Math.hypot(dx, dy);
+                }
+            }, { passive: true });
+
+            viewport.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isPanning && zoomScale > 1.0) {
+                    panX = e.touches[0].clientX - panStartX;
+                    panY = e.touches[0].clientY - panY;
+                    updateZoomTransform();
+                } else if (e.touches.length === 2) {
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    const dist = Math.hypot(dx, dy);
+                    if (lastTouchDist > 0) {
+                        const scaleDiff = (dist - lastTouchDist) * 0.006;
+                        zoomScale = Math.max(1.0, Math.min(4.5, +(zoomScale + scaleDiff).toFixed(2)));
+                        updateZoomTransform();
+                    }
+                    lastTouchDist = dist;
+                }
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', (e) => {
+                if (e.touches.length === 0) {
+                    isPanning = false;
+                    lastTouchDist = 0;
+                    if (zoomScale < 1.0) resetZoom();
+                }
+            }, { passive: true });
+        }
 
         function openImageModal(itemId) {
             currentModalItemId = itemId;
             const item = fullCatalog.find(i => i.id === itemId);
             if (!item) return;
+
+            resetZoom();
+            initZoomEvents();
 
             const modal = document.getElementById('imageModal');
             const title = document.getElementById('modalImgTitle');
@@ -913,6 +1103,7 @@
         function closeImageModal() {
             document.getElementById('imageModal').classList.add('hidden');
             currentModalItemId = null;
+            resetZoom();
         }
 
         function triggerCameraFromModal() {
