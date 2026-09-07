@@ -196,6 +196,9 @@
                 <button onclick="setCategoryFilter('ALL')" id="tabALL" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-sm">
                     Todos (<span id="countTabALL">0</span>)
                 </button>
+                <button onclick="setCategoryFilter('WITH_STOCK')" id="tabWITH_STOCK" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 shadow-sm">
+                    📦 Con Stock (<span id="countTabWITH_STOCK">0</span>)
+                </button>
                 <button onclick="setCategoryFilter('PENDING')" id="tabPENDING" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-sm">
                     ⏳ Pendientes (<span id="countTabPENDING">0</span>)
                 </button>
@@ -637,6 +640,12 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            const savedStore = localStorage.getItem('urbannoise_audit_store_id');
+            if (savedStore) {
+                selectedStoreId = savedStore;
+                const storeSel = document.getElementById('storeSelector');
+                if (storeSel) storeSel.value = savedStore;
+            }
             const savedPin = sessionStorage.getItem('urbannoise_audit_pin');
             if (savedPin === ADMIN_PIN) {
                 enteredPin = savedPin;
@@ -646,13 +655,24 @@
             }
         });
 
-        // 2. PERSISTENCIA LOCAL DE CONTEOS
+        // 2. PERSISTENCIA LOCAL DE CONTEOS (PARTICIONADA POR TIENDA)
+        function getStoreCountsKey() {
+            return `urbannoise_physical_counts_${selectedStoreId}`;
+        }
+        function getStoreAuditedKey() {
+            return `urbannoise_audited_items_${selectedStoreId}`;
+        }
+
         function loadSavedLocalCounts() {
             try {
-                const savedCounts = localStorage.getItem('urbannoise_physical_counts_v1');
+                physicalCounts = {};
+                auditedItemIds = new Set();
+                const key = getStoreCountsKey();
+                const savedCounts = localStorage.getItem(key) || (selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? localStorage.getItem('urbannoise_physical_counts_v1') : null);
                 if (savedCounts) physicalCounts = JSON.parse(savedCounts);
                 
-                const savedAudited = localStorage.getItem('urbannoise_audited_items_v1');
+                const audKey = getStoreAuditedKey();
+                const savedAudited = localStorage.getItem(audKey) || (selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? localStorage.getItem('urbannoise_audited_items_v1') : null);
                 if (savedAudited) auditedItemIds = new Set(JSON.parse(savedAudited));
             } catch (e) {
                 console.warn("No se pudieron cargar conteos locales:", e);
@@ -661,8 +681,8 @@
 
         function saveLocalCounts() {
             try {
-                localStorage.setItem('urbannoise_physical_counts_v1', JSON.stringify(physicalCounts));
-                localStorage.setItem('urbannoise_audited_items_v1', JSON.stringify([...auditedItemIds]));
+                localStorage.setItem(getStoreCountsKey(), JSON.stringify(physicalCounts));
+                localStorage.setItem(getStoreAuditedKey(), JSON.stringify([...auditedItemIds]));
             } catch (e) {
                 console.warn("No se pudieron guardar conteos locales:", e);
             }
@@ -676,7 +696,9 @@
             container.innerHTML = '';
             
             try {
-                const url = forceFresh ? `/api/catalog?fresh=true&t=${Date.now()}` : `/api/catalog`;
+                const url = forceFresh 
+                    ? `/api/catalog?store_id=${selectedStoreId}&fresh=true&t=${Date.now()}` 
+                    : `/api/catalog?store_id=${selectedStoreId}&fresh=true`;
                 const res = await fetch(url);
                 if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
                 
@@ -695,7 +717,8 @@
                 loader.classList.add('hidden');
                 updateMetrics();
                 applyFilters();
-                showToast("Catálogo Listo", `${fullCatalog.length} prendas cargadas de Loyverse.`, "check");
+                const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
+                showToast("Catálogo Listo", `${fullCatalog.length} prendas cargadas para ${storeName}.`, "check");
             } catch (err) {
                 loader.innerHTML = `
                     <div class="p-6 bg-rose-50 border border-rose-200 rounded-2xl text-center">
@@ -717,23 +740,30 @@
             let itemsWithoutPhoto = 0;
             let itemsWithDiff = 0;
             let totalAuditedItems = 0;
+            let itemsWithStock = 0;
 
             fullCatalog.forEach(item => {
                 const isNoPhoto = !item.image || item.image.includes('LOGO_WEB.png') || (item.images && item.images.length === 0);
                 if (isNoPhoto) itemsWithoutPhoto++;
 
                 let itemHasDiff = false;
+                let itemHasAnyStock = false;
+
                 (item.variants || []).forEach(v => {
                     const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
                     const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
                     totalSystemUnits += sysStock;
                     totalPhysicalUnits += physStock;
+                    if (sysStock > 0 || physStock > 0) {
+                        itemHasAnyStock = true;
+                    }
                     if (physStock !== sysStock) {
                         totalDiffVariants++;
                         itemHasDiff = true;
                     }
                 });
 
+                if (itemHasAnyStock) itemsWithStock++;
                 if (itemHasDiff) itemsWithDiff++;
                 if (auditedItemIds.has(item.id)) totalAuditedItems++;
             });
@@ -752,6 +782,8 @@
 
             // Actualizar pestañas
             document.getElementById('countTabALL').textContent = fullCatalog.length;
+            const tabStockEl = document.getElementById('countTabWITH_STOCK');
+            if (tabStockEl) tabStockEl.textContent = itemsWithStock;
             document.getElementById('countTabPENDING').textContent = Math.max(0, fullCatalog.length - totalAuditedItems);
             document.getElementById('countTabHAS_DIFF').textContent = itemsWithDiff;
             document.getElementById('countTabNO_PHOTO').textContent = itemsWithoutPhoto;
@@ -801,9 +833,15 @@
                     const phys = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sys;
                     return phys !== sys;
                 });
+                const hasStockInStore = (item.variants || []).some(v => {
+                    const sys = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const phys = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sys;
+                    return phys > 0 || sys > 0;
+                });
                 const isPending = !auditedItemIds.has(item.id);
 
                 if (currentCategoryFilter === 'ALL') return true;
+                if (currentCategoryFilter === 'WITH_STOCK') return hasStockInStore;
                 if (currentCategoryFilter === 'PENDING') return isPending;
                 if (currentCategoryFilter === 'HAS_DIFF') return hasDiff;
                 if (currentCategoryFilter === 'NO_PHOTO') return isNoPhoto;
@@ -1375,14 +1413,18 @@
         // 8. CALIBRACIÓN MASIVA EN LOYVERSE (CON SOPORTE MULTI-USUARIO Y DELTA SYNC)
         let cachedSyncChanges = [];
 
-        function onStoreChange() {
+        async function onStoreChange() {
             selectedStoreId = document.getElementById('storeSelector').value;
+            localStorage.setItem('urbannoise_audit_store_id', selectedStoreId);
             const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
-            showToast("Tienda Seleccionada", `Configurado para ${storeName}`, "check");
+            showToast("Cambiando Tienda...", `Cargando inventario de ${storeName}...`, "loader-2");
+            loadSavedLocalCounts();
+            await loadCatalog(true);
         }
 
         function getScopeCategoryLabel() {
             if (currentCategoryFilter === 'ALL') return 'Todas las categorías';
+            if (currentCategoryFilter === 'WITH_STOCK') return 'Prendas con stock';
             if (currentCategoryFilter === 'PENDING') return 'Prendas pendientes';
             if (currentCategoryFilter === 'HAS_DIFF') return 'Prendas con descuadre';
             if (currentCategoryFilter === 'NO_PHOTO') return 'Prendas sin foto';
@@ -1394,7 +1436,7 @@
             let count = 0;
             fullCatalog.forEach(item => {
                 const itemCat = (item.category || item.rawCategory || '').toLowerCase();
-                const matches = (targetCat === 'all' || targetCat === 'pending' || targetCat === 'has_diff' || targetCat === 'no_photo')
+                const matches = (targetCat === 'all' || targetCat === 'pending' || targetCat === 'has_diff' || targetCat === 'no_photo' || targetCat === 'with_stock')
                     ? true
                     : (itemCat === targetCat);
                 if (matches) {
@@ -1547,7 +1589,7 @@
                 const targetCat = currentCategoryFilter.toLowerCase();
                 fullCatalog.forEach(item => {
                     const itemCat = (item.category || item.rawCategory || '').toLowerCase();
-                    const matches = (targetCat === 'all' || targetCat === 'pending' || targetCat === 'has_diff' || targetCat === 'no_photo')
+                    const matches = (targetCat === 'all' || targetCat === 'pending' || targetCat === 'has_diff' || targetCat === 'no_photo' || targetCat === 'with_stock')
                         ? true
                         : (itemCat === targetCat);
                     if (matches) {

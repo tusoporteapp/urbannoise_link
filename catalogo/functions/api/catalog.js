@@ -12,6 +12,7 @@ function getSecretKey(env) {
 export async function onRequestGet(context) {
     const cacheUrl = new URL(context.request.url);
     const isFresh = cacheUrl.searchParams.get('fresh') === 'true' || cacheUrl.searchParams.has('t');
+    const targetStoreId = cacheUrl.searchParams.get('store_id') || "fee704a4-ff11-43ae-903e-d2f9cf0a9a25";
     
     cacheUrl.searchParams.delete('t');
     cacheUrl.searchParams.delete('_');
@@ -33,7 +34,7 @@ export async function onRequestGet(context) {
     };
 
     const API_KEY = getSecretKey(context.env);
-    const STORE_ID = "fee704a4-ff11-43ae-903e-d2f9cf0a9a25"; // Tienda Noise Urban
+    const STORE_ID = targetStoreId;
 
     const authHeaders = {
         "Authorization": `Bearer ${API_KEY}`,
@@ -96,7 +97,7 @@ export async function onRequestGet(context) {
         // Await parallel metadata
         const [modifiers, categoryMap] = await Promise.all([modifiersPromise, categoriesPromise]);
 
-        // Filter inventory specifically for Tienda Noise Urban
+        // Filter inventory specifically for the target store
         const stockMap = {};
         allInventory.forEach(inv => {
             if (inv.variant_id && inv.store_id === STORE_ID) {
@@ -105,7 +106,18 @@ export async function onRequestGet(context) {
         });
 
         // 5. Aggregate & Map Products to Universal Unified Schema
-        const mappedProducts = allItems.map(item => {
+        // Only include items available for sale in the target store
+        const mappedProducts = allItems
+            .filter(item => {
+                const variants = item.variants || [];
+                if (variants.length === 0) return true;
+                const isAvailable = variants.some(v => {
+                    const storeEntry = (v.stores || []).find(s => s.store_id === STORE_ID);
+                    return !storeEntry || storeEntry.available_for_sale !== false;
+                });
+                return isAvailable;
+            })
+            .map(item => {
             const defaultVariant = item.variants && item.variants[0] ? item.variants[0] : null;
             const retailBasePrice = defaultVariant ? defaultVariant.default_price : 0;
             
@@ -178,6 +190,7 @@ export async function onRequestGet(context) {
                 images: imagesList,
                 category: categoryName,
                 rawCategory: item.category_id ? (categoryMap[item.category_id] || '') : '',
+                store_id: STORE_ID,
                 variants: variants,
                 created_at: item.created_at || '',
                 updated_at: item.updated_at || ''
