@@ -647,27 +647,32 @@
                     badgeText = `${diff} Falta`;
                 }
 
-                const label = v.color ? `${v.size} • ${v.color}` : v.size;
-
                 return `
-                    <div class="flex items-center justify-between gap-2 p-2 bg-slate-50 hover:bg-slate-100/80 rounded-xl border border-slate-200/80 transition-colors">
-                        <div class="flex items-center gap-2">
-                            <span class="w-10 text-xs font-black uppercase text-slate-900 tracking-wider px-1.5 py-1 bg-white border border-slate-200 rounded-lg text-center shadow-xs">${label}</span>
-                            <div class="text-[11px] text-slate-500 font-medium">
-                                <span>Loyverse: <strong class="text-slate-800">${sysStock}</strong></span>
+                    <div class="flex items-center justify-between gap-2 p-2 bg-slate-50 hover:bg-slate-100/90 rounded-xl border border-slate-200/90 transition-colors">
+                        <!-- Izquierda: Talla en cuadrado sólido + Color y Stock Loyverse -->
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="w-8 h-8 rounded-lg bg-slate-900 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                                ${v.size}
+                            </span>
+                            <div class="flex flex-col min-w-0 justify-center">
+                                ${v.color ? `<span class="text-xs font-black text-slate-800 uppercase tracking-tight truncate leading-tight">${v.color}</span>` : ''}
+                                <span class="text-[11px] text-slate-500 font-medium leading-tight">
+                                    Loyverse: <strong class="text-slate-900 font-bold">${sysStock}</strong>
+                                </span>
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-1.5">
-                            <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-9 h-9 rounded-xl bg-white hover:bg-slate-200 active:bg-slate-300 border border-slate-300 text-slate-800 font-black text-base flex items-center justify-center shadow-xs transition-colors">
+                        <!-- Derecha: Stepper Táctil Grande y Badge -->
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-9 h-9 rounded-xl bg-white hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
                                 -
                             </button>
                             <input type="number" min="0" value="${physStock}" onfocus="this.select()" onchange="setVariantStock('${v.id}', '${item.id}', this.value)" 
                                 class="w-12 h-9 text-center text-sm font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-xs transition-all">
-                            <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-9 h-9 rounded-xl bg-white hover:bg-slate-200 active:bg-slate-300 border border-slate-300 text-slate-800 font-black text-base flex items-center justify-center shadow-xs transition-colors">
+                            <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-9 h-9 rounded-xl bg-white hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
                                 +
                             </button>
-                            <span class="text-[10px] px-2 py-1 rounded-lg min-w-[62px] text-center ${badgeClass}">
+                            <span class="text-[10px] px-2 py-1.5 rounded-lg min-w-[62px] text-center font-bold ${badgeClass}">
                                 ${badgeText}
                             </span>
                         </div>
