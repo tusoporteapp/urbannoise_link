@@ -125,6 +125,28 @@
         <!-- Barra de Progreso y Métricas Rápidas -->
         <section class="max-w-3xl mx-auto w-full px-4 pt-3">
             
+            <!-- Barra de Identidad del Auditor y Zona Asignada (Multi-Usuario) -->
+            <div class="flex items-center justify-between gap-2 px-3.5 py-2 mb-3 bg-white border border-slate-200 rounded-2xl shadow-xs text-xs">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-7 h-7 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                    </div>
+                    <div class="truncate leading-tight">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="text-slate-500 font-medium">Auditor:</span>
+                            <strong id="auditorNameDisplay" class="text-slate-900 font-bold">Equipo Tienda</strong>
+                            <span class="text-slate-300">•</span>
+                            <span class="text-slate-500 font-medium">Zona / Perchero:</span>
+                            <span id="auditorZoneDisplay" class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 font-bold border border-indigo-200 text-[11px]">General / Todos</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="openAuditorProfileModal()" class="shrink-0 px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-200 text-slate-700 font-bold text-[11px] transition-colors flex items-center gap-1 shadow-xs">
+                    <i data-lucide="edit-2" class="w-3 h-3 text-slate-400"></i>
+                    <span>Asignar</span>
+                </button>
+            </div>
+
             <!-- Barra de Progreso del Conteo -->
             <div class="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm mb-3">
                 <div class="flex items-center justify-between text-xs mb-1.5 font-bold">
@@ -259,54 +281,102 @@
     </div>
 
     <!-- ========================================================== -->
-    <!-- MODAL: CONFIRMAR ACTUALIZACIÓN EN LOYVERSE (TEMA CLARO)    -->
+    <!-- MODAL 1: CONFIRMAR ACTUALIZACIÓN EN LOYVERSE (MULTI-USUARIO)-->
     <!-- ========================================================== -->
     <div id="syncModal" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-        <div class="w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl fade-in max-h-[85vh] flex flex-col">
+        <div class="w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl fade-in max-h-[90vh] flex flex-col">
             
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 shrink-0">
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
                         <i data-lucide="check-circle" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="text-base font-black text-slate-900">Confirmar Conteo de Tienda</h3>
+                    <h3 class="text-base font-black text-slate-900">Confirmar Conteo en Loyverse</h3>
                 </div>
                 <button onclick="closeSyncModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
 
-            <div class="py-4 text-xs text-slate-600 space-y-2.5">
-                <p>Estás a punto de calibrar el stock en la tienda <strong id="modalStoreName" class="text-slate-900 font-bold">Noise Urban</strong> en Loyverse POS.</p>
-                
-                <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
-                    <div class="flex justify-between font-medium">
-                        <span class="text-slate-500">Variantes con cambios a registrar:</span>
-                        <strong id="modalDiffCount" class="text-slate-900">0</strong>
+            <div class="py-3 text-xs text-slate-600 space-y-3 overflow-y-auto min-h-0">
+                <!-- Barra de Dispositivo y Tienda -->
+                <div class="flex items-center justify-between px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 text-[11px]">
+                    <div>
+                        <span class="text-slate-500 font-medium">Tienda:</span>
+                        <strong id="modalStoreName" class="text-slate-900 font-bold ml-1">Noise Urban</strong>
                     </div>
-                    <div class="flex justify-between font-medium">
-                        <span class="text-slate-500">Prendas auditadas en esta sesión:</span>
-                        <strong id="modalCountedItems" class="text-slate-900">0</strong>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-slate-500 font-medium">Auditor:</span>
+                        <strong id="modalAuditorName" class="text-indigo-600 font-bold">Equipo Tienda</strong>
                     </div>
+                </div>
+
+                <!-- Selector de Alcance para Varios Auditores / Tienda Abierta -->
+                <div class="space-y-2">
+                    <label class="text-[11px] text-slate-700 uppercase font-black tracking-wider block">¿Qué deseas calibrar en Loyverse?</label>
+                    
+                    <!-- Opción 1: Solo mis variantes con cambios (RECOMENDADO) -->
+                    <label class="flex items-start gap-2.5 p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50/70 cursor-pointer hover:bg-emerald-50 transition-all">
+                        <input type="radio" name="syncScopeRadio" id="scopeChangesRadio" value="CHANGES_ONLY" checked onchange="updateSyncScopeSummary()" class="mt-0.5 text-emerald-600 focus:ring-emerald-500 w-4 h-4">
+                        <div class="text-xs">
+                            <span class="font-black text-slate-900 flex items-center gap-1.5 flex-wrap">
+                                <span>Solo mis variantes con cambios</span>
+                                <span id="scopeChangesBadge" class="text-[10px] bg-emerald-200 text-emerald-900 font-bold px-1.5 py-0.2 rounded-full">0</span>
+                                <span class="text-[9px] bg-emerald-600 text-white font-black px-1.5 py-0.2 rounded">RECOMENDADO</span>
+                            </span>
+                            <span class="text-[11px] text-slate-600 leading-snug block mt-1">
+                                ⭐ <strong>Para varios auditores a la vez y tienda abierta:</strong> Solo actualiza en Loyverse las diferencias que tú detectaste, sin alterar las ventas de la caja ni pisar a tus compañeros.
+                            </span>
+                        </div>
+                    </label>
+
+                    <!-- Opción 2: Solo la categoría activa -->
+                    <label class="flex items-start gap-2.5 p-3 rounded-2xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-all">
+                        <input type="radio" name="syncScopeRadio" id="scopeCategoryRadio" value="CATEGORY_ONLY" onchange="updateSyncScopeSummary()" class="mt-0.5 text-slate-900 focus:ring-slate-900 w-4 h-4">
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-900">
+                                Solo categoría activa: <span id="scopeCategoryName" class="text-indigo-600 font-black">General</span> (<span id="scopeCategoryCount" class="font-bold">0</span> variantes)
+                            </span>
+                            <span class="text-[11px] text-slate-500 leading-snug block mt-1">
+                                Calibra todas las prendas de la sección o perchero en la que estás trabajando.
+                            </span>
+                        </div>
+                    </label>
+
+                    <!-- Opción 3: Todo el inventario de la tienda -->
+                    <label class="flex items-start gap-2.5 p-3 rounded-2xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-all">
+                        <input type="radio" name="syncScopeRadio" id="scopeAllRadio" value="ALL_STORE" onchange="updateSyncScopeSummary()" class="mt-0.5 text-slate-900 focus:ring-slate-900 w-4 h-4">
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-900">
+                                Todo el catálogo de la tienda (<span id="scopeAllCount" class="font-bold">0</span> variantes)
+                            </span>
+                            <span class="text-[11px] text-amber-700 leading-snug block mt-1">
+                                ⚠️ Envía las 1,500+ variantes. Usar únicamente si eres el único auditor y la tienda está cerrada al público.
+                            </span>
+                        </div>
+                    </label>
                 </div>
 
                 <!-- Detalle de cambios -->
                 <div>
-                    <span class="text-[11px] text-slate-500 uppercase font-bold block mb-1.5">Variantes con Descuadre a Modificar:</span>
-                    <div id="modalChangesList" class="max-h-48 overflow-y-auto space-y-1.5 p-2 bg-slate-50 rounded-xl border border-slate-200 text-[11px]">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-[11px] text-slate-500 uppercase font-bold">Variantes con Descuadre Detectadas:</span>
+                        <span id="modalDiffCount" class="text-xs font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">0</span>
+                    </div>
+                    <div id="modalChangesList" class="max-h-36 overflow-y-auto space-y-1.5 p-2 bg-slate-50 rounded-xl border border-slate-200 text-[11px]">
                         <!-- Se llena vía JS -->
                     </div>
                 </div>
             </div>
 
             <!-- Botones -->
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2 shrink-0">
                 <button onclick="closeSyncModal()" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-bold text-xs hover:bg-slate-50">
                     Volver
                 </button>
-                <button onclick="executeLoyverseSync()" id="btnConfirmSync" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs uppercase flex items-center gap-2 shadow-md">
+                <button onclick="executeLoyverseSync()" id="btnConfirmSync" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs uppercase flex items-center gap-2 shadow-md transition-all">
                     <i data-lucide="send" class="w-4 h-4 text-emerald-400"></i>
-                    <span>Confirmar y Calibrar en Loyverse</span>
+                    <span id="btnConfirmSyncText">Confirmar y Calibrar</span>
                 </button>
             </div>
 
@@ -317,6 +387,47 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MODAL: ASIGNACIÓN DE AUDITOR Y ZONA (MULTI-USUARIO)        -->
+    <!-- ========================================================== -->
+    <div id="auditorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 fade-in">
+        <div class="w-full max-w-sm bg-white border border-slate-200 rounded-3xl p-5 shadow-2xl">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="text-sm font-black text-slate-900 uppercase">Mi Dispositivo / Zona</h3>
+                </div>
+                <button onclick="closeAuditorProfileModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-600 font-bold mb-1">Nombre del Auditor (en este celular):</label>
+                    <input type="text" id="inputAuditorName" placeholder="Ej: Juan, Carlos, Andrea..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-900">
+                </div>
+                <div>
+                    <label class="block text-slate-600 font-bold mb-1">Zona o Perchero que vas a contar:</label>
+                    <input type="text" id="inputAuditorZone" placeholder="Ej: Perchero 1 (Acidwash), Buzos..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-900">
+                </div>
+                <p class="text-[11px] text-slate-400 leading-tight">
+                    💡 Cada miembro del equipo abre <strong class="text-slate-600">urbannoise.cc/auditor</strong> en su celular y define su zona. Así avanzan en paralelo sin estorbarse.
+                </p>
+            </div>
+            <div class="pt-4 mt-2 border-t border-slate-100 flex items-center justify-end gap-2">
+                <button onclick="closeAuditorProfileModal()" class="px-3.5 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50">
+                    Cancelar
+                </button>
+                <button onclick="saveAuditorProfile()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs uppercase shadow-sm flex items-center gap-1.5">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Guardar</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -476,6 +587,7 @@
                 sessionStorage.setItem('urbannoise_audit_pin', enteredPin);
                 document.getElementById('pinGate').classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('hidden');
+                loadAuditorProfile();
                 loadSavedLocalCounts();
                 loadCatalog(false);
                 lucide.createIcons();
@@ -491,6 +603,37 @@
             document.getElementById('mainApp').classList.add('hidden');
             document.getElementById('pinGate').classList.remove('hidden');
             clearPin();
+        }
+
+        // 1.1 PERFIL DE AUDITOR Y ZONA (MULTI-USUARIO)
+        function loadAuditorProfile() {
+            const name = localStorage.getItem('urbannoise_auditor_name') || 'Equipo Tienda';
+            const zone = localStorage.getItem('urbannoise_auditor_zone') || 'General / Todos';
+            const nameEl = document.getElementById('auditorNameDisplay');
+            const zoneEl = document.getElementById('auditorZoneDisplay');
+            if (nameEl) nameEl.textContent = name;
+            if (zoneEl) zoneEl.textContent = zone;
+        }
+
+        function openAuditorProfileModal() {
+            document.getElementById('inputAuditorName').value = localStorage.getItem('urbannoise_auditor_name') || '';
+            document.getElementById('inputAuditorZone').value = localStorage.getItem('urbannoise_auditor_zone') || '';
+            document.getElementById('auditorModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeAuditorProfileModal() {
+            document.getElementById('auditorModal').classList.add('hidden');
+        }
+
+        function saveAuditorProfile() {
+            const name = document.getElementById('inputAuditorName').value.trim() || 'Equipo Tienda';
+            const zone = document.getElementById('inputAuditorZone').value.trim() || 'General / Todos';
+            localStorage.setItem('urbannoise_auditor_name', name);
+            localStorage.setItem('urbannoise_auditor_zone', zone);
+            loadAuditorProfile();
+            closeAuditorProfileModal();
+            showToast("Perfil Asignado", `Auditor: ${name} (${zone})`, "check");
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1229,18 +1372,56 @@
             });
         }
 
-        // 8. CALIBRACIÓN MASIVA EN LOYVERSE
+        // 8. CALIBRACIÓN MASIVA EN LOYVERSE (CON SOPORTE MULTI-USUARIO Y DELTA SYNC)
+        let cachedSyncChanges = [];
+
         function onStoreChange() {
             selectedStoreId = document.getElementById('storeSelector').value;
             const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
             showToast("Tienda Seleccionada", `Configurado para ${storeName}`, "check");
         }
 
+        function getScopeCategoryLabel() {
+            if (currentCategoryFilter === 'ALL') return 'Todas las categorías';
+            if (currentCategoryFilter === 'PENDING') return 'Prendas pendientes';
+            if (currentCategoryFilter === 'HAS_DIFF') return 'Prendas con descuadre';
+            if (currentCategoryFilter === 'NO_PHOTO') return 'Prendas sin foto';
+            return currentCategoryFilter;
+        }
+
+        function countCategoryVariants() {
+            const targetCat = currentCategoryFilter.toLowerCase();
+            let count = 0;
+            fullCatalog.forEach(item => {
+                const itemCat = (item.category || item.rawCategory || '').toLowerCase();
+                const matches = (targetCat === 'all' || targetCat === 'pending' || targetCat === 'has_diff' || targetCat === 'no_photo')
+                    ? true
+                    : (itemCat === targetCat);
+                if (matches) {
+                    count += (item.variants || []).length;
+                }
+            });
+            return count;
+        }
+
+        function countTotalVariants() {
+            let count = 0;
+            fullCatalog.forEach(item => {
+                count += (item.variants || []).length;
+            });
+            return count;
+        }
+
         function openSyncModal() {
             const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
             document.getElementById('modalStoreName').textContent = storeName;
+            
+            const auditorName = localStorage.getItem('urbannoise_auditor_name') || 'Equipo Tienda';
+            const auditorZone = localStorage.getItem('urbannoise_auditor_zone') || 'General / Todos';
+            const modalAuditorEl = document.getElementById('modalAuditorName');
+            if (modalAuditorEl) modalAuditorEl.textContent = `${auditorName} (${auditorZone})`;
 
-            const changes = [];
+            cachedSyncChanges = [];
             let countedCount = 0;
 
             fullCatalog.forEach(item => {
@@ -1251,36 +1432,52 @@
                     if (physicalCounts[v.id] !== undefined) hasCounted = true;
 
                     if (physStock !== sysStock) {
-                        changes.push({
+                        cachedSyncChanges.push({
                             variant_id: v.id,
                             stock_after: physStock,
                             sys_stock: sysStock,
                             item_title: item.title,
-                            variant_label: v.color ? `${v.size} - ${v.color}` : v.size
+                            variant_label: v.color ? `${v.size} - ${v.color}` : v.size,
+                            category: item.category || item.rawCategory || 'General'
                         });
                     }
                 });
                 if (hasCounted) countedCount++;
             });
 
-            document.getElementById('modalDiffCount').textContent = changes.length;
-            document.getElementById('modalCountedItems').textContent = countedCount;
+            // Actualizar contadores del selector de alcance
+            const catLabel = getScopeCategoryLabel();
+            const catCount = countCategoryVariants();
+            const allCount = countTotalVariants();
 
+            document.getElementById('modalDiffCount').textContent = cachedSyncChanges.length;
+            document.getElementById('scopeChangesBadge').textContent = cachedSyncChanges.length;
+            document.getElementById('scopeCategoryName').textContent = catLabel;
+            document.getElementById('scopeCategoryCount').textContent = catCount;
+            document.getElementById('scopeAllCount').textContent = allCount;
+
+            // Por defecto, seleccionar siempre CHANGES_ONLY para máxima seguridad de multi-usuario y tienda abierta
+            const radioChanges = document.getElementById('scopeChangesRadio');
+            if (radioChanges) radioChanges.checked = true;
+
+            // Renderizar lista de descuadres
             const listContainer = document.getElementById('modalChangesList');
-            if (changes.length === 0) {
+            if (cachedSyncChanges.length === 0) {
                 listContainer.innerHTML = `
                     <div class="text-center py-4 text-slate-400 font-medium">
-                        <span>No hay descuadres pendientes. El inventario físico coincide al 100% con Loyverse.</span>
+                        <span>No hay descuadres en este dispositivo. Tu conteo coincide al 100% con Loyverse.</span>
                     </div>
                 `;
             } else {
-                listContainer.innerHTML = changes.map(c => {
+                listContainer.innerHTML = cachedSyncChanges.map(c => {
                     const diff = c.stock_after - c.sys_stock;
-                    const diffBadge = diff > 0 ? `<span class="text-amber-700 font-bold bg-amber-50 px-1 rounded border border-amber-200">+${diff}</span>` : `<span class="text-rose-700 font-bold bg-rose-50 px-1 rounded border border-rose-200">${diff}</span>`;
+                    const diffBadge = diff > 0 
+                        ? `<span class="text-amber-700 font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">+${diff}</span>` 
+                        : `<span class="text-rose-700 font-bold bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">${diff}</span>`;
                     return `
                         <div class="flex items-center justify-between py-1.5 border-b border-slate-200/80">
                             <span class="truncate pr-2 text-slate-700 font-bold">${c.item_title} (${c.variant_label})</span>
-                            <div class="shrink-0 flex items-center gap-2">
+                            <div class="shrink-0 flex items-center gap-1.5">
                                 <span class="text-slate-400 line-through">${c.sys_stock}</span>
                                 <span class="text-slate-400">→</span>
                                 <span class="text-slate-900 font-black">${c.stock_after}</span>
@@ -1291,8 +1488,37 @@
                 }).join('');
             }
 
+            updateSyncScopeSummary();
             document.getElementById('syncModal').classList.remove('hidden');
             lucide.createIcons();
+        }
+
+        function updateSyncScopeSummary() {
+            const selectedScope = document.querySelector('input[name="syncScopeRadio"]:checked')?.value || 'CHANGES_ONLY';
+            const btn = document.getElementById('btnConfirmSync');
+            const btnText = document.getElementById('btnConfirmSyncText');
+
+            if (selectedScope === 'CHANGES_ONLY') {
+                if (cachedSyncChanges.length === 0) {
+                    btn.disabled = true;
+                    btn.className = "px-5 py-2.5 rounded-xl bg-slate-300 text-slate-500 font-black text-xs uppercase flex items-center gap-2 cursor-not-allowed shadow-none";
+                    btnText.textContent = "Sin descuadres para calibrar";
+                } else {
+                    btn.disabled = false;
+                    btn.className = "px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs uppercase flex items-center gap-2 shadow-md transition-all";
+                    btnText.textContent = `Calibrar mis ${cachedSyncChanges.length} cambios`;
+                }
+            } else if (selectedScope === 'CATEGORY_ONLY') {
+                const catCount = countCategoryVariants();
+                btn.disabled = false;
+                btn.className = "px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs uppercase flex items-center gap-2 shadow-md transition-all";
+                btnText.textContent = `Calibrar ${catCount} variantes (${getScopeCategoryLabel()})`;
+            } else {
+                const allCount = countTotalVariants();
+                btn.disabled = false;
+                btn.className = "px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs uppercase flex items-center gap-2 shadow-md transition-all";
+                btnText.textContent = `Calibrar toda la tienda (${allCount} variantes)`;
+            }
         }
 
         function closeSyncModal() {
@@ -1300,14 +1526,43 @@
         }
 
         async function executeLoyverseSync() {
+            const selectedScope = document.querySelector('input[name="syncScopeRadio"]:checked')?.value || 'CHANGES_ONLY';
             const btn = document.getElementById('btnConfirmSync');
             const progress = document.getElementById('syncProgress');
-            btn.disabled = true;
-            btn.classList.add('opacity-50');
-            progress.classList.remove('hidden');
 
-            try {
-                const inventoryLevels = [];
+            let inventoryLevels = [];
+
+            if (selectedScope === 'CHANGES_ONLY') {
+                inventoryLevels = cachedSyncChanges.map(c => ({
+                    variant_id: c.variant_id,
+                    stock_after: c.stock_after
+                }));
+
+                if (inventoryLevels.length === 0) {
+                    showToast("Sin Descuadres", "No hay cambios pendientes de stock físico en este celular.", "check");
+                    closeSyncModal();
+                    return;
+                }
+            } else if (selectedScope === 'CATEGORY_ONLY') {
+                const targetCat = currentCategoryFilter.toLowerCase();
+                fullCatalog.forEach(item => {
+                    const itemCat = (item.category || item.rawCategory || '').toLowerCase();
+                    const matches = (targetCat === 'all' || targetCat === 'pending' || targetCat === 'has_diff' || targetCat === 'no_photo')
+                        ? true
+                        : (itemCat === targetCat);
+                    if (matches) {
+                        (item.variants || []).forEach(v => {
+                            const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                            const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
+                            inventoryLevels.push({
+                                variant_id: v.id,
+                                stock_after: physStock
+                            });
+                        });
+                    }
+                });
+            } else {
+                // ALL_STORE
                 fullCatalog.forEach(item => {
                     (item.variants || []).forEach(v => {
                         const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
@@ -1318,7 +1573,13 @@
                         });
                     });
                 });
+            }
 
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+            progress.classList.remove('hidden');
+
+            try {
                 const pin = sessionStorage.getItem('urbannoise_audit_pin') || ADMIN_PIN;
                 const res = await fetch('/api/audit_sync', {
                     method: 'POST',
@@ -1336,17 +1597,20 @@
                 }
 
                 closeSyncModal();
-                showToast("¡Inventario Calibrado!", data.message || "Se actualizaron las variantes en Loyverse.", "check");
+                showToast("¡Inventario Calibrado!", data.message || `Se calibraron ${inventoryLevels.length} variantes con éxito en Loyverse.`, "check");
                 
+                // Recargar catálogo fresco para reflejar los nuevos stocks del sistema
                 setTimeout(() => loadCatalog(true), 1200);
 
             } catch (err) {
+                console.error("Error al calibrar:", err);
                 alert("Error al calibrar inventario: " + err.message);
                 showToast("Error en Loyverse", err.message, "alert-triangle");
             } finally {
                 btn.disabled = false;
                 btn.classList.remove('opacity-50');
                 progress.classList.add('hidden');
+                updateSyncScopeSummary();
             }
         }
 
