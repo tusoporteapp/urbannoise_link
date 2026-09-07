@@ -320,6 +320,67 @@
         </div>
     </div>
 
+    <!-- ========================================================== -->
+    <!-- MODAL 2: VISTA EN PANTALLA COMPLETA Y TOMA DE FOTO         -->
+    <!-- ========================================================== -->
+    <div id="imageModal" class="hidden fixed inset-0 z-50 flex flex-col bg-slate-950/90 backdrop-blur-md p-3 sm:p-6 fade-in select-none">
+        
+        <!-- Barra Superior del Modal -->
+        <div class="flex items-center justify-between gap-3 text-white pb-3 shrink-0 max-w-2xl mx-auto w-full">
+            <div class="min-w-0 flex-1">
+                <span id="modalImgCategory" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                    Categoría
+                </span>
+                <h3 id="modalImgTitle" class="text-base font-black text-white truncate mt-1">Nombre de la Prenda</h3>
+            </div>
+            <button onclick="closeImageModal()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white flex items-center justify-center transition-colors shrink-0 shadow-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Contenedor Central de la Imagen -->
+        <div class="flex-1 min-h-0 flex items-center justify-center p-2 relative overflow-hidden max-w-2xl mx-auto w-full">
+            <div id="modalImgContainer" class="relative max-w-full max-h-full flex items-center justify-center">
+                <!-- Imagen Grande -->
+                <img id="modalImgPreview" src="" alt="Prenda" class="max-w-full max-h-[60vh] object-contain rounded-2xl shadow-2xl border border-slate-800 bg-slate-900 transition-all">
+                
+                <!-- Aviso si no tiene foto -->
+                <div id="modalNoPhotoNotice" class="hidden absolute inset-0 rounded-2xl bg-slate-900/95 border-2 border-dashed border-indigo-500/80 flex flex-col items-center justify-center p-6 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-3">
+                        <i data-lucide="camera-off" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-white">Sin foto en Loyverse</h4>
+                    <p class="text-xs text-slate-400 mt-1 max-w-xs">Esta prenda aún no tiene foto asignada. Puedes tomar una foto directamente al estampado con la cámara de tu celular.</p>
+                </div>
+
+                <!-- Loader durante la subida -->
+                <div id="modalImgUploading" class="hidden absolute inset-0 rounded-2xl bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center text-white">
+                    <i data-lucide="loader-2" class="w-10 h-10 animate-spin text-emerald-400 mb-2"></i>
+                    <h4 class="text-sm font-bold text-white">Optimizando y subiendo...</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Guardando directamente en Loyverse POS</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra Inferior de Acción -->
+        <div class="pt-3 pb-2 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-2xl mx-auto w-full">
+            <div class="text-center sm:text-left text-xs text-slate-400">
+                <span id="modalImgStatusText">Foto actual en Loyverse</span>
+            </div>
+            
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button onclick="closeImageModal()" class="flex-1 sm:flex-none px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-colors">
+                    Cerrar
+                </button>
+                <button onclick="triggerCameraFromModal()" id="modalBtnTakePhoto" class="flex-1 sm:flex-none px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-black text-xs uppercase flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-all">
+                    <i data-lucide="camera" class="w-4 h-4"></i>
+                    <span id="modalBtnText">Tomar Foto con la Cámara</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
     <!-- Input Oculto de Captura de Cámara -->
     <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="handleCameraPhotoSelected(event)">
 
@@ -684,20 +745,25 @@
                 <div id="card-${item.id}" class="bg-white border ${isAudited ? 'border-emerald-300 ring-1 ring-emerald-200' : 'border-slate-200'} rounded-2xl p-3.5 shadow-sm transition-all">
                     <!-- Cabecera de la Prenda -->
                     <div class="flex items-start gap-3 pb-3 border-b border-slate-100">
-                        <!-- Foto o Disparador de Cámara -->
-                        <div class="relative shrink-0 w-20 h-20 rounded-xl overflow-hidden border ${isNoPhoto ? 'border-2 border-dashed border-indigo-400 bg-indigo-50/50' : 'border-slate-200 bg-slate-100'} flex items-center justify-center shadow-xs group">
-                            <img id="img-${item.id}" src="${item.image}" alt="${item.title}" class="w-full h-full object-cover ${isNoPhoto ? 'opacity-30' : ''}">
+                        <!-- Foto con Click para Ver en Pantalla Completa y Cambiar Foto -->
+                        <div onclick="openImageModal('${item.id}')" role="button" title="Toca para ver en grande o tomar foto"
+                            class="relative shrink-0 w-16 h-16 rounded-xl overflow-hidden cursor-pointer border ${isNoPhoto ? 'border-2 border-dashed border-indigo-400 bg-indigo-50/70' : 'border-slate-200 bg-slate-100 hover:ring-2 hover:ring-slate-900'} flex items-center justify-center shadow-xs group transition-all">
+                            <img id="img-${item.id}" src="${item.image}" alt="${item.title}" class="w-full h-full object-cover ${isNoPhoto ? 'opacity-20' : ''}">
                             
-                            <!-- Botón de Cámara Móvil -->
-                            <button onclick="triggerCameraCapture('${item.id}')" title="Tomar foto al estampado con la cámara"
-                                class="absolute inset-0 flex flex-col items-center justify-center gap-1 ${isNoPhoto ? 'bg-indigo-600/90 text-white font-bold' : 'bg-slate-900/60 opacity-0 group-hover:opacity-100 text-white'} transition-opacity">
-                                <i data-lucide="camera" class="w-5 h-5"></i>
-                                <span class="text-[9px] uppercase font-black tracking-tighter text-center leading-tight px-1">${isNoPhoto ? 'Tomar Foto' : 'Cambiar'}</span>
-                            </button>
+                            <!-- Indicador Flotante de Zoom / Cámara -->
+                            <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity text-white">
+                                <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                            </div>
+
+                            ${isNoPhoto ? `
+                                <div class="absolute inset-0 flex flex-col items-center justify-center bg-indigo-600/80 text-white gap-0.5">
+                                    <i data-lucide="camera" class="w-4 h-4"></i>
+                                    <span class="text-[8px] font-black uppercase tracking-tight">Ver / Foto</span>
+                                </div>
+                            ` : ''}
 
                             <div id="imgLoader-${item.id}" class="hidden absolute inset-0 bg-white/90 flex flex-col items-center justify-center text-slate-900">
                                 <i data-lucide="loader-2" class="w-5 h-5 animate-spin text-indigo-600"></i>
-                                <span class="text-[8px] mt-1 font-bold">Subiendo...</span>
                             </div>
                         </div>
 
@@ -805,7 +871,55 @@
             }
         }
 
-        // 7. CAPTURA Y SUBIDA DE FOTO CON LA CÁMARA
+        // 7. MODAL DE FOTO EN PANTALLA COMPLETA Y TOMA DE FOTO CON CÁMARA
+        let currentModalItemId = null;
+
+        function openImageModal(itemId) {
+            currentModalItemId = itemId;
+            const item = fullCatalog.find(i => i.id === itemId);
+            if (!item) return;
+
+            const modal = document.getElementById('imageModal');
+            const title = document.getElementById('modalImgTitle');
+            const cat = document.getElementById('modalImgCategory');
+            const img = document.getElementById('modalImgPreview');
+            const notice = document.getElementById('modalNoPhotoNotice');
+            const statusText = document.getElementById('modalImgStatusText');
+            const btnText = document.getElementById('modalBtnText');
+
+            title.textContent = item.title;
+            cat.textContent = item.category || item.rawCategory || 'General';
+
+            const isNoPhoto = !item.image || item.image.includes('LOGO_WEB.png') || (item.images && item.images.length === 0);
+
+            if (isNoPhoto) {
+                img.src = 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
+                img.classList.add('opacity-10');
+                notice.classList.remove('hidden');
+                statusText.textContent = 'Esta prenda no tiene foto en Loyverse';
+                btnText.textContent = 'Tomar Foto al Estampado';
+            } else {
+                img.src = item.image;
+                img.classList.remove('opacity-10');
+                notice.classList.add('hidden');
+                statusText.textContent = 'Foto actual en Loyverse';
+                btnText.textContent = 'Cambiar / Tomar Nueva Foto';
+            }
+
+            modal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            currentModalItemId = null;
+        }
+
+        function triggerCameraFromModal() {
+            if (!currentModalItemId) return;
+            triggerCameraCapture(currentModalItemId);
+        }
+
         function triggerCameraCapture(itemId) {
             activeCameraItemId = itemId;
             const input = document.getElementById('cameraInput');
@@ -820,6 +934,9 @@
             const itemId = activeCameraItemId;
             const imgLoader = document.getElementById(`imgLoader-${itemId}`);
             if (imgLoader) imgLoader.classList.remove('hidden');
+
+            const modalUploading = document.getElementById('modalImgUploading');
+            if (currentModalItemId === itemId && modalUploading) modalUploading.classList.remove('hidden');
 
             try {
                 showToast("Procesando Foto", "Optimizando imagen del estampado...", "loader-2");
@@ -846,11 +963,26 @@
 
                 // Actualizar item en memoria
                 const item = fullCatalog.find(i => i.id === itemId);
+                const freshUrl = result.image_url ? `${result.image_url}?v=${Date.now()}` : base64Data;
                 if (item) {
-                    const freshUrl = result.image_url ? `${result.image_url}?v=${Date.now()}` : base64Data;
                     item.image = freshUrl;
                     if (!item.images) item.images = [];
                     item.images[0] = freshUrl;
+                }
+
+                // Actualizar vista previa en el modal si está abierto
+                if (currentModalItemId === itemId) {
+                    const modalImg = document.getElementById('modalImgPreview');
+                    const notice = document.getElementById('modalNoPhotoNotice');
+                    const statusText = document.getElementById('modalImgStatusText');
+                    const btnText = document.getElementById('modalBtnText');
+                    if (modalImg) {
+                        modalImg.src = freshUrl;
+                        modalImg.classList.remove('opacity-10');
+                    }
+                    if (notice) notice.classList.add('hidden');
+                    if (statusText) statusText.textContent = '¡Foto actualizada en Loyverse con éxito!';
+                    if (btnText) btnText.textContent = 'Cambiar Foto';
                 }
 
                 refreshSingleCard(itemId);
@@ -863,6 +995,7 @@
                 showToast("Error", err.message, "alert-triangle");
             } finally {
                 if (imgLoader) imgLoader.classList.add('hidden');
+                if (modalUploading) modalUploading.classList.add('hidden');
                 activeCameraItemId = null;
             }
         }
