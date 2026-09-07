@@ -125,25 +125,23 @@
         <!-- Barra de Progreso y Métricas Rápidas -->
         <section class="max-w-3xl mx-auto w-full px-4 pt-3">
             
-            <!-- Barra de Identidad del Auditor y Zona Asignada (Multi-Usuario) -->
-            <div class="flex items-center justify-between gap-2 px-3.5 py-2 mb-3 bg-white border border-slate-200 rounded-2xl shadow-xs text-xs">
+            <!-- Barra de Selección de Categoría en 1 Toque (Sin Nombres ni Escribir) -->
+            <div class="flex items-center justify-between gap-2 px-3.5 py-2.5 mb-3 bg-white border border-slate-200 rounded-2xl shadow-xs text-xs">
                 <div class="flex items-center gap-2.5 min-w-0">
-                    <div class="w-7 h-7 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center shrink-0">
-                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                    <div class="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="tag" class="w-4 h-4"></i>
                     </div>
                     <div class="truncate leading-tight">
-                        <div class="flex items-center gap-1.5 flex-wrap">
-                            <span class="text-slate-500 font-medium">Auditor:</span>
-                            <strong id="auditorNameDisplay" class="text-slate-900 font-bold">Equipo Tienda</strong>
-                            <span class="text-slate-300">•</span>
-                            <span class="text-slate-500 font-medium">Zona / Perchero:</span>
-                            <span id="auditorZoneDisplay" class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 font-bold border border-indigo-200 text-[11px]">General / Todos</span>
+                        <span class="text-[11px] text-slate-400 font-medium block">Categoría en Auditoría:</span>
+                        <div class="flex items-center gap-1.5 mt-0.5">
+                            <strong id="currentAuditCategoryTitle" class="text-sm font-black text-slate-900">Todas las Categorías</strong>
+                            <span id="currentAuditCategoryCount" class="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">0 prendas</span>
                         </div>
                     </div>
                 </div>
-                <button onclick="openAuditorProfileModal()" class="shrink-0 px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-200 text-slate-700 font-bold text-[11px] transition-colors flex items-center gap-1 shadow-xs">
-                    <i data-lucide="edit-2" class="w-3 h-3 text-slate-400"></i>
-                    <span>Asignar</span>
+                <button onclick="openCategoryModal()" class="shrink-0 px-3 py-2 rounded-xl bg-slate-900 hover:bg-black active:bg-slate-800 text-white font-bold text-xs transition-colors flex items-center gap-1.5 shadow-xs">
+                    <i data-lucide="layers" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Cambiar</span>
                 </button>
             </div>
 
@@ -309,8 +307,8 @@
                         <strong id="modalStoreName" class="text-slate-900 font-bold ml-1">Noise Urban</strong>
                     </div>
                     <div class="flex items-center gap-1.5">
-                        <span class="text-slate-500 font-medium">Auditor:</span>
-                        <strong id="modalAuditorName" class="text-indigo-600 font-bold">Equipo Tienda</strong>
+                        <span class="text-slate-500 font-medium">Categoría:</span>
+                        <strong id="modalSyncCategoryName" class="text-indigo-600 font-bold">Todas las Categorías</strong>
                     </div>
                 </div>
 
@@ -394,41 +392,34 @@
     </div>
 
     <!-- ========================================================== -->
-    <!-- MODAL: ASIGNACIÓN DE AUDITOR Y ZONA (MULTI-USUARIO)        -->
     <!-- ========================================================== -->
-    <div id="auditorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 fade-in">
-        <div class="w-full max-w-sm bg-white border border-slate-200 rounded-3xl p-5 shadow-2xl">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+    <!-- MODAL: SELECCIÓN RÁPIDA DE CATEGORÍA (1 TOQUE, SIN ESCRIBIR)-->
+    <!-- ========================================================== -->
+    <div id="categoryModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 fade-in">
+        <div class="w-full max-w-sm bg-white border border-slate-200 rounded-3xl p-5 shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-2 shrink-0">
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center">
-                        <i data-lucide="users" class="w-4 h-4"></i>
+                        <i data-lucide="layers" class="w-4 h-4"></i>
                     </div>
-                    <h3 class="text-sm font-black text-slate-900 uppercase">Mi Dispositivo / Zona</h3>
+                    <div>
+                        <h3 class="text-sm font-black text-slate-900 uppercase">Selecciona la Categoría</h3>
+                        <p class="text-[11px] text-slate-500 font-medium">Toca para auditar solo esta sección</p>
+                    </div>
                 </div>
-                <button onclick="closeAuditorProfileModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
+                <button onclick="closeCategoryModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
-            <div class="space-y-3 text-xs">
-                <div>
-                    <label class="block text-slate-600 font-bold mb-1">Nombre del Auditor (en este celular):</label>
-                    <input type="text" id="inputAuditorName" placeholder="Ej: Juan, Carlos, Andrea..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-900">
-                </div>
-                <div>
-                    <label class="block text-slate-600 font-bold mb-1">Zona o Perchero que vas a contar:</label>
-                    <input type="text" id="inputAuditorZone" placeholder="Ej: Perchero 1 (Acidwash), Buzos..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-900">
-                </div>
-                <p class="text-[11px] text-slate-400 leading-tight">
-                    💡 Cada miembro del equipo abre <strong class="text-slate-600">urbannoise.cc/auditor</strong> en su celular y define su zona. Así avanzan en paralelo sin estorbarse.
-                </p>
+
+            <!-- Lista de Categorías con Conteo en Botones Grandes Táctiles -->
+            <div id="categoryModalList" class="overflow-y-auto space-y-2 py-2 pr-1 text-xs min-h-0 flex-1">
+                <!-- Se llena dinámicamente con las categorías del catálogo -->
             </div>
-            <div class="pt-4 mt-2 border-t border-slate-100 flex items-center justify-end gap-2">
-                <button onclick="closeAuditorProfileModal()" class="px-3.5 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50">
-                    Cancelar
-                </button>
-                <button onclick="saveAuditorProfile()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs uppercase shadow-sm flex items-center gap-1.5">
-                    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                    <span>Guardar</span>
+
+            <div class="pt-3 mt-2 border-t border-slate-100 flex items-center justify-end shrink-0">
+                <button onclick="closeCategoryModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50">
+                    Cerrar
                 </button>
             </div>
         </div>
@@ -590,7 +581,6 @@
                 sessionStorage.setItem('urbannoise_audit_pin', enteredPin);
                 document.getElementById('pinGate').classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('hidden');
-                loadAuditorProfile();
                 loadSavedLocalCounts();
                 loadCatalog(false);
                 lucide.createIcons();
@@ -608,35 +598,116 @@
             clearPin();
         }
 
-        // 1.1 PERFIL DE AUDITOR Y ZONA (MULTI-USUARIO)
-        function loadAuditorProfile() {
-            const name = localStorage.getItem('urbannoise_auditor_name') || 'Equipo Tienda';
-            const zone = localStorage.getItem('urbannoise_auditor_zone') || 'General / Todos';
-            const nameEl = document.getElementById('auditorNameDisplay');
-            const zoneEl = document.getElementById('auditorZoneDisplay');
-            if (nameEl) nameEl.textContent = name;
-            if (zoneEl) zoneEl.textContent = zone;
+        // 1.1 SELECCIÓN DIRECTA DE CATEGORÍA DE AUDITORÍA (1 TOQUE, SIN ESCRIBIR)
+        let currentAuditCategory = localStorage.getItem('urbannoise_audit_category') || 'ALL';
+
+        function getCategoryIcon(catName) {
+            const c = (catName || '').toLowerCase();
+            if (c.includes('buzo') || c.includes('hoodie') || c.includes('chaqueta')) return '🧥';
+            if (c.includes('esqueleto') || c.includes('musculosa') || c.includes('tank')) return '🎽';
+            if (c.includes('conjunto') || c.includes('pantalon') || c.includes('jogger') || c.includes('short')) return '👖';
+            if (c.includes('dama') || c.includes('mujer') || c.includes('top') || c.includes('vestido')) return '👗';
+            if (c.includes('acid') || c.includes('wash') || c.includes('vintage')) return '⚡';
+            if (c.includes('oversize') || c.includes('over')) return '👕';
+            if (c.includes('gorra') || c.includes('accesorio') || c.includes('media')) return '🧢';
+            return '🏷️';
         }
 
-        function openAuditorProfileModal() {
-            document.getElementById('inputAuditorName').value = localStorage.getItem('urbannoise_auditor_name') || '';
-            document.getElementById('inputAuditorZone').value = localStorage.getItem('urbannoise_auditor_zone') || '';
-            document.getElementById('auditorModal').classList.remove('hidden');
+        function openCategoryModal() {
+            renderCategoryModalList();
+            document.getElementById('categoryModal').classList.remove('hidden');
             lucide.createIcons();
         }
 
-        function closeAuditorProfileModal() {
-            document.getElementById('auditorModal').classList.add('hidden');
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.add('hidden');
         }
 
-        function saveAuditorProfile() {
-            const name = document.getElementById('inputAuditorName').value.trim() || 'Equipo Tienda';
-            const zone = document.getElementById('inputAuditorZone').value.trim() || 'General / Todos';
-            localStorage.setItem('urbannoise_auditor_name', name);
-            localStorage.setItem('urbannoise_auditor_zone', zone);
-            loadAuditorProfile();
-            closeAuditorProfileModal();
-            showToast("Perfil Asignado", `Auditor: ${name} (${zone})`, "check");
+        function updateAuditCategoryBanner() {
+            const titleEl = document.getElementById('currentAuditCategoryTitle');
+            const countEl = document.getElementById('currentAuditCategoryCount');
+            if (!titleEl || !countEl) return;
+
+            if (currentAuditCategory === 'ALL') {
+                titleEl.textContent = "Todas las Categorías";
+                countEl.textContent = `${fullCatalog.length} prendas`;
+            } else {
+                const catCount = fullCatalog.filter(i => {
+                    const c = (i.category || i.rawCategory || '').toLowerCase();
+                    return c === currentAuditCategory.toLowerCase();
+                }).length;
+                titleEl.textContent = currentAuditCategory;
+                countEl.textContent = `${catCount} prendas`;
+            }
+        }
+
+        function renderCategoryModalList() {
+            const listContainer = document.getElementById('categoryModalList');
+            if (!listContainer) return;
+
+            // Agrupar categorías dinámicamente según las prendas de la tienda actual
+            const catMap = {};
+            fullCatalog.forEach(item => {
+                const cat = (item.category || item.rawCategory || 'General').trim();
+                catMap[cat] = (catMap[cat] || 0) + 1;
+            });
+
+            // Ordenar de mayor a menor cantidad de prendas
+            const sortedCats = Object.keys(catMap).sort((a, b) => catMap[b] - catMap[a]);
+            const isAllSelected = currentAuditCategory === 'ALL';
+
+            let html = `
+                <button onclick="selectAuditCategory('ALL')" class="w-full text-left p-3.5 rounded-2xl border-2 transition-all flex items-center justify-between ${isAllSelected ? 'border-indigo-600 bg-indigo-50/70 shadow-xs' : 'border-slate-200 bg-white hover:bg-slate-50'}">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">✨</span>
+                        <div>
+                            <h4 class="font-black text-slate-900 text-xs sm:text-sm">Todas las Categorías</h4>
+                            <p class="text-[11px] text-slate-500 font-medium">Auditar todo el inventario de la tienda</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-black px-2.5 py-1 rounded-full ${isAllSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}">${fullCatalog.length} prendas</span>
+                        ${isAllSelected ? '<i data-lucide="check" class="w-4 h-4 text-indigo-600 shrink-0"></i>' : ''}
+                    </div>
+                </button>
+            `;
+
+            sortedCats.forEach(cat => {
+                const isSelected = currentAuditCategory.toLowerCase() === cat.toLowerCase();
+                const icon = getCategoryIcon(cat);
+                const count = catMap[cat];
+
+                html += `
+                    <button onclick="selectAuditCategory('${cat.replace(/'/g, "\\'")}')" class="w-full text-left p-3.5 rounded-2xl border-2 transition-all flex items-center justify-between ${isSelected ? 'border-indigo-600 bg-indigo-50/70 shadow-xs' : 'border-slate-200 bg-white hover:bg-slate-50'}">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">${icon}</span>
+                            <div>
+                                <h4 class="font-black text-slate-900 text-xs sm:text-sm">${cat}</h4>
+                                <p class="text-[11px] text-slate-500 font-medium">Perchero / Sección de ${cat}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-black px-2.5 py-1 rounded-full ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}">${count} prendas</span>
+                            ${isSelected ? '<i data-lucide="check" class="w-4 h-4 text-indigo-600 shrink-0"></i>' : ''}
+                        </div>
+                    </button>
+                `;
+            });
+
+            listContainer.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function selectAuditCategory(catName) {
+            currentAuditCategory = catName;
+            localStorage.setItem('urbannoise_audit_category', catName);
+            closeCategoryModal();
+            updateAuditCategoryBanner();
+            updateMetrics();
+            applyFilters();
+
+            const label = catName === 'ALL' ? 'Todas las Categorías' : catName;
+            showToast("Categoría Seleccionada", `Auditando únicamente: ${label}`, "layers");
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -715,6 +786,7 @@
                 saveLocalCounts();
 
                 loader.classList.add('hidden');
+                updateAuditCategoryBanner();
                 updateMetrics();
                 applyFilters();
                 const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
@@ -732,7 +804,7 @@
             }
         }
 
-        // 4. MÉTRICAS Y PROGRESO
+        // 4. MÉTRICAS Y PROGRESO (CALCULADAS SEGÚN LA CATEGORÍA EN AUDITORÍA)
         function updateMetrics() {
             let totalSystemUnits = 0;
             let totalPhysicalUnits = 0;
@@ -742,7 +814,11 @@
             let totalAuditedItems = 0;
             let itemsWithStock = 0;
 
-            fullCatalog.forEach(item => {
+            const targetItems = currentAuditCategory === 'ALL' 
+                ? fullCatalog 
+                : fullCatalog.filter(i => (i.category || i.rawCategory || '').toLowerCase() === currentAuditCategory.toLowerCase());
+
+            targetItems.forEach(item => {
                 const isNoPhoto = !item.image || item.image.includes('LOGO_WEB.png') || (item.images && item.images.length === 0);
                 if (isNoPhoto) itemsWithoutPhoto++;
 
@@ -769,22 +845,22 @@
             });
 
             // Actualizar tarjetas de métricas
-            document.getElementById('statTotalItems').textContent = fullCatalog.length;
+            document.getElementById('statTotalItems').textContent = targetItems.length;
             document.getElementById('statSystemUnits').textContent = totalSystemUnits;
             document.getElementById('statPhysicalUnits').textContent = totalPhysicalUnits;
             document.getElementById('statDiffVariants').textContent = totalDiffVariants;
 
             // Actualizar barra de progreso
-            const totalCount = fullCatalog.length || 1;
+            const totalCount = targetItems.length || 1;
             const pct = Math.round((totalAuditedItems / totalCount) * 100);
             document.getElementById('progressBar').style.width = `${pct}%`;
-            document.getElementById('progressText').textContent = `${totalAuditedItems} / ${fullCatalog.length} prendas (${pct}%)`;
+            document.getElementById('progressText').textContent = `${totalAuditedItems} / ${targetItems.length} prendas (${pct}%)`;
 
             // Actualizar pestañas
-            document.getElementById('countTabALL').textContent = fullCatalog.length;
+            document.getElementById('countTabALL').textContent = targetItems.length;
             const tabStockEl = document.getElementById('countTabWITH_STOCK');
             if (tabStockEl) tabStockEl.textContent = itemsWithStock;
-            document.getElementById('countTabPENDING').textContent = Math.max(0, fullCatalog.length - totalAuditedItems);
+            document.getElementById('countTabPENDING').textContent = Math.max(0, targetItems.length - totalAuditedItems);
             document.getElementById('countTabHAS_DIFF').textContent = itemsWithDiff;
             document.getElementById('countTabNO_PHOTO').textContent = itemsWithoutPhoto;
 
@@ -793,6 +869,8 @@
             document.getElementById('footerSummaryText').textContent = totalDiffVariants > 0 
                 ? `${totalDiffVariants} variantes con diferencia de stock frente a Loyverse`
                 : "Todas las variantes coinciden exactamente con Loyverse";
+
+            updateAuditCategoryBanner();
         }
 
         function setCategoryFilter(cat) {
@@ -820,6 +898,12 @@
             else clearBtn.classList.add('hidden');
 
             currentFilteredList = fullCatalog.filter(item => {
+                // Filtro estricto por categoría seleccionada
+                if (currentAuditCategory !== 'ALL') {
+                    const itemCat = (item.category || item.rawCategory || '').toLowerCase();
+                    if (itemCat !== currentAuditCategory.toLowerCase()) return false;
+                }
+
                 // Filtro por texto
                 const titleMatch = (item.title || '').toLowerCase().includes(query);
                 const descMatch = (item.description || '').toLowerCase().includes(query);
@@ -1423,6 +1507,7 @@
         }
 
         function getScopeCategoryLabel() {
+            if (currentAuditCategory !== 'ALL') return currentAuditCategory;
             if (currentCategoryFilter === 'ALL') return 'Todas las categorías';
             if (currentCategoryFilter === 'WITH_STOCK') return 'Prendas con stock';
             if (currentCategoryFilter === 'PENDING') return 'Prendas pendientes';
@@ -1432,7 +1517,7 @@
         }
 
         function countCategoryVariants() {
-            const targetCat = currentCategoryFilter.toLowerCase();
+            const targetCat = (currentAuditCategory !== 'ALL' ? currentAuditCategory : currentCategoryFilter).toLowerCase();
             let count = 0;
             fullCatalog.forEach(item => {
                 const itemCat = (item.category || item.rawCategory || '').toLowerCase();
@@ -1458,10 +1543,10 @@
             const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
             document.getElementById('modalStoreName').textContent = storeName;
             
-            const auditorName = localStorage.getItem('urbannoise_auditor_name') || 'Equipo Tienda';
-            const auditorZone = localStorage.getItem('urbannoise_auditor_zone') || 'General / Todos';
-            const modalAuditorEl = document.getElementById('modalAuditorName');
-            if (modalAuditorEl) modalAuditorEl.textContent = `${auditorName} (${auditorZone})`;
+            const syncCategoryEl = document.getElementById('modalSyncCategoryName');
+            if (syncCategoryEl) {
+                syncCategoryEl.textContent = currentAuditCategory === 'ALL' ? 'Todas las Categorías' : currentAuditCategory;
+            }
 
             cachedSyncChanges = [];
             let countedCount = 0;
@@ -1586,7 +1671,7 @@
                     return;
                 }
             } else if (selectedScope === 'CATEGORY_ONLY') {
-                const targetCat = currentCategoryFilter.toLowerCase();
+                const targetCat = (currentAuditCategory !== 'ALL' ? currentAuditCategory : currentCategoryFilter).toLowerCase();
                 fullCatalog.forEach(item => {
                     const itemCat = (item.category || item.rawCategory || '').toLowerCase();
                     const matches = (targetCat === 'all' || targetCat === 'pending' || targetCat === 'has_diff' || targetCat === 'no_photo' || targetCat === 'with_stock')
