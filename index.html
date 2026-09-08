@@ -335,7 +335,70 @@
             content-visibility: auto;
             contain-intrinsic-size: 260px;
         }
-    
+
+        /* =========================================================================
+           PROTOCOLO APP MÓVIL Y BLINDAJE TOTAL CONTRA COPIA Y DESCARGA DE IMÁGENES
+           ========================================================================= */
+        *, *::before, *::after {
+            -webkit-touch-callout: none !important; /* Desactiva menú contextual móvil (Guardar/Compartir imagen) */
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        body, html {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+
+        /* Permitir selección y edición EXCLUSIVAMENTE en campos de texto legítimos */
+        input, textarea, [contenteditable="true"] {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        /* Inhabilitar arrastre y puntero directo en todas las imágenes */
+        img {
+            -webkit-touch-callout: none !important;
+            -webkit-user-drag: none !important;
+            -khtml-user-drag: none !important;
+            -moz-user-drag: none !important;
+            -o-user-drag: none !important;
+            user-drag: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            pointer-events: none !important;
+        }
+
+        /* Escudo transparente protector sobre las imágenes */
+        .image-protection-shield {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+            -webkit-touch-callout: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            pointer-events: auto;
+        }
+
+        /* Marca de agua sutil de protección de autor */
+        .brand-watermark {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.45);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+            user-select: none;
+            z-index: 12;
+        }
     </style>
 
     <!-- Critical CSS Resilience Shield (Prevents Unstyled Flash or Worker Dropouts) -->
@@ -865,8 +928,10 @@
                 <div class="flex flex-col gap-2.5">
                     <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-xs">
                         <img id="modal-product-img" src="" alt="" class="w-full h-full object-cover transition-opacity duration-200">
+                        <div class="image-protection-shield"></div>
+                        <span class="brand-watermark text-[9px] tracking-widest text-white/60">URBAN NOISE® EXCLUSIVO</span>
                         <!-- Badges -->
-                        <span id="modal-product-badge" class="absolute top-3 left-3 text-xs font-bold bg-zinc-900 text-white px-2.5 py-1 rounded-md uppercase z-10"></span>
+                        <span id="modal-product-badge" class="absolute top-3 left-3 text-xs font-bold bg-zinc-900 text-white px-2.5 py-1 rounded-md uppercase z-20"></span>
                     </div>
                     <!-- Thumbnail Strip -->
                     <div id="modal-thumbnails" class="flex gap-2 overflow-x-auto no-scrollbar py-0.5 w-full">
@@ -1230,6 +1295,51 @@
         }
 
         
+        // =========================================================================
+        // PROTOCOLO DE SEGURIDAD NATIVO TIPO APP MÓVIL (ANTI-ROBO DE IMÁGENES Y COPIA)
+        // =========================================================================
+        (function activateMobileAppSecurityProtocol() {
+            // 1. Bloquear menú contextual (clic derecho / long-press) excepto en campos de texto legítimos
+            document.addEventListener('contextmenu', function(e) {
+                const tag = (e.target && e.target.tagName) || '';
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) {
+                    return; // Permitir menú en buscador o notas de pedido
+                }
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, true);
+
+            // 2. Bloquear arrastre de cualquier elemento o imagen hacia afuera
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            }, true);
+
+            // 3. Bloquear atajos de teclado para guardar página/imágenes o ver código fuente
+            document.addEventListener('keydown', function(e) {
+                const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                const modifier = isMac ? e.metaKey : e.ctrlKey;
+                
+                // Ctrl+S (Guardar), Ctrl+U (Ver código), Ctrl+P (Imprimir)
+                if (modifier && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U' || e.key === 'p' || e.key === 'P')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+                
+                // Ctrl+C (Copiar) fuera de inputs de texto legítimos
+                if (modifier && (e.key === 'c' || e.key === 'C')) {
+                    const activeTag = (document.activeElement && document.activeElement.tagName) || '';
+                    if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA' && (!document.activeElement || !document.activeElement.isContentEditable)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                }
+            }, true);
+        })();
+
         // Format Currency in Colombian Pesos (COP)
         function formatCOP(amount) {
             if (isNaN(amount) || amount === null || amount === undefined) return '$ 0';
@@ -1826,11 +1936,13 @@
                     <div onclick="openProductDetail('${p.id}')" class="flex-shrink-0 w-36 bg-white border border-rose-200/80 hover:border-rose-400 rounded-2xl p-2 flex flex-col gap-2 cursor-pointer group transition-all duration-300 snap-start shadow-xs hover:shadow-md">
                         <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-100">
                             <img src="${getOptimizedImageUrl(p.image, 300, 80)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" ${loadingAttr} decoding="async" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                            <span class="absolute top-1.5 left-1.5 bg-amber-500 text-black text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider shadow-xs flex items-center gap-0.5">
+                            <div class="image-protection-shield"></div>
+                            <span class="brand-watermark">URBN NOISE</span>
+                            <span class="absolute top-1.5 left-1.5 bg-amber-500 text-black text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider shadow-xs flex items-center gap-0.5 z-20">
                                 <i data-lucide="crown" class="w-2.5 h-2.5"></i> #${idx + 1} TOP
                             </span>
                             ${isLow ? `
-                            <span class="absolute bottom-1.5 right-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase flex items-center gap-0.5 shadow-xs">
+                            <span class="absolute bottom-1.5 right-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase flex items-center gap-0.5 shadow-xs z-20">
                                 <i data-lucide="flame" class="w-2.5 h-2.5"></i> Quedan ${totalStock}
                             </span>` : ''}
                         </div>
@@ -1865,12 +1977,14 @@
                     <div onclick="openProductDetail('${p.id}')" class="flex-shrink-0 w-36 bg-white border border-zinc-200 hover:border-zinc-400 rounded-2xl p-2 flex flex-col gap-2 cursor-pointer group transition-all duration-300 snap-start shadow-xs hover:shadow-md">
                         <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-100">
                             <img src="${getOptimizedImageUrl(p.image, 300, 80)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" ${loadingAttr} decoding="async" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                            <div class="image-protection-shield"></div>
+                            <span class="brand-watermark">URBN NOISE</span>
                             ${isLow ? `
-                            <span class="absolute top-1.5 left-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase shadow-xs flex items-center gap-0.5">
+                            <span class="absolute top-1.5 left-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase shadow-xs flex items-center gap-0.5 z-20">
                                 <i data-lucide="flame" class="w-2.5 h-2.5"></i> ¡Últimas ${totalStock}!
                             </span>
                             ` : `
-                            <span class="absolute top-1.5 left-1.5 bg-emerald-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider">
+                            <span class="absolute top-1.5 left-1.5 bg-emerald-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider z-20">
                                 ✨ Nuevo
                             </span>
                             `}
@@ -2177,7 +2291,7 @@
                 </div>`;
             } else if (totalStock <= 5) {
                 // Caso 2: Últimas unidades (1 a 5 unds) -> SOLO badge de urgencia, NUNCA "Nuevo"
-                urgencyBadgeHtml = `<span class="absolute top-2.5 left-2.5 text-[10px] sm:text-[11px] font-black bg-rose-600 text-white px-2 py-0.5 rounded-lg uppercase shadow-md flex items-center gap-1 z-10 animate-pulse"><i data-lucide="flame" class="w-3 h-3"></i> ¡Últimas ${totalStock}!</span>`;
+                urgencyBadgeHtml = `<span class="absolute top-2.5 left-2.5 text-[10px] sm:text-[11px] font-black bg-rose-600 text-white px-2 py-0.5 rounded-lg uppercase shadow-md flex items-center gap-1 z-20 animate-pulse"><i data-lucide="flame" class="w-3 h-3"></i> ¡Últimas ${totalStock}!</span>`;
                 stockLabelHtml = `<div data-stock-badge-id="${p.id}" class="inline-flex items-center gap-1.5 bg-rose-50 border border-rose-200/90 px-2.5 py-1 rounded-xl text-rose-700 font-extrabold text-xs shadow-2xs">
                     <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-rose-600 shrink-0"></i>
                     <span>Quedan <b class="text-sm text-rose-950 font-black">${totalStock}</b> unds</span>
@@ -2190,7 +2304,7 @@
                     else if (p.family === 'Camisetas') badgeLabel = 'Oversize AcidWash';
                     else if (p.family === 'Esqueletos') badgeLabel = 'Esqueleto AcidWash';
                     else if (p.family === 'Conjuntos') badgeLabel = 'Bermuda AcidWash';
-                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-10">${badgeLabel}</span>`;
+                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-20">${badgeLabel}</span>`;
                 }
                 stockLabelHtml = `<div data-stock-badge-id="${p.id}" class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-xl text-emerald-800 font-extrabold text-xs shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block shrink-0 animate-pulse"></span>
@@ -2211,6 +2325,8 @@
                         ${badgeHtml}
                         ${urgencyBadgeHtml}
                         <img src="${getOptimizedImageUrl(p.image, 400, 80)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <div class="image-protection-shield"></div>
+                        <span class="brand-watermark">URBN NOISE</span>
                     </div>
                     
                     <div class="mt-2.5 px-0.5 flex flex-col justify-between flex-grow">
@@ -2595,8 +2711,9 @@
 
                 html += `
                     <div onclick="selectProductFromSearch('${p.id}')" class="bg-white border border-zinc-200 hover:border-zinc-900 rounded-2xl p-2.5 flex items-center gap-3 cursor-pointer group transition-all shadow-2xs hover:shadow-sm active:scale-98">
-                        <div class="w-16 h-16 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 aspect-square">
+                        <div class="relative w-16 h-16 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 aspect-square">
                             <img src="${getOptimizedImageUrl(p.image, 240, 75)}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                            <div class="image-protection-shield"></div>
                         </div>
 
                         <div class="flex-grow min-w-0 flex flex-col justify-center">
