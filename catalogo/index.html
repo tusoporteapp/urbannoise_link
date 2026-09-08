@@ -506,29 +506,29 @@
                         </button>
 
                         <!-- CAMISETAS OVERSIZE -->
-                        <div class="pt-0.5">
+                        <div class="pt-0.5" id="menu-group-camisetas">
                             <button onclick="selectCategoryAndCloseMenu('Camisetas')" class="w-full py-1.5 px-3 rounded-xl font-black text-zinc-900 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                                 <span class="flex items-center gap-2"><i data-lucide="tag" class="w-4 h-4 text-zinc-700"></i> Camisetas Oversize</span>
                                 <span class="text-[10px] bg-zinc-100 text-zinc-700 px-1.5 py-0.2 rounded-full font-bold" id="menu-count-camisetas">...</span>
                             </button>
                             <div class="pl-8 pr-2 py-0.5 space-y-0.5 text-[11px]">
-                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-camisetas-acid" onclick="selectCategoryAndCloseMenu('Camisetas', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>⚡ Camisetas Acid Wash</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-acid">...</span>
                                 </button>
-                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Burda Fría')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-camisetas-burda" onclick="selectCategoryAndCloseMenu('Camisetas', 'Burda Fría')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>❄️ Burda Fría</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-burda">...</span>
                                 </button>
-                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Algodón')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-camisetas-algodon" onclick="selectCategoryAndCloseMenu('Camisetas', 'Algodón')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>🌿 100% Algodón</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-algodon">...</span>
                                 </button>
-                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Boxy Fit')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-camisetas-boxy" onclick="selectCategoryAndCloseMenu('Camisetas', 'Boxy Fit')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>📐 Boxy Fit</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-boxy">...</span>
                                 </button>
-                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Pedrería')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-camisetas-pedreria" onclick="selectCategoryAndCloseMenu('Camisetas', 'Pedrería')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>💎 Pedrería</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-pedreria">...</span>
                                 </button>
@@ -536,21 +536,21 @@
                         </div>
 
                         <!-- BUZOS & HOODIES -->
-                        <div class="pt-0.5">
+                        <div class="pt-0.5" id="menu-group-buzos">
                             <button onclick="selectCategoryAndCloseMenu('Buzos')" class="w-full py-1.5 px-3 rounded-xl font-black text-zinc-900 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                                 <span class="flex items-center gap-2"><i data-lucide="shirt" class="w-4 h-4 text-zinc-700"></i> Buzos & Hoodies</span>
                                 <span class="text-[10px] bg-zinc-100 text-zinc-700 px-1.5 py-0.2 rounded-full font-bold" id="menu-count-buzos">...</span>
                             </button>
                             <div class="pl-8 pr-2 py-0.5 space-y-0.5 text-[11px]">
-                                <button onclick="selectCategoryAndCloseMenu('Buzos', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-buzos-acid" onclick="selectCategoryAndCloseMenu('Buzos', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>⚡ Buzos Acid Wash</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-buzos-acid">...</span>
                                 </button>
-                                <button onclick="selectCategoryAndCloseMenu('Buzos', 'Capotero')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-buzos-capotero" onclick="selectCategoryAndCloseMenu('Buzos', 'Capotero')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>🧢 Capoteros Clásicos</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-buzos-capotero">...</span>
                                 </button>
-                                <button onclick="selectCategoryAndCloseMenu('Buzos', 'Gold')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-buzos-gold" onclick="selectCategoryAndCloseMenu('Buzos', 'Gold')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>✨ Gold & Cremallera</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-buzos-gold">...</span>
                                 </button>
@@ -558,17 +558,17 @@
                         </div>
 
                         <!-- ESQUELETOS -->
-                        <div class="pt-0.5">
+                        <div class="pt-0.5" id="menu-group-esqueletos">
                             <button onclick="selectCategoryAndCloseMenu('Esqueletos')" class="w-full py-1.5 px-3 rounded-xl font-black text-zinc-900 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                                 <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-zinc-700"></i> Esqueletos</span>
                                 <span class="text-[10px] bg-zinc-100 text-zinc-700 px-1.5 py-0.2 rounded-full font-bold" id="menu-count-esqueletos">...</span>
                             </button>
                             <div class="pl-8 pr-2 py-0.5 space-y-0.5 text-[11px]">
-                                <button onclick="selectCategoryAndCloseMenu('Esqueletos', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-esqueletos-acid" onclick="selectCategoryAndCloseMenu('Esqueletos', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>⚡ Esqueletos Acid Wash</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-esqueletos-acid">...</span>
                                 </button>
-                                <button onclick="selectCategoryAndCloseMenu('Esqueletos', 'Clásico')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                <button id="menu-btn-esqueletos-clasico" onclick="selectCategoryAndCloseMenu('Esqueletos', 'Clásico')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
                                     <span>🎽 Esqueletos Clásicos</span>
                                     <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-esqueletos-clasico">...</span>
                                 </button>
@@ -576,21 +576,21 @@
                         </div>
 
                         <!-- CONJUNTOS & BERMUDAS -->
-                        <button onclick="selectCategoryAndCloseMenu('Conjuntos')" class="w-full py-2 px-3 rounded-xl font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                        <button id="menu-group-conjuntos" onclick="selectCategoryAndCloseMenu('Conjuntos')" class="w-full py-2 px-3 rounded-xl font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                             <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-zinc-500"></i> Conjuntos & Bermudas</span>
                             <span class="text-[10px] text-zinc-400 font-bold" id="menu-count-conjuntos">...</span>
                         </button>
 
                         <!-- LÍNEA DE DAMAS -->
-                        <button onclick="selectCategoryAndCloseMenu('Damas')" class="w-full py-2 px-3 rounded-xl font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                        <button id="menu-group-damas" onclick="selectCategoryAndCloseMenu('Damas')" class="w-full py-2 px-3 rounded-xl font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                             <span class="flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4 text-zinc-500"></i> Línea de Damas</span>
                             <span class="text-[10px] text-zinc-400 font-bold" id="menu-count-damas">...</span>
                         </button>
 
                         <!-- ÚLTIMAS UNIDADES -->
-                        <button onclick="selectCategoryAndCloseMenu('Ultimas-Unidades')" class="w-full py-2 px-3 rounded-xl font-bold text-rose-600 hover:bg-rose-50 flex items-center justify-between text-left transition-all cursor-pointer">
+                        <button id="menu-group-ultimas" onclick="selectCategoryAndCloseMenu('Ultimas-Unidades')" class="w-full py-2 px-3 rounded-xl font-bold text-rose-600 hover:bg-rose-50 flex items-center justify-between text-left transition-all cursor-pointer">
                             <span class="flex items-center gap-2"><i data-lucide="flame" class="w-4 h-4 text-rose-500"></i> Últimas Unidades</span>
-                            <span class="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-black">Stock &lt; 5</span>
+                            <span class="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-black" id="menu-count-ultimas">Stock &lt; 5</span>
                         </button>
                     </div>
                 </div>
@@ -2655,6 +2655,11 @@
                         count = products.filter(p => p.family === f.id).length;
                     }
 
+                    // OCULTAR categorías que no tienen stock o prendas disponibles
+                    if (f.id !== 'Todos' && count <= 0) {
+                        return '';
+                    }
+
                     const activeClass = isActive 
                         ? 'bg-black text-white border-black shadow-sm font-black' 
                         : 'bg-white text-zinc-700 hover:bg-zinc-100 hover:text-black border-zinc-200 shadow-2xs font-bold';
@@ -2696,7 +2701,10 @@
                     subCounts[sub] = (subCounts[sub] || 0) + 1;
                 });
 
-                const sortedSubs = Object.keys(subCounts).sort((a, b) => subCounts[b] - subCounts[a]);
+                // OCULTAR subcategorías con 0 prendas en stock
+                const sortedSubs = Object.keys(subCounts)
+                    .filter(sub => (subCounts[sub] || 0) > 0)
+                    .sort((a, b) => subCounts[b] - subCounts[a]);
 
                 sortedSubs.forEach(sub => {
                     const isSubActive = (currentSubCategory === sub);
@@ -2728,42 +2736,85 @@
         }
 
         function updateCategoryCountsInDrawer() {
-            const setCount = (id, count) => {
-                const el = document.getElementById(id);
-                if (el) el.innerText = count.toString();
+            const setItem = (countId, itemId, count) => {
+                const countEl = document.getElementById(countId);
+                if (countEl) countEl.innerText = count.toString();
+                const itemEl = document.getElementById(itemId);
+                if (itemEl) {
+                    if (count <= 0) itemEl.classList.add('hidden');
+                    else itemEl.classList.remove('hidden');
+                }
             };
 
-            setCount('menu-count-all', products.length);
+            const countEl = document.getElementById('menu-count-all');
+            if (countEl) countEl.innerText = products.length.toString();
 
             // Camisetas
             const camisetas = products.filter(p => p.family === 'Camisetas');
-            setCount('menu-count-camisetas', camisetas.length);
-            setCount('menu-count-camisetas-acid', camisetas.filter(p => p.subCategory === 'Acid Wash').length);
-            setCount('menu-count-camisetas-burda', camisetas.filter(p => p.subCategory === 'Burda Fría').length);
-            setCount('menu-count-camisetas-algodon', camisetas.filter(p => p.subCategory === 'Algodón').length);
-            setCount('menu-count-camisetas-boxy', camisetas.filter(p => p.subCategory === 'Boxy Fit').length);
-            setCount('menu-count-camisetas-pedreria', camisetas.filter(p => p.subCategory === 'Pedrería').length);
+            const cAcid = camisetas.filter(p => p.subCategory === 'Acid Wash').length;
+            const cBurda = camisetas.filter(p => p.subCategory === 'Burda Fría').length;
+            const cAlgodon = camisetas.filter(p => p.subCategory === 'Algodón').length;
+            const cBoxy = camisetas.filter(p => p.subCategory === 'Boxy Fit').length;
+            const cPedreria = camisetas.filter(p => p.subCategory === 'Pedrería').length;
+
+            setItem('menu-count-camisetas', 'menu-group-camisetas', camisetas.length);
+            setItem('menu-count-camisetas-acid', 'menu-btn-camisetas-acid', cAcid);
+            setItem('menu-count-camisetas-burda', 'menu-btn-camisetas-burda', cBurda);
+            setItem('menu-count-camisetas-algodon', 'menu-btn-camisetas-algodon', cAlgodon);
+            setItem('menu-count-camisetas-boxy', 'menu-btn-camisetas-boxy', cBoxy);
+            setItem('menu-count-camisetas-pedreria', 'menu-btn-camisetas-pedreria', cPedreria);
 
             // Buzos
             const buzos = products.filter(p => p.family === 'Buzos');
-            setCount('menu-count-buzos', buzos.length);
-            setCount('menu-count-buzos-acid', buzos.filter(p => p.subCategory === 'Acid Wash').length);
-            setCount('menu-count-buzos-capotero', buzos.filter(p => p.subCategory === 'Capotero').length);
-            setCount('menu-count-buzos-gold', buzos.filter(p => p.subCategory === 'Gold').length);
+            const bAcid = buzos.filter(p => p.subCategory === 'Acid Wash').length;
+            const bCapotero = buzos.filter(p => p.subCategory === 'Capotero').length;
+            const bGold = buzos.filter(p => p.subCategory === 'Gold').length;
+
+            setItem('menu-count-buzos', 'menu-group-buzos', buzos.length);
+            setItem('menu-count-buzos-acid', 'menu-btn-buzos-acid', bAcid);
+            setItem('menu-count-buzos-capotero', 'menu-btn-buzos-capotero', bCapotero);
+            setItem('menu-count-buzos-gold', 'menu-btn-buzos-gold', bGold);
 
             // Esqueletos
             const esqueletos = products.filter(p => p.family === 'Esqueletos');
-            setCount('menu-count-esqueletos', esqueletos.length);
-            setCount('menu-count-esqueletos-acid', esqueletos.filter(p => p.subCategory === 'Acid Wash').length);
-            setCount('menu-count-esqueletos-clasico', esqueletos.filter(p => p.subCategory === 'Clásico').length);
+            const eAcid = esqueletos.filter(p => p.subCategory === 'Acid Wash').length;
+            const eClasico = esqueletos.filter(p => p.subCategory === 'Clásico').length;
+
+            setItem('menu-count-esqueletos', 'menu-group-esqueletos', esqueletos.length);
+            setItem('menu-count-esqueletos-acid', 'menu-btn-esqueletos-acid', eAcid);
+            setItem('menu-count-esqueletos-clasico', 'menu-btn-esqueletos-clasico', eClasico);
 
             // Conjuntos & Bermudas
             const conjuntos = products.filter(p => p.family === 'Conjuntos');
-            setCount('menu-count-conjuntos', conjuntos.length);
+            setItem('menu-count-conjuntos', 'menu-group-conjuntos', conjuntos.length);
 
             // Damas
             const damas = products.filter(p => p.family === 'Damas');
-            setCount('menu-count-damas', damas.length);
+            setItem('menu-count-damas', 'menu-group-damas', damas.length);
+
+            // Últimas Unidades (Stock <= 5)
+            const ultimas = products.filter(p => {
+                const totalStock = (p.variants || []).reduce((s, v) => s + Math.max(0, v.stock || 0), 0);
+                return totalStock > 0 && totalStock <= 5;
+            });
+            setItem('menu-count-ultimas', 'menu-group-ultimas', ultimas.length);
+
+            // Ocultar chips sin stock en el modal de búsqueda rápida
+            const modalChips = [
+                { id: 'modal-tab-Camisetas', count: camisetas.length },
+                { id: 'modal-tab-Buzos', count: buzos.length },
+                { id: 'modal-tab-Esqueletos', count: esqueletos.length },
+                { id: 'modal-tab-Conjuntos', count: conjuntos.length },
+                { id: 'modal-tab-Damas', count: damas.length },
+                { id: 'modal-tab-Ultimas-Unidades', count: ultimas.length }
+            ];
+            modalChips.forEach(mc => {
+                const btn = document.getElementById(mc.id);
+                if (btn) {
+                    if (mc.count <= 0) btn.classList.add('hidden');
+                    else btn.classList.remove('hidden');
+                }
+            });
         }
 
         function selectCategory(categoryName, subCategory = 'Todos') {
@@ -2795,10 +2846,29 @@
                 chipText = '';
             } else if (['Camisetas', 'Buzos', 'Esqueletos', 'Conjuntos', 'Damas', 'Otros'].includes(categoryName)) {
                 let items = products.filter(p => p.family === categoryName);
+                if (items.length === 0 && products.length > 0) {
+                    return selectCategory('Todos');
+                }
                 if (subCategory !== 'Todos') {
-                    items = items.filter(p => p.subCategory === subCategory || (p.category && p.category.toLowerCase().includes(subCategory.toLowerCase())));
-                    displayTitle = `${categoryName} ${subCategory}`;
-                    chipText = subCategory;
+                    const subItems = items.filter(p => p.subCategory === subCategory || (p.category && p.category.toLowerCase().includes(subCategory.toLowerCase())));
+                    if (subItems.length > 0) {
+                        items = subItems;
+                        displayTitle = `${categoryName} ${subCategory}`;
+                        chipText = subCategory;
+                    } else {
+                        subCategory = 'Todos';
+                        currentSubCategory = 'Todos';
+                        const familyTitles = {
+                            'Camisetas': 'Camisetas Oversize',
+                            'Buzos': 'Buzos & Hoodies',
+                            'Esqueletos': 'Esqueletos',
+                            'Conjuntos': 'Conjuntos & Bermudas',
+                            'Damas': 'Línea de Damas',
+                            'Otros': 'Accesorios & Otros'
+                        };
+                        displayTitle = familyTitles[categoryName] || categoryName;
+                        chipText = categoryName;
+                    }
                 } else {
                     const familyTitles = {
                         'Camisetas': 'Camisetas Oversize',
