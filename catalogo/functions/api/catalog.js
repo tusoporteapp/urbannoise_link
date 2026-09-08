@@ -9,6 +9,120 @@ function getSecretKey(env) {
     return atob("Y2NjMjZhYTJkMDBhNDhhNGE4ZDhiNDYwNmNmNzUzMWU=");
 }
 
+function classifyItemCategory(itemName, rawCat) {
+    const name = (itemName || '').toLowerCase();
+    const raw = (rawCat || '').toLowerCase();
+
+    let family = 'Camisetas';
+    let sub = 'Oversize Clásica';
+    let cleanCategory = rawCat || 'Oversize';
+
+    // 1. BUZOS & HOODIES
+    if (raw.includes('buzo') || raw.includes('hoodie') || name.includes('buzo') || name.includes('hoodie')) {
+        family = 'Buzos';
+        if (raw.includes('acid') || name.includes('acid')) {
+            sub = 'Acid Wash';
+            cleanCategory = 'Buzo AcidWash';
+        } else if (raw.includes('capotero') || name.includes('capotero')) {
+            sub = 'Capotero';
+            cleanCategory = 'Buzo Capotero';
+        } else if (raw.includes('gold') || name.includes('gold')) {
+            sub = 'Gold';
+            cleanCategory = 'Buzo Gold';
+        } else if (raw.includes('new/b') || name.includes('new/b')) {
+            sub = 'New/B';
+            cleanCategory = 'Buzo New/B';
+        } else {
+            sub = 'Clásico';
+            cleanCategory = 'Buzo Clásico';
+        }
+    }
+    // 2. ESQUELETOS
+    else if (raw.includes('esqueleto') || name.includes('esqueleto')) {
+        family = 'Esqueletos';
+        if (raw.includes('acid') || name.includes('acid')) {
+            sub = 'Acid Wash';
+            cleanCategory = 'Esqueleto AcidWash';
+        } else {
+            sub = 'Clásico';
+            cleanCategory = 'Esqueleto Clásico';
+        }
+    }
+    // 3. CONJUNTOS & BERMUDAS
+    else if (raw.includes('conjunto') || raw.includes('bermuda') || raw.includes('sudadera') || name.includes('bermuda') || name.includes('conjunto') || name.includes('pantalon acid')) {
+        family = 'Conjuntos';
+        if (raw.includes('bermuda') || name.includes('bermuda')) {
+            sub = (raw.includes('acid') || name.includes('acid')) ? 'Bermuda AcidWash' : 'Bermudas';
+            cleanCategory = sub;
+        } else if (raw.includes('sudadera') || name.includes('sudadera') || name.includes('pantalon acid')) {
+            sub = 'Sudadera / Pantalón';
+            cleanCategory = 'Conjunto Sudadera';
+        } else {
+            sub = 'Conjuntos';
+            cleanCategory = 'Conjuntos';
+        }
+    }
+    // 4. LÍNEA DE DAMAS
+    else if (raw.includes('dama') || raw.includes('body') || raw.includes('dm') || name.includes('dama') || name.includes('body')) {
+        family = 'Damas';
+        if (raw.includes('over dama') || name.includes('over dama')) {
+            sub = 'Oversize Dama';
+            cleanCategory = 'Over Dama';
+        } else if (raw.includes('body') || name.includes('body')) {
+            sub = 'Body';
+            cleanCategory = 'Body';
+        } else if (raw.includes('pantalon') || name.includes('pantalon')) {
+            sub = 'Pantalón Dama';
+            cleanCategory = 'Pantalón Dama';
+        } else {
+            sub = 'Línea Damas';
+            cleanCategory = 'Línea de Damas';
+        }
+    }
+    // 5. NIÑO & UNISEX
+    else if (raw.includes('niño') || raw.includes('unisex') || name.includes('niño') || name.includes('pesquero') || name.includes('gorra')) {
+        family = 'Otros';
+        if (raw.includes('niño') || name.includes('niño')) {
+            sub = 'Niño';
+            cleanCategory = 'Línea Infantil';
+        } else {
+            sub = 'Unisex / Accesorios';
+            cleanCategory = 'Unisex & Accesorios';
+        }
+    }
+    // 6. CAMISETAS OVERSIZE
+    else {
+        family = 'Camisetas';
+        if (raw.includes('acid') || name.includes('acid')) {
+            sub = 'Acid Wash';
+            cleanCategory = 'Oversize AcidWash';
+        } else if (raw.includes('burda') || name.includes('burda')) {
+            sub = 'Burda Fría';
+            cleanCategory = 'Oversize Burda';
+        } else if (raw.includes('algodon') || name.includes('algodon')) {
+            sub = 'Algodón';
+            cleanCategory = 'Oversize Algodón';
+        } else if (raw.includes('boxi') || name.includes('boxi') || raw.includes('boxy') || name.includes('boxy')) {
+            sub = 'Boxy Fit';
+            cleanCategory = 'Boxy Fit';
+        } else if (raw.includes('pedreria') || name.includes('pedreria') || name.includes('piedra')) {
+            sub = 'Pedrería';
+            cleanCategory = 'Oversize Pedrería';
+        } else if (raw.includes('premium') || name.includes('premium')) {
+            sub = 'Premium';
+            cleanCategory = 'Oversize Premium';
+        } else if (raw.includes('t-shirt') || name.includes('polo')) {
+            sub = 'T-Shirt / Polo';
+            cleanCategory = 'T-Shirt';
+        } else {
+            sub = 'Oversize Clásica';
+            cleanCategory = 'Oversize Streetwear';
+        }
+    }
+
+    return { family, sub, cleanCategory };
+}
+
 export async function onRequestGet(context) {
     const cacheUrl = new URL(context.request.url);
     const isFresh = cacheUrl.searchParams.get('fresh') === 'true' || cacheUrl.searchParams.has('t');
@@ -139,17 +253,9 @@ export async function onRequestGet(context) {
 
             const wholesalePrice = Math.max(0, retailBasePrice + mayorDiscount);
 
-            // Determine clean category
-            let categoryName = 'Oversize';
-            if (item.category_id && categoryMap[item.category_id]) {
-                const cName = categoryMap[item.category_id];
-                if (/acid/i.test(cName)) categoryName = 'Acidwash';
-                else if (/buzo|hoodie/i.test(cName)) categoryName = 'Buzos';
-                else if (/conjunto|bermuda/i.test(cName)) categoryName = 'Conjuntos';
-                else if (/dama|body/i.test(cName)) categoryName = 'Linea de Damas';
-                else if (/oversize|burda|boxi|t-shirt/i.test(cName)) categoryName = 'Oversize';
-                else categoryName = cName;
-            }
+            // Determine hierarchical category, family, and finish/fabric
+            const rawCat = item.category_id && categoryMap[item.category_id] ? categoryMap[item.category_id] : '';
+            const classification = classifyItemCategory(item.item_name, rawCat);
 
             // Map Variants
             const sizeOptionIdx = item.option1_name === 'Tallas' ? 1 : (item.option2_name === 'Tallas' ? 2 : (item.option3_name === 'Tallas' ? 3 : -1));
@@ -188,8 +294,10 @@ export async function onRequestGet(context) {
                 modifierApplied: modifierNameApplied,
                 image: primaryImage,
                 images: imagesList,
-                category: categoryName,
-                rawCategory: item.category_id ? (categoryMap[item.category_id] || '') : '',
+                category: classification.cleanCategory,
+                family: classification.family,
+                subCategory: classification.sub,
+                rawCategory: rawCat,
                 store_id: STORE_ID,
                 variants: variants,
                 created_at: item.created_at || '',

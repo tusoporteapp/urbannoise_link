@@ -498,32 +498,97 @@
                 <!-- Categories Quick Links -->
                 <div>
                     <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2 px-1">Categorías de Catálogo</span>
-                    <div class="flex flex-col gap-1">
-                        <button onclick="selectCategoryAndCloseMenu('Todos')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                    <div class="flex flex-col gap-1 text-xs">
+                        <!-- Todos los Diseños -->
+                        <button onclick="selectCategoryAndCloseMenu('Todos')" class="w-full py-2 px-3 rounded-xl font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                             <span class="flex items-center gap-2"><i data-lucide="layout-grid" class="w-4 h-4 text-zinc-500"></i> Todos los Diseños</span>
-                            <span class="text-[10px] text-zinc-400 font-bold" id="menu-count-all">207</span>
+                            <span class="text-[10px] text-zinc-400 font-bold" id="menu-count-all">...</span>
                         </button>
-                        <button onclick="selectCategoryAndCloseMenu('Acidwash')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
-                            <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-zinc-500"></i> Acid Wash</span>
-                            <span class="text-[10px] text-zinc-400 font-bold">78</span>
-                        </button>
-                        <button onclick="selectCategoryAndCloseMenu('Buzos')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
-                            <span class="flex items-center gap-2"><i data-lucide="shirt" class="w-4 h-4 text-zinc-500"></i> Buzos & Hoodies</span>
-                            <span class="text-[10px] text-zinc-400 font-bold">48</span>
-                        </button>
-                        <button onclick="selectCategoryAndCloseMenu('Oversize')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
-                            <span class="flex items-center gap-2"><i data-lucide="tag" class="w-4 h-4 text-zinc-500"></i> Oversize Streetwear</span>
-                            <span class="text-[10px] text-zinc-400 font-bold">149</span>
-                        </button>
-                        <button onclick="selectCategoryAndCloseMenu('Conjuntos')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+
+                        <!-- CAMISETAS OVERSIZE -->
+                        <div class="pt-0.5">
+                            <button onclick="selectCategoryAndCloseMenu('Camisetas')" class="w-full py-1.5 px-3 rounded-xl font-black text-zinc-900 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                                <span class="flex items-center gap-2"><i data-lucide="tag" class="w-4 h-4 text-zinc-700"></i> Camisetas Oversize</span>
+                                <span class="text-[10px] bg-zinc-100 text-zinc-700 px-1.5 py-0.2 rounded-full font-bold" id="menu-count-camisetas">...</span>
+                            </button>
+                            <div class="pl-8 pr-2 py-0.5 space-y-0.5 text-[11px]">
+                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>⚡ Camisetas Acid Wash</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-acid">...</span>
+                                </button>
+                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Burda Fría')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>❄️ Burda Fría</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-burda">...</span>
+                                </button>
+                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Algodón')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>🌿 100% Algodón</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-algodon">...</span>
+                                </button>
+                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Boxy Fit')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>📐 Boxy Fit</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-boxy">...</span>
+                                </button>
+                                <button onclick="selectCategoryAndCloseMenu('Camisetas', 'Pedrería')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>💎 Pedrería</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-camisetas-pedreria">...</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- BUZOS & HOODIES -->
+                        <div class="pt-0.5">
+                            <button onclick="selectCategoryAndCloseMenu('Buzos')" class="w-full py-1.5 px-3 rounded-xl font-black text-zinc-900 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                                <span class="flex items-center gap-2"><i data-lucide="shirt" class="w-4 h-4 text-zinc-700"></i> Buzos & Hoodies</span>
+                                <span class="text-[10px] bg-zinc-100 text-zinc-700 px-1.5 py-0.2 rounded-full font-bold" id="menu-count-buzos">...</span>
+                            </button>
+                            <div class="pl-8 pr-2 py-0.5 space-y-0.5 text-[11px]">
+                                <button onclick="selectCategoryAndCloseMenu('Buzos', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>⚡ Buzos Acid Wash</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-buzos-acid">...</span>
+                                </button>
+                                <button onclick="selectCategoryAndCloseMenu('Buzos', 'Capotero')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>🧢 Capoteros Clásicos</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-buzos-capotero">...</span>
+                                </button>
+                                <button onclick="selectCategoryAndCloseMenu('Buzos', 'Gold')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>✨ Gold & Cremallera</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-buzos-gold">...</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- ESQUELETOS -->
+                        <div class="pt-0.5">
+                            <button onclick="selectCategoryAndCloseMenu('Esqueletos')" class="w-full py-1.5 px-3 rounded-xl font-black text-zinc-900 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+                                <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-zinc-700"></i> Esqueletos</span>
+                                <span class="text-[10px] bg-zinc-100 text-zinc-700 px-1.5 py-0.2 rounded-full font-bold" id="menu-count-esqueletos">...</span>
+                            </button>
+                            <div class="pl-8 pr-2 py-0.5 space-y-0.5 text-[11px]">
+                                <button onclick="selectCategoryAndCloseMenu('Esqueletos', 'Acid Wash')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>⚡ Esqueletos Acid Wash</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-esqueletos-acid">...</span>
+                                </button>
+                                <button onclick="selectCategoryAndCloseMenu('Esqueletos', 'Clásico')" class="w-full py-1 px-2 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-50 flex items-center justify-between text-left transition-colors cursor-pointer">
+                                    <span>🎽 Esqueletos Clásicos</span>
+                                    <span class="text-[9px] text-zinc-400 font-semibold" id="menu-count-esqueletos-clasico">...</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CONJUNTOS & BERMUDAS -->
+                        <button onclick="selectCategoryAndCloseMenu('Conjuntos')" class="w-full py-2 px-3 rounded-xl font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                             <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-zinc-500"></i> Conjuntos & Bermudas</span>
-                            <span class="text-[10px] text-zinc-400 font-bold">9</span>
+                            <span class="text-[10px] text-zinc-400 font-bold" id="menu-count-conjuntos">...</span>
                         </button>
-                        <button onclick="selectCategoryAndCloseMenu('Linea de Damas')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
+
+                        <!-- LÍNEA DE DAMAS -->
+                        <button onclick="selectCategoryAndCloseMenu('Damas')" class="w-full py-2 px-3 rounded-xl font-bold text-zinc-800 hover:bg-zinc-100 flex items-center justify-between text-left transition-all cursor-pointer">
                             <span class="flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4 text-zinc-500"></i> Línea de Damas</span>
-                            <span class="text-[10px] text-zinc-400 font-bold">14</span>
+                            <span class="text-[10px] text-zinc-400 font-bold" id="menu-count-damas">...</span>
                         </button>
-                        <button onclick="selectCategoryAndCloseMenu('Ultimas-Unidades')" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center justify-between text-left transition-all cursor-pointer">
+
+                        <!-- ÚLTIMAS UNIDADES -->
+                        <button onclick="selectCategoryAndCloseMenu('Ultimas-Unidades')" class="w-full py-2 px-3 rounded-xl font-bold text-rose-600 hover:bg-rose-50 flex items-center justify-between text-left transition-all cursor-pointer">
                             <span class="flex items-center gap-2"><i data-lucide="flame" class="w-4 h-4 text-rose-500"></i> Últimas Unidades</span>
                             <span class="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-black">Stock &lt; 5</span>
                         </button>
@@ -723,6 +788,11 @@
                     <span>Buscar</span>
                 </button>
             </div>
+        </div>
+
+        <!-- CATEGORY & SUB-CATEGORY HIERARCHICAL BAR -->
+        <div id="category-filter-bar" class="w-full flex gap-1.5 overflow-x-auto py-2 mb-1 no-scrollbar touch-pan-x overscroll-x-contain" style="-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;">
+            <!-- Rendered dynamically by renderCategoryFilterBar() -->
         </div>
 
         <!-- PRODUCT GRID (2 Columns) -->
@@ -1177,7 +1247,132 @@
         let products = [];
         let filteredProductsList = [];
         let selectedCategoryTab = 'Todos';
+        let currentFamily = 'Todos';
+        let currentSubCategory = 'Todos';
         let searchQueryStr = '';
+
+        function classifyItemCategory(itemName, rawCat) {
+            const name = (itemName || '').toLowerCase();
+            const raw = (rawCat || '').toLowerCase();
+
+            let family = 'Camisetas';
+            let sub = 'Oversize Clásica';
+            let cleanCategory = rawCat || 'Oversize';
+
+            // 1. BUZOS & HOODIES
+            if (raw.includes('buzo') || raw.includes('hoodie') || name.includes('buzo') || name.includes('hoodie')) {
+                family = 'Buzos';
+                if (raw.includes('acid') || name.includes('acid')) {
+                    sub = 'Acid Wash';
+                    cleanCategory = 'Buzo AcidWash';
+                } else if (raw.includes('capotero') || name.includes('capotero')) {
+                    sub = 'Capotero';
+                    cleanCategory = 'Buzo Capotero';
+                } else if (raw.includes('gold') || name.includes('gold')) {
+                    sub = 'Gold';
+                    cleanCategory = 'Buzo Gold';
+                } else if (raw.includes('new/b') || name.includes('new/b')) {
+                    sub = 'New/B';
+                    cleanCategory = 'Buzo New/B';
+                } else {
+                    sub = 'Clásico';
+                    cleanCategory = 'Buzo Clásico';
+                }
+            }
+            // 2. ESQUELETOS
+            else if (raw.includes('esqueleto') || name.includes('esqueleto')) {
+                family = 'Esqueletos';
+                if (raw.includes('acid') || name.includes('acid')) {
+                    sub = 'Acid Wash';
+                    cleanCategory = 'Esqueleto AcidWash';
+                } else {
+                    sub = 'Clásico';
+                    cleanCategory = 'Esqueleto Clásico';
+                }
+            }
+            // 3. CONJUNTOS & BERMUDAS
+            else if (raw.includes('conjunto') || raw.includes('bermuda') || raw.includes('sudadera') || name.includes('bermuda') || name.includes('conjunto') || name.includes('pantalon acid')) {
+                family = 'Conjuntos';
+                if (raw.includes('bermuda') || name.includes('bermuda')) {
+                    sub = (raw.includes('acid') || name.includes('acid')) ? 'Bermuda AcidWash' : 'Bermudas';
+                    cleanCategory = sub;
+                } else if (raw.includes('sudadera') || name.includes('sudadera') || name.includes('pantalon acid')) {
+                    sub = 'Sudadera / Pantalón';
+                    cleanCategory = 'Conjunto Sudadera';
+                } else {
+                    sub = 'Conjuntos';
+                    cleanCategory = 'Conjuntos';
+                }
+            }
+            // 4. LÍNEA DE DAMAS
+            else if (raw.includes('dama') || raw.includes('body') || raw.includes('dm') || name.includes('dama') || name.includes('body')) {
+                family = 'Damas';
+                if (raw.includes('over dama') || name.includes('over dama')) {
+                    sub = 'Oversize Dama';
+                    cleanCategory = 'Over Dama';
+                } else if (raw.includes('body') || name.includes('body')) {
+                    sub = 'Body';
+                    cleanCategory = 'Body';
+                } else if (raw.includes('pantalon') || name.includes('pantalon')) {
+                    sub = 'Pantalón Dama';
+                    cleanCategory = 'Pantalón Dama';
+                } else {
+                    sub = 'Línea Damas';
+                    cleanCategory = 'Línea de Damas';
+                }
+            }
+            // 5. NIÑO & UNISEX
+            else if (raw.includes('niño') || raw.includes('unisex') || name.includes('niño') || name.includes('pesquero') || name.includes('gorra')) {
+                family = 'Otros';
+                if (raw.includes('niño') || name.includes('niño')) {
+                    sub = 'Niño';
+                    cleanCategory = 'Línea Infantil';
+                } else {
+                    sub = 'Unisex / Accesorios';
+                    cleanCategory = 'Unisex & Accesorios';
+                }
+            }
+            // 6. CAMISETAS OVERSIZE (Resto)
+            else {
+                family = 'Camisetas';
+                if (raw.includes('acid') || name.includes('acid')) {
+                    sub = 'Acid Wash';
+                    cleanCategory = 'Oversize AcidWash';
+                } else if (raw.includes('burda') || name.includes('burda')) {
+                    sub = 'Burda Fría';
+                    cleanCategory = 'Oversize Burda';
+                } else if (raw.includes('algodon') || name.includes('algodon')) {
+                    sub = 'Algodón';
+                    cleanCategory = 'Oversize Algodón';
+                } else if (raw.includes('boxi') || name.includes('boxi') || raw.includes('boxy') || name.includes('boxy')) {
+                    sub = 'Boxy Fit';
+                    cleanCategory = 'Boxy Fit';
+                } else if (raw.includes('pedreria') || name.includes('pedreria') || name.includes('piedra')) {
+                    sub = 'Pedrería';
+                    cleanCategory = 'Oversize Pedrería';
+                } else if (raw.includes('premium') || name.includes('premium')) {
+                    sub = 'Premium';
+                    cleanCategory = 'Oversize Premium';
+                } else if (raw.includes('t-shirt') || name.includes('polo')) {
+                    sub = 'T-Shirt / Polo';
+                    cleanCategory = 'T-Shirt / Polo';
+                } else {
+                    sub = 'Oversize Clásica';
+                    cleanCategory = 'Oversize Clásica';
+                }
+            }
+
+            return { family, sub, cleanCategory };
+        }
+
+        function ensureProductClassification(p) {
+            if (!p.family || !p.subCategory || p.category === 'Acidwash' || p.category === 'Oversize') {
+                const c = classifyItemCategory(p.title, p.rawCategory || p.category);
+                p.family = c.family;
+                p.subCategory = c.sub;
+                p.category = c.cleanCategory;
+            }
+        }
         
         let currentModalProduct = null;
         let selectedSizeVal = null;
@@ -1513,8 +1708,9 @@
         function renderCatalogDataset(dataset) {
             if (!dataset || !Array.isArray(dataset)) return;
 
-            // Sanitize negative inventory values from Loyverse POS
+            // Sanitize negative inventory values from Loyverse POS & ensure hierarchical classification
             dataset.forEach(product => {
+                ensureProductClassification(product);
                 (product.variants || []).forEach(v => {
                     v.stock = Math.max(0, v.stock || 0);
                     v.inStock = v.stock > 0;
@@ -1529,9 +1725,11 @@
 
             filteredProductsList = [...products];
 
-            // Render carousel & grid
+            // Render carousels, category filter bar, drawer counts & grid
             renderTopVentasCarousel();
             renderLatestArrivalsCarousel();
+            renderCategoryFilterBar();
+            updateCategoryCountsInDrawer();
             renderProductsGrid();
             if (typeof window.notifyCatalogReadyInSnakeLoader === "function") window.notifyCatalogReadyInSnakeLoader();
 
@@ -1928,7 +2126,7 @@
 
         function generateProductCardHtml(p, index) {
             const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
-            const isAcid = p.title.toLowerCase().includes('acid') || (p.category && p.category.toLowerCase().includes('acid'));
+            const isAcid = (p.subCategory === 'Acid Wash') || p.title.toLowerCase().includes('acid') || (p.category && p.category.toLowerCase().includes('acid'));
             
             // Exclusive single badge logic (No contradictory badges!)
             let badgeHtml = '';
@@ -1950,7 +2148,12 @@
             } else {
                 // Caso 3: Stock saludable (> 5 unds)
                 if (isAcid) {
-                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-10">Acid Wash</span>`;
+                    let badgeLabel = 'Acid Wash';
+                    if (p.family === 'Buzos') badgeLabel = 'Buzo AcidWash';
+                    else if (p.family === 'Camisetas') badgeLabel = 'Oversize AcidWash';
+                    else if (p.family === 'Esqueletos') badgeLabel = 'Esqueleto AcidWash';
+                    else if (p.family === 'Conjuntos') badgeLabel = 'Bermuda AcidWash';
+                    badgeHtml = `<span class="absolute top-2.5 left-2.5 text-[9px] font-bold bg-zinc-950 text-white border border-zinc-700 px-2 py-0.5 rounded-md uppercase z-10">${badgeLabel}</span>`;
                 }
                 stockLabelHtml = `<div data-stock-badge-id="${p.id}" class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-xl text-emerald-800 font-extrabold text-xs shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block shrink-0 animate-pulse"></span>
@@ -2156,15 +2359,15 @@
             }
         }
 
-        function selectCategoryAndCloseMenu(categoryName) {
-            selectCategory(categoryName);
+        function selectCategoryAndCloseMenu(categoryName, subCategory = 'Todos') {
+            selectCategory(categoryName, subCategory);
             if (isNavMenuOpen) {
                 toggleNavMenu();
             }
             setTimeout(() => {
-                const grid = document.getElementById('product-grid');
-                if (grid) {
-                    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const target = document.getElementById('category-filter-bar') || document.getElementById('product-grid');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             }, 350);
         }
@@ -2274,33 +2477,36 @@
                 let catMatch = true;
                 const cat = (p.category || '').toLowerCase();
                 const rawCat = (p.rawCategory || '').toLowerCase();
+                const subCat = (p.subCategory || '').toLowerCase();
                 const title = (p.title || '').toLowerCase();
 
                 if (modalActiveCategory === 'Todos') {
                     catMatch = true;
-                } else if (modalActiveCategory === 'Acidwash') {
-                    catMatch = cat.includes('acid') || rawCat.includes('acid') || rawCat.includes('wash') || title.includes('acid') || title.includes('wash');
-                } else if (modalActiveCategory === 'Buzos') {
-                    catMatch = cat.includes('buzo') || rawCat.includes('buzo') || rawCat.includes('hoodie') || title.includes('buzo') || title.includes('hoodie');
-                } else if (modalActiveCategory === 'Conjuntos') {
-                    catMatch = cat.includes('conjunto') || rawCat.includes('conjunto') || rawCat.includes('bermuda') || rawCat.includes('pantalon') || title.includes('conjunto');
-                } else if (modalActiveCategory === 'Linea de Damas') {
-                    catMatch = cat.includes('dama') || rawCat.includes('dama') || rawCat.includes('body') || rawCat.includes('dm') || title.includes('dama') || title.includes('dam');
-                } else if (modalActiveCategory === 'Oversize') {
-                    catMatch = cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
                 } else if (modalActiveCategory === 'Ultimas-Unidades') {
                     const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                     catMatch = (totalStock > 0 && totalStock <= 5);
+                } else if (modalActiveCategory === 'Camisetas') {
+                    catMatch = (p.family === 'Camisetas');
+                } else if (modalActiveCategory === 'Buzos') {
+                    catMatch = (p.family === 'Buzos');
+                } else if (modalActiveCategory === 'Esqueletos') {
+                    catMatch = (p.family === 'Esqueletos');
+                } else if (modalActiveCategory === 'Conjuntos') {
+                    catMatch = (p.family === 'Conjuntos');
+                } else if (modalActiveCategory === 'Damas') {
+                    catMatch = (p.family === 'Damas');
+                } else if (modalActiveCategory === 'Acidwash') {
+                    catMatch = (p.subCategory === 'Acid Wash') || cat.includes('acid') || title.includes('acid');
                 } else {
-                    catMatch = (p.category === modalActiveCategory);
+                    catMatch = (p.family === modalActiveCategory || p.category === modalActiveCategory);
                 }
 
                 if (!catMatch) return false;
                 if (!query) return true;
 
-                // 2. Text Query check across title, category, sizes and colors
+                // 2. Text Query check across title, category, subcategory, sizes and colors
                 const titleMatch = title.includes(query);
-                const categoryMatch = cat.includes(query) || rawCat.includes(query);
+                const categoryMatch = cat.includes(query) || rawCat.includes(query) || subCat.includes(query);
                 const variantsMatch = (p.variants || []).some(v => 
                     (v.size || '').toLowerCase().includes(query) || 
                     (v.color || '').toLowerCase().includes(query)
@@ -2375,73 +2581,232 @@
             }, 100);
         }
 
-        function selectCategory(categoryName) {
+        function renderCategoryFilterBar() {
+            const bar = document.getElementById('category-filter-bar');
+            if (!bar) return;
+
+            const families = [
+                { id: 'Todos', label: 'Todos', icon: '✨' },
+                { id: 'Camisetas', label: 'Camisetas', icon: '👕' },
+                { id: 'Buzos', label: 'Buzos', icon: '🧥' },
+                { id: 'Esqueletos', label: 'Esqueletos', icon: '🎽' },
+                { id: 'Conjuntos', label: 'Conjuntos', icon: '👖' },
+                { id: 'Damas', label: 'Damas', icon: '👗' },
+                { id: 'Ultimas-Unidades', label: 'Stock < 5', icon: '🔥' }
+            ];
+
+            let html = '';
+
+            if (currentFamily === 'Todos' || currentFamily === 'Top-Ventas' || currentFamily === 'Nuevos' || currentFamily === 'Ultimas-Unidades') {
+                html = families.map(f => {
+                    const isActive = (currentFamily === f.id);
+                    let count = '';
+                    if (f.id === 'Todos') count = products.length;
+                    else if (f.id === 'Ultimas-Unidades') {
+                        count = products.filter(p => {
+                            const total = (p.variants || []).reduce((s, v) => s + Math.max(0, v.stock || 0), 0);
+                            return total > 0 && total <= 5;
+                        }).length;
+                    } else {
+                        count = products.filter(p => p.family === f.id).length;
+                    }
+
+                    const activeClass = isActive 
+                        ? 'bg-black text-white border-black shadow-sm font-black' 
+                        : 'bg-white text-zinc-700 hover:bg-zinc-100 hover:text-black border-zinc-200 shadow-2xs font-bold';
+
+                    return `
+                        <button onclick="selectCategory('${f.id}')" class="px-3 py-1.5 rounded-full text-xs shrink-0 flex items-center gap-1.5 transition-all cursor-pointer border ${activeClass}">
+                            <span>${f.icon} ${f.label}</span>
+                            <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-zinc-800 text-zinc-200' : 'bg-zinc-100 text-zinc-500'} font-black">${count}</span>
+                        </button>
+                    `;
+                }).join('');
+            } else {
+                // A specific Family is selected! (e.g. Camisetas, Buzos, Esqueletos, Conjuntos, Damas)
+                // 1. Back button "↩️ Ver Todo"
+                html += `
+                    <button onclick="selectCategory('Todos')" class="px-3 py-1.5 rounded-full text-xs shrink-0 flex items-center gap-1 transition-all cursor-pointer border border-zinc-200 bg-zinc-100 text-zinc-800 hover:bg-zinc-200 font-black shadow-2xs">
+                        <span>↩️ Ver Todo</span>
+                    </button>
+                `;
+
+                // 2. "✨ Todo en {Family}"
+                const familyTotalCount = products.filter(p => p.family === currentFamily).length;
+                const isAllInFamilyActive = (currentSubCategory === 'Todos');
+                const allInFamilyClass = isAllInFamilyActive
+                    ? 'bg-black text-white border-black shadow-sm font-black'
+                    : 'bg-white text-zinc-700 hover:bg-zinc-100 hover:text-black border-zinc-200 shadow-2xs font-bold';
+
+                html += `
+                    <button onclick="selectCategory('${currentFamily}', 'Todos')" class="px-3 py-1.5 rounded-full text-xs shrink-0 flex items-center gap-1.5 transition-all cursor-pointer border ${allInFamilyClass}">
+                        <span>✨ Todo en ${currentFamily}</span>
+                        <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isAllInFamilyActive ? 'bg-zinc-800 text-zinc-200' : 'bg-zinc-100 text-zinc-500'} font-black">${familyTotalCount}</span>
+                    </button>
+                `;
+
+                // 3. Subcategories dynamically calculated for this family in products
+                const subCounts = {};
+                products.filter(p => p.family === currentFamily).forEach(p => {
+                    const sub = p.subCategory || 'General';
+                    subCounts[sub] = (subCounts[sub] || 0) + 1;
+                });
+
+                const sortedSubs = Object.keys(subCounts).sort((a, b) => subCounts[b] - subCounts[a]);
+
+                sortedSubs.forEach(sub => {
+                    const isSubActive = (currentSubCategory === sub);
+                    const subClass = isSubActive
+                        ? 'bg-black text-white border-black shadow-sm font-black'
+                        : 'bg-white text-zinc-700 hover:bg-zinc-100 hover:text-black border-zinc-200 shadow-2xs font-bold';
+                    
+                    let emoji = '⚡';
+                    if (sub.includes('Burda')) emoji = '❄️';
+                    else if (sub.includes('Algodón')) emoji = '🌿';
+                    else if (sub.includes('Boxy')) emoji = '📐';
+                    else if (sub.includes('Pedrería')) emoji = '💎';
+                    else if (sub.includes('Capotero')) emoji = '🧢';
+                    else if (sub.includes('Gold')) emoji = '✨';
+                    else if (sub.includes('Bermuda')) emoji = '🩳';
+                    else if (sub.includes('Clásico') || sub.includes('Clásica')) emoji = '🎽';
+                    else if (sub.includes('Dama')) emoji = '👗';
+
+                    html += `
+                        <button onclick="selectCategory('${currentFamily}', '${sub}')" class="px-3 py-1.5 rounded-full text-xs shrink-0 flex items-center gap-1.5 transition-all cursor-pointer border ${subClass}">
+                            <span>${emoji} ${sub}</span>
+                            <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isSubActive ? 'bg-zinc-800 text-zinc-200' : 'bg-zinc-100 text-zinc-500'} font-black">${subCounts[sub]}</span>
+                        </button>
+                    `;
+                });
+            }
+
+            bar.innerHTML = html;
+        }
+
+        function updateCategoryCountsInDrawer() {
+            const setCount = (id, count) => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = count.toString();
+            };
+
+            setCount('menu-count-all', products.length);
+
+            // Camisetas
+            const camisetas = products.filter(p => p.family === 'Camisetas');
+            setCount('menu-count-camisetas', camisetas.length);
+            setCount('menu-count-camisetas-acid', camisetas.filter(p => p.subCategory === 'Acid Wash').length);
+            setCount('menu-count-camisetas-burda', camisetas.filter(p => p.subCategory === 'Burda Fría').length);
+            setCount('menu-count-camisetas-algodon', camisetas.filter(p => p.subCategory === 'Algodón').length);
+            setCount('menu-count-camisetas-boxy', camisetas.filter(p => p.subCategory === 'Boxy Fit').length);
+            setCount('menu-count-camisetas-pedreria', camisetas.filter(p => p.subCategory === 'Pedrería').length);
+
+            // Buzos
+            const buzos = products.filter(p => p.family === 'Buzos');
+            setCount('menu-count-buzos', buzos.length);
+            setCount('menu-count-buzos-acid', buzos.filter(p => p.subCategory === 'Acid Wash').length);
+            setCount('menu-count-buzos-capotero', buzos.filter(p => p.subCategory === 'Capotero').length);
+            setCount('menu-count-buzos-gold', buzos.filter(p => p.subCategory === 'Gold').length);
+
+            // Esqueletos
+            const esqueletos = products.filter(p => p.family === 'Esqueletos');
+            setCount('menu-count-esqueletos', esqueletos.length);
+            setCount('menu-count-esqueletos-acid', esqueletos.filter(p => p.subCategory === 'Acid Wash').length);
+            setCount('menu-count-esqueletos-clasico', esqueletos.filter(p => p.subCategory === 'Clásico').length);
+
+            // Conjuntos & Bermudas
+            const conjuntos = products.filter(p => p.family === 'Conjuntos');
+            setCount('menu-count-conjuntos', conjuntos.length);
+
+            // Damas
+            const damas = products.filter(p => p.family === 'Damas');
+            setCount('menu-count-damas', damas.length);
+        }
+
+        function selectCategory(categoryName, subCategory = 'Todos') {
+            currentFamily = categoryName;
+            currentSubCategory = subCategory;
             selectedCategoryTab = categoryName;
-            
+
+            let displayTitle = 'Catálogo Completo';
+            let chipText = '';
+
             if (categoryName === 'Top-Ventas') {
                 filteredProductsList = getTopSellingProducts(products, 10);
+                displayTitle = 'Top Ventas';
+                chipText = 'Top Ventas';
             } else if (categoryName === 'Nuevos') {
-                filteredProductsList = getLatestArrivals(products, 10);
+                filteredProductsList = getLatestArrivals(products, 12);
+                displayTitle = 'Nuevos Lanzamientos';
+                chipText = 'Nuevos';
             } else if (categoryName === 'Ultimas-Unidades') {
                 filteredProductsList = products.filter(p => {
                     const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                     return totalStock > 0 && totalStock <= 5;
                 });
+                displayTitle = 'Últimas Unidades';
+                chipText = 'Stock < 5';
             } else if (categoryName === 'Todos') {
                 filteredProductsList = [...products];
+                displayTitle = 'Catálogo Completo';
+                chipText = '';
+            } else if (['Camisetas', 'Buzos', 'Esqueletos', 'Conjuntos', 'Damas', 'Otros'].includes(categoryName)) {
+                let items = products.filter(p => p.family === categoryName);
+                if (subCategory !== 'Todos') {
+                    items = items.filter(p => p.subCategory === subCategory || (p.category && p.category.toLowerCase().includes(subCategory.toLowerCase())));
+                    displayTitle = `${categoryName} ${subCategory}`;
+                    chipText = subCategory;
+                } else {
+                    const familyTitles = {
+                        'Camisetas': 'Camisetas Oversize',
+                        'Buzos': 'Buzos & Hoodies',
+                        'Esqueletos': 'Esqueletos',
+                        'Conjuntos': 'Conjuntos & Bermudas',
+                        'Damas': 'Línea de Damas',
+                        'Otros': 'Accesorios & Otros'
+                    };
+                    displayTitle = familyTitles[categoryName] || categoryName;
+                    chipText = categoryName;
+                }
+                filteredProductsList = items;
             } else if (categoryName === 'Acidwash') {
                 filteredProductsList = products.filter(p => {
                     const cat = (p.category || '').toLowerCase();
                     const rawCat = (p.rawCategory || '').toLowerCase();
                     const title = (p.title || '').toLowerCase();
-                    return cat.includes('acid') || rawCat.includes('acid') || rawCat.includes('wash') || title.includes('acid') || title.includes('wash');
+                    return p.subCategory === 'Acid Wash' || cat.includes('acid') || rawCat.includes('acid') || rawCat.includes('wash') || title.includes('acid');
                 });
-            } else if (categoryName === 'Buzos') {
-                filteredProductsList = products.filter(p => {
-                    const cat = (p.category || '').toLowerCase();
-                    const rawCat = (p.rawCategory || '').toLowerCase();
-                    const title = (p.title || '').toLowerCase();
-                    return cat.includes('buzo') || rawCat.includes('buzo') || rawCat.includes('hoodie') || title.includes('buzo') || title.includes('hoodie');
-                });
-            } else if (categoryName === 'Conjuntos') {
-                filteredProductsList = products.filter(p => {
-                    const cat = (p.category || '').toLowerCase();
-                    const rawCat = (p.rawCategory || '').toLowerCase();
-                    const title = (p.title || '').toLowerCase();
-                    return cat.includes('conjunto') || rawCat.includes('conjunto') || rawCat.includes('bermuda') || rawCat.includes('pantalon') || title.includes('conjunto');
-                });
-            } else if (categoryName === 'Linea de Damas') {
-                filteredProductsList = products.filter(p => {
-                    const cat = (p.category || '').toLowerCase();
-                    const rawCat = (p.rawCategory || '').toLowerCase();
-                    const title = (p.title || '').toLowerCase();
-                    return cat.includes('dama') || rawCat.includes('dama') || rawCat.includes('body') || rawCat.includes('dm') || title.includes('dama') || title.includes('dam');
-                });
+                displayTitle = 'Prendas Acid Wash';
+                chipText = 'Acid Wash';
             } else if (categoryName === 'Oversize') {
-                filteredProductsList = products.filter(p => {
-                    const cat = (p.category || '').toLowerCase();
-                    const rawCat = (p.rawCategory || '').toLowerCase();
-                    return cat.includes('oversize') || rawCat.includes('oversize') || rawCat.includes('burda') || rawCat.includes('boxi') || rawCat.includes('t-shirt') || rawCat.includes('esqueleto') || rawCat.includes('algodon') || rawCat.includes('pedreria') || rawCat.includes('premium') || rawCat.includes('unisex') || rawCat.includes('caballero');
-                });
+                filteredProductsList = products.filter(p => p.family === 'Camisetas');
+                displayTitle = 'Camisetas Oversize';
+                chipText = 'Oversize';
+            } else if (categoryName === 'Linea de Damas') {
+                filteredProductsList = products.filter(p => p.family === 'Damas');
+                displayTitle = 'Línea de Damas';
+                chipText = 'Damas';
             } else {
-                filteredProductsList = products.filter(p => p.category === categoryName);
+                filteredProductsList = products.filter(p => p.category === categoryName || p.family === categoryName);
+                displayTitle = categoryName;
+                chipText = categoryName;
             }
 
             // Update main feed header title and badge
             const titleEl = document.getElementById('current-catalog-title');
             const chipEl = document.getElementById('active-category-chip');
             if (titleEl) {
-                titleEl.innerText = categoryName === 'Todos' ? 'Catálogo Completo' : categoryName;
+                titleEl.innerText = displayTitle;
             }
             if (chipEl) {
-                if (categoryName !== 'Todos') {
-                    chipEl.innerText = categoryName;
+                if (chipText && categoryName !== 'Todos') {
+                    chipEl.innerText = chipText;
                     chipEl.classList.remove('hidden');
                 } else {
                     chipEl.classList.add('hidden');
                 }
             }
 
+            renderCategoryFilterBar();
             renderProductsGrid();
             updateProductCountLabel();
             updateLastUnitsBadges();
@@ -4551,11 +4916,11 @@ async function executeOrderDispatch() {
             <!-- Quick Category Chips in Search Modal -->
             <div class="px-4 py-3 bg-zinc-50 border-b border-zinc-100 overflow-x-auto no-scrollbar flex items-center gap-1.5 shrink-0">
                 <button onclick="setModalCategoryFilter('Todos')" id="modal-tab-Todos" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-black text-white border border-transparent whitespace-nowrap cursor-pointer shadow-2xs">Todos</button>
-                <button onclick="setModalCategoryFilter('Acidwash')" id="modal-tab-Acidwash" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Acid Wash</button>
+                <button onclick="setModalCategoryFilter('Camisetas')" id="modal-tab-Camisetas" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Camisetas</button>
                 <button onclick="setModalCategoryFilter('Buzos')" id="modal-tab-Buzos" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Buzos</button>
-                <button onclick="setModalCategoryFilter('Oversize')" id="modal-tab-Oversize" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Oversize</button>
+                <button onclick="setModalCategoryFilter('Esqueletos')" id="modal-tab-Esqueletos" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Esqueletos</button>
                 <button onclick="setModalCategoryFilter('Conjuntos')" id="modal-tab-Conjuntos" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Conjuntos</button>
-                <button onclick="setModalCategoryFilter('Linea de Damas')" id="modal-tab-Linea-de-Damas" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Damas</button>
+                <button onclick="setModalCategoryFilter('Damas')" id="modal-tab-Damas" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-zinc-700 border border-zinc-200 hover:text-black whitespace-nowrap cursor-pointer shadow-2xs">Damas</button>
                 <button onclick="setModalCategoryFilter('Ultimas-Unidades')" id="modal-tab-Ultimas-Unidades" class="modal-cat-chip px-3 py-1.5 rounded-full text-xs font-bold uppercase transition-all bg-white text-rose-600 border border-rose-200 hover:bg-rose-50 whitespace-nowrap cursor-pointer shadow-2xs">🔥 Stock &lt; 5</button>
             </div>
 
