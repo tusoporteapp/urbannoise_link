@@ -1823,8 +1823,8 @@
                                 <i data-lucide="crown" class="w-2.5 h-2.5"></i> #${idx + 1} TOP
                             </span>
                             ${isLow ? `
-                            <span class="absolute bottom-1.5 right-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase">
-                                ${totalStock} unds
+                            <span class="absolute bottom-1.5 right-1.5 bg-rose-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase flex items-center gap-0.5 shadow-xs">
+                                <i data-lucide="flame" class="w-2.5 h-2.5"></i> Quedan ${totalStock}
                             </span>` : ''}
                         </div>
                         <div class="flex flex-col gap-0.5">
@@ -1837,6 +1837,7 @@
             });
 
             container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
         }
 
         function renderLatestArrivalsCarousel() {
