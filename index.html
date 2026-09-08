@@ -1242,6 +1242,27 @@
             if (!url || typeof url !== 'string') return 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
             return url;
         }
+
+        // Helper: Detecta si el producto cuenta con fotografía real o es el logo/placeholder temporal
+        function hasRealProductImage(p) {
+            if (!p) return false;
+            if (typeof p.has_image === 'boolean') return p.has_image;
+            if (Array.isArray(p.images) && p.images.length > 0) {
+                const first = p.images[0];
+                if (first && typeof first === 'string') {
+                    const fLower = first.toLowerCase();
+                    if (!fLower.includes('logo_web') && !fLower.includes('/logo/') && !fLower.includes('logo_black') && !fLower.includes('placeholder')) {
+                        return true;
+                    }
+                }
+            }
+            if (!p.image || typeof p.image !== 'string') return false;
+            const img = p.image.toLowerCase();
+            if (img.includes('logo_web') || img.includes('/logo/') || img.includes('logo_black') || img.includes('placeholder') || img.includes('no-image')) {
+                return false;
+            }
+            return img.startsWith('http') || img.startsWith('data:') || img.includes('assets/img/vtv');
+        }
         
         // Global State
         let products = [];
@@ -1755,7 +1776,7 @@
                 const titleNorm = (p.title || '').toLowerCase().trim();
                 const isMatch = topSellingKeywords.some(kw => titleNorm.includes(kw));
                 const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
-                if (isMatch && totalStock > 0 && !seenTitles.has(titleNorm)) {
+                if (isMatch && totalStock > 0 && !seenTitles.has(titleNorm) && hasRealProductImage(p)) {
                     matched.push(p);
                     seenTitles.add(titleNorm);
                 }
@@ -1767,19 +1788,17 @@
         function getLatestArrivals(rawList, count = 12) {
             if (!rawList || rawList.length === 0) return [];
             
-            // Ordenamiento estricto: De lo más nuevo a lo más viejo por fecha exacta de creación en Loyverse
-            const sorted = [...rawList].sort((a, b) => {
+            // Filtro estricto: ÚNICAMENTE prendas que cuentan con fotografía real cargada
+            const withImages = rawList.filter(p => hasRealProductImage(p));
+
+            // Ordenamiento estricto: De lo más nuevo a lo más viejo por fecha exacta de creación o actualización
+            const sorted = [...withImages].sort((a, b) => {
                 const timeA = new Date(a.created_at || a.updated_at || 0).getTime();
                 const timeB = new Date(b.created_at || b.updated_at || 0).getTime();
                 return timeB - timeA;
             });
 
-            // Priorizar prendas con foto real disponible
-            const withImages = sorted.filter(p => p.image && !p.image.includes('LOGO_WEB'));
-            const withoutImages = sorted.filter(p => !p.image || p.image.includes('LOGO_WEB'));
-            const combined = [...withImages, ...withoutImages];
-
-            return count > 0 ? combined.slice(0, count) : combined;
+            return count > 0 ? sorted.slice(0, count) : sorted;
         }
 
         function renderTopVentasCarousel() {
@@ -1874,46 +1893,56 @@
 
         function getStrategicallyOrderedProducts(rawList, isCategoryFiltered = false) {
             if (!rawList || rawList.length === 0) return [];
-            
+
+            // Separar estrictamente prendas con foto de prendas sin foto
+            // Todas las prendas sin foto se ubican de últimas para que el cliente no las vea mientras scrollea
+            const itemsWithPhoto = rawList.filter(p => hasRealProductImage(p));
+            const itemsWithoutPhoto = rawList.filter(p => !hasRealProductImage(p));
+
+            let orderedWithPhoto = [];
+
             if (isCategoryFiltered) {
-                // If filtered by category: order low stock first
-                return [...rawList].sort((a, b) => {
+                // Si está filtrado por categoría: ordenar por stock bajo primero entre las prendas con foto
+                orderedWithPhoto = [...itemsWithPhoto].sort((a, b) => {
                     const stockA = (a.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                     const stockB = (b.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
                     return stockA - stockB;
                 });
-            }
+            } else {
+                // En Catálogo Completo (Todos):
+                // 1. Excluir el top 10 del carrusel de lanzamientos de las primeras posiciones del feed
+                const carouselIds = new Set(itemsWithPhoto.slice(0, 10).map(p => p.id));
+                const pool = itemsWithPhoto.filter(p => !carouselIds.has(p.id));
+                const carouselItems = itemsWithPhoto.filter(p => carouselIds.has(p.id));
 
-            // In Full Catalog (Todos):
-            // 1. Exclude the top 10 items of the carousel from the initial positions
-            const carouselIds = new Set(rawList.slice(0, 10).map(p => p.id));
-            const pool = rawList.filter(p => !carouselIds.has(p.id));
-            const carouselItems = rawList.filter(p => carouselIds.has(p.id));
+                // 2. Separar pool con fotos en stock bajo (<= 5) y stock regular (> 5)
+                const lowStock = [];
+                const regularStock = [];
 
-            // 2. Separate pool into low stock (<= 5) and regular stock (> 5)
-            const lowStock = [];
-            const regularStock = [];
+                pool.forEach(p => {
+                    const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
+                    if (totalStock > 0 && totalStock <= 5) {
+                        lowStock.push(p);
+                    } else {
+                        regularStock.push(p);
+                    }
+                });
 
-            pool.forEach(p => {
-                const totalStock = (p.variants || []).reduce((acc, v) => acc + Math.max(0, v.stock || 0), 0);
-                if (totalStock > 0 && totalStock <= 5) {
-                    lowStock.push(p);
-                } else {
-                    regularStock.push(p);
+                // 3. Intercalar: 1 stock bajo + 2 stock regular + 1 stock bajo + 2 stock regular
+                const interleaved = [];
+                let lIdx = 0, rIdx = 0;
+                while (lIdx < lowStock.length || rIdx < regularStock.length) {
+                    if (lIdx < lowStock.length) interleaved.push(lowStock[lIdx++]);
+                    if (rIdx < regularStock.length) interleaved.push(regularStock[rIdx++]);
+                    if (rIdx < regularStock.length) interleaved.push(regularStock[rIdx++]);
                 }
-            });
 
-            // 3. Interleave: 1 low stock + 2 regular stock + 1 low stock + 2 regular stock
-            const interleaved = [];
-            let lIdx = 0, rIdx = 0;
-            while (lIdx < lowStock.length || rIdx < regularStock.length) {
-                if (lIdx < lowStock.length) interleaved.push(lowStock[lIdx++]);
-                if (rIdx < regularStock.length) interleaved.push(regularStock[rIdx++]);
-                if (rIdx < regularStock.length) interleaved.push(regularStock[rIdx++]);
+                // 4. Agregar al final de las prendas con foto los 10 items del carrusel
+                orderedWithPhoto = interleaved.concat(carouselItems);
             }
 
-            // 4. Append carousel items at the end to keep all 207 garments
-            return interleaved.concat(carouselItems);
+            // 5. Ubicar estrictamente al final del scroll todas las prendas que no tienen foto
+            return orderedWithPhoto.concat(itemsWithoutPhoto);
         }
 
         // --- PROGRESSIVE INFINITE SCROLL & VIRTUALIZED RENDERING ---
@@ -2515,6 +2544,13 @@
                 return titleMatch || categoryMatch || variantsMatch;
             });
 
+            // Ordenar resultados de búsqueda: prendas con fotografía real primero, sin foto al final
+            matches.sort((a, b) => {
+                const aHas = hasRealProductImage(a) ? 1 : 0;
+                const bHas = hasRealProductImage(b) ? 1 : 0;
+                return bHas - aHas;
+            });
+
             if (statusText) {
                 if (query) {
                     statusText.innerText = `${matches.length} ${matches.length === 1 ? 'resultado' : 'resultados'} para "${query}"`;
@@ -2735,7 +2771,7 @@
                 displayTitle = 'Top Ventas';
                 chipText = 'Top Ventas';
             } else if (categoryName === 'Nuevos') {
-                filteredProductsList = getLatestArrivals(products, 12);
+                filteredProductsList = getLatestArrivals(products, 0);
                 displayTitle = 'Nuevos Lanzamientos';
                 chipText = 'Nuevos';
             } else if (categoryName === 'Ultimas-Unidades') {

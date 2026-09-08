@@ -282,8 +282,9 @@ export async function onRequestGet(context) {
 
             // Versioned Images with updated_at timestamp to bust CDN image caches on image changes
             const vParam = item.updated_at ? `?v=${encodeURIComponent(item.updated_at)}` : '';
-            const primaryImage = item.image_url ? `${item.image_url}${vParam}` : 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
-            const imagesList = item.image_url ? [`${item.image_url}${vParam}`] : [];
+            const hasRealImg = Boolean(item.image_url);
+            const primaryImage = hasRealImg ? `${item.image_url}${vParam}` : 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png';
+            const imagesList = hasRealImg ? [`${item.image_url}${vParam}`] : [];
 
             return {
                 id: item.id,
@@ -294,6 +295,7 @@ export async function onRequestGet(context) {
                 modifierApplied: modifierNameApplied,
                 image: primaryImage,
                 images: imagesList,
+                has_image: hasRealImg,
                 category: classification.cleanCategory,
                 family: classification.family,
                 subCategory: classification.sub,
