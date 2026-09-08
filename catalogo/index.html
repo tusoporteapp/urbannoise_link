@@ -1744,19 +1744,26 @@
                 return product.variants.some(v => v.stock > 0);
             });
 
-            filteredProductsList = [...products];
-
-            // Render carousels, category filter bar, drawer counts & grid
+            // Render carousels & drawer counts
             renderTopVentasCarousel();
             renderLatestArrivalsCarousel();
-            renderCategoryFilterBar();
             updateCategoryCountsInDrawer();
-            renderProductsGrid();
-            if (typeof window.notifyCatalogReadyInSnakeLoader === "function") window.notifyCatalogReadyInSnakeLoader();
 
-            // Update product count label
-            const countEl = document.getElementById('product-count');
-            if (countEl) countEl.innerText = `${products.length} PRENDAS`;
+            // PRESERVE user active category & subcategory selection during background sync
+            if (currentFamily && currentFamily !== 'Todos') {
+                selectCategory(currentFamily, currentSubCategory || 'Todos');
+            } else {
+                filteredProductsList = [...products];
+                renderCategoryFilterBar();
+                renderProductsGrid();
+                updateProductCountLabel();
+            }
+
+            // Keep search modal results updated if open
+            const searchModal = document.getElementById('search-modal');
+            if (searchModal && !searchModal.classList.contains('pointer-events-none') && typeof renderSearchModalResults === 'function') {
+                renderSearchModalResults();
+            }
 
             // Check for shared order in URL
             checkSharedOrder();
