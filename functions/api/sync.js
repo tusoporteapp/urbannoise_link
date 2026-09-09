@@ -188,10 +188,13 @@ export async function onRequestPost(context) {
         // Invalidate Cloudflare Cache
         try {
             const cache = caches.default;
-            const cacheUrl = new URL(context.request.url);
-            cacheUrl.pathname = '/api/catalog';
-            cacheUrl.search = '';
-            await cache.delete(new Request(cacheUrl.toString()));
+            const storeIds = ["fee704a4-ff11-43ae-903e-d2f9cf0a9a25", "cf0674d5-6edd-426b-a5a6-b1f65bba6770"];
+            for (const sid of storeIds) {
+                const cUrl = new URL(context.request.url);
+                cUrl.pathname = '/api/catalog';
+                cUrl.search = `?store_id=${sid}`;
+                await cache.delete(new Request(cUrl.toString(), { method: 'GET' }));
+            }
         } catch(e) {}
 
         return new Response(JSON.stringify({

@@ -1786,16 +1786,18 @@
                 // Iniciar sincronización diferencial en segundo plano SIEMPRE
                 startBackgroundDifferentialSync();
 
-                // 2. Consulta en Tiempo Real INMEDIATA a Cloudflare (/api/catalog?fresh=true)
-                // Se ejecuta de inmediato sin esperas de 1.5s para actualizar la pantalla sin recargar
-                const freshUrl = "/api/catalog?fresh=true&t=" + Date.now();
-                let apiRes = await fetch(freshUrl, { cache: "no-store" }).catch(() => null);
+                // 2. Consulta en Tiempo Real INMEDIATA a Cloudflare Edge Micro-Cache (/api/catalog)
+                // Carga instantánea en ~20ms gracias a la memoria caché de borde
+                const catalogUrl = "/api/catalog";
+                let apiRes = await fetch(catalogUrl).catch(() => null);
                 
                 if (!apiRes || !apiRes.ok) {
-                    apiRes = await fetch("https://urbannoise.cc/api/catalog?fresh=true&t=" + Date.now(), { cache: "no-store" }).catch(() => null);
+                    apiRes = await fetch("https://urbannoise.cc/api/catalog").catch(() => null);
                 }
 
                 if (apiRes && apiRes.ok) {
+                    const etag = apiRes.headers.get('ETag');
+                    if (etag) currentCatalogEtag = etag;
                     const liveProducts = await apiRes.json();
                     if (Array.isArray(liveProducts) && liveProducts.length > 0) {
                         const hasOrderChanged = !products || products.length !== liveProducts.length || (products[0]?.id !== liveProducts[0]?.id);
@@ -2161,37 +2163,65 @@
         }
     
 
-        // --- 5-MINUTE SILENT DIFFERENTIAL SYNC ENGINE ---
+        // --- ADAPTIVE REAL-TIME DIFFERENTIAL SYNC ENGINE (EDGE-CACHED & ETAG COALESCING) ---
         let backgroundSyncInterval = null;
+        let lastSyncTimestamp = Date.now();
+        let isSyncInProgress = false;
+        let currentCatalogEtag = null;
 
         function startBackgroundDifferentialSync() {
             if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
-            // Sincronizar en segundo plano cada 30 segundos mientras la pestaña esté abierta
+            
+            // Sincronizar en segundo plano cada 30 segundos ÚNICAMENTE si la pestaña está visible
+            // Si el usuario minimiza la pestaña o bloquea el celular, el consumo pasa a CERO (0 peticiones)
             backgroundSyncInterval = setInterval(() => {
-                syncCatalogChangesSilently();
-            }, 30 * 1000);
-
-            // Sincronizar instantáneamente cuando el usuario regrese a la pestaña o abra la app en el celular
-            document.addEventListener('visibilitychange', () => {
-                if (document.visibilityState === 'visible') {
-                    console.log("⚡ [Focus] Pestaña activa: Comprobando catálogo en tiempo real...");
+                if (!document.hidden) {
                     syncCatalogChangesSilently();
                 }
-            });
-            window.addEventListener('focus', () => {
-                syncCatalogChangesSilently();
+            }, 30 * 1000);
+
+            // Sincronizar al volver a la pestaña tras estar inactivo (con cooldown de 15s para no saturar)
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    const now = Date.now();
+                    if (now - lastSyncTimestamp >= 15000) {
+                        console.log("⚡ [Focus] Pestaña activa: Comprobando catálogo en tiempo real...");
+                        syncCatalogChangesSilently();
+                    }
+                }
             });
         }
 
-        async function syncCatalogChangesSilently() {
+        async function syncCatalogChangesSilently(force = false) {
+            // No gastar peticiones si la pantalla está oculta o el celular bloqueado
+            if (document.hidden && !force) return;
+            const now = Date.now();
+            if (!force && (now - lastSyncTimestamp < 15000 || isSyncInProgress)) return;
+
+            lastSyncTimestamp = now;
+            isSyncInProgress = true;
+
             try {
-                const freshUrl = "/api/catalog?fresh=true&t=" + Date.now();
-                let apiRes = await fetch(freshUrl, { cache: "no-store" }).catch(() => null);
-                if (!apiRes || !apiRes.ok) {
-                    apiRes = await fetch("https://urbannoise.cc/api/catalog?fresh=true&t=" + Date.now(), { cache: "no-store" }).catch(() => null);
+                const url = force ? "/api/catalog?force=true" : "/api/catalog";
+                const headers = {};
+                if (!force && currentCatalogEtag) {
+                    headers['If-None-Match'] = currentCatalogEtag;
                 }
 
-                if (!apiRes || !apiRes.ok) return;
+                let apiRes = await fetch(url, { headers }).catch(() => null);
+                if (!apiRes || (!apiRes.ok && apiRes.status !== 304)) {
+                    apiRes = await fetch("https://urbannoise.cc" + url, { headers }).catch(() => null);
+                }
+
+                if (!apiRes) return;
+
+                // 304 Not Modified: El catálogo y el stock están exactamente iguales, 0 bytes transferidos
+                if (apiRes.status === 304) return;
+                if (!apiRes.ok) return;
+
+                const newEtag = apiRes.headers.get('ETag');
+                if (newEtag) currentCatalogEtag = newEtag;
+
                 const freshProducts = await apiRes.json();
                 if (!Array.isArray(freshProducts) || freshProducts.length === 0) return;
 
@@ -2239,6 +2269,8 @@
                 }
             } catch (e) {
                 console.warn("Aviso en sincronización silenciosa:", e);
+            } finally {
+                isSyncInProgress = false;
             }
         }
 

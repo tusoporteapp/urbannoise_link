@@ -124,27 +124,41 @@ function classifyItemCategory(itemName, rawCat) {
 }
 
 export async function onRequestGet(context) {
-    const cacheUrl = new URL(context.request.url);
-    const isFresh = cacheUrl.searchParams.get('fresh') === 'true' || cacheUrl.searchParams.has('t');
-    const targetStoreId = cacheUrl.searchParams.get('store_id') || "fee704a4-ff11-43ae-903e-d2f9cf0a9a25";
+    const reqUrl = new URL(context.request.url);
+    const isForced = reqUrl.searchParams.get('force') === 'true';
+    const targetStoreId = reqUrl.searchParams.get('store_id') || "fee704a4-ff11-43ae-903e-d2f9cf0a9a25";
     
-    cacheUrl.searchParams.delete('t');
-    cacheUrl.searchParams.delete('_');
-    cacheUrl.searchParams.delete('fresh');
-    const cacheKey = new Request(cacheUrl.toString(), context.request);
+    // Canonical Cache Key (shared across all clients for this store)
+    const canonicalCacheUrl = new URL(context.request.url);
+    canonicalCacheUrl.pathname = '/api/catalog';
+    canonicalCacheUrl.search = `?store_id=${targetStoreId}`;
+    const cacheKey = new Request(canonicalCacheUrl.toString(), { method: 'GET' });
     const cache = caches.default;
 
-    if (!isFresh) {
+    // 1. Check Cloudflare Edge Micro-Cache (15-20 seconds coalescing across all users)
+    if (!isForced) {
         const cached = await cache.match(cacheKey);
-        if (cached) return cached;
+        if (cached) {
+            // Check ETag for 304 Not Modified (0 bytes transferred)
+            const clientEtag = context.request.headers.get('If-None-Match');
+            const cachedEtag = cached.headers.get('ETag');
+            if (clientEtag && cachedEtag && clientEtag === cachedEtag) {
+                return new Response(null, {
+                    status: 304,
+                    headers: cached.headers
+                });
+            }
+            return cached;
+        }
     }
 
     const corsHeaders = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers": "Content-Type, If-None-Match",
+        "Access-Control-Expose-Headers": "ETag",
         "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": isFresh ? "private, no-cache, no-store, must-revalidate" : "public, max-age=10, s-maxage=15, stale-while-revalidate=30"
+        "Cache-Control": isForced ? "private, no-cache, no-store, must-revalidate" : "public, max-age=15, s-maxage=20, stale-while-revalidate=40"
     };
 
     const API_KEY = getSecretKey(context.env);
@@ -314,13 +328,38 @@ export async function onRequestGet(context) {
             return timeB - timeA;
         });
 
+        // Compute fast unique dataset ETag
+        const totalItems = mappedProducts.length;
+        const totalStockSum = mappedProducts.reduce((acc, p) => acc + (p.variants || []).reduce((s, v) => s + Math.max(0, v.stock || 0), 0), 0);
+        const newestTs = mappedProducts[0]?.created_at || mappedProducts[0]?.updated_at || '';
+        const datasetEtag = `"${totalItems}-${totalStockSum}-${newestTs.replace(/[^0-9]/g, '')}"`;
+
+        // Check if client sent matching If-None-Match
+        const clientEtag = context.request.headers.get('If-None-Match');
+        if (!isForced && clientEtag && clientEtag === datasetEtag) {
+            return new Response(null, {
+                status: 304,
+                headers: {
+                    ...corsHeaders,
+                    "ETag": datasetEtag
+                }
+            });
+        }
+
+        const finalHeaders = {
+            ...corsHeaders,
+            "ETag": datasetEtag
+        };
+
         const response = new Response(JSON.stringify(mappedProducts), {
             status: 200,
-            headers: corsHeaders
+            headers: finalHeaders
         });
 
-        // Store in Cloudflare Edge Cache
-        context.waitUntil(cache.put(cacheKey, response.clone()));
+        // Store in Cloudflare Edge Cache for 15-20 seconds
+        if (!isForced) {
+            context.waitUntil(cache.put(cacheKey, response.clone()));
+        }
         return response;
 
     } catch (error) {
