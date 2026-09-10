@@ -12,16 +12,9 @@ function getAdminPin(env) {
 }
 
 function getCorsHeaders(request) {
-    const origin = request.headers.get("Origin") || "";
-    const allowed = [
-        "https://urbannoise.cc",
-        "https://www.urbannoise.cc",
-        "http://localhost",
-        "http://127.0.0.1"
-    ];
-    const isAllowed = allowed.some(o => origin === o || origin.startsWith(o + ":"));
+    const origin = request.headers.get("Origin") || "*";
     return {
-        "Access-Control-Allow-Origin": isAllowed ? origin : "https://urbannoise.cc",
+        "Access-Control-Allow-Origin": origin,
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Content-Type": "application/json; charset=utf-8"
@@ -160,11 +153,15 @@ export async function onRequestPost(context) {
             const colorOptionIdx = product.option1_name === 'Color' ? 1 : (product.option2_name === 'Color' ? 2 : (product.option3_name === 'Color' ? 3 : -1));
 
             const variant = product.variants ? product.variants.find(v => {
+                if (orderItem.variant_id && (v.variant_id === orderItem.variant_id || v.id === orderItem.variant_id)) {
+                    return true;
+                }
                 const s = sizeOptionIdx === 1 ? v.option1_value : (sizeOptionIdx === 2 ? v.option2_value : (sizeOptionIdx === 3 ? v.option3_value : 'U'));
                 const c = colorOptionIdx === 1 ? v.option1_value : (colorOptionIdx === 2 ? v.option2_value : (colorOptionIdx === 3 ? v.option3_value : null));
                 
                 const matchSize = (s || '').toString().trim().toLowerCase() === (size || 'U').toString().trim().toLowerCase();
-                const matchColor = !color || (c || '').toString().trim().toLowerCase() === (color || '').toString().trim().toLowerCase();
+                const isNoColor = !color || color === 'U' || color === 'null' || color === 'undefined' || color === '';
+                const matchColor = isNoColor || (c || '').toString().trim().toLowerCase() === (color || '').toString().trim().toLowerCase();
                 return matchSize && matchColor;
             }) : null;
 
@@ -239,6 +236,20 @@ export async function onRequestPost(context) {
         }
 
         const postData = await postRes.json();
+
+        // 6. Purge Cloudflare Edge Cache so all clients immediately see updated stock
+        try {
+            const cache = caches.default;
+            const origin = new URL(context.request.url).origin;
+            const storeIds = ["fee704a4-ff11-43ae-903e-d2f9cf0a9a25", "cf0674d5-6edd-426b-a5a6-b1f65bba6770"];
+            for (const sId of storeIds) {
+                const purgeUrl = new URL(`${origin}/api/catalog?store_id=${sId}`);
+                context.waitUntil(cache.delete(new Request(purgeUrl.toString(), { method: 'GET' })));
+            }
+            context.waitUntil(cache.delete(new Request(`${origin}/api/catalog`, { method: 'GET' })));
+        } catch (cErr) {
+            console.warn("Could not purge edge cache on dispatch:", cErr);
+        }
 
         return new Response(JSON.stringify({
             success: true,
