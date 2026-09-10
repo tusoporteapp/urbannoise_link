@@ -4622,6 +4622,8 @@
         let sharedOrderList = [];
         let currentSharedOrderId = null;
         let isSharedOrderDispatched = false;
+        let sharedOrderReceiptNumber = "";
+        let sharedOrderCheckPromise = null;
 
         // === VISOR DE DISEÑO EN ALTA DEFINICIÓN (ZOOM) ===
         function openDesignPreviewModal(imgUrl, title) {
@@ -4649,6 +4651,9 @@
 
         function renderDispatchedOrderView(receiptNum) {
             isSharedOrderDispatched = true;
+            if (receiptNum) sharedOrderReceiptNumber = receiptNum;
+            const finalReceipt = receiptNum || sharedOrderReceiptNumber || "0001";
+
             const itemsContainer = document.getElementById('shared-order-items');
             const dispatchedContainer = document.getElementById('shared-order-dispatched-view');
             const footer = document.querySelector('#shared-order-content .pt-2.border-t');
@@ -4665,8 +4670,8 @@
             if (adminBadge) adminBadge.classList.add('hidden');
             if (unlockPanel) unlockPanel.classList.add('hidden');
 
-            if (receiptNumEl && receiptNum) {
-                receiptNumEl.textContent = '#' + receiptNum;
+            if (receiptNumEl) {
+                receiptNumEl.textContent = finalReceipt.startsWith('#') ? finalReceipt : '#' + finalReceipt;
             }
 
             if (dispatchedContainer) {
@@ -4697,42 +4702,27 @@
                 } catch(e) {}
             }
             if (urlParams.has('order')) {
-                // Verificar si ya fue despachado
-                // Verificar si ya fue despachado consultando por oid y por prendas
+                const orderData = urlParams.get('order');
+                if (!orderData) return;
+
                 const checkOid = currentSharedOrderId || '';
-                const cachedStatus = checkOid ? localStorage.getItem('un_dispatched_' + checkOid) : null;
+                const storageKey = 'un_disp_' + (checkOid || orderData.substring(0, 40));
+                
+                // 1. Revisar caché inmediato de despacho
+                const cachedStatus = localStorage.getItem(storageKey);
                 if (cachedStatus) {
                     try {
                         const cs = JSON.parse(cachedStatus);
-                        isSharedOrderDispatched = true;
-                        setTimeout(() => {
-                            renderDispatchedOrderView(cs.receipt_number);
-                        }, 400);
+                        if (cs && cs.dispatched) {
+                            isSharedOrderDispatched = true;
+                            sharedOrderReceiptNumber = cs.receipt_number || '';
+                        }
                     } catch(e) {}
                 }
 
-                let statusQuery = '/api/order_status?';
-                if (checkOid) statusQuery += 'oid=' + encodeURIComponent(checkOid) + '&';
-                if (orderData) statusQuery += 'order=' + encodeURIComponent(orderData);
-
-                fetch(statusQuery)
-                    .then(r => r.json())
-                    .then(data => {
-                        if (data && data.dispatched) {
-                            isSharedOrderDispatched = true;
-                            if (checkOid) {
-                                localStorage.setItem('un_dispatched_' + checkOid, JSON.stringify(data));
-                            }
-                            renderDispatchedOrderView(data.receipt_number);
-                        }
-                    })
-                    .catch(e => console.warn('Order status check error:', e));
-                const orderData = urlParams.get('order');
-                if (!orderData) return;
-                
+                // 2. Parsear prendas del enlace
                 try {
                     let parsedItems = [];
-                    // Soporte para base64 JSON si fue codificado
                     if (!orderData.includes(':') && !orderData.includes('-') && orderData.length > 20) {
                         try {
                             const decodedJson = decodeURIComponent(escape(atob(decodeURIComponent(orderData))));
@@ -4752,7 +4742,6 @@
                     if (parsedItems.length === 0) {
                         const items = orderData.split(',');
                         parsedItems = items.map(str => {
-                            // Supports colon format: "id:size:color:qty" or legacy dash format
                             if (str.includes(':')) {
                                 const parts = str.split(':');
                                 const id = parts[0];
@@ -4775,11 +4764,42 @@
                     }
                     
                     sharedOrderList = parsedItems;
-                    if (sharedOrderList.length > 0) {
-                        setTimeout(openSharedOrderModal, 400);
-                    }
                 } catch(e) {
                     console.error("Error parsing shared order parameter:", e);
+                }
+
+                // 3. Consultar estado en servidor Cloudflare / Loyverse
+                let statusQuery = '/api/order_status?';
+                if (checkOid) statusQuery += 'oid=' + encodeURIComponent(checkOid) + '&';
+                if (orderData) statusQuery += 'order=' + encodeURIComponent(orderData);
+
+                const statusCheckPromise = fetch(statusQuery)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data && data.dispatched) {
+                            isSharedOrderDispatched = true;
+                            sharedOrderReceiptNumber = data.receipt_number || '';
+                            try { localStorage.setItem(storageKey, JSON.stringify(data)); } catch(e) {}
+                            renderDispatchedOrderView(sharedOrderReceiptNumber);
+                        }
+                        return data;
+                    })
+                    .catch(e => {
+                        console.warn('Order status check error:', e);
+                        return null;
+                    });
+
+                // 4. Abrir modal elegantemente sin flashear prendas si ya fue despachado
+                if (isSharedOrderDispatched) {
+                    setTimeout(() => openSharedOrderModal(), 150);
+                } else {
+                    // Esperamos máximo 450ms al endpoint de despacho antes de abrir
+                    Promise.race([
+                        statusCheckPromise,
+                        new Promise(resolve => setTimeout(resolve, 450))
+                    ]).finally(() => {
+                        openSharedOrderModal();
+                    });
                 }
             }
         }
@@ -4789,22 +4809,21 @@
             const content = document.getElementById('shared-order-content');
             if (!modal || !content) return;
 
-            if (isAdminAuthenticated) {
-                activateAdminOrderMode();
+            if (isSharedOrderDispatched) {
+                renderDispatchedOrderView(sharedOrderReceiptNumber);
             } else {
-                deactivateAdminOrderMode();
+                if (isAdminAuthenticated) {
+                    activateAdminOrderMode();
+                } else {
+                    deactivateAdminOrderMode();
+                }
+                renderSharedOrderItems();
             }
-
-            renderSharedOrderItems();
 
             modal.classList.remove('pointer-events-none');
             modal.style.opacity = '1';
             content.style.opacity = '1';
             content.style.transform = 'scale(1)';
-            
-            // Clean up url parameters from address bar cleanly
-            const cleanUrl = window.location.origin + window.location.pathname;
-            window.history.replaceState({}, document.title, cleanUrl);
         }
 
         function closeSharedOrderModal() {
@@ -4818,267 +4837,11 @@
             
             setTimeout(() => {
                 modal.classList.add('pointer-events-none');
+                try {
+                    const cleanUrl = window.location.origin + window.location.pathname;
+                    window.history.replaceState({}, document.title, cleanUrl);
+                } catch(e) {}
             }, 300);
-        }
-
-        
-        // === MODO ADMIN: PANTALLA COMPLETA NATIVA (POS / STUDIO) ===
-        let isAdminOrderEditingActive = false;
-
-        function openAdminOrderFullscreenView() {
-            isAdminAuthenticated = true;
-            isAdminOrderEditingActive = true;
-
-            const fsView = document.getElementById('admin-order-fullscreen-view');
-            if (!fsView) return;
-
-            // Cerrar el modal compartido del cliente si estaba abierto
-            closeSharedOrderModal();
-
-            // Bloquear scroll de la página de fondo para ergonomía móvil
-            document.body.classList.add('overflow-hidden');
-
-            // Renderizar las prendas actuales del pedido
-            renderAdminFullscreenOrderItems();
-
-            // Limpiar buscador integrado
-            clearAdminFullscreenSearch();
-
-            // Desplegar pantalla completa con animación suave
-            fsView.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                fsView.classList.remove('opacity-0');
-                fsView.classList.add('opacity-100');
-            });
-
-            if (window.lucide) lucide.createIcons();
-            showNotification("👑 Modo Administrador Pantalla Completa Activo");
-        }
-
-        function closeAdminOrderFullscreenView() {
-            const fsView = document.getElementById('admin-order-fullscreen-view');
-            if (!fsView) return;
-
-            fsView.classList.remove('opacity-100');
-            fsView.classList.add('opacity-0');
-
-            document.body.classList.remove('overflow-hidden');
-
-            setTimeout(() => {
-                fsView.classList.add('hidden');
-            }, 300);
-        }
-
-        function activateAdminOrderMode() {
-            openAdminOrderFullscreenView();
-        }
-
-        function deactivateAdminOrderMode() {
-            isAdminOrderEditingActive = false;
-            closeAdminOrderFullscreenView();
-        }
-
-        function renderAdminFullscreenOrderItems() {
-            const container = document.getElementById('admin-fs-items-container');
-            const headerCount = document.getElementById('admin-fs-header-count');
-            const footerCount = document.getElementById('admin-fs-footer-count');
-            const footerPrice = document.getElementById('admin-fs-footer-price');
-            if (!container) return;
-
-            let totalQty = 0;
-            let totalPrice = 0;
-
-            if (sharedOrderList.length === 0) {
-                container.innerHTML = `
-                    <div class="py-12 px-4 bg-zinc-900/50 border border-zinc-800 rounded-3xl text-center flex flex-col items-center justify-center gap-3 select-none">
-                        <div class="w-14 h-14 rounded-2xl bg-zinc-800 text-zinc-400 flex items-center justify-center">
-                            <i data-lucide="shopping-bag" class="w-7 h-7"></i>
-                        </div>
-                        <h4 class="text-sm font-black text-white uppercase">El pedido no tiene prendas</h4>
-                        <p class="text-xs text-zinc-400 max-w-xs">Usa el buscador de arriba para añadir prendas disponibles al pedido sin salir de esta pantalla.</p>
-                    </div>
-                `;
-                if (headerCount) headerCount.textContent = '0';
-                if (footerCount) footerCount.textContent = '0';
-                if (footerPrice) footerPrice.textContent = 'COP 0';
-                if (window.lucide) lucide.createIcons();
-                return;
-            }
-
-            let html = '';
-            sharedOrderList.forEach((item, index) => {
-                const product = products.find(p => p.id === String(item.id) || p.id === item.id);
-                const title = product ? product.title : (item.title || `Prenda #${item.id}`);
-                const image = product ? product.image : (item.image || 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png');
-                const price = product ? product.price : (item.price || 0);
-                const subtotal = price * item.qty;
-
-                totalQty += item.qty;
-                totalPrice += subtotal;
-
-                const subtotalFormatted = price === 0 ? 'Por Consultar' : formatCOP(subtotal);
-
-                // Verificación de stock en tiempo real con Loyverse
-                let stockBadge = '';
-                if (product && Array.isArray(product.variants)) {
-                    const v = product.variants.find(varItem => {
-                        if (item.variant_id && (varItem.id === item.variant_id || varItem.variant_id === item.variant_id)) return true;
-                        const matchSize = (varItem.size || 'U').toString().trim().toLowerCase() === (item.size || 'U').toString().trim().toLowerCase();
-                        const isNoColor = !item.color || item.color === 'U' || item.color === 'null' || item.color === 'undefined';
-                        const matchColor = isNoColor || (varItem.color || '').toString().trim().toLowerCase() === (item.color || '').toString().trim().toLowerCase();
-                        return matchSize && matchColor;
-                    });
-                    if (v) {
-                        const sVal = typeof v.stock === 'number' ? v.stock : 0;
-                        if (sVal <= 0) {
-                            stockBadge = `<span class="inline-flex items-center gap-1 text-[10px] font-black text-rose-400 bg-rose-500/15 border border-rose-500/30 px-2 py-0.5 rounded-lg"><i data-lucide="alert-circle" class="w-3 h-3 text-rose-400"></i> AGOTADO EN LOYVERSE (0 unds)</span>`;
-                        } else if (sVal < item.qty) {
-                            stockBadge = `<span class="inline-flex items-center gap-1 text-[10px] font-black text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-lg"><i data-lucide="alert-triangle" class="w-3 h-3 text-amber-300"></i> Stock Insuficiente (${sVal} unds)</span>`;
-                        } else {
-                            stockBadge = `<span class="inline-flex items-center gap-1 text-[10px] font-black text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-lg"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> En Stock: <b>${sVal}</b> unds</span>`;
-                        }
-                    }
-                }
-
-                html += `
-                <div class="bg-zinc-900/90 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-3 sm:p-3.5 rounded-2xl flex items-center justify-between gap-3 transition-all shadow-sm">
-                    <!-- Izquierda: Imagen y Datos de la Prenda -->
-                    <div class="flex items-center gap-3 min-w-0 flex-1">
-                        <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" onclick="openDesignPreviewModal('${image}', '${title.replace(/'/g, "\\'")}')" class="w-14 h-14 sm:w-16 sm:h-16 aspect-square object-cover rounded-xl bg-zinc-800 border border-zinc-700 shrink-0 cursor-zoom-in hover:scale-105 active:scale-95 transition-transform" loading="lazy" title="Toca para ver diseño grande" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                        <div class="min-w-0 flex-1">
-                            <h4 class="text-xs sm:text-sm font-black text-white leading-tight truncate">${title}</h4>
-                            <div class="flex flex-wrap items-center gap-1.5 mt-1">
-                                <span class="text-[10px] font-bold text-zinc-300 bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded-md">Talla: <b class="text-white">${item.size}</b></span>
-                                ${item.color ? `<span class="text-[10px] font-bold text-zinc-300 bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded-md">Color: <b class="text-white">${item.color}</b></span>` : ''}
-                                ${stockBadge}
-                            </div>
-                            <div class="mt-1 text-[10.5px] text-zinc-400">
-                                <span>${formatCOP(price)} c/u</span> · <span class="font-bold text-emerald-400">${subtotalFormatted}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Derecha: Botones Grandes Táctiles para Cantidades y Eliminar -->
-                    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                        <div class="flex items-center bg-zinc-800 border border-zinc-700 rounded-xl p-0.5 shadow-inner select-none">
-                            <button type="button" onclick="changeFullscreenItemQty(${index}, -1)" class="w-8 h-8 rounded-lg bg-zinc-700 hover:bg-zinc-600 text-white font-black text-sm flex items-center justify-center cursor-pointer active:scale-90 transition-all" title="Disminuir cantidad">-</button>
-                            <span class="w-7 sm:w-8 text-center text-xs sm:text-sm font-mono font-black text-white">${item.qty}</span>
-                            <button type="button" onclick="changeFullscreenItemQty(${index}, 1)" class="w-8 h-8 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm flex items-center justify-center cursor-pointer active:scale-90 transition-all" title="Aumentar cantidad">+</button>
-                        </div>
-                        <button type="button" onclick="deleteFullscreenOrderItem(${index})" class="w-8 h-8 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 flex items-center justify-center cursor-pointer active:scale-90 transition-all" title="Eliminar del pedido">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-                `;
-            });
-
-            container.innerHTML = html;
-            if (headerCount) headerCount.textContent = totalQty;
-            if (footerCount) footerCount.textContent = totalQty;
-            if (footerPrice) footerPrice.textContent = formatCOP(totalPrice);
-            if (window.lucide) lucide.createIcons();
-        }
-
-        function changeFullscreenItemQty(index, delta) {
-            if (!sharedOrderList[index]) return;
-            sharedOrderList[index].qty += delta;
-            if (sharedOrderList[index].qty <= 0) {
-                sharedOrderList.splice(index, 1);
-            }
-            renderAdminFullscreenOrderItems();
-            renderSharedOrderItems();
-        }
-
-        function deleteFullscreenOrderItem(index) {
-            if (!sharedOrderList[index]) return;
-            sharedOrderList.splice(index, 1);
-            renderAdminFullscreenOrderItems();
-            renderSharedOrderItems();
-            showNotification("🗑️ Prenda eliminada del pedido.");
-        }
-
-        function filterAdminFullscreenAddProducts() {
-            const input = document.getElementById('admin-fs-search-input');
-            const clearBtn = document.getElementById('admin-fs-search-clear');
-            const resultsContainer = document.getElementById('admin-fs-search-results');
-            if (!input || !resultsContainer) return;
-
-            const q = input.value.toLowerCase().trim();
-            if (clearBtn) {
-                if (q) clearBtn.classList.remove('hidden');
-                else clearBtn.classList.add('hidden');
-            }
-
-            if (!q) {
-                resultsContainer.classList.add('hidden');
-                resultsContainer.innerHTML = '';
-                return;
-            }
-
-            const filtered = (products || []).filter(p => {
-                const titleMatch = (p.title && p.title.toLowerCase().includes(q));
-                const catMatch = (p.category && p.category.toLowerCase().includes(q));
-                return titleMatch || catMatch;
-            });
-
-            if (filtered.length === 0) {
-                resultsContainer.classList.remove('hidden');
-                resultsContainer.innerHTML = `
-                    <div class="py-4 text-center text-xs text-zinc-400 font-bold">
-                        No se encontraron prendas con "${q}".
-                    </div>
-                `;
-                return;
-            }
-
-            let html = '';
-            filtered.slice(0, 15).forEach(p => {
-                const availableVariants = (p.variants || []).filter(v => (v.stock > 0 || v.inStock));
-                const allVariants = p.variants && p.variants.length > 0 ? p.variants : [{ size: 'U', color: null, stock: 1 }];
-                const variantsToDisplay = availableVariants.length > 0 ? availableVariants : allVariants;
-
-                html += `
-                <div class="flex items-center justify-between gap-2 p-2 bg-zinc-800/80 hover:bg-zinc-800 border border-zinc-700/60 rounded-xl transition-all">
-                    <img src="${getOptimizedImageUrl(p.image, 100, 75)}" alt="${p.title}" class="w-10 h-10 rounded-lg object-cover bg-zinc-700 shrink-0 border border-zinc-700" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-1">
-                            <h5 class="text-xs font-black text-white truncate">${p.title}</h5>
-                            <span class="text-xs font-black text-emerald-400 shrink-0">${formatCOP(p.price)}</span>
-                        </div>
-                        <div class="flex items-center gap-1.5 mt-1">
-                            <select id="fs-add-var-${p.id}" class="flex-1 text-[10.5px] font-bold bg-zinc-900 border border-zinc-700 text-white rounded-lg px-2 py-1 focus:outline-none focus:border-emerald-500 truncate">
-                                ${variantsToDisplay.map(v => {
-                                    const vSize = v.size || 'U';
-                                    const vColor = v.color ? ` · ${v.color}` : '';
-                                    const vStock = typeof v.stock === 'number' ? `(${v.stock} disp)` : '';
-                                    return `<option value="${v.id || v.variant_id || ''}" data-size="${vSize}" data-color="${v.color || ''}">Talla ${vSize}${vColor} ${vStock}</option>`;
-                                }).join('')}
-                            </select>
-                            <input type="number" id="fs-add-qty-${p.id}" value="1" min="1" max="99" class="w-10 text-center text-xs font-black bg-zinc-900 border border-zinc-700 text-white rounded-lg py-1 focus:outline-none focus:border-emerald-500" />
-                            <button type="button" onclick="executeFullscreenAddProduct('${p.id}')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-black uppercase tracking-wider active:scale-95 transition-all cursor-pointer shrink-0">
-                                ➕ Añadir
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                `;
-            });
-
-            resultsContainer.innerHTML = html;
-            resultsContainer.classList.remove('hidden');
-        }
-
-        function clearAdminFullscreenSearch() {
-            const input = document.getElementById('admin-fs-search-input');
-            const clearBtn = document.getElementById('admin-fs-search-clear');
-            const resultsContainer = document.getElementById('admin-fs-search-results');
-            if (input) input.value = '';
-            if (clearBtn) clearBtn.classList.add('hidden');
-            if (resultsContainer) {
-                resultsContainer.classList.add('hidden');
-                resultsContainer.innerHTML = '';
-            }
         }
 
         function executeFullscreenAddProduct(productId) {
