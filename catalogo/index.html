@@ -1127,7 +1127,7 @@
                 </div>
 
                 <!-- WhatsApp verification submit action -->
-                <button onclick="sendOrderToWhatsApp()" class="w-full text-center py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 cursor-pointer shadow-lg text-white bg-emerald-600 hover:bg-emerald-700" id="submit-list-btn" disabled>
+                <button onclick="openClientCheckoutModal()" class="w-full text-center py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 cursor-pointer shadow-lg text-white bg-emerald-600 hover:bg-emerald-700" id="submit-list-btn" disabled>
                     <i data-lucide="message-square-text" class="w-5 h-5"></i>
                     <span>Verificar Pedido por WhatsApp</span>
                 </button>
@@ -1358,7 +1358,7 @@
             <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-2.5 flex flex-col gap-1 shrink-0 text-xs">
                 <div class="flex justify-between items-center">
                     <span class="text-zinc-400 font-bold text-[11px]">Cliente / Origen:</span>
-                    <span class="font-black text-emerald-400 flex items-center gap-1 text-[11px]">
+                    <span id="payment-modal-customer-name" class="font-black text-emerald-400 flex items-center gap-1 text-[11px]">
                         <i data-lucide="message-circle" class="w-3 h-3 text-emerald-400"></i>
                         URBANNOISE WHATSAPP
                     </span>
@@ -1394,6 +1394,109 @@
                     Cancelar
                 </button>
             </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL FORMULARIO OBLIGATORIO DE CLIENTE (CHECKOUT WHATSAPP) -->
+    <div id="client-checkout-modal" class="fixed inset-0 z-[85] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md hidden opacity-0 pointer-events-none transition-all duration-300 select-none">
+        <div class="relative w-full max-w-sm sm:max-w-md bg-white border border-zinc-200 rounded-3xl p-4 sm:p-6 flex flex-col gap-3.5 shadow-2xl text-left text-zinc-900 max-h-[92vh] overflow-y-auto">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between pb-2 border-b border-zinc-100 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-2xl bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
+                        <i data-lucide="truck" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black uppercase text-zinc-950 tracking-tight leading-tight">Datos de Envío & Despacho</h3>
+                        <p class="text-[10.5px] text-zinc-500 font-medium">Requerido para procesar tu pedido mayorista</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeClientCheckoutModal()" class="w-7 h-7 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-400 hover:text-zinc-900 flex items-center justify-center cursor-pointer transition-all" aria-label="Cerrar">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Resumen Rápido -->
+            <div class="bg-zinc-50 border border-zinc-200/80 rounded-2xl p-2.5 flex items-center justify-between text-xs shrink-0">
+                <div class="flex items-center gap-1.5 text-zinc-600 font-bold text-[11px]">
+                    <i data-lucide="package" class="w-3.5 h-3.5 text-emerald-600"></i>
+                    <span id="checkout-modal-items-count">0 prendas seleccionadas</span>
+                </div>
+                <span id="checkout-modal-total-money" class="font-display font-black text-xs text-zinc-950">COP 0</span>
+            </div>
+
+            <!-- Formulario de Campos Obligatorios -->
+            <form id="client-checkout-form" onsubmit="event.preventDefault(); submitClientCheckout();" class="flex flex-col gap-2.5">
+                
+                <!-- Nombre Completo -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10.5px] font-black uppercase tracking-wider text-zinc-700 flex items-center gap-1">
+                        <span>👤 Nombre Completo</span>
+                        <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="text" id="checkout-cust-name" placeholder="Ej: Juan Carlos Pérez" autocomplete="name" required
+                           class="w-full px-3 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs font-semibold text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 outline-none transition-all">
+                </div>
+
+                <!-- Cédula o NIT -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10.5px] font-black uppercase tracking-wider text-zinc-700 flex items-center gap-1">
+                        <span>💳 Cédula de Ciudadanía / NIT</span>
+                        <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="text" id="checkout-cust-cedula" inputmode="numeric" placeholder="Ej: 1098765432" autocomplete="off" required
+                           class="w-full px-3 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs font-semibold text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 outline-none transition-all">
+                </div>
+
+                <!-- Teléfono Celular / WhatsApp -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10.5px] font-black uppercase tracking-wider text-zinc-700 flex items-center gap-1">
+                        <span>📱 Teléfono de Contacto (WhatsApp)</span>
+                        <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="tel" id="checkout-cust-phone" inputmode="tel" placeholder="Ej: 312 345 6789" autocomplete="tel" required
+                           class="w-full px-3 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs font-semibold text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 outline-none transition-all">
+                </div>
+
+                <!-- Ciudad / Municipio -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10.5px] font-black uppercase tracking-wider text-zinc-700 flex items-center gap-1">
+                        <span>🗺️ Ciudad / Municipio</span>
+                        <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="text" id="checkout-cust-city" placeholder="Ej: Bucaramanga, Santander" autocomplete="address-level2" required
+                           class="w-full px-3 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs font-semibold text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 outline-none transition-all">
+                </div>
+
+                <!-- Dirección de Entrega -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10.5px] font-black uppercase tracking-wider text-zinc-700 flex items-center gap-1">
+                        <span>📍 Dirección de Envío</span>
+                        <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="text" id="checkout-cust-address" placeholder="Ej: Calle 15 # 24 - 18, Barrio Centro" autocomplete="street-address" required
+                           class="w-full px-3 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs font-semibold text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 outline-none transition-all">
+                </div>
+
+                <!-- Feedback de Error -->
+                <div id="checkout-error-banner" class="hidden p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-[11px] font-bold text-rose-700 flex items-center gap-1.5">
+                    <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 text-rose-600"></i>
+                    <span id="checkout-error-text">Por favor completa todos los campos obligatorios.</span>
+                </div>
+
+                <!-- Botón de Envío -->
+                <div class="pt-2 shrink-0 flex flex-col gap-1.5">
+                    <button id="submit-checkout-btn" type="submit" class="w-full py-3.5 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white flex items-center justify-center gap-2 shadow-lg cursor-pointer transition-all">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>ENVIAR PEDIDO POR WHATSAPP</span>
+                    </button>
+                    <p class="text-[10px] text-zinc-400 text-center font-medium">
+                        🔒 Tus datos se registrarán en nuestro sistema oficial de despacho.
+                    </p>
+                </div>
+            </form>
 
         </div>
     </div>
@@ -4236,13 +4339,130 @@
             showNotification("Descuento removido");
         }
     
-        // WhatsApp Sender Logic (Grouped by Product)
+        // --- CLIENT CHECKOUT & WHATSAPP SENDER LOGIC ---
+        let currentSharedOrderCustomer = null;
+
         function sendOrderToWhatsApp() {
-            if (orderList.length === 0) return;
-            
+            openClientCheckoutModal();
+        }
+
+        function openClientCheckoutModal() {
+            if (!orderList || orderList.length === 0) {
+                showNotification("⚠️ Agrega al menos una prenda a tu lista de pedido.");
+                return;
+            }
+
+            const modal = document.getElementById('client-checkout-modal');
+            if (!modal) return;
+
+            // Actualizar resumen
+            let totalQty = 0;
+            let totalEstimate = 0;
+            orderList.forEach(item => {
+                totalQty += item.qty;
+                if (item.price > 1000) totalEstimate += item.price * item.qty;
+            });
+
+            const itemsCountEl = document.getElementById('checkout-modal-items-count');
+            const totalMoneyEl = document.getElementById('checkout-modal-total-money');
+            if (itemsCountEl) itemsCountEl.textContent = `${totalQty} prenda${totalQty !== 1 ? 's' : ''} seleccionadas`;
+            if (totalMoneyEl) totalMoneyEl.textContent = totalEstimate > 0 ? formatCOP(totalEstimate) : 'Por Consultar';
+
+            // Auto-llenar con datos guardados previamente
+            try {
+                const saved = localStorage.getItem('un_customer_profile');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.name) document.getElementById('checkout-cust-name').value = data.name;
+                    if (data.cedula) document.getElementById('checkout-cust-cedula').value = data.cedula;
+                    if (data.phone) document.getElementById('checkout-cust-phone').value = data.phone;
+                    if (data.city) document.getElementById('checkout-cust-city').value = data.city;
+                    if (data.address) document.getElementById('checkout-cust-address').value = data.address;
+                }
+            } catch(e) {}
+
+            const errBanner = document.getElementById('checkout-error-banner');
+            if (errBanner) errBanner.classList.add('hidden');
+
+            modal.classList.remove('hidden', 'pointer-events-none');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                if (window.lucide) lucide.createIcons();
+            }, 10);
+        }
+
+        function closeClientCheckoutModal() {
+            const modal = document.getElementById('client-checkout-modal');
+            if (!modal) return;
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        async function submitClientCheckout() {
+            const nameInput = document.getElementById('checkout-cust-name');
+            const cedulaInput = document.getElementById('checkout-cust-cedula');
+            const phoneInput = document.getElementById('checkout-cust-phone');
+            const cityInput = document.getElementById('checkout-cust-city');
+            const addressInput = document.getElementById('checkout-cust-address');
+            const errBanner = document.getElementById('checkout-error-banner');
+            const errText = document.getElementById('checkout-error-text');
+
+            const name = nameInput ? nameInput.value.trim() : '';
+            const cedula = cedulaInput ? cedulaInput.value.trim() : '';
+            const phone = phoneInput ? phoneInput.value.trim() : '';
+            const city = cityInput ? cityInput.value.trim() : '';
+            const address = addressInput ? addressInput.value.trim() : '';
+
+            if (!name || !cedula || !phone || !city || !address) {
+                if (errBanner) {
+                    errText.textContent = "Por favor completa todos los campos obligatorios (*).";
+                    errBanner.classList.remove('hidden');
+                }
+                if (!name && nameInput) nameInput.focus();
+                else if (!cedula && cedulaInput) cedulaInput.focus();
+                else if (!phone && phoneInput) phoneInput.focus();
+                else if (!city && cityInput) cityInput.focus();
+                else if (!address && addressInput) addressInput.focus();
+                return;
+            }
+
+            if (errBanner) errBanner.classList.add('hidden');
+
+            // Guardar perfil para compras futuras
+            const profile = { name, cedula, phone, city, address };
+            try {
+                localStorage.setItem('un_customer_profile', JSON.stringify(profile));
+            } catch(e) {}
+
+            const submitBtn = document.getElementById('submit-checkout-btn');
+            let originalBtnHtml = '';
+            if (submitBtn) {
+                originalBtnHtml = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Registrando y abriendo WhatsApp...</span>
+                `;
+            }
+
+            // Sincronizar en segundo plano con Loyverse POS
+            try {
+                fetch('/api/customer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(profile)
+                }).catch(err => console.warn('Loyverse Customer Sync Warning:', err));
+            } catch(e) {
+                console.warn('Loyverse Customer fetch err:', e);
+            }
+
+            // Generar Mensaje Ultra-Compacto de WhatsApp
             const wpNumber = "573108720491"; // Asesor
-            
-            // Group by product for ultra clean WhatsApp layout
+
+            // Agrupar prendas por producto para condensar en 1 línea por modelo
             const grouped = {};
             let totalQty = 0;
             let totalEstimate = 0;
@@ -4261,57 +4481,61 @@
                     grouped[item.id] = {
                         title: item.title,
                         price: item.price,
-                        variants: [],
-                        totalQty: 0,
-                        totalPrice: 0
+                        variants: []
                     };
                 }
                 grouped[item.id].variants.push(item);
-                grouped[item.id].totalQty += item.qty;
-                grouped[item.id].totalPrice += subtotal;
             });
 
-            let message = "Hola *Urban Noise* ⚡️,\n\nMe gustaría verificar la disponibilidad del siguiente listado de prendas de su catálogo mayorista:\n\n";
-            message += "📦 *DETALLE DEL PEDIDO:*\n";
-            message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-            
+            let message = "Hola *Urban Noise* ⚡️, envío mi pedido mayorista:\n\n";
+            message += "👤 *DATOS DE ENVÍO:*\n";
+            message += `• *Cliente:* ${name}\n`;
+            message += `• *C.C:* ${cedula}\n`;
+            message += `• *Ciudad:* ${city}\n`;
+            message += `• *Dirección:* ${address}\n`;
+            message += `• *Tel:* ${phone}\n\n`;
+
+            message += "📦 *PRENDAS SOLICITADAS:*\n";
             let i = 1;
             Object.values(grouped).forEach(g => {
-                message += `*${i}. ${g.title.toUpperCase()}*\n`;
-                g.variants.forEach(v => {
-                    const colorStr = v.color && v.color !== 'null' ? ` (${v.color})` : '';
-                    const subFormatted = v.price <= 1000 ? 'Consultar' : formatCOP(v.price * v.qty);
-                    message += `   ▫️ Talla *${v.size}*${colorStr} x*${v.qty}* unds = ${subFormatted}\n`;
-                });
-                const gSubFormatted = g.price <= 1000 ? 'Consultar' : formatCOP(g.totalPrice);
-                message += `   👉 _Total Prenda: ${g.totalQty} unds | ${gSubFormatted}_\n\n`;
+                const variantsText = g.variants.map(v => {
+                    const colorStr = v.color && v.color !== 'null' && v.color !== 'U' ? ` (${v.color})` : '';
+                    return `Talla *${v.size}*${colorStr} x*${v.qty}*`;
+                }).join(' | ');
+
+                message += `${i}. ${g.title.toUpperCase()} — ${variantsText}\n`;
                 i++;
             });
-            
-            message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-            message += `📊 *TOTAL PRENDAS:* ${totalQty} unidades\n`;
-            if (hasConsultarPrice) {
-                message += `💰 *VALOR ESTIMADO:* ${totalEstimate > 0 ? formatCOP(totalEstimate) + " + Consultar" : "Por Consultar"}\n\n`;
-            } else {
-                message += `💰 *VALOR TOTAL:* ${formatCOP(totalEstimate)} COP\n\n`;
-            }
-            
-            // Generate link to visualize this order with colors
+
+            message += "\n";
+            const totalFormatted = hasConsultarPrice 
+                ? (totalEstimate > 0 ? `${formatCOP(totalEstimate)} + Consultar` : "Por Consultar")
+                : `${formatCOP(totalEstimate)} COP`;
+
+            message += `📊 *TOTAL:* ${totalQty} unds | *${totalFormatted}*\n\n`;
+
+            // Enlace interactivo con prendas y datos del cliente codificados
             const baseUrl = window.location.origin + window.location.pathname;
             const orderParam = orderList.map(item => `${item.id}:${item.size}:${item.color || 'U'}:${item.qty}`).join(',');
-            const shareUrl = `${baseUrl}?order=${orderParam}`;
-            
-            message += `🔗 *Ver detalle y fotos del pedido aquí:*\n${shareUrl}\n\n`;
-            message += "⚡ *Nota:* Entiendo que el inventario es de alta rotación y la reserva de prendas se asegura con el pago confirmado. Quedo atento para transferir.";
-            
+            const custParam = encodeURIComponent(JSON.stringify({ n: name, c: cedula, p: phone, ci: city, a: address }));
+            const shareUrl = `${baseUrl}?order=${orderParam}&cust=${custParam}`;
+
+            message += `🔗 *Ver fotos y pedido en catálogo:*\n${shareUrl}`;
+
             const encodedText = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${wpNumber}?text=${encodedText}`;
-            
+
             showNotification("🗺️ Redireccionando a WhatsApp del asesor...");
-            
+
             setTimeout(() => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                    if (window.lucide) lucide.createIcons();
+                }
+                closeClientCheckoutModal();
                 window.open(whatsappUrl, '_blank');
-            }, 800);
+            }, 600);
         }
 
         // --- SHARED ORDER SYSTEM LOGIC ---
@@ -4319,6 +4543,12 @@
 
         function checkSharedOrder() {
             const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('cust')) {
+                try {
+                    const rawCust = urlParams.get('cust');
+                    currentSharedOrderCustomer = JSON.parse(decodeURIComponent(rawCust));
+                } catch(e) {}
+            }
             if (urlParams.has('order')) {
                 const orderData = urlParams.get('order');
                 if (!orderData) return;

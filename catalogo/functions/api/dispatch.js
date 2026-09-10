@@ -225,16 +225,20 @@ export async function onRequestPost(context) {
         // 5. Build and Send Official Sales Receipt to Loyverse (POST /v1.0/receipts)
         const selectedPaymentTypeId = body.payment_type_id || "d9037a50-284f-4ba9-a659-5eef8e5fb26b"; // Default NEQUI
         const selectedPaymentName = body.payment_name || "NEQUI";
-        const CUSTOMER_ID = "82dc9980-a758-4d82-8c6b-b72fa8c0d51c"; // URBANNOISE WHATSAPP
+        const DEFAULT_CUSTOMER_ID = "82dc9980-a758-4d82-8c6b-b72fa8c0d51c"; // URBANNOISE WHATSAPP
+        const activeCustomerId = body.customer_id || DEFAULT_CUSTOMER_ID;
+        const custName = body.customer_name ? body.customer_name.trim() : "";
+        const custCode = body.customer_code ? body.customer_code.trim() : "";
+        const receiptNote = custName ? `Cliente: ${custName}${custCode ? ` (CC: ${custCode})` : ''} | URBANNOISE WHATSAPP` : "URBANNOISE WHATSAPP";
 
         const nowIso = new Date().toISOString();
         const receiptPayload = {
             store_id: STORE_ID, // Noise Urban exclusiva
             order: `WA-${Date.now().toString().slice(-6)}`,
-            customer_id: CUSTOMER_ID,
+            customer_id: activeCustomerId,
             source: "URBANNOISE WHATSAPP",
             receipt_date: nowIso,
-            note: "URBANNOISE WHATSAPP",
+            note: receiptNote,
             line_items: receiptLineItems,
             payments: [
                 {
