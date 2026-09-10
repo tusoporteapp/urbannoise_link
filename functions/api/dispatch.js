@@ -131,12 +131,13 @@ export async function onRequestPost(context) {
             cursor = itemsData.cursor;
         } while (cursor);
 
-        // 4. Map and calculate inventory deductions
-        const updates = [];
+        // 4. Map and calculate receipt line items & inventory
+        const receiptLineItems = [];
         const logs = [];
+        let totalMoney = 0;
 
         for (const orderItem of items) {
-            const { id, size, color, qty } = orderItem;
+            const { id, size, color, qty, price } = orderItem;
             const quantityToDeduct = parseInt(qty, 10) || 1;
 
             const product = allItems.find(p => p.id === id);
@@ -176,16 +177,24 @@ export async function onRequestPost(context) {
                 continue;
             }
 
+            // Determine item price (variant price > product price > orderItem price > wholesale default)
+            const itemPrice = typeof variant.price === 'number' && variant.price > 0 
+                ? variant.price 
+                : (typeof product.price === 'number' && product.price > 0 ? product.price : (parseInt(price, 10) || 33000));
+
+            const lineTotal = itemPrice * quantityToDeduct;
+            totalMoney += lineTotal;
+
+            receiptLineItems.push({
+                variant_id: variant.variant_id,
+                quantity: quantityToDeduct,
+                price: itemPrice
+            });
+
             // Find current stock in Noise Urban store
             const stockRecord = allInventory.find(inv => inv.variant_id === variant.variant_id && inv.store_id === STORE_ID);
             const currentStock = stockRecord ? (stockRecord.in_stock || 0) : 0;
             const newStock = Math.max(0, currentStock - quantityToDeduct);
-
-            updates.push({
-                variant_id: variant.variant_id,
-                store_id: STORE_ID,
-                stock_after: newStock
-            });
 
             logs.push({
                 id: product.id,
@@ -194,16 +203,18 @@ export async function onRequestPost(context) {
                 size: size || 'Única',
                 color: color || null,
                 deductedQty: quantityToDeduct,
+                unitPrice: itemPrice,
+                lineTotal: lineTotal,
                 previousStock: currentStock,
                 newStock: newStock,
                 status: "ok"
             });
         }
 
-        if (updates.length === 0) {
+        if (receiptLineItems.length === 0) {
             return new Response(JSON.stringify({
                 success: false,
-                error: "No se encontraron prendas válidas para descontar inventario.",
+                error: "No se encontraron prendas válidas para crear el recibo en Loyverse.",
                 logs
             }), {
                 status: 400,
@@ -211,23 +222,43 @@ export async function onRequestPost(context) {
             });
         }
 
-        // 5. Send POST /v1.0/inventory to Loyverse API
-        const postRes = await fetch("https://api.loyverse.com/v1.0/inventory", {
+        // 5. Build and Send Official Sales Receipt to Loyverse (POST /v1.0/receipts)
+        const selectedPaymentTypeId = body.payment_type_id || "d9037a50-284f-4ba9-a659-5eef8e5fb26b"; // Default NEQUI
+        const selectedPaymentName = body.payment_name || "NEQUI";
+        const CUSTOMER_ID = "82dc9980-a758-4d82-8c6b-b72fa8c0d51c"; // URBANNOISE WHATSAPP
+
+        const nowIso = new Date().toISOString();
+        const receiptPayload = {
+            store_id: STORE_ID, // Noise Urban exclusiva
+            order: `WA-${Date.now().toString().slice(-6)}`,
+            customer_id: CUSTOMER_ID,
+            source: "URBANNOISE WHATSAPP",
+            receipt_date: nowIso,
+            note: "URBANNOISE WHATSAPP",
+            line_items: receiptLineItems,
+            payments: [
+                {
+                    payment_type_id: selectedPaymentTypeId,
+                    paid_at: nowIso,
+                    money_amount: totalMoney
+                }
+            ]
+        };
+
+        const receiptRes = await fetch("https://api.loyverse.com/v1.0/receipts", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${API_KEY}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                inventory_levels: updates
-            })
+            body: JSON.stringify(receiptPayload)
         });
 
-        if (!postRes.ok) {
-            const errBody = await postRes.text();
+        if (!receiptRes.ok) {
+            const errBody = await receiptRes.text();
             return new Response(JSON.stringify({
                 success: false,
-                error: `Error al aplicar descuento en Loyverse: ${errBody}`,
+                error: `Error al crear recibo oficial en Loyverse: ${errBody}`,
                 logs
             }), {
                 status: 502,
@@ -235,7 +266,7 @@ export async function onRequestPost(context) {
             });
         }
 
-        const postData = await postRes.json();
+        const receiptData = await receiptRes.json();
 
         // 6. Purge Cloudflare Edge Cache so all clients immediately see updated stock
         try {
@@ -253,9 +284,14 @@ export async function onRequestPost(context) {
 
         return new Response(JSON.stringify({
             success: true,
-            message: `¡Pedido despachado exitosamente! Se descontaron ${updates.length} prendas en la tienda Noise Urban.`,
+            message: `¡Recibo #${receiptData.receipt_number || ''} generado exitosamente en Loyverse para URBANNOISE WHATSAPP!`,
+            receipt_number: receiptData.receipt_number || "REGISTRADO",
+            total_money: totalMoney,
+            payment_name: selectedPaymentName,
+            customer_name: "URBANNOISE WHATSAPP",
+            store_name: "Noise Urban",
             logs,
-            loyverseResponse: postData,
+            receipt: receiptData,
             timestamp: new Date().toISOString()
         }), {
             status: 200,
