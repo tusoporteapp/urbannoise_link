@@ -1241,6 +1241,99 @@
         </div>
     </div>
 
+    <!-- PANTALLA COMPLETA NATIVA: GESTIÓN & DESPACHO DE PEDIDOS (MODO ADMIN POS) -->
+    <div id="admin-order-fullscreen-view" class="fixed inset-0 z-[70] bg-zinc-950 text-zinc-100 flex flex-col hidden opacity-0 transition-opacity duration-300 select-none">
+        
+        <!-- Header Superior Fijo -->
+        <header class="shrink-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 px-3 py-2.5 sm:px-5 sm:py-3 flex items-center justify-between gap-2 shadow-md">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <button type="button" onclick="closeAdminOrderFullscreenView()" class="px-2.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 flex items-center gap-1.5 font-bold text-xs cursor-pointer active:scale-95 transition-all" title="Volver al Catálogo">
+                    <i data-lucide="arrow-left" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Volver</span>
+                </button>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-xs sm:text-sm font-black uppercase tracking-tight text-white truncate">Gestión de Pedido</h2>
+                        <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center gap-1 shrink-0">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Admin Activo
+                        </span>
+                    </div>
+                    <p class="text-[10px] text-zinc-400 truncate">Verifica stock en vivo de Loyverse, ajusta cantidades o despacha</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <div class="px-2.5 py-1 rounded-xl bg-zinc-800/90 border border-zinc-700/80 text-right">
+                    <span class="text-[8.5px] text-zinc-400 uppercase font-bold block leading-none">Prendas</span>
+                    <b id="admin-fs-header-count" class="text-xs sm:text-sm font-mono text-emerald-400 font-black">0</b>
+                </div>
+                <button type="button" onclick="closeAdminOrderFullscreenView()" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Cerrar vista admin">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Buscador Rápido de Prendas Integrado (Sin salir de la pantalla) -->
+        <div class="shrink-0 bg-zinc-900/60 border-b border-zinc-800/80 px-3 py-2 sm:px-5 sm:py-2.5">
+            <div class="relative max-w-2xl mx-auto">
+                <input type="text" id="admin-fs-search-input" placeholder="🔍 Buscar prenda para añadir al pedido (nombre o categoría)..." oninput="filterAdminFullscreenAddProducts()" class="w-full text-xs sm:text-sm font-medium py-2.5 pl-9 pr-8 rounded-xl bg-zinc-800/90 border border-zinc-700 text-white placeholder-zinc-400 focus:outline-none focus:border-emerald-500 focus:bg-zinc-800 transition-all shadow-inner" />
+                <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3 top-3"></i>
+                <button type="button" id="admin-fs-search-clear" onclick="clearAdminFullscreenSearch()" class="hidden absolute right-2.5 top-2.5 w-5 h-5 rounded-full bg-zinc-700 text-zinc-300 hover:text-white flex items-center justify-center text-xs cursor-pointer">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Contenedor Desplegable de Resultados de Búsqueda (En la misma pantalla) -->
+            <div id="admin-fs-search-results" class="hidden mt-2 max-w-2xl mx-auto max-h-56 sm:max-h-64 overflow-y-auto bg-zinc-900 border border-zinc-700/80 rounded-2xl p-2 flex flex-col gap-1.5 shadow-2xl">
+                <!-- Garments matching search render here dynamically -->
+            </div>
+        </div>
+
+        <!-- Área Principal: Listado de Prendas del Pedido (Scroll Central Cómodo) -->
+        <main class="flex-1 overflow-y-auto min-h-0 p-3 sm:p-5 max-w-2xl w-full mx-auto flex flex-col gap-2.5">
+            <div class="flex justify-between items-center px-1">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-zinc-400">Prendas en el Pedido</span>
+                <span class="text-[10px] text-zinc-500 font-medium">Inventario en tiempo real</span>
+            </div>
+
+            <div id="admin-fs-items-container" class="flex flex-col gap-2">
+                <!-- Items render here -->
+            </div>
+        </main>
+
+        <!-- Barra Inferior Fija de Acciones (Sticky Footer) -->
+        <footer class="shrink-0 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800 px-3 py-2.5 sm:px-5 sm:py-3 shadow-2xl">
+            <div class="max-w-2xl mx-auto flex flex-col gap-2">
+                <!-- Resumen de totales -->
+                <div class="flex justify-between items-center px-1">
+                    <div>
+                        <span class="text-xs text-zinc-400 font-bold block">Total a Despachar:</span>
+                        <span class="text-[11px] text-emerald-400 font-bold"><b id="admin-fs-footer-count" class="font-mono text-white text-xs">0</b> prendas seleccionadas</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] text-zinc-400 font-bold uppercase block">Total Pedido</span>
+                        <span id="admin-fs-footer-price" class="text-base sm:text-xl font-display font-black text-white">COP 0</span>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <button id="admin-fs-dispatch-btn" type="button" onclick="executeOrderDispatch()" class="flex-1 text-center py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white">
+                        <i data-lucide="package-check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                        <span>⚡ Despachar y Descontar en Loyverse</span>
+                    </button>
+
+                    <button type="button" onclick="sendUpdatedOrderToWhatsApp()" class="py-2.5 sm:py-3 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-zinc-800 hover:bg-zinc-700 text-emerald-400 border border-emerald-500/40 active:scale-95 shadow-sm">
+                        <i data-lucide="message-square-share" class="w-4 h-4"></i>
+                        <span>Reenviar WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
     <!-- STICKY BOTTOM PROGRESS TRACKER -->
     <div id="sticky-progress-tracker" class="fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-sm px-4 z-40 hidden transition-all duration-300">
         <div onclick="openOrderList()" class="w-full bg-zinc-900 text-white rounded-2xl p-4 shadow-xl border border-zinc-800 flex flex-col gap-2 cursor-pointer hover:bg-black active:scale-95 transition-all select-none">
@@ -4258,51 +4351,304 @@
         }
 
         
-        // === MODO ADMIN: EDICIÓN MAESTRA DE PEDIDOS COMPARTIDOS ===
+        // === MODO ADMIN: PANTALLA COMPLETA NATIVA (POS / STUDIO) ===
         let isAdminOrderEditingActive = false;
 
-        function activateAdminOrderMode() {
+        function openAdminOrderFullscreenView() {
             isAdminAuthenticated = true;
             isAdminOrderEditingActive = true;
 
-            const lockBox = document.getElementById('admin-lock-box');
-            const unlockedPanel = document.getElementById('admin-unlocked-panel');
-            const adminAddBtn = document.getElementById('shared-order-admin-add-btn');
-            const adminBadge = document.getElementById('shared-order-admin-badge');
-            const title = document.getElementById('shared-order-title');
+            const fsView = document.getElementById('admin-order-fullscreen-view');
+            if (!fsView) return;
 
-            if (lockBox) lockBox.classList.add('hidden');
-            if (unlockedPanel) {
-                unlockedPanel.classList.remove('hidden');
-                unlockedPanel.classList.add('flex');
-            }
-            if (adminAddBtn) adminAddBtn.classList.remove('hidden');
-            if (adminBadge) adminBadge.classList.remove('hidden');
-            if (title) title.textContent = '👑 Gestión de Pedido (Admin)';
+            // Cerrar el modal compartido del cliente si estaba abierto
+            closeSharedOrderModal();
 
-            renderSharedOrderItems();
-            showNotification("🔓 Modo Administrador Activo: Edita cantidades, añade prendas o despacha.");
+            // Bloquear scroll de la página de fondo para ergonomía móvil
+            document.body.classList.add('overflow-hidden');
+
+            // Renderizar las prendas actuales del pedido
+            renderAdminFullscreenOrderItems();
+
+            // Limpiar buscador integrado
+            clearAdminFullscreenSearch();
+
+            // Desplegar pantalla completa con animación suave
+            fsView.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                fsView.classList.remove('opacity-0');
+                fsView.classList.add('opacity-100');
+            });
+
+            if (window.lucide) lucide.createIcons();
+            showNotification("👑 Modo Administrador Pantalla Completa Activo");
+        }
+
+        function closeAdminOrderFullscreenView() {
+            const fsView = document.getElementById('admin-order-fullscreen-view');
+            if (!fsView) return;
+
+            fsView.classList.remove('opacity-100');
+            fsView.classList.add('opacity-0');
+
+            document.body.classList.remove('overflow-hidden');
+
+            setTimeout(() => {
+                fsView.classList.add('hidden');
+            }, 300);
+        }
+
+        function activateAdminOrderMode() {
+            openAdminOrderFullscreenView();
         }
 
         function deactivateAdminOrderMode() {
             isAdminOrderEditingActive = false;
+            closeAdminOrderFullscreenView();
+        }
 
-            const lockBox = document.getElementById('admin-lock-box');
-            const unlockedPanel = document.getElementById('admin-unlocked-panel');
-            const adminAddBtn = document.getElementById('shared-order-admin-add-btn');
-            const adminBadge = document.getElementById('shared-order-admin-badge');
-            const title = document.getElementById('shared-order-title');
+        function renderAdminFullscreenOrderItems() {
+            const container = document.getElementById('admin-fs-items-container');
+            const headerCount = document.getElementById('admin-fs-header-count');
+            const footerCount = document.getElementById('admin-fs-footer-count');
+            const footerPrice = document.getElementById('admin-fs-footer-price');
+            if (!container) return;
 
-            if (lockBox) lockBox.classList.remove('hidden');
-            if (unlockedPanel) {
-                unlockedPanel.classList.add('hidden');
-                unlockedPanel.classList.remove('flex');
+            let totalQty = 0;
+            let totalPrice = 0;
+
+            if (sharedOrderList.length === 0) {
+                container.innerHTML = `
+                    <div class="py-12 px-4 bg-zinc-900/50 border border-zinc-800 rounded-3xl text-center flex flex-col items-center justify-center gap-3 select-none">
+                        <div class="w-14 h-14 rounded-2xl bg-zinc-800 text-zinc-400 flex items-center justify-center">
+                            <i data-lucide="shopping-bag" class="w-7 h-7"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-white uppercase">El pedido no tiene prendas</h4>
+                        <p class="text-xs text-zinc-400 max-w-xs">Usa el buscador de arriba para añadir prendas disponibles al pedido sin salir de esta pantalla.</p>
+                    </div>
+                `;
+                if (headerCount) headerCount.textContent = '0';
+                if (footerCount) footerCount.textContent = '0';
+                if (footerPrice) footerPrice.textContent = 'COP 0';
+                if (window.lucide) lucide.createIcons();
+                return;
             }
-            if (adminAddBtn) adminAddBtn.classList.add('hidden');
-            if (adminBadge) adminBadge.classList.add('hidden');
-            if (title) title.textContent = 'Pedido de Cliente';
 
+            let html = '';
+            sharedOrderList.forEach((item, index) => {
+                const product = products.find(p => p.id === String(item.id) || p.id === item.id);
+                const title = product ? product.title : (item.title || `Prenda #${item.id}`);
+                const image = product ? product.image : (item.image || 'https://urbannoise.cc/assets/img/logo/LOGO_WEB.png');
+                const price = product ? product.price : (item.price || 0);
+                const subtotal = price * item.qty;
+
+                totalQty += item.qty;
+                totalPrice += subtotal;
+
+                const subtotalFormatted = price === 0 ? 'Por Consultar' : formatCOP(subtotal);
+
+                // Verificación de stock en tiempo real con Loyverse
+                let stockBadge = '';
+                if (product && Array.isArray(product.variants)) {
+                    const v = product.variants.find(varItem => {
+                        if (item.variant_id && (varItem.id === item.variant_id || varItem.variant_id === item.variant_id)) return true;
+                        const matchSize = (varItem.size || 'U').toString().trim().toLowerCase() === (item.size || 'U').toString().trim().toLowerCase();
+                        const isNoColor = !item.color || item.color === 'U' || item.color === 'null' || item.color === 'undefined';
+                        const matchColor = isNoColor || (varItem.color || '').toString().trim().toLowerCase() === (item.color || '').toString().trim().toLowerCase();
+                        return matchSize && matchColor;
+                    });
+                    if (v) {
+                        const sVal = typeof v.stock === 'number' ? v.stock : 0;
+                        if (sVal <= 0) {
+                            stockBadge = `<span class="inline-flex items-center gap-1 text-[10px] font-black text-rose-400 bg-rose-500/15 border border-rose-500/30 px-2 py-0.5 rounded-lg"><i data-lucide="alert-circle" class="w-3 h-3 text-rose-400"></i> AGOTADO EN LOYVERSE (0 unds)</span>`;
+                        } else if (sVal < item.qty) {
+                            stockBadge = `<span class="inline-flex items-center gap-1 text-[10px] font-black text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-lg"><i data-lucide="alert-triangle" class="w-3 h-3 text-amber-300"></i> Stock Insuficiente (${sVal} unds)</span>`;
+                        } else {
+                            stockBadge = `<span class="inline-flex items-center gap-1 text-[10px] font-black text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-lg"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> En Stock: <b>${sVal}</b> unds</span>`;
+                        }
+                    }
+                }
+
+                html += `
+                <div class="bg-zinc-900/90 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-3 sm:p-3.5 rounded-2xl flex items-center justify-between gap-3 transition-all shadow-sm">
+                    <!-- Izquierda: Imagen y Datos de la Prenda -->
+                    <div class="flex items-center gap-3 min-w-0 flex-1">
+                        <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-14 h-14 sm:w-16 sm:h-16 aspect-square object-cover rounded-xl bg-zinc-800 border border-zinc-700 shrink-0" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <div class="min-w-0 flex-1">
+                            <h4 class="text-xs sm:text-sm font-black text-white leading-tight truncate">${title}</h4>
+                            <div class="flex flex-wrap items-center gap-1.5 mt-1">
+                                <span class="text-[10px] font-bold text-zinc-300 bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded-md">Talla: <b class="text-white">${item.size}</b></span>
+                                ${item.color ? `<span class="text-[10px] font-bold text-zinc-300 bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded-md">Color: <b class="text-white">${item.color}</b></span>` : ''}
+                                ${stockBadge}
+                            </div>
+                            <div class="mt-1 text-[10.5px] text-zinc-400">
+                                <span>${formatCOP(price)} c/u</span> · <span class="font-bold text-emerald-400">${subtotalFormatted}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Derecha: Botones Grandes Táctiles para Cantidades y Eliminar -->
+                    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                        <div class="flex items-center bg-zinc-800 border border-zinc-700 rounded-xl p-0.5 shadow-inner select-none">
+                            <button type="button" onclick="changeFullscreenItemQty(${index}, -1)" class="w-8 h-8 rounded-lg bg-zinc-700 hover:bg-zinc-600 text-white font-black text-sm flex items-center justify-center cursor-pointer active:scale-90 transition-all" title="Disminuir cantidad">-</button>
+                            <span class="w-7 sm:w-8 text-center text-xs sm:text-sm font-mono font-black text-white">${item.qty}</span>
+                            <button type="button" onclick="changeFullscreenItemQty(${index}, 1)" class="w-8 h-8 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm flex items-center justify-center cursor-pointer active:scale-90 transition-all" title="Aumentar cantidad">+</button>
+                        </div>
+                        <button type="button" onclick="deleteFullscreenOrderItem(${index})" class="w-8 h-8 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 flex items-center justify-center cursor-pointer active:scale-90 transition-all" title="Eliminar del pedido">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            if (headerCount) headerCount.textContent = totalQty;
+            if (footerCount) footerCount.textContent = totalQty;
+            if (footerPrice) footerPrice.textContent = formatCOP(totalPrice);
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function changeFullscreenItemQty(index, delta) {
+            if (!sharedOrderList[index]) return;
+            sharedOrderList[index].qty += delta;
+            if (sharedOrderList[index].qty <= 0) {
+                sharedOrderList.splice(index, 1);
+            }
+            renderAdminFullscreenOrderItems();
             renderSharedOrderItems();
+        }
+
+        function deleteFullscreenOrderItem(index) {
+            if (!sharedOrderList[index]) return;
+            sharedOrderList.splice(index, 1);
+            renderAdminFullscreenOrderItems();
+            renderSharedOrderItems();
+            showNotification("🗑️ Prenda eliminada del pedido.");
+        }
+
+        function filterAdminFullscreenAddProducts() {
+            const input = document.getElementById('admin-fs-search-input');
+            const clearBtn = document.getElementById('admin-fs-search-clear');
+            const resultsContainer = document.getElementById('admin-fs-search-results');
+            if (!input || !resultsContainer) return;
+
+            const q = input.value.toLowerCase().trim();
+            if (clearBtn) {
+                if (q) clearBtn.classList.remove('hidden');
+                else clearBtn.classList.add('hidden');
+            }
+
+            if (!q) {
+                resultsContainer.classList.add('hidden');
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            const filtered = (products || []).filter(p => {
+                const titleMatch = (p.title && p.title.toLowerCase().includes(q));
+                const catMatch = (p.category && p.category.toLowerCase().includes(q));
+                return titleMatch || catMatch;
+            });
+
+            if (filtered.length === 0) {
+                resultsContainer.classList.remove('hidden');
+                resultsContainer.innerHTML = `
+                    <div class="py-4 text-center text-xs text-zinc-400 font-bold">
+                        No se encontraron prendas con "${q}".
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            filtered.slice(0, 15).forEach(p => {
+                const availableVariants = (p.variants || []).filter(v => (v.stock > 0 || v.inStock));
+                const allVariants = p.variants && p.variants.length > 0 ? p.variants : [{ size: 'U', color: null, stock: 1 }];
+                const variantsToDisplay = availableVariants.length > 0 ? availableVariants : allVariants;
+
+                html += `
+                <div class="flex items-center justify-between gap-2 p-2 bg-zinc-800/80 hover:bg-zinc-800 border border-zinc-700/60 rounded-xl transition-all">
+                    <img src="${getOptimizedImageUrl(p.image, 100, 75)}" alt="${p.title}" class="w-10 h-10 rounded-lg object-cover bg-zinc-700 shrink-0 border border-zinc-700" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between gap-1">
+                            <h5 class="text-xs font-black text-white truncate">${p.title}</h5>
+                            <span class="text-xs font-black text-emerald-400 shrink-0">${formatCOP(p.price)}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 mt-1">
+                            <select id="fs-add-var-${p.id}" class="flex-1 text-[10.5px] font-bold bg-zinc-900 border border-zinc-700 text-white rounded-lg px-2 py-1 focus:outline-none focus:border-emerald-500 truncate">
+                                ${variantsToDisplay.map(v => {
+                                    const vSize = v.size || 'U';
+                                    const vColor = v.color ? ` · ${v.color}` : '';
+                                    const vStock = typeof v.stock === 'number' ? `(${v.stock} disp)` : '';
+                                    return `<option value="${v.id || v.variant_id || ''}" data-size="${vSize}" data-color="${v.color || ''}">Talla ${vSize}${vColor} ${vStock}</option>`;
+                                }).join('')}
+                            </select>
+                            <input type="number" id="fs-add-qty-${p.id}" value="1" min="1" max="99" class="w-10 text-center text-xs font-black bg-zinc-900 border border-zinc-700 text-white rounded-lg py-1 focus:outline-none focus:border-emerald-500" />
+                            <button type="button" onclick="executeFullscreenAddProduct('${p.id}')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-black uppercase tracking-wider active:scale-95 transition-all cursor-pointer shrink-0">
+                                ➕ Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+
+            resultsContainer.innerHTML = html;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function clearAdminFullscreenSearch() {
+            const input = document.getElementById('admin-fs-search-input');
+            const clearBtn = document.getElementById('admin-fs-search-clear');
+            const resultsContainer = document.getElementById('admin-fs-search-results');
+            if (input) input.value = '';
+            if (clearBtn) clearBtn.classList.add('hidden');
+            if (resultsContainer) {
+                resultsContainer.classList.add('hidden');
+                resultsContainer.innerHTML = '';
+            }
+        }
+
+        function executeFullscreenAddProduct(productId) {
+            const product = (products || []).find(p => p.id === productId);
+            if (!product) return;
+
+            const variantSelect = document.getElementById('fs-add-var-' + productId);
+            const qtyEl = document.getElementById('fs-add-qty-' + productId);
+            const qty = qtyEl ? Math.max(1, parseInt(qtyEl.value, 10) || 1) : 1;
+
+            let size = 'U';
+            let color = null;
+            let variantId = null;
+
+            if (variantSelect && variantSelect.selectedOptions && variantSelect.selectedOptions[0]) {
+                const opt = variantSelect.selectedOptions[0];
+                size = opt.getAttribute('data-size') || 'U';
+                color = opt.getAttribute('data-color') || null;
+                variantId = opt.value || null;
+            }
+
+            const existing = sharedOrderList.find(item => item.id === productId && item.size === size && (item.color || '') === (color || ''));
+            if (existing) {
+                existing.qty += qty;
+                if (variantId && !existing.variant_id) existing.variant_id = variantId;
+            } else {
+                sharedOrderList.push({
+                    id: productId,
+                    variant_id: variantId,
+                    title: product.title,
+                    image: product.image,
+                    price: product.price,
+                    size: size,
+                    color: color || null,
+                    qty: qty
+                });
+            }
+
+            renderAdminFullscreenOrderItems();
+            renderSharedOrderItems();
+            showNotification(`✅ Se añadió "${product.title}" (x${qty}) al pedido.`);
         }
 
         function renderSharedOrderItems() {
@@ -4894,16 +5240,26 @@ async function executeOrderDispatch() {
             }
             
             const dispatchBtn = document.getElementById('dispatch-action-btn');
-            if (dispatchBtn) {
-                dispatchBtn.disabled = true;
-                dispatchBtn.innerHTML = `
+            const fsDispatchBtn = document.getElementById('admin-fs-dispatch-btn');
+
+            const setDispatchLoading = (isLoading) => {
+                const loadingHtml = `
                     <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     <span>Descontando en Loyverse...</span>
                 `;
-            }
+                const normalHtml = `
+                    <i data-lucide="package-check" class="w-4 h-4"></i>
+                    <span>⚡ Despachar y Descontar en Loyverse</span>
+                `;
+                if (dispatchBtn) { dispatchBtn.disabled = isLoading; dispatchBtn.innerHTML = isLoading ? loadingHtml : normalHtml; }
+                if (fsDispatchBtn) { fsDispatchBtn.disabled = isLoading; fsDispatchBtn.innerHTML = isLoading ? loadingHtml : normalHtml; }
+                if (!isLoading && window.lucide) lucide.createIcons();
+            };
+
+            setDispatchLoading(true);
             
             try {
                 const response = await fetch('/api/dispatch', {
@@ -4919,10 +5275,16 @@ async function executeOrderDispatch() {
                 if (response.ok && data.success) {
                     showDispatchSuccessModal(data);
                     
+                    const successContent = `<span>✅ PEDIDO YA DESPACHADO</span>`;
                     if (dispatchBtn) {
                         dispatchBtn.disabled = true;
-                        dispatchBtn.className = "w-full text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider bg-zinc-300 text-zinc-600 cursor-not-allowed flex items-center justify-center gap-2";
-                        dispatchBtn.innerHTML = `<span>✅ PEDIDO YA DESPACHADO</span>`;
+                        dispatchBtn.className = "w-full text-center py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-zinc-300 text-zinc-600 cursor-not-allowed flex items-center justify-center gap-2";
+                        dispatchBtn.innerHTML = successContent;
+                    }
+                    if (fsDispatchBtn) {
+                        fsDispatchBtn.disabled = true;
+                        fsDispatchBtn.className = "flex-1 text-center py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider bg-zinc-800 text-zinc-400 border border-zinc-700 cursor-not-allowed flex items-center justify-center gap-2";
+                        fsDispatchBtn.innerHTML = successContent;
                     }
                     
                     if (data.logs) {
@@ -4939,30 +5301,18 @@ async function executeOrderDispatch() {
                             }
                         });
                         renderProductsGrid();
+                        renderAdminFullscreenOrderItems();
+                        renderSharedOrderItems();
                     }
                     
                 } else {
                     alert("Error al despachar pedido: " + (data.error || "No se pudo conectar con Loyverse"));
-                    if (dispatchBtn) {
-                        dispatchBtn.disabled = false;
-                        dispatchBtn.innerHTML = `
-                            <i data-lucide="package-check" class="w-4 h-4"></i>
-                            <span>⚡ Reintentar Despacho</span>
-                        `;
-                        lucide.createIcons();
-                    }
+                    setDispatchLoading(false);
                 }
             } catch (err) {
                 console.error("Dispatch Error:", err);
                 alert("Error de conexión al intentar despachar: " + err.message);
-                if (dispatchBtn) {
-                    dispatchBtn.disabled = false;
-                    dispatchBtn.innerHTML = `
-                        <i data-lucide="package-check" class="w-4 h-4"></i>
-                        <span>⚡ Reintentar Despacho</span>
-                    `;
-                    lucide.createIcons();
-                }
+                setDispatchLoading(false);
             }
         }
 
@@ -4996,7 +5346,7 @@ async function executeOrderDispatch() {
             }
 
             const modalHtml = `
-                <div id="dispatch-success-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300">
+                <div id="dispatch-success-overlay" class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-300">
                     <div class="w-full max-w-sm bg-white rounded-3xl p-6 flex flex-col gap-4 text-center shadow-2xl border border-zinc-200">
                         <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
                             <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -5352,7 +5702,7 @@ async function executeOrderDispatch() {
     </div>
 
     <!-- ADMIN PIN MODAL -->
-    <div id="admin-pin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0 select-none">
+    <div id="admin-pin-modal" class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0 select-none">
         <div class="w-full max-w-xs bg-white text-zinc-900 p-5 rounded-3xl border border-zinc-200 shadow-2xl flex flex-col gap-4 text-center relative">
             <div class="w-12 h-12 rounded-full bg-zinc-100 text-zinc-800 flex items-center justify-center mx-auto">
                 <i data-lucide="lock" class="w-6 h-6"></i>
@@ -5362,7 +5712,7 @@ async function executeOrderDispatch() {
                 <p id="admin-pin-desc" class="text-xs text-zinc-500 mt-0.5">Ingresa tu clave PIN para acceder a las funciones de administración:</p>
             </div>
             
-            <input type="password" id="admin-pin-input" maxlength="6" placeholder="PIN" class="w-full text-center text-xl font-mono tracking-widest py-3 px-4 rounded-xl border border-zinc-300 focus:outline-none focus:border-zinc-900 bg-zinc-50 font-bold" onkeyup="if(event.key==='Enter') verifyAdminPin()" />
+            <input type="password" id="admin-pin-input" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" maxlength="4" placeholder="••••" class="w-full text-center text-2xl font-mono tracking-[0.4em] py-3.5 px-4 rounded-2xl border-2 border-zinc-300 focus:outline-none focus:border-zinc-950 bg-zinc-50 font-black text-zinc-950 shadow-inner" oninput="if(this.value.length >= 4) verifyAdminPin()" onkeyup="if(event.key==='Enter') verifyAdminPin()" />
             
             <p id="admin-pin-error" class="text-xs font-bold text-red-600 hidden -mt-2">❌ Clave incorrecta. Inténtalo de nuevo.</p>
             
