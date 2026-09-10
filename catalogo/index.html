@@ -1163,6 +1163,49 @@
                 </div>
             </div>
 
+            <!-- Vista de Pedido Ya Despachado (Desactiva la lista de ítems) -->
+            <div id="shared-order-dispatched-view" class="hidden flex-col items-center justify-center text-center py-6 px-3 gap-3">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-lg border-2 border-emerald-200">
+                    <svg class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 inline-block mb-1">
+                        PEDIDO DESPACHADO
+                    </span>
+                    <h3 class="text-base sm:text-lg font-black uppercase text-zinc-950 tracking-tight">¡Gracias por tu compra!</h3>
+                    <p class="text-xs text-zinc-500 mt-1 max-w-xs mx-auto">
+                        Este pedido ya ha sido verificado, facturado y despachado con éxito por <b>Urban Noise</b>.
+                    </p>
+                </div>
+
+                <div class="w-full bg-zinc-50 border border-zinc-200 rounded-2xl p-3 text-left text-xs flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center">
+                        <span class="text-zinc-500 font-bold text-[11px]">Recibo Oficial:</span>
+                        <span id="dispatched-receipt-num" class="font-black text-emerald-700 font-mono text-[11px]">#REGISTRADO</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-zinc-500 font-bold text-[11px]">Canal / Vendedor:</span>
+                        <span class="font-bold text-zinc-900 text-[11px]">URBANNOISE WHATSAPP</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-zinc-500 font-bold text-[11px]">Tienda:</span>
+                        <span class="font-bold text-zinc-900 text-[11px]">Noise Urban</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-1 border-t border-zinc-200">
+                        <span class="text-zinc-500 font-bold text-[11px]">Estado:</span>
+                        <span class="font-black text-emerald-600 flex items-center gap-1 text-[11px]">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Despachado
+                        </span>
+                    </div>
+                </div>
+
+                <button type="button" onclick="closeSharedOrderModal()" class="w-full py-3.5 rounded-xl bg-zinc-950 hover:bg-black text-white text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer mt-1">
+                    Volver al Catálogo
+                </button>
+            </div>
+
             <!-- List items container (Scrollable Center, Max Screen Space) -->
             <div class="flex-1 overflow-y-auto min-h-0 py-1.5 flex flex-col gap-1.5 pr-0.5" id="shared-order-items">
                 <!-- Shared items render here -->
@@ -1499,7 +1542,37 @@
             </form>
 
         </div>
+    </div
+
+    <!-- MODAL VISOR DE DISEÑO EN ALTA DEFINICIÓN (ZOOM AL TOCAR LA FOTO) -->
+    <div id="design-preview-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md hidden opacity-0 pointer-events-none transition-all duration-300 select-none">
+        <div class="absolute inset-0 cursor-zoom-out" onclick="closeDesignPreviewModal()"></div>
+        <div class="relative max-w-xs sm:max-w-sm w-full flex flex-col items-center gap-2.5 z-10">
+            <div class="w-full flex items-center justify-between text-white px-1">
+                <div class="flex items-center gap-2 min-w-0">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </div>
+                    <h3 id="design-preview-title" class="text-xs sm:text-sm font-black uppercase tracking-tight truncate text-white">Diseño de Prenda</h3>
+                </div>
+                <button type="button" onclick="closeDesignPreviewModal()" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white flex items-center justify-center cursor-pointer transition-all active:scale-90" aria-label="Cerrar visor">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <div class="relative w-full aspect-square bg-zinc-950 rounded-3xl overflow-hidden shadow-2xl border border-zinc-800 flex items-center justify-center">
+                <img id="design-preview-img" src="" alt="Diseño de Prenda" class="w-full h-full object-contain transition-all duration-300" />
+                <span class="absolute bottom-3 right-3 text-[9px] font-black uppercase tracking-wider bg-black/80 backdrop-blur-md text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                    ⚡ Urban Noise
+                </span>
+            </div>
+
+            <p class="text-[11px] text-zinc-400 text-center font-medium">
+                Toca fuera o presiona la ✖️ para cerrar
+            </p>
+        </div>
     </div>
+>
 
     <!-- STICKY BOTTOM PROGRESS TRACKER -->
     <div id="sticky-progress-tracker" class="fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-sm px-4 z-40 hidden transition-all duration-300">
@@ -4524,7 +4597,8 @@
             const baseUrl = window.location.origin + window.location.pathname;
             const orderParam = orderList.map(item => `${item.id}:${item.size}:${item.color || 'U'}:${item.qty}`).join(',');
             const custParam = encodeURIComponent(JSON.stringify({ n: name, c: cedula, p: phone, ci: city, a: address, id: registeredCustomerId }));
-            const shareUrl = `${baseUrl}?order=${orderParam}&cust=${custParam}`;
+            const orderId = 'WA-' + Date.now().toString(36).toUpperCase();
+            const shareUrl = `${baseUrl}?order=${orderParam}&cust=${custParam}&oid=${orderId}`;
 
             message += `🔗 *Ver fotos y pedido en catálogo:*\n${shareUrl}`;
 
@@ -4546,9 +4620,61 @@
 
         // --- SHARED ORDER SYSTEM LOGIC ---
         let sharedOrderList = [];
+        let currentSharedOrderId = null;
+        let isSharedOrderDispatched = false;
+
+        // === VISOR DE DISEÑO EN ALTA DEFINICIÓN (ZOOM) ===
+        function openDesignPreviewModal(imgUrl, title) {
+            const modal = document.getElementById('design-preview-modal');
+            const imgEl = document.getElementById('design-preview-img');
+            const titleEl = document.getElementById('design-preview-title');
+            if (!modal || !imgEl) return;
+
+            imgEl.src = imgUrl;
+            if (titleEl) titleEl.textContent = title || 'Diseño de Prenda';
+
+            modal.classList.remove('hidden', 'pointer-events-none');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                if (window.lucide) lucide.createIcons();
+            }, 10);
+        }
+
+        function closeDesignPreviewModal() {
+            const modal = document.getElementById('design-preview-modal');
+            if (!modal) return;
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function renderDispatchedOrderView(receiptNum) {
+            const itemsContainer = document.getElementById('shared-order-items');
+            const dispatchedContainer = document.getElementById('shared-order-dispatched-view');
+            const footer = document.querySelector('#shared-order-content .pt-2.border-t');
+            const receiptNumEl = document.getElementById('dispatched-receipt-num');
+            const adminAddBtn = document.getElementById('shared-order-admin-add-btn');
+
+            if (itemsContainer) itemsContainer.classList.add('hidden');
+            if (footer) footer.classList.add('hidden');
+            if (adminAddBtn) adminAddBtn.classList.add('hidden');
+
+            if (receiptNumEl && receiptNum) {
+                receiptNumEl.textContent = '#' + receiptNum;
+            }
+
+            if (dispatchedContainer) {
+                dispatchedContainer.classList.remove('hidden');
+                dispatchedContainer.classList.add('flex');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
 
         function checkSharedOrder() {
             const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('oid')) {
+                currentSharedOrderId = urlParams.get('oid').trim();
+            }
             if (urlParams.has('cust')) {
                 try {
                     const rawCust = urlParams.get('cust');
@@ -4556,6 +4682,31 @@
                 } catch(e) {}
             }
             if (urlParams.has('order')) {
+                // Verificar si ya fue despachado
+                if (currentSharedOrderId) {
+                    const cachedStatus = localStorage.getItem('un_dispatched_' + currentSharedOrderId);
+                    if (cachedStatus) {
+                        try {
+                            const cs = JSON.parse(cachedStatus);
+                            isSharedOrderDispatched = true;
+                            setTimeout(() => {
+                                renderDispatchedOrderView(cs.receipt_number);
+                            }, 500);
+                        } catch(e) {}
+                    }
+
+                    // Consultar en segundo plano con Loyverse
+                    fetch('/api/order_status?oid=' + encodeURIComponent(currentSharedOrderId))
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.dispatched) {
+                                isSharedOrderDispatched = true;
+                                localStorage.setItem('un_dispatched_' + currentSharedOrderId, JSON.stringify(data));
+                                renderDispatchedOrderView(data.receipt_number);
+                            }
+                        })
+                        .catch(e => console.warn('Order status fetch warning:', e));
+                }
                 const orderData = urlParams.get('order');
                 if (!orderData) return;
                 
@@ -4773,7 +4924,7 @@
                 <div class="bg-zinc-900/90 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-3 sm:p-3.5 rounded-2xl flex items-center justify-between gap-3 transition-all shadow-sm">
                     <!-- Izquierda: Imagen y Datos de la Prenda -->
                     <div class="flex items-center gap-3 min-w-0 flex-1">
-                        <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-14 h-14 sm:w-16 sm:h-16 aspect-square object-cover rounded-xl bg-zinc-800 border border-zinc-700 shrink-0" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" onclick="openDesignPreviewModal('${image}', '${title.replace(/'/g, "\\'")}')" class="w-14 h-14 sm:w-16 sm:h-16 aspect-square object-cover rounded-xl bg-zinc-800 border border-zinc-700 shrink-0 cursor-zoom-in hover:scale-105 active:scale-95 transition-transform" loading="lazy" title="Toca para ver diseño grande" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
                         <div class="min-w-0 flex-1">
                             <h4 class="text-xs sm:text-sm font-black text-white leading-tight truncate">${title}</h4>
                             <div class="flex flex-wrap items-center gap-1.5 mt-1">
@@ -5015,7 +5166,7 @@
                     // Vista Interactiva MODO ADMIN (1 sola fila compacta ultra-eficiente)
                     html += `
                     <div class="flex items-center gap-2 p-1.5 sm:p-2 bg-emerald-50/40 hover:bg-emerald-50/70 border border-emerald-300/80 rounded-xl transition-all shadow-2xs text-left">
-                        <img src="${getOptimizedImageUrl(image, 120, 75)}" alt="${title}" class="w-10 h-10 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0 border border-zinc-200" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <img src="${getOptimizedImageUrl(image, 120, 75)}" alt="${title}" onclick="openDesignPreviewModal('${image}', '${title.replace(/'/g, "\\'")}')" class="w-10 h-10 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0 border border-zinc-200 cursor-zoom-in hover:scale-105 active:scale-95 transition-transform" loading="lazy" title="Toca para ver diseño grande" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center justify-between gap-1">
                                 <h4 class="text-[11px] font-black text-zinc-950 truncate leading-tight">${title}</h4>
@@ -5044,7 +5195,7 @@
                     // Vista Estándar del Cliente (1 sola fila compacta)
                     html += `
                     <div class="flex items-center gap-2 p-1.5 sm:p-2 bg-zinc-50 border border-zinc-200 rounded-xl text-left">
-                        <img src="${getOptimizedImageUrl(image, 120, 75)}" alt="${title}" class="w-10 h-10 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0 border border-zinc-200" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <img src="${getOptimizedImageUrl(image, 120, 75)}" alt="${title}" onclick="openDesignPreviewModal('${image}', '${title.replace(/'/g, "\\'")}')" class="w-10 h-10 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0 border border-zinc-200 cursor-zoom-in hover:scale-105 active:scale-95 transition-transform" loading="lazy" title="Toca para ver diseño grande" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
                         <div class="flex-1 min-w-0">
                             <h4 class="text-[11px] font-bold text-zinc-900 truncate leading-tight">${title}</h4>
                             <div class="flex items-center gap-1.5 mt-0.5">

@@ -262,12 +262,13 @@ export async function onRequestPost(context) {
 
         // Si no se encontró cliente particular, usar el ID del canal vendedor por defecto
         const finalReceiptCustomerId = realCustomerId || DEFAULT_SELLER_CUSTOMER_ID;
-        const receiptNote = `Venta Catálogo Mayorista | Vendedor: URBANNOISE WHATSAPP${custName ? ` | Cliente: ${custName}` : ''}${custCode ? ` (CC: ${custCode})` : ''}`;
+        const activeOrderId = (body.order_id || ('WA-' + Date.now().toString().slice(-6))).trim();
+        const receiptNote = `Venta Catálogo Mayorista | Vendedor: URBANNOISE WHATSAPP${custName ? ` | Cliente: ${custName}` : ''}${custCode ? ` (CC: ${custCode})` : ''} | OID: ${activeOrderId}`;
 
         const nowIso = new Date().toISOString();
         const receiptPayload = {
             store_id: STORE_ID, // Noise Urban exclusiva
-            order: `WA-${Date.now().toString().slice(-6)}`,
+            order: activeOrderId, // ID ÚNICO DEL PEDIDO COMPARTIDO
             customer_id: finalReceiptCustomerId, // CLIENTE REAL DE LA VENTA
             source: "URBANNOISE WHATSAPP", // VENDEDOR / CANAL OFICIAL
             receipt_date: nowIso,
