@@ -1137,130 +1137,105 @@
     </div>
 
     <!-- SHARED ORDER MODAL (Visualización de Pedido Compartido) -->
-    <div id="shared-order-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-500">
+    <div id="shared-order-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-xs opacity-0 pointer-events-none transition-all duration-300">
         <!-- Backdrop click triggers close -->
         <div class="absolute inset-0 cursor-default" onclick="closeSharedOrderModal()"></div>
         
-        <!-- Modal Container -->
-        <div class="relative w-full max-w-md bg-white border border-zinc-200 rounded-[32px] p-6 flex flex-col gap-4 max-h-[85vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300" id="shared-order-content">
+        <!-- Modal Container (Ultra-Compact Mobile Layout) -->
+        <div class="relative w-full max-w-sm sm:max-w-md bg-white border border-zinc-200 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col max-h-[92vh] overflow-hidden transform scale-95 opacity-0 transition-all duration-300 shadow-2xl select-none text-left" id="shared-order-content">
             
-            <!-- Header -->
-            <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="clipboard-list" class="w-5 h-5 text-emerald-600"></i>
-                    <h3 class="font-display font-black text-sm uppercase tracking-tight text-zinc-950" id="shared-order-title">Pedido de Cliente</h3>
-                    <span id="shared-order-admin-badge" class="hidden text-[9px] font-black uppercase tracking-wider bg-emerald-600 text-white px-2 py-0.5 rounded-full shadow-2xs">Modo Admin</span>
+            <!-- Compact Header -->
+            <div class="flex justify-between items-center pb-2 border-b border-zinc-200 shrink-0">
+                <div class="flex items-center gap-1.5 min-w-0">
+                    <i data-lucide="clipboard-list" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <h3 class="font-display font-black text-xs sm:text-sm uppercase tracking-tight text-zinc-950 truncate" id="shared-order-title">Pedido de Cliente</h3>
+                    <span id="shared-order-admin-badge" class="hidden text-[8.5px] font-black uppercase tracking-wider bg-emerald-600 text-white px-1.5 py-0.5 rounded-full shrink-0">Admin</span>
                 </div>
-                <button onclick="closeSharedOrderModal()" class="text-zinc-400 hover:text-black p-1.5 bg-zinc-100 rounded-full" aria-label="Cerrar">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <!-- Quick Add Button in Header (Visible in Admin Mode) -->
+                    <button id="shared-order-admin-add-btn" type="button" onclick="openAdminAddProductModal()" class="hidden px-2 py-1 rounded-lg font-black text-[10px] uppercase tracking-wider bg-zinc-950 hover:bg-black text-white flex items-center gap-1 cursor-pointer active:scale-95 shadow-2xs transition-all">
+                        <i data-lucide="plus" class="w-3 h-3 text-emerald-400"></i>
+                        <span>Añadir</span>
+                    </button>
+                    <button onclick="closeSharedOrderModal()" class="text-zinc-400 hover:text-black p-1 bg-zinc-100 hover:bg-zinc-200 rounded-full cursor-pointer transition-colors" aria-label="Cerrar">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Intro text -->
-            <p id="shared-order-intro" class="text-xs text-zinc-500 leading-normal">
-                Estás viendo una lista de pedido compartida por un cliente para verificar disponibilidad.
-            </p>
-
-            <!-- Admin Add Garment Button (visible only in admin mode) -->
-            <button id="shared-order-admin-add-btn" type="button" onclick="openAdminAddProductModal()" class="hidden w-full py-2.5 px-4 rounded-xl font-extrabold text-xs uppercase tracking-wider bg-zinc-950 hover:bg-black text-white flex items-center justify-center gap-2 cursor-pointer shadow-sm active:scale-95 transition-all">
-                <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-400"></i>
-                <span>➕ Añadir Prenda al Pedido</span>
-            </button>
-
-            <!-- List items container -->
-            <div class="flex-grow overflow-y-auto py-2 flex flex-col gap-3" id="shared-order-items">
+            <!-- List items container (Scrollable Center, Max Screen Space) -->
+            <div class="flex-1 overflow-y-auto min-h-0 py-1.5 flex flex-col gap-1.5 pr-0.5" id="shared-order-items">
                 <!-- Shared items render here -->
             </div>
 
-            <!-- Footer Calculations -->
-            <div class="pt-3 border-t border-zinc-200 flex flex-col gap-4">
-                <div class="flex flex-col gap-1.5">
-                    <div class="flex justify-between items-baseline text-xs text-zinc-500">
-                        <span>Prendas en total:</span>
-                        <span id="shared-items-count" class="font-mono font-bold text-zinc-950 text-sm">0</span>
-                    </div>
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-xs text-zinc-500 font-semibold">Valor Estimado:</span>
-                        <span id="shared-total-price" class="text-lg font-display font-black text-zinc-950">COP 0.00</span>
+            <!-- Compact Fixed Footer -->
+            <div class="pt-2 border-t border-zinc-200 shrink-0 flex flex-col gap-1.5 bg-white">
+                <!-- Summary Row -->
+                <div class="flex justify-between items-center px-1">
+                    <span class="text-[11px] text-zinc-500 font-bold">Total: <b id="shared-items-count" class="font-mono text-zinc-950">0</b> prendas</span>
+                    <span id="shared-total-price" class="text-sm sm:text-base font-display font-black text-zinc-950">COP 0.00</span>
+                </div>
+
+                <!-- Admin Mode Action Panel -->
+                <div id="admin-unlocked-panel" class="hidden flex-col gap-1.5">
+                    <button id="dispatch-action-btn" type="button" onclick="executeOrderDispatch()" class="w-full text-center py-2.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white">
+                        <i data-lucide="package-check" class="w-4 h-4"></i>
+                        <span>⚡ Despachar en Loyverse</span>
+                    </button>
+                    <div class="flex gap-1.5">
+                        <button type="button" onclick="sendUpdatedOrderToWhatsApp()" class="flex-1 py-1.5 px-2 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all flex items-center justify-center gap-1 cursor-pointer bg-white border border-emerald-300 hover:bg-emerald-50 text-emerald-800 active:scale-95 shadow-2xs">
+                            <i data-lucide="message-square-share" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            <span>Reenviar WhatsApp</span>
+                        </button>
+                        <button type="button" onclick="deactivateAdminOrderMode()" class="px-2.5 py-1.5 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all cursor-pointer border border-zinc-300 hover:bg-zinc-100 text-zinc-600 active:scale-95">
+                            Salir
+                        </button>
+                        <button onclick="closeSharedOrderModal()" class="px-2.5 py-1.5 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all cursor-pointer bg-zinc-100 hover:bg-zinc-200 text-zinc-700 active:scale-95">
+                            Cerrar
+                        </button>
                     </div>
                 </div>
 
-                <!-- Admin Dispatch Container -->
-                <div class="flex flex-col gap-2.5">
-                    <!-- Admin Unlock Button Trigger -->
-                    <div id="admin-lock-box">
-                        <button type="button" onclick="openAdminPinModal('order_admin')" class="w-full text-center py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-zinc-800 shadow-sm active:scale-95">
-                            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-                            <span>⚡ DESBLOQUEAR MODO ADMIN</span>
-                        </button>
-                    </div>
-
-                    <!-- Admin Unlocked Panel -->
-                    <div id="admin-unlocked-panel" class="hidden flex-col gap-2.5 bg-emerald-50/70 border border-emerald-300/80 rounded-2xl p-3.5 text-left">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-extrabold uppercase tracking-wide text-emerald-800 flex items-center gap-1.5">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-                                Modo Administrador Activo
-                            </span>
-                            <button type="button" onclick="deactivateAdminOrderMode()" class="text-[10px] text-zinc-500 hover:text-zinc-800 underline font-bold cursor-pointer">
-                                Salir de Admin
-                            </button>
-                        </div>
-                        <p class="text-[10.5px] text-zinc-600 leading-snug">
-                            Edita cantidades con <b>(-)</b> y <b>(+)</b>, elimina prendas o añade nuevas. Cuando el pedido esté confirmado, pulsa <b>Despachar</b> para descontar automáticamente de Loyverse.
-                        </p>
-                        <button id="dispatch-action-btn" type="button" onclick="executeOrderDispatch()" class="w-full text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white">
-                            <i data-lucide="package-check" class="w-4 h-4"></i>
-                            <span>⚡ Despachar y Descontar Stock en Loyverse</span>
-                        </button>
-
-                        <button type="button" onclick="sendUpdatedOrderToWhatsApp()" class="w-full text-center py-2.5 rounded-xl font-extrabold text-[11px] uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer bg-white border border-emerald-300 hover:bg-emerald-100 text-emerald-800 active:scale-95 shadow-2xs">
-                            <i data-lucide="message-square-share" class="w-4 h-4 text-emerald-600"></i>
-                            <span>💬 Compartir Pedido Actualizado por WhatsApp</span>
-                        </button>
-                    </div>
-
-                    <div class="flex gap-2.5">
-                        <!-- Import to active list -->
-                        <button onclick="importSharedOrder()" class="flex-1 text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer shadow-md bg-zinc-900 hover:bg-black text-white active:scale-95">
-                            <i data-lucide="import" class="w-4 h-4 text-emerald-400"></i>
-                            <span>Importar Lista</span>
-                        </button>
-                        <!-- Close -->
-                        <button onclick="closeSharedOrderModal()" class="px-4 text-center py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer border border-zinc-300 hover:bg-zinc-50 text-zinc-700 active:scale-95">
-                            <span>Cerrar</span>
-                        </button>
-                    </div>
+                <!-- Client Mode Action Panel (Default) -->
+                <div id="admin-lock-box" class="flex gap-1.5">
+                    <button type="button" onclick="openAdminPinModal('order_admin')" class="flex-1 text-center py-2 rounded-xl font-black text-[10.5px] uppercase tracking-wider transition-all flex items-center justify-center gap-1 cursor-pointer bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-zinc-800 shadow-2xs active:scale-95">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+                        <span>MODO ADMIN</span>
+                    </button>
+                    <button type="button" onclick="importSharedOrder()" class="flex-1 text-center py-2 rounded-xl font-black text-[10.5px] uppercase tracking-wider transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs bg-zinc-950 hover:bg-black text-white active:scale-95">
+                        <i data-lucide="import" class="w-3.5 h-3.5 text-emerald-400"></i>
+                        <span>Importar</span>
+                    </button>
+                    <button type="button" onclick="closeSharedOrderModal()" class="px-3 py-2 rounded-xl font-bold text-[10.5px] uppercase tracking-wider transition-all cursor-pointer border border-zinc-300 hover:bg-zinc-50 text-zinc-600 active:scale-95">
+                        Cerrar
+                    </button>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- ADMIN ADD PRODUCT TO SHARED ORDER MODAL -->
-    <div id="admin-add-product-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md hidden opacity-0 pointer-events-none transition-all duration-300">
-        <div class="relative w-full max-w-md bg-white border border-zinc-200 rounded-[32px] p-5 flex flex-col gap-3.5 max-h-[85vh] overflow-hidden shadow-2xl text-left">
-            <div class="flex items-center justify-between pb-2 border-b border-zinc-200">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-xl bg-zinc-950 text-white flex items-center justify-center">
-                        <i data-lucide="plus" class="w-4 h-4"></i>
+    <!-- ADMIN ADD PRODUCT TO SHARED ORDER MODAL (Compact Layout) -->
+    <div id="admin-add-product-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs hidden opacity-0 pointer-events-none transition-all duration-200">
+        <div class="relative w-full max-w-sm sm:max-w-md bg-white border border-zinc-200 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col gap-2.5 max-h-[88vh] overflow-hidden shadow-2xl text-left">
+            <div class="flex items-center justify-between pb-2 border-b border-zinc-200 shrink-0">
+                <div class="flex items-center gap-1.5">
+                    <div class="w-6 h-6 rounded-lg bg-zinc-950 text-white flex items-center justify-center">
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
                     </div>
-                    <div>
-                        <h3 class="text-sm font-black uppercase text-zinc-950">Añadir Prenda al Pedido</h3>
-                        <p class="text-[10px] text-zinc-500 font-semibold">Selecciona talla/color disponible en tienda</p>
-                    </div>
+                    <h3 class="text-xs font-black uppercase text-zinc-950">Añadir Prenda al Pedido</h3>
                 </div>
-                <button type="button" onclick="closeAdminAddProductModal()" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 flex items-center justify-center cursor-pointer">
-                    <i data-lucide="x" class="w-4 h-4"></i>
+                <button type="button" onclick="closeAdminAddProductModal()" class="w-6 h-6 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 flex items-center justify-center cursor-pointer">
+                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
                 </button>
             </div>
 
-            <div class="relative">
-                <input type="text" id="admin-product-search-input" placeholder="Buscar por nombre o categoría..." oninput="filterAdminProductsList()" class="w-full text-xs font-bold py-2.5 pl-9 pr-3 rounded-xl border border-zinc-300 bg-zinc-50 focus:bg-white focus:border-zinc-900 focus:outline-none" />
-                <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3 top-3"></i>
+            <div class="relative shrink-0">
+                <input type="text" id="admin-product-search-input" placeholder="Buscar prenda por nombre..." oninput="filterAdminProductsList()" class="w-full text-xs font-bold py-1.5 pl-8 pr-2.5 rounded-xl border border-zinc-300 bg-zinc-50 focus:bg-white focus:border-zinc-900 focus:outline-none" />
+                <i data-lucide="search" class="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2"></i>
             </div>
 
-            <div id="admin-products-picker-list" class="flex-grow overflow-y-auto max-h-[48vh] flex flex-col gap-2 pr-1">
+            <div id="admin-products-picker-list" class="flex-1 overflow-y-auto min-h-0 flex flex-col gap-1.5 pr-0.5">
                 <!-- Garments list renders here -->
             </div>
         </div>
@@ -4381,58 +4356,58 @@
                     if (v) {
                         const sVal = typeof v.stock === 'number' ? v.stock : 0;
                         if (sVal <= 0) {
-                            stockBadge = `<span class="text-[10px] font-black text-rose-700 bg-rose-100 border border-rose-300 px-2 py-0.5 rounded-md flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3 text-rose-600"></i> AGOTADO EN LOYVERSE (0 unds)</span>`;
+                            stockBadge = `<span class="text-[9px] font-black text-rose-700 bg-rose-100 border border-rose-300 px-1 py-0.2 rounded flex items-center gap-0.5 shrink-0"><i data-lucide="alert-circle" class="w-2.5 h-2.5 text-rose-600"></i> Agotado (0)</span>`;
                         } else if (sVal < item.qty) {
-                            stockBadge = `<span class="text-[10px] font-black text-amber-800 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-md flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3 text-amber-600"></i> Insuficiente (Stock: ${sVal})</span>`;
+                            stockBadge = `<span class="text-[9px] font-black text-amber-800 bg-amber-100 border border-amber-300 px-1 py-0.2 rounded flex items-center gap-0.5 shrink-0"><i data-lucide="alert-triangle" class="w-2.5 h-2.5 text-amber-600"></i> Stock: ${sVal}</span>`;
                         } else {
-                            stockBadge = `<span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-md flex items-center gap-1"><i data-lucide="check" class="w-3 h-3 text-emerald-600"></i> Stock: <b>${sVal}</b> unds</span>`;
+                            stockBadge = `<span class="text-[9px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-1 py-0.2 rounded flex items-center gap-0.5 shrink-0"><i data-lucide="check" class="w-2.5 h-2.5 text-emerald-600"></i> Stock: ${sVal}</span>`;
                         }
                     }
                 }
                 
                 if (isAdminOrderEditingActive) {
-                    // Vista Interactiva MODO ADMIN (Editar cantidades, tallas, eliminar)
+                    // Vista Interactiva MODO ADMIN (1 sola fila compacta ultra-eficiente)
                     html += `
-                    <div class="flex flex-col gap-2.5 bg-emerald-50/40 border border-emerald-300/80 p-3.5 rounded-2xl transition-all shadow-xs text-left">
-                        <div class="flex gap-3 items-center">
-                            <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-14 h-14 aspect-square object-cover rounded-xl bg-zinc-200 shrink-0 border border-zinc-200" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                            <div class="flex-grow min-w-0">
-                                <h4 class="text-xs font-black text-zinc-950 leading-snug line-clamp-1">${title}</h4>
-                                <div class="flex flex-wrap items-center gap-1.5 mt-1">
-                                    <span class="text-[10.5px] font-bold text-zinc-700 bg-white border border-zinc-200 px-2 py-0.5 rounded-md shadow-2xs">Talla: <b class="text-zinc-950">${item.size}</b></span>
-                                    ${item.color ? `<span class="text-[10.5px] font-bold text-zinc-700 bg-white border border-zinc-200 px-2 py-0.5 rounded-md shadow-2xs">Color: <b class="text-zinc-950">${item.color}</b></span>` : ''}
-                                </div>
-                                ${stockBadge ? `<div class="mt-1">${stockBadge}</div>` : ''}
+                    <div class="flex items-center gap-2 p-1.5 sm:p-2 bg-emerald-50/40 hover:bg-emerald-50/70 border border-emerald-300/80 rounded-xl transition-all shadow-2xs text-left">
+                        <img src="${getOptimizedImageUrl(image, 120, 75)}" alt="${title}" class="w-10 h-10 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0 border border-zinc-200" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-1">
+                                <h4 class="text-[11px] font-black text-zinc-950 truncate leading-tight">${title}</h4>
+                                <span class="text-[11px] font-black text-zinc-950 shrink-0">${subtotalFormatted}</span>
                             </div>
-                            <button type="button" onclick="deleteSharedOrderItem(${index})" class="w-8 h-8 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0 cursor-pointer active:scale-90 transition-all ml-1" title="Eliminar Prenda del Pedido">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
+                            <div class="flex items-center gap-1 mt-0.5 flex-wrap">
+                                <span class="text-[9px] font-bold text-zinc-700 bg-white border border-zinc-200 px-1 py-0.2 rounded shadow-2xs">${item.size}${item.color ? ` · ${item.color}` : ''}</span>
+                                ${stockBadge}
+                            </div>
                         </div>
 
-                        <div class="flex items-center justify-between pt-2 border-t border-emerald-200/70 mt-0.5">
-                            <div class="flex items-center gap-1.5 bg-white p-0.5 rounded-xl border border-zinc-300 shadow-2xs select-none">
-                                <button type="button" onclick="changeSharedItemQty(${index}, -1)" class="w-7 h-7 rounded-lg bg-zinc-100 text-zinc-800 font-black text-sm flex items-center justify-center hover:bg-zinc-200 active:scale-90 transition-all cursor-pointer">-</button>
-                                <span class="w-8 text-center text-xs font-black text-zinc-950">${item.qty}</span>
-                                <button type="button" onclick="changeSharedItemQty(${index}, 1)" class="w-7 h-7 rounded-lg bg-black text-white font-black text-sm flex items-center justify-center hover:bg-zinc-800 active:scale-90 transition-all cursor-pointer">+</button>
+                        <!-- Stepper y Eliminar en misma fila -->
+                        <div class="flex items-center gap-1 shrink-0">
+                            <div class="flex items-center bg-white rounded-lg border border-zinc-300 shadow-2xs select-none">
+                                <button type="button" onclick="changeSharedItemQty(${index}, -1)" class="w-5.5 h-5.5 rounded-l-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-black text-xs flex items-center justify-center active:scale-90 cursor-pointer">-</button>
+                                <span class="w-5 text-center text-[10.5px] font-black text-zinc-950">${item.qty}</span>
+                                <button type="button" onclick="changeSharedItemQty(${index}, 1)" class="w-5.5 h-5.5 rounded-r-lg bg-zinc-900 hover:bg-black text-white font-black text-xs flex items-center justify-center active:scale-90 cursor-pointer">+</button>
                             </div>
-                            <div class="text-right">
-                                <span class="text-[10px] text-zinc-400 font-semibold block">${formatCOP(price)} c/u</span>
-                                <span class="text-xs font-black text-zinc-950">${subtotalFormatted}</span>
-                            </div>
+                            <button type="button" onclick="deleteSharedOrderItem(${index})" class="w-6 h-6 rounded-lg bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0 cursor-pointer active:scale-90 transition-all" title="Eliminar Prenda">
+                                <i data-lucide="trash-2" class="w-3 h-3"></i>
+                            </button>
                         </div>
                     </div>
                     `;
                 } else {
-                    // Vista Estándar del Cliente
+                    // Vista Estándar del Cliente (1 sola fila compacta)
                     html += `
-                    <div class="flex gap-3 items-center bg-zinc-50 border border-zinc-200 p-2.5 rounded-2xl">
-                        <img src="${getOptimizedImageUrl(image, 160, 75)}" alt="${title}" class="w-12 h-12 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0 border border-zinc-200" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                        <div class="flex-grow text-left min-w-0">
-                            <h4 class="text-xs font-bold text-zinc-900 leading-snug line-clamp-1">${title}</h4>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-[10px] text-zinc-500 font-bold uppercase">Talla: <span class="text-zinc-900">${item.size}</span>${item.color ? ` | Color: <span class="text-zinc-900">${item.color}</span>` : ''} | Cant: <span class="text-zinc-900">${item.qty}</span></span>
-                                <span class="text-xs font-extrabold text-zinc-950">${subtotalFormatted}</span>
+                    <div class="flex items-center gap-2 p-1.5 sm:p-2 bg-zinc-50 border border-zinc-200 rounded-xl text-left">
+                        <img src="${getOptimizedImageUrl(image, 120, 75)}" alt="${title}" class="w-10 h-10 aspect-square object-cover rounded-lg bg-zinc-200 shrink-0 border border-zinc-200" loading="lazy" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-[11px] font-bold text-zinc-900 truncate leading-tight">${title}</h4>
+                            <div class="flex items-center gap-1.5 mt-0.5">
+                                <span class="text-[9.5px] text-zinc-500 font-semibold uppercase">Talla: <b class="text-zinc-900">${item.size}</b>${item.color ? ` · ${item.color}` : ''}</span>
                             </div>
+                        </div>
+                        <div class="text-right shrink-0">
+                            <span class="text-[10px] text-zinc-500 font-bold block">x${item.qty}</span>
+                            <span class="text-[11px] font-black text-zinc-950">${subtotalFormatted}</span>
                         </div>
                     </div>
                     `;
@@ -4510,33 +4485,27 @@
                 const variantsToDisplay = availableVariants.length > 0 ? availableVariants : allVariants;
 
                 html += `
-                    <div class="flex flex-col gap-2 p-3 bg-zinc-50 border border-zinc-200 rounded-2xl text-left shadow-2xs">
-                        <div class="flex items-center gap-2.5">
-                            <img src="${getOptimizedImageUrl(p.image, 120, 75)}" alt="${p.title}" class="w-12 h-12 rounded-xl object-cover bg-zinc-200 shrink-0 border border-zinc-200" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
-                            <div class="flex-grow min-w-0">
-                                <h4 class="text-xs font-black text-zinc-950 line-clamp-1">${p.title}</h4>
-                                <div class="flex items-center gap-2 mt-0.5">
-                                    <span class="text-xs font-extrabold text-rose-600">${formatCOP(p.price)}</span>
-                                    <span class="text-[10px] text-zinc-400 font-semibold uppercase">${p.category || 'Mayorista'}</span>
-                                </div>
+                    <div class="flex items-center gap-2 p-1.5 sm:p-2 bg-zinc-50 border border-zinc-200 rounded-xl text-left shadow-2xs">
+                        <img src="${getOptimizedImageUrl(p.image, 100, 75)}" alt="${p.title}" class="w-10 h-10 rounded-lg object-cover bg-zinc-200 shrink-0 border border-zinc-200" onerror="this.src='https://urbannoise.cc/assets/img/logo/LOGO_WEB.png'" />
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-1">
+                                <h4 class="text-[11px] font-black text-zinc-950 truncate">${p.title}</h4>
+                                <span class="text-[11px] font-black text-rose-600 shrink-0">${formatCOP(p.price)}</span>
                             </div>
-                        </div>
-
-                        <div class="flex items-center gap-2 pt-2 border-t border-zinc-200">
-                            <select id="admin-add-variant-${p.id}" class="flex-grow text-[11px] font-bold bg-white border border-zinc-300 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-zinc-900 shadow-2xs">
-                                ${variantsToDisplay.map(v => {
-                                    const vSize = v.size || 'U';
-                                    const vColor = v.color ? ` - ${v.color}` : '';
-                                    const vStock = typeof v.stock === 'number' ? `${v.stock} disp.` : 'Disponible';
-                                    return `<option value="${v.id || v.variant_id || ''}" data-size="${vSize}" data-color="${v.color || ''}">Talla ${vSize}${vColor} (${vStock})</option>`;
-                                }).join('')}
-                            </select>
-
-                            <input type="number" id="admin-add-qty-${p.id}" value="1" min="1" max="99" class="w-12 text-center text-xs font-black bg-white border border-zinc-300 rounded-xl py-1.5 focus:outline-none focus:border-zinc-900 shadow-2xs" />
-
-                            <button type="button" onclick="executeAdminAddProduct('${p.id}')" class="px-3 py-1.5 bg-zinc-950 hover:bg-black text-white rounded-xl text-xs font-black uppercase tracking-wider active:scale-95 transition-all cursor-pointer shadow-xs shrink-0">
-                                ➕ Añadir
-                            </button>
+                            <div class="flex items-center gap-1.5 mt-1">
+                                <select id="admin-add-variant-${p.id}" class="flex-1 text-[10px] font-bold bg-white border border-zinc-300 rounded-lg px-1.5 py-1 focus:outline-none focus:border-zinc-900 truncate">
+                                    ${variantsToDisplay.map(v => {
+                                        const vSize = v.size || 'U';
+                                        const vColor = v.color ? ` · ${v.color}` : '';
+                                        const vStock = typeof v.stock === 'number' ? `(${v.stock})` : '';
+                                        return `<option value="${v.id || v.variant_id || ''}" data-size="${vSize}" data-color="${v.color || ''}">Talla ${vSize}${vColor} ${vStock}</option>`;
+                                    }).join('')}
+                                </select>
+                                <input type="number" id="admin-add-qty-${p.id}" value="1" min="1" max="99" class="w-9 text-center text-[11px] font-black bg-white border border-zinc-300 rounded-lg py-1 focus:outline-none focus:border-zinc-900" />
+                                <button type="button" onclick="executeAdminAddProduct('${p.id}')" class="px-2 py-1 bg-zinc-950 hover:bg-black text-white rounded-lg text-[10px] font-black uppercase tracking-wider active:scale-95 transition-all cursor-pointer shrink-0">
+                                    + Añadir
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
