@@ -225,18 +225,51 @@ export async function onRequestPost(context) {
         // 5. Build and Send Official Sales Receipt to Loyverse (POST /v1.0/receipts)
         const selectedPaymentTypeId = body.payment_type_id || "d9037a50-284f-4ba9-a659-5eef8e5fb26b"; // Default NEQUI
         const selectedPaymentName = body.payment_name || "NEQUI";
-        const DEFAULT_CUSTOMER_ID = "82dc9980-a758-4d82-8c6b-b72fa8c0d51c"; // URBANNOISE WHATSAPP
-        const activeCustomerId = body.customer_id || DEFAULT_CUSTOMER_ID;
+        const DEFAULT_SELLER_CUSTOMER_ID = "82dc9980-a758-4d82-8c6b-b72fa8c0d51c"; // URBANNOISE WHATSAPP (Vendedor)
+
+        let realCustomerId = body.customer_id;
         const custName = body.customer_name ? body.customer_name.trim() : "";
         const custCode = body.customer_code ? body.customer_code.trim() : "";
-        const receiptNote = custName ? `Cliente: ${custName}${custCode ? ` (CC: ${custCode})` : ''} | URBANNOISE WHATSAPP` : "URBANNOISE WHATSAPP";
+        const custPhone = body.customer_phone ? body.customer_phone.trim() : "";
+
+        // Si no se proporcionó ID de cliente pero sí la cédula, buscar su ID en Loyverse
+        if (!realCustomerId && custCode) {
+            try {
+                let cursor = null;
+                do {
+                    let url = "https://api.loyverse.com/v1.0/customers?limit=250";
+                    if (cursor) url += `&cursor=${encodeURIComponent(cursor)}`;
+                    const cRes = await fetch(url, {
+                        headers: { "Authorization": `Bearer ${API_KEY}` }
+                    });
+                    if (cRes.ok) {
+                        const cData = await cRes.json();
+                        const list = cData.customers || [];
+                        const found = list.find(c => c.customer_code === custCode || (custPhone && c.phone_number === custPhone));
+                        if (found) {
+                            realCustomerId = found.id;
+                            break;
+                        }
+                        cursor = cData.cursor;
+                    } else {
+                        break;
+                    }
+                } while (cursor);
+            } catch(e) {
+                console.warn("Customer lookup warning:", e);
+            }
+        }
+
+        // Si no se encontró cliente particular, usar el ID del canal vendedor por defecto
+        const finalReceiptCustomerId = realCustomerId || DEFAULT_SELLER_CUSTOMER_ID;
+        const receiptNote = `Venta Catálogo Mayorista | Vendedor: URBANNOISE WHATSAPP${custName ? ` | Cliente: ${custName}` : ''}${custCode ? ` (CC: ${custCode})` : ''}`;
 
         const nowIso = new Date().toISOString();
         const receiptPayload = {
             store_id: STORE_ID, // Noise Urban exclusiva
             order: `WA-${Date.now().toString().slice(-6)}`,
-            customer_id: activeCustomerId,
-            source: "URBANNOISE WHATSAPP",
+            customer_id: finalReceiptCustomerId, // CLIENTE REAL DE LA VENTA
+            source: "URBANNOISE WHATSAPP", // VENDEDOR / CANAL OFICIAL
             receipt_date: nowIso,
             note: receiptNote,
             line_items: receiptLineItems,
@@ -288,11 +321,13 @@ export async function onRequestPost(context) {
 
         return new Response(JSON.stringify({
             success: true,
-            message: `¡Recibo #${receiptData.receipt_number || ''} generado exitosamente en Loyverse para URBANNOISE WHATSAPP!`,
+            message: `¡Recibo #${receiptData.receipt_number || ''} generado exitosamente en Loyverse!`,
             receipt_number: receiptData.receipt_number || "REGISTRADO",
             total_money: totalMoney,
             payment_name: selectedPaymentName,
-            customer_name: "URBANNOISE WHATSAPP",
+            seller_name: "URBANNOISE WHATSAPP",
+            customer_name: custName || "Cliente Mayorista",
+            customer_code: custCode || "",
             store_name: "Noise Urban",
             logs,
             receipt: receiptData,
