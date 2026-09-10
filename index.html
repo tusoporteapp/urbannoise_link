@@ -4648,15 +4648,22 @@
         }
 
         function renderDispatchedOrderView(receiptNum) {
+            isSharedOrderDispatched = true;
             const itemsContainer = document.getElementById('shared-order-items');
             const dispatchedContainer = document.getElementById('shared-order-dispatched-view');
             const footer = document.querySelector('#shared-order-content .pt-2.border-t');
             const receiptNumEl = document.getElementById('dispatched-receipt-num');
             const adminAddBtn = document.getElementById('shared-order-admin-add-btn');
+            const adminBadge = document.getElementById('shared-order-admin-badge');
+            const unlockPanel = document.getElementById('admin-unlocked-panel');
+            const titleEl = document.getElementById('shared-order-title');
 
+            if (titleEl) titleEl.textContent = 'Pedido Despachado';
             if (itemsContainer) itemsContainer.classList.add('hidden');
             if (footer) footer.classList.add('hidden');
             if (adminAddBtn) adminAddBtn.classList.add('hidden');
+            if (adminBadge) adminBadge.classList.add('hidden');
+            if (unlockPanel) unlockPanel.classList.add('hidden');
 
             if (receiptNumEl && receiptNum) {
                 receiptNumEl.textContent = '#' + receiptNum;
@@ -4666,6 +4673,14 @@
                 dispatchedContainer.classList.remove('hidden');
                 dispatchedContainer.classList.add('flex');
             }
+
+            // Si estaba en pantalla completa admin, cerrarla y volver a la vista oficial
+            const fsView = document.getElementById('admin-order-fullscreen-view');
+            if (fsView && !fsView.classList.contains('hidden')) {
+                closeAdminOrderFullscreenView();
+                openSharedOrderModal();
+            }
+
             if (window.lucide) lucide.createIcons();
         }
 
@@ -4683,30 +4698,35 @@
             }
             if (urlParams.has('order')) {
                 // Verificar si ya fue despachado
-                if (currentSharedOrderId) {
-                    const cachedStatus = localStorage.getItem('un_dispatched_' + currentSharedOrderId);
-                    if (cachedStatus) {
-                        try {
-                            const cs = JSON.parse(cachedStatus);
-                            isSharedOrderDispatched = true;
-                            setTimeout(() => {
-                                renderDispatchedOrderView(cs.receipt_number);
-                            }, 500);
-                        } catch(e) {}
-                    }
-
-                    // Consultar en segundo plano con Loyverse
-                    fetch('/api/order_status?oid=' + encodeURIComponent(currentSharedOrderId))
-                        .then(r => r.json())
-                        .then(data => {
-                            if (data.dispatched) {
-                                isSharedOrderDispatched = true;
-                                localStorage.setItem('un_dispatched_' + currentSharedOrderId, JSON.stringify(data));
-                                renderDispatchedOrderView(data.receipt_number);
-                            }
-                        })
-                        .catch(e => console.warn('Order status fetch warning:', e));
+                // Verificar si ya fue despachado consultando por oid y por prendas
+                const checkOid = currentSharedOrderId || '';
+                const cachedStatus = checkOid ? localStorage.getItem('un_dispatched_' + checkOid) : null;
+                if (cachedStatus) {
+                    try {
+                        const cs = JSON.parse(cachedStatus);
+                        isSharedOrderDispatched = true;
+                        setTimeout(() => {
+                            renderDispatchedOrderView(cs.receipt_number);
+                        }, 400);
+                    } catch(e) {}
                 }
+
+                let statusQuery = '/api/order_status?';
+                if (checkOid) statusQuery += 'oid=' + encodeURIComponent(checkOid) + '&';
+                if (orderData) statusQuery += 'order=' + encodeURIComponent(orderData);
+
+                fetch(statusQuery)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data && data.dispatched) {
+                            isSharedOrderDispatched = true;
+                            if (checkOid) {
+                                localStorage.setItem('un_dispatched_' + checkOid, JSON.stringify(data));
+                            }
+                            renderDispatchedOrderView(data.receipt_number);
+                        }
+                    })
+                    .catch(e => console.warn('Order status check error:', e));
                 const orderData = urlParams.get('order');
                 if (!orderData) return;
                 
