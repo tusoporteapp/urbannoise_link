@@ -271,9 +271,12 @@ export async function onRequestGet(context) {
             const rawCat = item.category_id && categoryMap[item.category_id] ? categoryMap[item.category_id] : '';
             const classification = classifyItemCategory(item.item_name, rawCat);
 
-            // Map Variants
-            const sizeOptionIdx = item.option1_name === 'Tallas' ? 1 : (item.option2_name === 'Tallas' ? 2 : (item.option3_name === 'Tallas' ? 3 : -1));
-            const colorOptionIdx = item.option1_name === 'Color' ? 1 : (item.option2_name === 'Color' ? 2 : (item.option3_name === 'Color' ? 3 : -1));
+            // Map Variants (Detección robusta insensible a mayúsculas, tildes y plural/singular)
+            const isSizeOpt = (n) => /talla|size|tamano|tamaño/i.test((n || '').trim());
+            const isColorOpt = (n) => /color|colores|tono|tonos/i.test((n || '').trim());
+
+            const sizeOptionIdx = isSizeOpt(item.option1_name) ? 1 : (isSizeOpt(item.option2_name) ? 2 : (isSizeOpt(item.option3_name) ? 3 : -1));
+            const colorOptionIdx = isColorOpt(item.option1_name) ? 1 : (isColorOpt(item.option2_name) ? 2 : (isColorOpt(item.option3_name) ? 3 : -1));
 
             const variants = (item.variants || []).map(v => {
                 const sizeVal = sizeOptionIdx === 1 ? v.option1_value : (sizeOptionIdx === 2 ? v.option2_value : (sizeOptionIdx === 3 ? v.option3_value : 'U'));

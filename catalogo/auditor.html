@@ -2,7 +2,7 @@
 <html lang="es" class="h-full bg-slate-50 text-slate-900">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Auditor de Inventario • Urban Noise</title>
     
     <!-- Evitar caché para asegurar datos en tiempo real -->
@@ -26,6 +26,22 @@
         }
     </script>
     <style>
+        /* Comportamiento de App Nativa: Bloqueo estricto de zoom en celulares */
+        html, body {
+            touch-action: pan-x pan-y;
+            -webkit-text-size-adjust: 100%;
+            overscroll-behavior-y: contain;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Permitir selección y edición normal en inputs */
+        input, textarea, select {
+            user-select: auto;
+            -webkit-user-select: auto;
+            touch-action: manipulation;
+        }
+
         /* Optimización de respuesta táctil en celulares */
         * { -webkit-tap-highlight-color: transparent; }
         input[type=number]::-webkit-inner-spin-button, 
@@ -110,8 +126,13 @@
                         <option value="cf0674d5-6edd-426b-a5a6-b1f65bba6770">🏪 Neos</option>
                     </select>
 
+                    <!-- Botón Restablecer / Sincronizar -->
+                    <button onclick="resetAllPhysicalCounts()" title="Restablecer todos los conteos al stock real de Loyverse" class="p-2 bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-800 rounded-lg border border-slate-200 transition-colors shadow-sm flex items-center gap-1 text-[11px] font-bold">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-600"></i>
+                        <span class="hidden md:inline">Restablecer</span>
+                    </button>
                     <!-- Botón Recargar -->
-                    <button onclick="loadCatalog(true)" title="Recargar del API" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition-colors shadow-sm">
+                    <button onclick="loadCatalog(true)" title="Recargar catálogo fresco de Loyverse" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition-colors shadow-sm">
                         <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                     </button>
                     <!-- Botón Bloquear / Salir -->
@@ -173,8 +194,8 @@
                     <span class="text-[10px] text-slate-400 uppercase font-bold block">Uds Físicas</span>
                     <span id="statPhysicalUnits" class="text-base font-black text-emerald-700">0</span>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-xl p-2 text-center shadow-sm">
-                    <span class="text-[10px] text-slate-400 uppercase font-bold block">Descuadres</span>
+                <div onclick="setCategoryFilter('HAS_DIFF')" role="button" title="Toca para filtrar solo las prendas con descuadre" class="bg-white hover:bg-rose-50/80 border border-slate-200 hover:border-rose-300 rounded-xl p-2 text-center shadow-sm cursor-pointer transition-all active:scale-95 group">
+                    <span class="text-[10px] text-slate-400 group-hover:text-rose-600 uppercase font-bold block transition-colors">Descuadres</span>
                     <span id="statDiffVariants" class="text-base font-black text-rose-600">0</span>
                 </div>
             </div>
@@ -548,6 +569,92 @@
         const BATCH_RENDER_SIZE = 25;
         let currentFilteredList = [];
 
+        // ==========================================================
+        // COMPORTAMIENTO DE APLICACIÓN NATIVA: BLOQUEO DE ZOOM MÓVIL
+        // ==========================================================
+        document.addEventListener('gesturestart', function(e) {
+            if (!e.target.closest('#imageModal')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('gesturechange', function(e) {
+            if (!e.target.closest('#imageModal')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('gestureend', function(e) {
+            if (!e.target.closest('#imageModal')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevenir doble toque accidental que dispare zoom fuera de campos editables o lupa
+        let lastTouchEndTimestamp = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = Date.now();
+            if (now - lastTouchEndTimestamp <= 300) {
+                if (!e.target.closest('input, textarea, select, #imageModal, button')) {
+                    e.preventDefault();
+                }
+            }
+            lastTouchEndTimestamp = now;
+        }, false);
+
+        // ==========================================================
+        // PALETA VISUAL DE COLORES Y RANKING DE TALLAS
+        // ==========================================================
+        const COLOR_PALETTE = {
+            'negro': { bg: '#18181b', text: '#ffffff', border: '#3f3f46' },
+            'marfil': { bg: '#fef3c7', text: '#78350f', border: '#fde68a' },
+            'crema': { bg: '#fef9c3', text: '#713f12', border: '#fef08a' },
+            'beige': { bg: '#f5f5dc', text: '#57534e', border: '#d6d3d1' },
+            'camell': { bg: '#c19a6b', text: '#ffffff', border: '#9b7647' },
+            'camel': { bg: '#c19a6b', text: '#ffffff', border: '#9b7647' },
+            'cafe': { bg: '#78350f', text: '#ffffff', border: '#5a2507' },
+            'café': { bg: '#78350f', text: '#ffffff', border: '#5a2507' },
+            'gris': { bg: '#94a3b8', text: '#ffffff', border: '#64748b' },
+            'blanco': { bg: '#ffffff', text: '#0f172a', border: '#cbd5e1' },
+            'verde': { bg: '#15803d', text: '#ffffff', border: '#166534' },
+            'azul': { bg: '#1d4ed8', text: '#ffffff', border: '#1e40af' },
+            'azulbb': { bg: '#bae6fd', text: '#0369a1', border: '#7dd3fc' },
+            'cobre': { bg: '#b45309', text: '#ffffff', border: '#92400e' },
+            'moraleche': { bg: '#e9d5ff', text: '#6b21a8', border: '#d8b4fe' },
+            'mora leche': { bg: '#e9d5ff', text: '#6b21a8', border: '#d8b4fe' },
+            'rojo': { bg: '#dc2626', text: '#ffffff', border: '#b91c1c' },
+            'rosado': { bg: '#f472b6', text: '#ffffff', border: '#db2777' },
+            'lila': { bg: '#c084fc', text: '#ffffff', border: '#a855f7' },
+            'amarillo': { bg: '#facc15', text: '#713f12', border: '#eab308' },
+            'marfil/cafe': { bg: '#fef3c7', text: '#78350f', border: '#78350f' },
+            'marfil/camell': { bg: '#fef3c7', text: '#78350f', border: '#c19a6b' }
+        };
+
+        function getColorSwatch(colorName) {
+            const clean = (colorName || '').trim().toLowerCase();
+            if (COLOR_PALETTE[clean]) {
+                return COLOR_PALETTE[clean];
+            }
+            let hash = 0;
+            for (let i = 0; i < clean.length; i++) hash = clean.charCodeAt(i) + ((hash << 5) - hash);
+            const hue = Math.abs(hash % 360);
+            return {
+                bg: `hsl(${hue}, 65%, 50%)`,
+                text: '#ffffff',
+                border: `hsl(${hue}, 65%, 40%)`
+            };
+        }
+
+        const SIZE_ORDER = ['XXS', 'XS', 'S', 'S/M', 'M', 'L', 'L/XL', 'XL', 'XXL', '2XL', '3XL', '4XL', 'U', 'ÚNICA', 'UNICA', 'UND'];
+        function getSizeRank(size) {
+            const s = (size || '').trim().toUpperCase();
+            const idx = SIZE_ORDER.indexOf(s);
+            if (idx !== -1) return idx;
+            const num = parseInt(s, 10);
+            if (!isNaN(num)) return 100 + num;
+            return 999;
+        }
+
         // 1. PIN & SESIÓN
         function pressPin(digit) {
             if (enteredPin.length < 4) {
@@ -759,6 +866,17 @@
             }
         }
 
+        function resetAllPhysicalCounts() {
+            if (confirm("¿Deseas restablecer todos los conteos al inventario actual de Loyverse? Se limpiarán los cambios locales no guardados y el auditor coincidirá al 100% con Loyverse.")) {
+                physicalCounts = {};
+                auditedItemIds.clear();
+                saveLocalCounts();
+                updateMetrics();
+                applyFilters();
+                showToast("Inventario Sincronizado", "Todos los conteos coinciden al 100% con Loyverse.", "check");
+            }
+        }
+
         // 3. CARGA DE CATÁLOGO DESDE EL API
         async function loadCatalog(forceFresh = false) {
             const loader = document.getElementById('loader');
@@ -775,14 +893,21 @@
                 
                 fullCatalog = await res.json();
                 
-                // Inicializar conteos físicos con stock del sistema si es primera vez
-                fullCatalog.forEach(item => {
-                    (item.variants || []).forEach(v => {
-                        if (physicalCounts[v.id] === undefined) {
-                            physicalCounts[v.id] = Math.max(0, parseInt(v.stock, 10) || 0);
+                // Limpiar del almacenamiento local cualquier variante que coincida con Loyverse
+                // para que cualquier cambio futuro en Loyverse se refleje en tiempo real sin descuadres falsos
+                const cleanedCounts = {};
+                Object.keys(physicalCounts).forEach(vId => {
+                    const item = fullCatalog.find(it => (it.variants || []).some(v => v.id === vId));
+                    if (item) {
+                        const v = (item.variants || []).find(v => v.id === vId);
+                        const sys = Math.max(0, parseInt(v.stock, 10) || 0);
+                        // Solo conservar si el usuario contó físicamente algo distinto a Loyverse
+                        if (physicalCounts[vId] !== sys) {
+                            cleanedCounts[vId] = physicalCounts[vId];
                         }
-                    });
+                    }
                 });
+                physicalCounts = cleanedCounts;
                 saveLocalCounts();
 
                 loader.classList.add('hidden');
@@ -880,7 +1005,12 @@
             });
             const activeBtn = document.getElementById(`tab${cat.replace(/\s+/g, '')}`) || document.getElementById(`tab${cat}`);
             if (activeBtn) {
-                activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-sm";
+                if (cat === 'HAS_DIFF') {
+                    activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-rose-600 text-white border border-rose-700 shadow-sm ring-2 ring-rose-300";
+                } else {
+                    activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-sm";
+                }
+                activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }
             applyFilters();
         }
@@ -981,53 +1111,107 @@
             let itemTotalPhys = 0;
             let itemDiffCount = 0;
 
-            const variantsHtml = (item.variants || []).map(v => {
-                const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
-                const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
-                const diff = physStock - sysStock;
-                
-                itemTotalSys += sysStock;
-                itemTotalPhys += physStock;
-                if (diff !== 0) itemDiffCount++;
+            // 1. Agrupar variantes por Color
+            const colorGroups = {};
+            (item.variants || []).forEach(v => {
+                const colorKey = (v.color || 'Color Único').trim();
+                if (!colorGroups[colorKey]) colorGroups[colorKey] = [];
+                colorGroups[colorKey].push(v);
+            });
 
-                let badgeClass = "bg-slate-100 text-slate-600 border border-slate-200";
-                let badgeText = "✓ OK";
-                if (diff > 0) {
-                    badgeClass = "bg-amber-100 text-amber-900 border border-amber-300 font-bold";
-                    badgeText = `+${diff} Sobra`;
-                } else if (diff < 0) {
-                    badgeClass = "bg-rose-100 text-rose-800 border border-rose-300 font-bold";
-                    badgeText = `${diff} Falta`;
-                }
+            // 2. Ordenar las tallas dentro de cada grupo de color en secuencia natural
+            Object.keys(colorGroups).forEach(colorKey => {
+                colorGroups[colorKey].sort((a, b) => getSizeRank(a.size) - getSizeRank(b.size));
+            });
+
+            // 3. Renderizar cada bloque agrupado por color con muestras visuales (swatches)
+            const colorKeys = Object.keys(colorGroups);
+
+            const variantsHtml = colorKeys.map(colorKey => {
+                const groupVariants = colorGroups[colorKey];
+                const swatch = getColorSwatch(colorKey);
+
+                let groupSysTotal = 0;
+                let groupPhysTotal = 0;
+
+                const groupRowsHtml = groupVariants.map(v => {
+                    const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
+                    const diff = physStock - sysStock;
+                    
+                    itemTotalSys += sysStock;
+                    itemTotalPhys += physStock;
+                    groupSysTotal += sysStock;
+                    groupPhysTotal += physStock;
+                    if (diff !== 0) itemDiffCount++;
+
+                    let badgeClass = "bg-slate-100 text-slate-600 border border-slate-200";
+                    let badgeText = "✓ OK";
+                    if (diff > 0) {
+                        badgeClass = "bg-amber-100 text-amber-900 border border-amber-300 font-bold";
+                        badgeText = `+${diff} Sobra`;
+                    } else if (diff < 0) {
+                        badgeClass = "bg-rose-100 text-rose-800 border border-rose-300 font-bold";
+                        badgeText = `${diff} Falta`;
+                    }
+
+                    return `
+                        <div class="flex items-center justify-between gap-2 p-2 bg-white hover:bg-slate-50/90 rounded-xl border border-slate-200/90 transition-colors shadow-2xs">
+                            <!-- Izquierda: Talla en cuadrado sólido + Indicador visual de color y Stock Loyverse -->
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <span class="w-8 h-8 rounded-lg bg-slate-900 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                                    ${v.size}
+                                </span>
+                                <div class="flex flex-col min-w-0 justify-center">
+                                    <div class="flex items-center gap-1.5 min-w-0">
+                                        <span class="w-2.5 h-2.5 rounded-full shrink-0 shadow-2xs" style="background-color: ${swatch.bg}; border: 1px solid ${swatch.border};"></span>
+                                        <span class="text-xs font-black text-slate-800 uppercase tracking-tight truncate leading-tight">${v.color || 'Único'}</span>
+                                    </div>
+                                    <span class="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
+                                        Loyverse: <strong class="text-slate-900 font-bold">${sysStock}</strong>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Derecha: Stepper Táctil Grande y Badge -->
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
+                                    -
+                                </button>
+                                <input type="number" min="0" value="${physStock}" onfocus="this.select()" onchange="setVariantStock('${v.id}', '${item.id}', this.value)" 
+                                    class="w-12 h-9 text-center text-sm font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-xs transition-all">
+                                <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
+                                    +
+                                </button>
+                                <span class="text-[10px] px-2 py-1.5 rounded-lg min-w-[62px] text-center font-bold ${badgeClass}">
+                                    ${badgeText}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
 
                 return `
-                    <div class="flex items-center justify-between gap-2 p-2 bg-slate-50 hover:bg-slate-100/90 rounded-xl border border-slate-200/90 transition-colors">
-                        <!-- Izquierda: Talla en cuadrado sólido + Color y Stock Loyverse -->
-                        <div class="flex items-center gap-2.5 min-w-0">
-                            <span class="w-8 h-8 rounded-lg bg-slate-900 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
-                                ${v.size}
-                            </span>
-                            <div class="flex flex-col min-w-0 justify-center">
-                                ${v.color ? `<span class="text-xs font-black text-slate-800 uppercase tracking-tight truncate leading-tight">${v.color}</span>` : ''}
-                                <span class="text-[11px] text-slate-500 font-medium leading-tight">
-                                    Loyverse: <strong class="text-slate-900 font-bold">${sysStock}</strong>
+                    <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-2.5 mb-2.5 last:mb-0">
+                        <!-- Cabecera de Color con Muestra Visual (Swatch) y Totales del Tono -->
+                        <div class="flex items-center justify-between px-1 pb-2 mb-1.5 border-b border-slate-200/70">
+                            <div class="flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full shadow-xs shrink-0" style="background-color: ${swatch.bg}; border: 1.5px solid ${swatch.border};"></span>
+                                <span class="text-xs font-black text-slate-900 tracking-tight uppercase">${colorKey}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] font-bold text-slate-500 bg-white px-2 py-0.5 rounded-full border border-slate-200 shadow-2xs">
+                                    Loyverse: <strong class="text-slate-800">${groupSysTotal}</strong>
+                                </span>
+                                <span class="text-[10px] font-bold ${groupPhysTotal === groupSysTotal ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-800 bg-amber-50 border-amber-200'} px-2 py-0.5 rounded-full border shadow-2xs">
+                                    Físico: <strong>${groupPhysTotal}</strong>
                                 </span>
                             </div>
                         </div>
 
-                        <!-- Derecha: Stepper Táctil Grande y Badge -->
-                        <div class="flex items-center gap-1.5 shrink-0">
-                            <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-9 h-9 rounded-xl bg-white hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
-                                -
-                            </button>
-                            <input type="number" min="0" value="${physStock}" onfocus="this.select()" onchange="setVariantStock('${v.id}', '${item.id}', this.value)" 
-                                class="w-12 h-9 text-center text-sm font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-xs transition-all">
-                            <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-9 h-9 rounded-xl bg-white hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
-                                +
-                            </button>
-                            <span class="text-[10px] px-2 py-1.5 rounded-lg min-w-[62px] text-center font-bold ${badgeClass}">
-                                ${badgeText}
-                            </span>
+                        <!-- Variantes del color ordenadas por talla -->
+                        <div class="space-y-1.5">
+                            ${groupRowsHtml}
                         </div>
                     </div>
                 `;
@@ -1071,9 +1255,9 @@
                                     </span>
                                 ` : ''}
                                 ${itemDiffCount > 0 ? `
-                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                                    <button type="button" onclick="event.stopPropagation(); setCategoryFilter('HAS_DIFF')" title="Toca para filtrar solo las prendas con descuadre" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition-colors flex items-center gap-1 cursor-pointer active:scale-95">
                                         ⚠️ ${itemDiffCount} descuadre(s)
-                                    </span>
+                                    </button>
                                 ` : ''}
                             </div>
                             <h3 class="text-sm font-black text-slate-900 truncate" title="${item.title}">${item.title}</h3>
@@ -1109,13 +1293,13 @@
             const item = fullCatalog.find(i => i.id === itemId);
             if (!item) return;
             (item.variants || []).forEach(v => {
-                physicalCounts[v.id] = Math.max(0, parseInt(v.stock, 10) || 0);
+                delete physicalCounts[v.id];
             });
             auditedItemIds.add(itemId);
             saveLocalCounts();
             updateMetrics();
             refreshSingleCard(itemId);
-            showToast("Prenda Verificada", `${item.title}: inventario físico cuadrado.`, "check");
+            showToast("Prenda Verificada", `${item.title}: coincide 100% con Loyverse.`, "check");
         }
 
         function quickZeroItem(itemId) {
@@ -1132,7 +1316,10 @@
         }
 
         function stepVariantStock(variantId, itemId, delta) {
-            const current = physicalCounts[variantId] !== undefined ? physicalCounts[variantId] : 0;
+            const item = fullCatalog.find(i => i.id === itemId);
+            const variant = item ? (item.variants || []).find(v => v.id === variantId) : null;
+            const sys = variant ? Math.max(0, parseInt(variant.stock, 10) || 0) : 0;
+            const current = physicalCounts[variantId] !== undefined ? physicalCounts[variantId] : sys;
             const updated = Math.max(0, current + delta);
             physicalCounts[variantId] = updated;
             auditedItemIds.add(itemId);
