@@ -227,41 +227,25 @@
                 </button>
             </div>
 
-            <!-- Fila 4: Pestañas de Filtros Rápidos (Micro Pills) -->
+            <!-- Fila 4: Pestañas de Filtros Rápidos y Categorías Oficiales de Loyverse -->
             <div class="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none text-[11px]">
-                <button onclick="setCategoryFilter('ALL')" id="tabALL" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs">
+                <button onclick="resetAllCategoryFilters()" id="tabALL" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs transition-colors">
                     Todos (<span id="countTabALL">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('WITH_STOCK')" id="tabWITH_STOCK" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 shadow-2xs">
+                <button onclick="setCategoryFilter('WITH_STOCK')" id="tabWITH_STOCK" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 shadow-2xs transition-colors">
                     📦 Stock (<span id="countTabWITH_STOCK">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('PENDING')" id="tabPENDING" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs">
+                <button onclick="setCategoryFilter('PENDING')" id="tabPENDING" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs transition-colors">
                     ⏳ Pend. (<span id="countTabPENDING">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('HAS_DIFF')" id="tabHAS_DIFF" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-rose-700 border border-rose-200 hover:bg-rose-50 shadow-2xs">
+                <button onclick="setCategoryFilter('HAS_DIFF')" id="tabHAS_DIFF" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-rose-700 border border-rose-200 hover:bg-rose-50 shadow-2xs transition-colors">
                     ⚠️ Descuadres (<span id="countTabHAS_DIFF">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('NO_PHOTO')" id="tabNO_PHOTO" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50 shadow-2xs">
+                <button onclick="setCategoryFilter('NO_PHOTO')" id="tabNO_PHOTO" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50 shadow-2xs transition-colors">
                     📸 Sin Foto (<span id="countTabNO_PHOTO">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('Acidwash')" id="tabAcidwash" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs">
-                    Acidwash
-                </button>
-                <button onclick="setCategoryFilter('Oversize')" id="tabOversize" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs">
-                    Oversize
-                </button>
-                <button onclick="setCategoryFilter('Buzos')" id="tabBuzos" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs">
-                    Buzos
-                </button>
-                <button onclick="setCategoryFilter('Esqueletos')" id="tabEsqueletos" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs">
-                    Esqueletos
-                </button>
-                <button onclick="setCategoryFilter('Conjuntos')" id="tabConjuntos" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs">
-                    Conjuntos
-                </button>
-                <button onclick="setCategoryFilter('Linea de Damas')" id="tabDamas" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs">
-                    Damas
-                </button>
+                <!-- Píldoras Dinámicas: Categorías Oficiales de Loyverse -->
+                <div id="dynamicLoyverseCategoryPills" class="flex items-center gap-1 shrink-0"></div>
             </div>
         </section>
 
@@ -757,18 +741,21 @@
             clearPin();
         }
 
-        // 1.1 SELECCIÓN DIRECTA DE CATEGORÍA DE AUDITORÍA (1 TOQUE, SIN ESCRIBIR)
+        // 1.1 SELECCIÓN DIRECTA DE CATEGORÍA DE AUDITORÍA (100% LOYVERSE OFICIAL)
         let currentAuditCategory = localStorage.getItem('urbannoise_audit_category') || 'ALL';
 
         function getCategoryIcon(catName) {
             const c = (catName || '').toLowerCase();
             if (c.includes('buzo') || c.includes('hoodie') || c.includes('chaqueta')) return '🧥';
             if (c.includes('esqueleto') || c.includes('musculosa') || c.includes('tank')) return '🎽';
-            if (c.includes('conjunto') || c.includes('pantalon') || c.includes('jogger') || c.includes('short')) return '👖';
-            if (c.includes('dama') || c.includes('mujer') || c.includes('top') || c.includes('vestido')) return '👗';
+            if (c.includes('conjunto') || c.includes('sudadera') || c.includes('pantalon') || c.includes('jogger') || c.includes('short') || c.includes('bermuda')) return '👖';
+            if (c.includes('dama') || c.includes('mujer') || c.includes('top') || c.includes('vestido') || c.includes('body')) return '👗';
+            if (c.includes('caballero') || c.includes('hombre')) return '👔';
+            if (c.includes('niño') || c.includes('infantil')) return '🧒';
+            if (c.includes('unisex')) return '👥';
+            if (c.includes('t-shirt') || c.includes('polo')) return '👕';
             if (c.includes('acid') || c.includes('wash') || c.includes('vintage')) return '⚡';
-            if (c.includes('oversize') || c.includes('over')) return '👕';
-            if (c.includes('gorra') || c.includes('accesorio') || c.includes('media')) return '🧢';
+            if (c.includes('oversize') || c.includes('over') || c.includes('boxi')) return '👕';
             return '🏷️';
         }
 
@@ -804,10 +791,10 @@
             const listContainer = document.getElementById('categoryModalList');
             if (!listContainer) return;
 
-            // Agrupar categorías dinámicamente según las prendas de la tienda actual
+            // Agrupar categorías EXACTAS de Loyverse según las prendas de la tienda actual
             const catMap = {};
             fullCatalog.forEach(item => {
-                const cat = (item.category || item.rawCategory || 'General').trim();
+                const cat = (item.category || item.rawCategory || 'Sin Categoría').trim();
                 catMap[cat] = (catMap[cat] || 0) + 1;
             });
 
@@ -816,16 +803,16 @@
             const isAllSelected = currentAuditCategory === 'ALL';
 
             let html = `
-                <button onclick="selectAuditCategory('ALL')" class="w-full text-left p-3.5 rounded-2xl border-2 transition-all flex items-center justify-between ${isAllSelected ? 'border-indigo-600 bg-indigo-50/70 shadow-xs' : 'border-slate-200 bg-white hover:bg-slate-50'}">
-                    <div class="flex items-center gap-3">
-                        <span class="text-2xl">✨</span>
+                <button onclick="selectAuditCategory('ALL')" class="w-full text-left p-3 rounded-2xl border-2 transition-all flex items-center justify-between ${isAllSelected ? 'border-indigo-600 bg-indigo-50/70 shadow-xs' : 'border-slate-200 bg-white hover:bg-slate-50'}">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-xl">✨</span>
                         <div>
                             <h4 class="font-black text-slate-900 text-xs sm:text-sm">Todas las Categorías</h4>
-                            <p class="text-[11px] text-slate-500 font-medium">Auditar todo el inventario de la tienda</p>
+                            <p class="text-[10px] text-slate-500 font-medium">Inventario completo (${fullCatalog.length} prendas)</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-black px-2.5 py-1 rounded-full ${isAllSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}">${fullCatalog.length} prendas</span>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-[11px] font-black px-2 py-0.5 rounded-full ${isAllSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}">${fullCatalog.length}</span>
                         ${isAllSelected ? '<i data-lucide="check" class="w-4 h-4 text-indigo-600 shrink-0"></i>' : ''}
                     </div>
                 </button>
@@ -837,16 +824,16 @@
                 const count = catMap[cat];
 
                 html += `
-                    <button onclick="selectAuditCategory('${cat.replace(/'/g, "\\'")}')" class="w-full text-left p-3.5 rounded-2xl border-2 transition-all flex items-center justify-between ${isSelected ? 'border-indigo-600 bg-indigo-50/70 shadow-xs' : 'border-slate-200 bg-white hover:bg-slate-50'}">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">${icon}</span>
-                            <div>
-                                <h4 class="font-black text-slate-900 text-xs sm:text-sm">${cat}</h4>
-                                <p class="text-[11px] text-slate-500 font-medium">Perchero / Sección de ${cat}</p>
+                    <button onclick="selectAuditCategory('${cat.replace(/'/g, "\\'")}')" class="w-full text-left p-3 rounded-2xl border-2 transition-all flex items-center justify-between ${isSelected ? 'border-indigo-600 bg-indigo-50/70 shadow-xs' : 'border-slate-200 bg-white hover:bg-slate-50'}">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="text-xl shrink-0">${icon}</span>
+                            <div class="min-w-0">
+                                <h4 class="font-black text-slate-900 text-xs sm:text-sm truncate">${cat}</h4>
+                                <p class="text-[10px] text-slate-500 font-medium">Categoría Oficial Loyverse</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs font-black px-2.5 py-1 rounded-full ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}">${count} prendas</span>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <span class="text-[11px] font-black px-2 py-0.5 rounded-full ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}">${count}</span>
                             ${isSelected ? '<i data-lucide="check" class="w-4 h-4 text-indigo-600 shrink-0"></i>' : ''}
                         </div>
                     </button>
@@ -857,16 +844,48 @@
             lucide.createIcons();
         }
 
+        function renderDynamicLoyverseCategoryPills() {
+            const container = document.getElementById('dynamicLoyverseCategoryPills');
+            if (!container) return;
+
+            const catMap = {};
+            fullCatalog.forEach(item => {
+                const cat = (item.category || item.rawCategory || 'Sin Categoría').trim();
+                catMap[cat] = (catMap[cat] || 0) + 1;
+            });
+
+            const sortedCats = Object.keys(catMap).sort((a, b) => catMap[b] - catMap[a]);
+            let html = '';
+            sortedCats.forEach(cat => {
+                const count = catMap[cat];
+                const isSelected = currentAuditCategory.toLowerCase() === cat.toLowerCase() && currentCategoryFilter === 'ALL';
+                const cleanId = 'pill_' + encodeURIComponent(cat).replace(/[^a-zA-Z0-9]/g, '_');
+                html += `
+                    <button onclick="selectAuditCategory('${cat.replace(/'/g, "\\'")}')" id="${cleanId}" 
+                        class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap ${isSelected ? 'bg-slate-900 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs'} transition-colors">
+                        ${cat} (${count})
+                    </button>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
         function selectAuditCategory(catName) {
             currentAuditCategory = catName;
+            currentCategoryFilter = 'ALL';
             localStorage.setItem('urbannoise_audit_category', catName);
             closeCategoryModal();
             updateAuditCategoryBanner();
             updateMetrics();
+            renderDynamicLoyverseCategoryPills();
             applyFilters();
 
             const label = catName === 'ALL' ? 'Todas las Categorías' : catName;
-            showToast("Categoría Seleccionada", `Auditando únicamente: ${label}`, "layers");
+            showToast("Categoría Loyverse", `Auditando: ${label}`, "layers");
+        }
+
+        function resetAllCategoryFilters() {
+            selectAuditCategory('ALL');
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -945,6 +964,23 @@
                 
                 fullCatalog = await res.json();
                 
+                // 100% BLINDAJE: Garantizar que la categoría en todo el auditor sea EXACTAMENTE la oficial de Loyverse
+                fullCatalog.forEach(item => {
+                    const loyCat = (item.loyverseCategory || item.rawCategory || item.category || 'Sin Categoría').trim();
+                    item.category = loyCat;
+                    item.rawCategory = loyCat;
+                    item.loyverseCategory = loyCat;
+                });
+
+                // Validar que la categoría activa en memoria o localStorage exista en Loyverse
+                if (currentAuditCategory !== 'ALL') {
+                    const exists = fullCatalog.some(i => (i.category || '').toLowerCase() === currentAuditCategory.toLowerCase());
+                    if (!exists) {
+                        currentAuditCategory = 'ALL';
+                        localStorage.setItem('urbannoise_audit_category', 'ALL');
+                    }
+                }
+                
                 // Limpiar del almacenamiento local cualquier variante que coincida con Loyverse
                 // para que cualquier cambio futuro en Loyverse se refleje en tiempo real sin descuadres falsos
                 const cleanedCounts = {};
@@ -965,6 +1001,7 @@
                 loader.classList.add('hidden');
                 updateAuditCategoryBanner();
                 updateMetrics();
+                renderDynamicLoyverseCategoryPills();
                 applyFilters();
                 const storeName = selectedStoreId === 'fee704a4-ff11-43ae-903e-d2f9cf0a9a25' ? 'Noise Urban' : 'Neos';
                 showToast("Catálogo Listo", `${fullCatalog.length} prendas cargadas para ${storeName}.`, "check");
@@ -1053,17 +1090,26 @@
         function setCategoryFilter(cat) {
             currentCategoryFilter = cat;
             document.querySelectorAll('.cat-tab').forEach(btn => {
-                btn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-sm";
+                btn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs transition-colors";
             });
-            const activeBtn = document.getElementById(`tab${cat.replace(/\s+/g, '')}`) || document.getElementById(`tab${cat}`);
-            if (activeBtn) {
-                if (cat === 'HAS_DIFF') {
-                    activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-rose-600 text-white border border-rose-700 shadow-sm ring-2 ring-rose-300";
-                } else {
-                    activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-sm";
+            
+            if (cat === 'ALL') {
+                const allBtn = document.getElementById('tabALL');
+                if (allBtn) allBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs transition-colors";
+            } else {
+                const activeBtn = document.getElementById(`tab${cat.replace(/\s+/g, '')}`) || document.getElementById(`tab${cat}`);
+                if (activeBtn) {
+                    if (cat === 'HAS_DIFF') {
+                        activeBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-rose-600 text-white border border-rose-700 shadow-2xs ring-1 ring-rose-300 transition-colors";
+                    } else if (cat === 'WITH_STOCK') {
+                        activeBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-emerald-600 text-white border border-emerald-700 shadow-2xs transition-colors";
+                    } else {
+                        activeBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs transition-colors";
+                    }
+                    activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 }
-                activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }
+            renderDynamicLoyverseCategoryPills();
             applyFilters();
         }
 
@@ -1080,7 +1126,7 @@
             else clearBtn.classList.add('hidden');
 
             currentFilteredList = fullCatalog.filter(item => {
-                // Filtro estricto por categoría seleccionada
+                // Filtro estricto por categoría seleccionada oficial de Loyverse
                 if (currentAuditCategory !== 'ALL') {
                     const itemCat = (item.category || item.rawCategory || '').toLowerCase();
                     if (itemCat !== currentAuditCategory.toLowerCase()) return false;
