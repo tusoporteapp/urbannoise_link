@@ -147,105 +147,105 @@
     <!-- ========================================================== -->
     <div id="mainApp" class="hidden min-h-screen flex flex-col pb-36">
         
-        <!-- Barra Superior Compacta (Una Sola Línea Todo-en-Uno) -->
-        <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-3 py-1.5 shadow-xs">
+        <!-- Barra Superior Ergonómica Todo-en-Uno -->
+        <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-3 py-2 shadow-xs">
             <div class="max-w-3xl mx-auto flex items-center justify-between gap-2">
                 <!-- Izquierda: Logo + Selector de Tienda en píldora -->
-                <div class="flex items-center gap-1.5 min-w-0 flex-1">
-                    <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Logo" class="w-6 h-6 rounded-md border border-slate-200 shadow-2xs shrink-0">
-                    <div class="flex items-center min-w-0 bg-slate-100 hover:bg-slate-200/70 border border-slate-200 rounded-lg px-2 py-0.5 transition-colors">
-                        <select id="storeSelector" onchange="onStoreChange()" class="bg-transparent text-xs font-black text-slate-900 outline-none cursor-pointer truncate">
+                <div class="flex items-center gap-2 min-w-0 flex-1">
+                    <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Logo" class="w-8 h-8 rounded-lg border border-slate-200 shadow-2xs shrink-0">
+                    <div class="flex items-center min-w-0 bg-slate-100 hover:bg-slate-200/70 border border-slate-200 rounded-xl px-2.5 py-1 transition-colors">
+                        <select id="storeSelector" onchange="onStoreChange()" class="bg-transparent text-xs sm:text-sm font-black text-slate-900 outline-none cursor-pointer truncate">
                             <option value="fee704a4-ff11-43ae-903e-d2f9cf0a9a25">🏪 Noise Urban</option>
                             <option value="cf0674d5-6edd-426b-a5a6-b1f65bba6770">🏪 Neos</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- Derecha: Botones de Acción Rápidos y Compactos -->
-                <div class="flex items-center gap-1 shrink-0">
-                    <button onclick="resetAllPhysicalCounts()" title="Restablecer conteos al stock de Loyverse" class="p-1.5 bg-slate-100 hover:bg-amber-50 active:bg-amber-100 text-slate-700 hover:text-amber-800 rounded-lg border border-slate-200 transition-colors shadow-2xs">
-                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-600"></i>
+                <!-- Derecha: Botones de Acción Rápidos y Accesibles -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <button onclick="resetAllPhysicalCounts()" title="Restablecer conteos al stock de Loyverse" class="p-2 bg-slate-100 hover:bg-amber-50 active:bg-amber-100 text-slate-700 hover:text-amber-800 rounded-xl border border-slate-200 transition-colors shadow-2xs">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-600"></i>
                     </button>
-                    <button onclick="loadCatalog(true)" title="Recargar catálogo de Loyverse" class="p-1.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 rounded-lg border border-slate-200 transition-colors shadow-2xs">
-                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    <button onclick="loadCatalog(true)" title="Recargar catálogo de Loyverse" class="p-2 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 rounded-xl border border-slate-200 transition-colors shadow-2xs">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                     </button>
-                    <button onclick="logout()" title="Bloquear / Salir" class="p-1.5 bg-slate-100 hover:bg-rose-50 active:bg-rose-100 text-slate-500 hover:text-rose-600 rounded-lg border border-slate-200 transition-colors shadow-2xs">
-                        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                    <button onclick="logout()" title="Bloquear / Salir" class="p-2 bg-slate-100 hover:bg-rose-50 active:bg-rose-100 text-slate-500 hover:text-rose-600 rounded-xl border border-slate-200 transition-colors shadow-2xs">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- Panel de Control Compacto Todo-en-Uno (Categoría, Progreso, Métricas y Filtros) -->
-        <section class="max-w-3xl mx-auto w-full px-3 pt-2">
+        <!-- Panel de Control Todo-en-Uno (Categoría, Progreso, Métricas y Filtros) -->
+        <section class="max-w-3xl mx-auto w-full px-3 pt-2.5">
             
             <!-- Fila 1: Categoría Activa + Mini Barra de Progreso -->
-            <div class="flex items-center justify-between gap-2 px-2.5 py-1.5 mb-1.5 bg-white border border-slate-200 rounded-xl shadow-2xs text-xs">
-                <button onclick="openCategoryModal()" class="flex items-center gap-1.5 min-w-0 text-left hover:text-amber-700 transition-colors flex-1">
-                    <i data-lucide="tag" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
-                    <strong id="currentAuditCategoryTitle" class="text-xs font-black text-slate-900 truncate">Todas las Categorías</strong>
-                    <span id="currentAuditCategoryCount" class="text-[9px] px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 font-bold shrink-0">0</span>
-                    <i data-lucide="chevron-down" class="w-3 h-3 text-slate-400 shrink-0"></i>
+            <div class="flex items-center justify-between gap-2 px-3 py-2 mb-2 bg-white border border-slate-200 rounded-2xl shadow-2xs">
+                <button onclick="openCategoryModal()" class="flex items-center gap-2 min-w-0 text-left hover:text-amber-700 transition-colors flex-1">
+                    <i data-lucide="tag" class="w-4 h-4 text-indigo-600 shrink-0"></i>
+                    <strong id="currentAuditCategoryTitle" class="text-xs sm:text-sm font-black text-slate-900 truncate">Todas las Categorías</strong>
+                    <span id="currentAuditCategoryCount" class="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold shrink-0">0</span>
+                    <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
                 </button>
 
                 <!-- Mini Progreso -->
-                <div class="flex items-center gap-1.5 shrink-0">
-                    <div class="w-14 bg-slate-100 rounded-full h-1.5 overflow-hidden border border-slate-200">
-                        <div id="progressBar" class="bg-emerald-600 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <div class="w-16 sm:w-20 bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
+                        <div id="progressBar" class="bg-emerald-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                     </div>
-                    <span id="progressText" class="text-[10px] font-bold text-slate-700">0%</span>
+                    <span id="progressText" class="text-xs font-bold text-slate-700">0%</span>
                 </div>
             </div>
 
-            <!-- Fila 2: Resumen en 4 Mini Tarjetas Compactas -->
-            <div class="grid grid-cols-4 gap-1 mb-1.5">
-                <div class="bg-white border border-slate-200 rounded-lg p-1 text-center shadow-2xs">
-                    <span class="text-[8px] sm:text-[9px] text-slate-400 uppercase font-black block truncate">Prendas</span>
-                    <span id="statTotalItems" class="text-xs sm:text-sm font-black text-slate-900 leading-tight">0</span>
+            <!-- Fila 2: Resumen en 4 Tarjetas de Métricas -->
+            <div class="grid grid-cols-4 gap-1.5 mb-2">
+                <div class="bg-white border border-slate-200 rounded-xl py-1.5 px-2 text-center shadow-2xs">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-bold block truncate tracking-wider">Prendas</span>
+                    <span id="statTotalItems" class="text-sm sm:text-base font-black text-slate-900 leading-tight">0</span>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-lg p-1 text-center shadow-2xs">
-                    <span class="text-[8px] sm:text-[9px] text-slate-400 uppercase font-black block truncate">Loyverse</span>
-                    <span id="statSystemUnits" class="text-xs sm:text-sm font-black text-slate-600 leading-tight">0</span>
+                <div class="bg-white border border-slate-200 rounded-xl py-1.5 px-2 text-center shadow-2xs">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-bold block truncate tracking-wider">Loyverse</span>
+                    <span id="statSystemUnits" class="text-sm sm:text-base font-black text-slate-700 leading-tight">0</span>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-lg p-1 text-center shadow-2xs">
-                    <span class="text-[8px] sm:text-[9px] text-slate-400 uppercase font-black block truncate">Físico</span>
-                    <span id="statPhysicalUnits" class="text-xs sm:text-sm font-black text-emerald-700 leading-tight">0</span>
+                <div class="bg-white border border-slate-200 rounded-xl py-1.5 px-2 text-center shadow-2xs">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-bold block truncate tracking-wider">Físico</span>
+                    <span id="statPhysicalUnits" class="text-sm sm:text-base font-black text-emerald-700 leading-tight">0</span>
                 </div>
-                <div onclick="setCategoryFilter('HAS_DIFF')" role="button" title="Toca para filtrar descuadres" class="bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-300 rounded-lg p-1 text-center shadow-2xs cursor-pointer transition-all active:scale-95 group">
-                    <span class="text-[8px] sm:text-[9px] text-slate-400 group-hover:text-rose-600 uppercase font-black block truncate transition-colors">Descuadre</span>
-                    <span id="statDiffVariants" class="text-xs sm:text-sm font-black text-rose-600 leading-tight">0</span>
+                <div onclick="setCategoryFilter('HAS_DIFF')" role="button" title="Toca para filtrar descuadres" class="bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-300 rounded-xl py-1.5 px-2 text-center shadow-2xs cursor-pointer transition-all active:scale-95 group">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 group-hover:text-rose-600 uppercase font-bold block truncate tracking-wider transition-colors">Descuadre</span>
+                    <span id="statDiffVariants" class="text-sm sm:text-base font-black text-rose-600 leading-tight">0</span>
                 </div>
             </div>
 
-            <!-- Fila 3: Buscador Instantáneo Compacto -->
-            <div class="relative mb-1.5">
-                <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <!-- Fila 3: Buscador Instantáneo -->
+            <div class="relative mb-2">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
                 <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Buscar prenda o estampado..." 
-                    class="w-full bg-white border border-slate-200 rounded-lg pl-8 pr-7 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 shadow-2xs transition-all">
-                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-0.5">
-                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                    class="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-8 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 shadow-2xs transition-all">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-0.5">
+                    <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
 
             <!-- Fila 4: Pestañas de Filtros Rápidos y Categorías Oficiales de Loyverse -->
-            <div class="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none text-[11px]">
-                <button onclick="resetAllCategoryFilters()" id="tabALL" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs transition-colors">
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-none text-xs">
+                <button onclick="resetAllCategoryFilters()" id="tabALL" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs transition-colors">
                     Todos (<span id="countTabALL">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('WITH_STOCK')" id="tabWITH_STOCK" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 shadow-2xs transition-colors">
+                <button onclick="setCategoryFilter('WITH_STOCK')" id="tabWITH_STOCK" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 shadow-2xs transition-colors">
                     📦 Stock (<span id="countTabWITH_STOCK">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('PENDING')" id="tabPENDING" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs transition-colors">
+                <button onclick="setCategoryFilter('PENDING')" id="tabPENDING" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs transition-colors">
                     ⏳ Pend. (<span id="countTabPENDING">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('HAS_DIFF')" id="tabHAS_DIFF" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-rose-700 border border-rose-200 hover:bg-rose-50 shadow-2xs transition-colors">
+                <button onclick="setCategoryFilter('HAS_DIFF')" id="tabHAS_DIFF" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-rose-700 border border-rose-200 hover:bg-rose-50 shadow-2xs transition-colors">
                     ⚠️ Descuadres (<span id="countTabHAS_DIFF">0</span>)
                 </button>
-                <button onclick="setCategoryFilter('NO_PHOTO')" id="tabNO_PHOTO" class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50 shadow-2xs transition-colors">
+                <button onclick="setCategoryFilter('NO_PHOTO')" id="tabNO_PHOTO" class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50 shadow-2xs transition-colors">
                     📸 Sin Foto (<span id="countTabNO_PHOTO">0</span>)
                 </button>
                 <!-- Píldoras Dinámicas: Categorías Oficiales de Loyverse -->
-                <div id="dynamicLoyverseCategoryPills" class="flex items-center gap-1 shrink-0"></div>
+                <div id="dynamicLoyverseCategoryPills" class="flex items-center gap-1.5 shrink-0"></div>
             </div>
         </section>
 
@@ -282,17 +282,17 @@
         <!-- ========================================================== -->
         <!-- BARRA INFERIOR FIJA: ACCIÓN RÁPIDA Y GUARDAR EN LOYVERSE   -->
         <!-- ========================================================== -->
-        <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-2 shadow-lg">
+        <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 shadow-xl">
             <div class="max-w-3xl mx-auto flex items-center justify-between gap-2">
-                <div class="flex items-center gap-1.5 min-w-0">
-                    <span class="text-xs text-slate-500 font-medium">Cambios:</span>
-                    <span id="footerDiffCount" class="text-xs font-black px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-900 border border-amber-200">0</span>
-                    <span id="footerSummaryText" class="hidden sm:inline text-[11px] text-slate-400 font-medium truncate">Sin cambios pendientes</span>
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="text-xs sm:text-sm text-slate-600 font-bold">Cambios:</span>
+                    <span id="footerDiffCount" class="text-xs sm:text-sm font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">0</span>
+                    <span id="footerSummaryText" class="hidden sm:inline text-xs text-slate-400 font-medium truncate">Sin cambios pendientes</span>
                 </div>
 
                 <div class="flex items-center gap-2 shrink-0">
-                    <button onclick="openSyncModal()" id="saveBtn" class="flex items-center gap-1.5 bg-slate-900 hover:bg-black active:bg-slate-800 text-white font-black text-xs uppercase px-4 py-2 rounded-xl shadow-xs transition-all">
-                        <i data-lucide="cloud-upload" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <button onclick="openSyncModal()" id="saveBtn" class="flex items-center gap-2 bg-slate-900 hover:bg-black active:bg-slate-800 text-white font-black text-xs sm:text-sm uppercase px-5 py-2.5 rounded-xl shadow-xs transition-all">
+                        <i data-lucide="cloud-upload" class="w-4 h-4 text-emerald-400"></i>
                         <span>Guardar en Loyverse</span>
                     </button>
                 </div>
@@ -862,7 +862,7 @@
                 const cleanId = 'pill_' + encodeURIComponent(cat).replace(/[^a-zA-Z0-9]/g, '_');
                 html += `
                     <button onclick="selectAuditCategory('${cat.replace(/'/g, "\\'")}')" id="${cleanId}" 
-                        class="cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap ${isSelected ? 'bg-slate-900 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs'} transition-colors">
+                        class="cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap ${isSelected ? 'bg-slate-900 text-white shadow-xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs'} transition-colors">
                         ${cat} (${count})
                     </button>
                 `;
@@ -1090,21 +1090,21 @@
         function setCategoryFilter(cat) {
             currentCategoryFilter = cat;
             document.querySelectorAll('.cat-tab').forEach(btn => {
-                btn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs transition-colors";
+                btn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 shadow-2xs transition-colors";
             });
             
             if (cat === 'ALL') {
                 const allBtn = document.getElementById('tabALL');
-                if (allBtn) allBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs transition-colors";
+                if (allBtn) allBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-xs transition-colors";
             } else {
                 const activeBtn = document.getElementById(`tab${cat.replace(/\s+/g, '')}`) || document.getElementById(`tab${cat}`);
                 if (activeBtn) {
                     if (cat === 'HAS_DIFF') {
-                        activeBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-rose-600 text-white border border-rose-700 shadow-2xs ring-1 ring-rose-300 transition-colors";
+                        activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-rose-600 text-white border border-rose-700 shadow-xs ring-2 ring-rose-300 transition-colors";
                     } else if (cat === 'WITH_STOCK') {
-                        activeBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-emerald-600 text-white border border-emerald-700 shadow-2xs transition-colors";
+                        activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-emerald-600 text-white border border-emerald-700 shadow-xs transition-colors";
                     } else {
-                        activeBtn.className = "cat-tab px-2.5 py-1 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-2xs transition-colors";
+                        activeBtn.className = "cat-tab px-3 py-1.5 rounded-full font-bold whitespace-nowrap bg-slate-900 text-white shadow-xs transition-colors";
                     }
                     activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 }
@@ -1254,34 +1254,34 @@
                     }
 
                     return `
-                        <div class="flex items-center justify-between gap-1 p-1.5 bg-white hover:bg-slate-50/90 rounded-lg border border-slate-200/90 transition-colors shadow-2xs">
+                        <div class="flex items-center justify-between gap-1.5 p-2 bg-white hover:bg-slate-50/90 rounded-xl border border-slate-200/90 transition-colors shadow-2xs">
                             <!-- Izquierda: Talla en cuadrado sólido + Indicador visual de color y Stock Loyverse -->
-                            <div class="flex items-center gap-1.5 min-w-0 flex-1">
-                                <span class="w-6 h-6 rounded bg-slate-900 text-white font-black text-[11px] flex items-center justify-center shrink-0 shadow-2xs">
+                            <div class="flex items-center gap-2 min-w-0 flex-1">
+                                <span class="w-8 h-8 rounded-lg bg-slate-900 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-2xs">
                                     ${v.size}
                                 </span>
                                 <div class="flex flex-col min-w-0 justify-center leading-tight">
-                                    <div class="flex items-center gap-1 min-w-0">
-                                        <span class="w-2 h-2 rounded-full shrink-0 shadow-2xs" style="background-color: ${swatch.bg}; border: 1px solid ${swatch.border};"></span>
-                                        <span class="text-[11px] font-black text-slate-800 uppercase tracking-tight truncate">${v.color || 'Único'}</span>
+                                    <div class="flex items-center gap-1.5 min-w-0">
+                                        <span class="w-2.5 h-2.5 rounded-full shrink-0 shadow-2xs" style="background-color: ${swatch.bg}; border: 1px solid ${swatch.border};"></span>
+                                        <span class="text-xs font-black text-slate-800 uppercase tracking-tight truncate">${v.color || 'Único'}</span>
                                     </div>
-                                    <span class="text-[9px] text-slate-500 font-medium truncate">
+                                    <span class="text-[11px] text-slate-500 font-medium truncate mt-0.5">
                                         Loyverse: <strong class="text-slate-900 font-bold">${sysStock}</strong>
                                     </span>
                                 </div>
                             </div>
 
                             <!-- Derecha: Stepper Táctil y Badge -->
-                            <div class="flex items-center gap-1 shrink-0">
-                                <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-7 h-7 rounded-lg bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-sm flex items-center justify-center shadow-2xs transition-colors">
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-base flex items-center justify-center shadow-2xs transition-colors">
                                     -
                                 </button>
                                 <input type="number" min="0" value="${physStock}" onfocus="this.select()" onchange="setVariantStock('${v.id}', '${item.id}', this.value)" 
-                                    class="w-8 h-7 text-center text-xs font-black bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-900 shadow-2xs transition-all">
-                                <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-7 h-7 rounded-lg bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-sm flex items-center justify-center shadow-2xs transition-colors">
+                                    class="w-10 h-8 sm:h-9 text-center text-sm font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-900 shadow-2xs transition-all">
+                                <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-base flex items-center justify-center shadow-2xs transition-colors">
                                     +
                                 </button>
-                                <span class="text-[9px] px-1.5 py-0.5 rounded min-w-[46px] text-center font-bold ${badgeClass}">
+                                <span class="text-[10px] sm:text-xs px-2 py-1 rounded-lg min-w-[54px] text-center font-bold ${badgeClass}">
                                     ${badgeText}
                                 </span>
                             </div>
@@ -1290,25 +1290,25 @@
                 }).join('');
 
                 return `
-                    <div class="bg-slate-50/90 border border-slate-200/90 rounded-xl p-1.5 mb-1.5 last:mb-0">
+                    <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-2 mb-2 last:mb-0">
                         <!-- Cabecera de Color con Muestra Visual (Swatch) y Totales del Tono -->
-                        <div class="flex items-center justify-between px-1 pb-1 mb-1 border-b border-slate-200/70">
-                            <div class="flex items-center gap-1.5">
-                                <span class="w-3 h-3 rounded-full shadow-2xs shrink-0" style="background-color: ${swatch.bg}; border: 1px solid ${swatch.border};"></span>
-                                <span class="text-[11px] font-black text-slate-900 tracking-tight uppercase">${colorKey}</span>
+                        <div class="flex items-center justify-between px-1.5 pb-1.5 mb-1.5 border-b border-slate-200/70">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3.5 h-3.5 rounded-full shadow-2xs shrink-0" style="background-color: ${swatch.bg}; border: 1px solid ${swatch.border};"></span>
+                                <span class="text-xs sm:text-sm font-black text-slate-900 tracking-tight uppercase">${colorKey}</span>
                             </div>
-                            <div class="flex items-center gap-1">
-                                <span class="text-[9px] font-bold text-slate-500 bg-white px-1.5 py-0.2 rounded border border-slate-200 shadow-2xs">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] sm:text-xs font-bold text-slate-500 bg-white px-2 py-0.5 rounded-lg border border-slate-200 shadow-2xs">
                                     Loyverse: <strong class="text-slate-800">${groupSysTotal}</strong>
                                 </span>
-                                <span class="text-[9px] font-bold ${groupPhysTotal === groupSysTotal ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-800 bg-amber-50 border-amber-200'} px-1.5 py-0.2 rounded border shadow-2xs">
+                                <span class="text-[10px] sm:text-xs font-bold ${groupPhysTotal === groupSysTotal ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-800 bg-amber-50 border-amber-200'} px-2 py-0.5 rounded-lg border shadow-2xs">
                                     Físico: <strong>${groupPhysTotal}</strong>
                                 </span>
                             </div>
                         </div>
 
                         <!-- Variantes del color ordenadas por talla -->
-                        <div class="space-y-1">
+                        <div class="space-y-1.5">
                             ${groupRowsHtml}
                         </div>
                     </div>
@@ -1316,63 +1316,63 @@
             }).join('');
 
             return `
-                <div id="card-${item.id}" class="bg-white border ${isAudited ? 'border-emerald-300 ring-1 ring-emerald-200' : 'border-slate-200'} rounded-xl p-2.5 shadow-2xs transition-all">
+                <div id="card-${item.id}" class="bg-white border ${isAudited ? 'border-emerald-300 ring-1 ring-emerald-200' : 'border-slate-200'} rounded-2xl p-3 shadow-2xs transition-all">
                     <!-- Cabecera de la Prenda -->
-                    <div class="flex items-start gap-2 pb-2 border-b border-slate-100">
+                    <div class="flex items-start gap-3 pb-2.5 border-b border-slate-100">
                         <!-- Foto con Click para Ver en Pantalla Completa y Cambiar Foto -->
                         <div onclick="openImageModal('${item.id}')" role="button" title="Toca para ver en grande o tomar foto"
-                            class="relative shrink-0 w-12 h-12 rounded-lg overflow-hidden cursor-pointer border ${isNoPhoto ? 'border-2 border-dashed border-indigo-400 bg-indigo-50/70' : 'border-slate-200 bg-slate-100 hover:ring-1 hover:ring-slate-900'} flex items-center justify-center shadow-2xs group transition-all">
+                            class="relative shrink-0 w-16 h-16 rounded-xl overflow-hidden cursor-pointer border ${isNoPhoto ? 'border-2 border-dashed border-indigo-400 bg-indigo-50/70' : 'border-slate-200 bg-slate-100 hover:ring-1 hover:ring-slate-900'} flex items-center justify-center shadow-2xs group transition-all">
                             <img id="img-${item.id}" src="${item.image}" alt="${item.title}" class="w-full h-full object-cover ${isNoPhoto ? 'opacity-20' : ''}">
                             
                             <!-- Indicador Flotante de Zoom / Cámara -->
                             <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity text-white">
-                                <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                                <i data-lucide="maximize-2" class="w-4 h-4"></i>
                             </div>
 
                             ${isNoPhoto ? `
                                 <div class="absolute inset-0 flex flex-col items-center justify-center bg-indigo-600/80 text-white gap-0.5">
-                                    <i data-lucide="camera" class="w-3.5 h-3.5"></i>
-                                    <span class="text-[7px] font-black uppercase tracking-tight">Foto</span>
+                                    <i data-lucide="camera" class="w-4 h-4"></i>
+                                    <span class="text-[8px] font-black uppercase tracking-tight">Foto</span>
                                 </div>
                             ` : ''}
 
                             <div id="imgLoader-${item.id}" class="hidden absolute inset-0 bg-white/90 flex flex-col items-center justify-center text-slate-900">
-                                <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-indigo-600"></i>
+                                <i data-lucide="loader-2" class="w-5 h-5 animate-spin text-indigo-600"></i>
                             </div>
                         </div>
 
                         <!-- Información de la Prenda -->
                         <div class="flex-1 min-w-0">
-                            <div class="flex items-center gap-1 flex-wrap mb-0.5">
-                                <span class="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 border border-slate-200">
+                            <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                                <span class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 truncate max-w-[140px]">
                                     ${item.category || 'General'}
                                 </span>
                                 ${isAudited ? `
-                                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-0.5">
-                                        <i data-lucide="check" class="w-2.5 h-2.5"></i> OK
+                                    <span class="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-0.5">
+                                        <i data-lucide="check" class="w-3 h-3"></i> OK
                                     </span>
                                 ` : ''}
                                 ${itemDiffCount > 0 ? `
-                                    <button type="button" onclick="event.stopPropagation(); setCategoryFilter('HAS_DIFF')" title="Toca para filtrar solo las prendas con descuadre" class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition-colors flex items-center gap-0.5 cursor-pointer active:scale-95">
+                                    <button type="button" onclick="event.stopPropagation(); setCategoryFilter('HAS_DIFF')" title="Toca para filtrar solo las prendas con descuadre" class="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-md bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition-colors flex items-center gap-1 cursor-pointer active:scale-95">
                                         ⚠️ ${itemDiffCount}
                                     </button>
                                 ` : ''}
                             </div>
-                            <h3 class="text-xs font-black text-slate-900 truncate leading-tight" title="${item.title}">${item.title}</h3>
-                            <div class="flex items-center gap-1.5 text-[10px] text-slate-500 mt-0.5 font-medium">
-                                <span>Loyverse: <strong class="text-slate-800">${itemTotalSys}</strong></span>
+                            <h3 class="text-sm sm:text-base font-black text-slate-900 truncate leading-tight" title="${item.title}">${item.title}</h3>
+                            <div class="flex items-center gap-2 text-xs text-slate-500 mt-1 font-medium">
+                                <span>Loyverse: <strong class="text-slate-900 font-bold">${itemTotalSys}</strong></span>
                                 <span>•</span>
-                                <span>Físico: <strong class="${itemTotalPhys === itemTotalSys ? 'text-emerald-700' : 'text-amber-700 font-bold'}">${itemTotalPhys}</strong></span>
+                                <span>Físico: <strong class="${itemTotalPhys === itemTotalSys ? 'text-emerald-700 font-bold' : 'text-amber-700 font-black'}">${itemTotalPhys}</strong></span>
                             </div>
                         </div>
 
                         <!-- Acciones Rápidas para Acelerar la Toma Física -->
-                        <div class="flex flex-col gap-1 shrink-0">
-                            <button onclick="quickMatchItem('${item.id}')" title="Todo el perchero coincide con el sistema" class="px-2 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-[10px] text-white font-bold flex items-center gap-1 shadow-2xs transition-colors">
-                                <i data-lucide="check" class="w-3 h-3"></i>
+                        <div class="flex flex-col gap-1.5 shrink-0">
+                            <button onclick="quickMatchItem('${item.id}')" title="Todo el perchero coincide con el sistema" class="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-xs text-white font-bold flex items-center gap-1 shadow-2xs transition-colors">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i>
                                 <span>Coincide</span>
                             </button>
-                            <button onclick="quickZeroItem('${item.id}')" title="Marcar todas las tallas en 0 (agotado)" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-rose-100 text-[9px] text-slate-500 hover:text-rose-700 font-semibold border border-slate-200 transition-colors">
+                            <button onclick="quickZeroItem('${item.id}')" title="Marcar todas las tallas en 0 (agotado)" class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-rose-100 active:bg-rose-200 text-[10px] text-slate-600 hover:text-rose-700 font-bold border border-slate-200 transition-colors">
                                 0 Agotado
                             </button>
                         </div>
