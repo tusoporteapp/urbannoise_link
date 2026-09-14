@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <title>Auditor de Inventario • Urban Noise</title>
@@ -31,6 +31,13 @@
     </script>
     <style>
         /* COMPORTAMIENTO DE APP NATIVA: BLOQUEO TOTAL DE ZOOM Y MOVIMIENTO LATERAL */
+        :root {
+            --sat: env(safe-area-inset-top, 0px);
+            --sab: env(safe-area-inset-bottom, 0px);
+            --sal: env(safe-area-inset-left, 0px);
+            --sar: env(safe-area-inset-right, 0px);
+        }
+
         *, ::before, ::after {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -38,8 +45,8 @@
 
         html, body {
             width: 100% !important;
-            max-width: 100vw !important;
-            min-width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
             overflow-x: hidden !important;
             position: relative;
             touch-action: pan-y !important; /* SOLO permite scroll vertical; bloquea zoom y desplace horizontal */
@@ -57,7 +64,8 @@
 
         #mainApp {
             width: 100% !important;
-            max-width: 100vw !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
             overflow-x: hidden !important;
         }
 
@@ -143,41 +151,64 @@
     <!-- ========================================================== -->
     <div id="mainApp" class="hidden min-h-screen flex flex-col pb-36">
         
-        <!-- Barra de Navegación Superior -->
-        <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-2.5 shadow-sm">
-            <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
-                <div class="flex items-center gap-2.5">
-                    <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Logo" class="w-8 h-8 rounded-lg border border-slate-200 shadow-sm">
-                    <div>
-                        <div class="flex items-center gap-1.5">
-                            <h2 class="text-sm font-black tracking-tight text-slate-900 uppercase">Auditor de Inventario</h2>
-                            <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">EN LÍNEA</span>
+        <!-- Barra de Navegación Superior (Mobile-First con Soporte iPhone Notch / Dynamic Island) -->
+        <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-3 sm:px-4 py-2 sm:py-2.5 shadow-sm"
+                style="padding-top: max(0.5rem, env(safe-area-inset-top, 0px)); padding-left: max(0.75rem, env(safe-area-inset-left, 0px)); padding-right: max(0.75rem, env(safe-area-inset-right, 0px));">
+            <div class="max-w-3xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                
+                <!-- Fila 1 en móvil / Izquierda en PC: Identidad de Marca y Acciones Rápidas -->
+                <div class="flex items-center justify-between w-full sm:w-auto gap-2">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <img src="https://urbannoise.cc/assets/img/logo/LOGO_WEB.png" alt="Logo" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border border-slate-200 shadow-sm shrink-0">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-1.5">
+                                <h2 class="text-xs sm:text-sm font-black tracking-tight text-slate-900 uppercase truncate">Auditor de Inventario</h2>
+                                <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] sm:text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shrink-0">EN LÍNEA</span>
+                            </div>
+                            <p class="hidden sm:block text-[11px] text-slate-500 font-medium truncate">Sincronización directa con Loyverse</p>
                         </div>
-                        <p class="text-[11px] text-slate-500 font-medium">Sincronización directa con Loyverse</p>
+                    </div>
+
+                    <!-- Botones de Acción Móvil (Siempre visibles a la derecha en celular) -->
+                    <div class="flex items-center gap-1 shrink-0 sm:hidden">
+                        <button onclick="resetAllPhysicalCounts()" title="Restablecer conteos al stock de Loyverse" class="p-1.5 bg-slate-100 hover:bg-amber-50 active:bg-amber-100 text-slate-700 hover:text-amber-800 rounded-lg border border-slate-200 transition-colors shadow-2xs flex items-center">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-600"></i>
+                        </button>
+                        <button onclick="loadCatalog(true)" title="Recargar catálogo fresco" class="p-1.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 rounded-lg border border-slate-200 transition-colors shadow-2xs flex items-center">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="logout()" title="Bloquear / Salir" class="p-1.5 bg-slate-100 hover:bg-rose-50 active:bg-rose-100 text-slate-500 hover:text-rose-600 rounded-lg border border-slate-200 transition-colors shadow-2xs flex items-center">
+                            <i data-lucide="lock" class="w-4 h-4"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-1.5">
-                    <!-- Selector de Tienda -->
-                    <select id="storeSelector" onchange="onStoreChange()" class="bg-slate-100 text-base sm:text-xs font-bold text-slate-700 border border-slate-200 rounded-lg px-2 py-1.5 outline-none focus:ring-2 focus:ring-slate-900">
-                        <option value="fee704a4-ff11-43ae-903e-d2f9cf0a9a25">🏪 Noise Urban</option>
-                        <option value="cf0674d5-6edd-426b-a5a6-b1f65bba6770">🏪 Neos</option>
-                    </select>
+                <!-- Fila 2 en móvil / Derecha en PC: Selector de Tienda y Botones en Pantalla Completa -->
+                <div class="flex items-center justify-between sm:justify-end gap-1.5 w-full sm:w-auto">
+                    <!-- Selector de Tienda (Fácil de tocar en móvil, compacto en PC) -->
+                    <div class="flex items-center gap-1.5 w-full sm:w-auto bg-slate-100 border border-slate-200 rounded-xl px-2.5 py-1 shadow-2xs">
+                        <span class="text-[10px] sm:text-xs font-bold text-slate-500 shrink-0">Tienda:</span>
+                        <select id="storeSelector" onchange="onStoreChange()" class="w-full sm:w-auto bg-transparent text-xs sm:text-sm font-black text-slate-800 outline-none cursor-pointer">
+                            <option value="fee704a4-ff11-43ae-903e-d2f9cf0a9a25">🏪 Noise Urban (Principal)</option>
+                            <option value="cf0674d5-6edd-426b-a5a6-b1f65bba6770">🏪 Neos (Sucursal)</option>
+                        </select>
+                    </div>
 
-                    <!-- Botón Restablecer / Sincronizar -->
-                    <button onclick="resetAllPhysicalCounts()" title="Restablecer todos los conteos al stock real de Loyverse" class="p-2 bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-800 rounded-lg border border-slate-200 transition-colors shadow-sm flex items-center gap-1 text-[11px] font-bold">
-                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-600"></i>
-                        <span class="hidden md:inline">Restablecer</span>
-                    </button>
-                    <!-- Botón Recargar -->
-                    <button onclick="loadCatalog(true)" title="Recargar catálogo fresco de Loyverse" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition-colors shadow-sm">
-                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-                    </button>
-                    <!-- Botón Bloquear / Salir -->
-                    <button onclick="logout()" title="Bloquear" class="p-2 bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 rounded-lg border border-slate-200 transition-colors shadow-sm">
-                        <i data-lucide="lock" class="w-4 h-4"></i>
-                    </button>
+                    <!-- Botones de Acción para PC / Tablet -->
+                    <div class="hidden sm:flex items-center gap-1.5 shrink-0">
+                        <button onclick="resetAllPhysicalCounts()" title="Restablecer conteos al stock real de Loyverse" class="p-2 bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-800 rounded-lg border border-slate-200 transition-colors shadow-sm flex items-center gap-1 text-[11px] font-bold">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-600"></i>
+                            <span>Restablecer</span>
+                        </button>
+                        <button onclick="loadCatalog(true)" title="Recargar catálogo fresco de Loyverse" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition-colors shadow-sm">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="logout()" title="Bloquear / Salir" class="p-2 bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 rounded-lg border border-slate-200 transition-colors shadow-sm">
+                            <i data-lucide="lock" class="w-4 h-4"></i>
+                        </button>
+                    </div>
                 </div>
+
             </div>
         </header>
 
@@ -218,23 +249,23 @@
                 </div>
             </div>
 
-            <!-- Resumen Rápido en 4 Tarjetas -->
-            <div class="grid grid-cols-4 gap-2 mb-3">
-                <div class="bg-white border border-slate-200 rounded-xl p-2 text-center shadow-sm">
-                    <span class="text-[10px] text-slate-400 uppercase font-bold block">Prendas</span>
-                    <span id="statTotalItems" class="text-base font-black text-slate-900">0</span>
+            <!-- Resumen Rápido en 4 Tarjetas (Optimizado para Móvil) -->
+            <div class="grid grid-cols-4 gap-1.5 sm:gap-2 mb-3">
+                <div class="bg-white border border-slate-200 rounded-xl p-1.5 sm:p-2 text-center shadow-sm">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-bold block truncate">Prendas</span>
+                    <span id="statTotalItems" class="text-sm sm:text-base font-black text-slate-900">0</span>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-xl p-2 text-center shadow-sm">
-                    <span class="text-[10px] text-slate-400 uppercase font-bold block">Uds Sistema</span>
-                    <span id="statSystemUnits" class="text-base font-black text-slate-600">0</span>
+                <div class="bg-white border border-slate-200 rounded-xl p-1.5 sm:p-2 text-center shadow-sm">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-bold block truncate">Loyverse</span>
+                    <span id="statSystemUnits" class="text-sm sm:text-base font-black text-slate-600">0</span>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-xl p-2 text-center shadow-sm">
-                    <span class="text-[10px] text-slate-400 uppercase font-bold block">Uds Físicas</span>
-                    <span id="statPhysicalUnits" class="text-base font-black text-emerald-700">0</span>
+                <div class="bg-white border border-slate-200 rounded-xl p-1.5 sm:p-2 text-center shadow-sm">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 uppercase font-bold block truncate">Físico</span>
+                    <span id="statPhysicalUnits" class="text-sm sm:text-base font-black text-emerald-700">0</span>
                 </div>
-                <div onclick="setCategoryFilter('HAS_DIFF')" role="button" title="Toca para filtrar solo las prendas con descuadre" class="bg-white hover:bg-rose-50/80 border border-slate-200 hover:border-rose-300 rounded-xl p-2 text-center shadow-sm cursor-pointer transition-all active:scale-95 group">
-                    <span class="text-[10px] text-slate-400 group-hover:text-rose-600 uppercase font-bold block transition-colors">Descuadres</span>
-                    <span id="statDiffVariants" class="text-base font-black text-rose-600">0</span>
+                <div onclick="setCategoryFilter('HAS_DIFF')" role="button" title="Toca para filtrar solo las prendas con descuadre" class="bg-white hover:bg-rose-50/80 border border-slate-200 hover:border-rose-300 rounded-xl p-1.5 sm:p-2 text-center shadow-sm cursor-pointer transition-all active:scale-95 group">
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 group-hover:text-rose-600 uppercase font-bold block truncate transition-colors">Descuadre</span>
+                    <span id="statDiffVariants" class="text-sm sm:text-base font-black text-rose-600">0</span>
                 </div>
             </div>
 
@@ -319,18 +350,19 @@
         <!-- ========================================================== -->
         <!-- BARRA INFERIOR FIJA: ACCIÓN RÁPIDA Y GUARDAR EN LOYVERSE   -->
         <!-- ========================================================== -->
-        <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 shadow-lg">
-            <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
-                <div class="flex flex-col">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs text-slate-600 font-medium">Cambios a guardar:</span>
+        <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 sm:px-4 py-2.5 sm:py-3 shadow-lg"
+             style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));">
+            <div class="max-w-3xl mx-auto flex items-center justify-between gap-2 sm:gap-3">
+                <div class="flex flex-col min-w-0">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xs text-slate-600 font-medium">Cambios:</span>
                         <span id="footerDiffCount" class="text-xs font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">0</span>
                     </div>
-                    <span id="footerSummaryText" class="text-[11px] text-slate-500 mt-0.5 font-medium">Sin cambios pendientes</span>
+                    <span id="footerSummaryText" class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 font-medium truncate">Sin cambios pendientes</span>
                 </div>
 
-                <div class="flex items-center gap-2">
-                    <button onclick="openSyncModal()" id="saveBtn" class="flex items-center gap-2 bg-slate-900 hover:bg-black active:bg-slate-800 text-white font-black text-xs uppercase px-5 py-3 rounded-xl shadow-md transition-all">
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="openSyncModal()" id="saveBtn" class="flex items-center gap-1.5 sm:gap-2 bg-slate-900 hover:bg-black active:bg-slate-800 text-white font-black text-xs uppercase px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl shadow-md transition-all">
                         <i data-lucide="cloud-upload" class="w-4 h-4 text-emerald-400"></i>
                         <span>Guardar en Loyverse</span>
                     </button>
@@ -631,20 +663,16 @@
 
         // 2. Control estricto de eventos táctiles:
         // - Bloquea pinch-to-zoom multi-touch (2 o más dedos) fuera del modal de foto
-        // - Bloquea bamboleo / rebote horizontal (desplazamiento lateral no deseado)
+        // - Bloquea bamboleo / rebote horizontal mientras garantiza scroll vertical 100% fluido (60 FPS)
         let touchStartX = 0;
         let touchStartY = 0;
 
         window.addEventListener('touchstart', function(e) {
-            if (e.touches && e.touches.length > 1) {
-                if (!e.target.closest('#imageModal')) {
-                    e.preventDefault();
-                }
-            } else if (e.touches && e.touches.length === 1) {
+            if (e.touches && e.touches.length === 1) {
                 touchStartX = e.touches[0].clientX;
                 touchStartY = e.touches[0].clientY;
             }
-        }, { passive: false });
+        }, { passive: true });
 
         window.addEventListener('touchmove', function(e) {
             if (e.touches && e.touches.length > 1) {
@@ -659,11 +687,11 @@
                 return;
             }
 
-            // Si el usuario arrastra hacia los lados fuera de contenedores permitidos, bloquear el desvío horizontal
+            // Si el usuario arrastra intencionalmente hacia los lados fuera de contenedores permitidos, bloquear el desvío horizontal
             if (e.touches && e.touches.length === 1) {
                 const diffX = Math.abs(e.touches[0].clientX - touchStartX);
                 const diffY = Math.abs(e.touches[0].clientY - touchStartY);
-                if (diffX > diffY && diffX > 6) {
+                if (diffX > 20 && diffX > diffY * 2) {
                     e.preventDefault();
                 }
             }
@@ -1235,10 +1263,10 @@
                     }
 
                     return `
-                        <div class="flex items-center justify-between gap-2 p-2 bg-white hover:bg-slate-50/90 rounded-xl border border-slate-200/90 transition-colors shadow-2xs">
+                        <div class="flex items-center justify-between gap-1.5 sm:gap-2 p-2 bg-white hover:bg-slate-50/90 rounded-xl border border-slate-200/90 transition-colors shadow-2xs">
                             <!-- Izquierda: Talla en cuadrado sólido + Indicador visual de color y Stock Loyverse -->
-                            <div class="flex items-center gap-2.5 min-w-0">
-                                <span class="w-8 h-8 rounded-lg bg-slate-900 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                            <div class="flex items-center gap-2 min-w-0 flex-1">
+                                <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
                                     ${v.size}
                                 </span>
                                 <div class="flex flex-col min-w-0 justify-center">
@@ -1246,23 +1274,23 @@
                                         <span class="w-2.5 h-2.5 rounded-full shrink-0 shadow-2xs" style="background-color: ${swatch.bg}; border: 1px solid ${swatch.border};"></span>
                                         <span class="text-xs font-black text-slate-800 uppercase tracking-tight truncate leading-tight">${v.color || 'Único'}</span>
                                     </div>
-                                    <span class="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
+                                    <span class="text-[10px] sm:text-[11px] text-slate-500 font-medium leading-tight mt-0.5 truncate">
                                         Loyverse: <strong class="text-slate-900 font-bold">${sysStock}</strong>
                                     </span>
                                 </div>
                             </div>
 
                             <!-- Derecha: Stepper Táctil Grande y Badge -->
-                            <div class="flex items-center gap-1.5 shrink-0">
-                                <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
+                            <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                                <button onclick="stepVariantStock('${v.id}', '${item.id}', -1)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-base flex items-center justify-center shadow-xs transition-colors">
                                     -
                                 </button>
                                 <input type="number" min="0" value="${physStock}" onfocus="this.select()" onchange="setVariantStock('${v.id}', '${item.id}', this.value)" 
-                                    class="w-12 h-9 text-center text-base font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-xs transition-all">
-                                <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
+                                    class="w-10 sm:w-12 h-8 sm:h-9 text-center text-base font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-xs transition-all">
+                                <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-base flex items-center justify-center shadow-xs transition-colors">
                                     +
                                 </button>
-                                <span class="text-[10px] px-2 py-1.5 rounded-lg min-w-[62px] text-center font-bold ${badgeClass}">
+                                <span class="text-[9px] sm:text-[10px] px-1 sm:px-2 py-1.5 rounded-lg min-w-[50px] sm:min-w-[62px] text-center font-bold ${badgeClass}">
                                     ${badgeText}
                                 </span>
                             </div>
