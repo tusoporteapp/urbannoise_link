@@ -131,6 +131,7 @@ async function sync() {
             return {
                 id: v.variant_id,
                 sku: v.sku || '',
+                barcode: v.barcode || '',
                 size: sizeVal || 'U',
                 color: colorVal,
                 price: variantWholesalePrice,

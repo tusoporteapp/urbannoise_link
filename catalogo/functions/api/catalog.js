@@ -288,6 +288,7 @@ export async function onRequestGet(context) {
                 return {
                     id: v.variant_id,
                     sku: v.sku || '',
+                    barcode: v.barcode || '',
                     size: sizeVal || 'U',
                     color: colorVal,
                     price: variantWholesalePrice,
