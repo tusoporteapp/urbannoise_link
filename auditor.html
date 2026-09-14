@@ -2,7 +2,11 @@
 <html lang="es" class="h-full bg-slate-50 text-slate-900">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
     <title>Auditor de Inventario • Urban Noise</title>
     
     <!-- Evitar caché para asegurar datos en tiempo real -->
@@ -26,24 +30,58 @@
         }
     </script>
     <style>
-        /* Comportamiento de App Nativa: Bloqueo estricto de zoom en celulares */
+        /* COMPORTAMIENTO DE APP NATIVA: BLOQUEO TOTAL DE ZOOM Y MOVIMIENTO LATERAL */
+        *, ::before, ::after {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         html, body {
-            touch-action: pan-x pan-y;
-            -webkit-text-size-adjust: 100%;
-            overscroll-behavior-y: contain;
+            width: 100% !important;
+            max-width: 100vw !important;
+            min-width: 100% !important;
+            overflow-x: hidden !important;
+            position: relative;
+            touch-action: pan-y !important; /* SOLO permite scroll vertical; bloquea zoom y desplace horizontal */
+            -webkit-text-size-adjust: 100% !important;
+            -moz-text-size-adjust: 100% !important;
+            -ms-text-size-adjust: 100% !important;
+            text-size-adjust: 100% !important;
+            overscroll-behavior: none !important;
+            overscroll-behavior-y: none !important;
+            overscroll-behavior-x: none !important;
             user-select: none;
             -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
-        /* Permitir selección y edición normal en inputs */
-        input, textarea, select {
+        #mainApp {
+            width: 100% !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+        }
+
+        /* En iOS Safari, cualquier input con font-size < 16px fuerza zoom automático. */
+        /* Forzar 16px previene totalmente ese auto-zoom molesto */
+        input, select, textarea {
+            font-size: 16px !important;
             user-select: auto;
             -webkit-user-select: auto;
-            touch-action: manipulation;
+            touch-action: manipulation !important;
         }
 
-        /* Optimización de respuesta táctil en celulares */
-        * { -webkit-tap-highlight-color: transparent; }
+        button, a, label {
+            touch-action: manipulation !important;
+        }
+
+        /* Contenedores de desplazamiento horizontal permitido (como pestañas de categorías) */
+        .overflow-x-auto {
+            touch-action: pan-x !important;
+            overscroll-behavior-x: contain !important;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Optimización de campos numéricos */
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
@@ -121,7 +159,7 @@
 
                 <div class="flex items-center gap-1.5">
                     <!-- Selector de Tienda -->
-                    <select id="storeSelector" onchange="onStoreChange()" class="bg-slate-100 text-xs font-bold text-slate-700 border border-slate-200 rounded-lg px-2 py-1.5 outline-none focus:ring-2 focus:ring-slate-900">
+                    <select id="storeSelector" onchange="onStoreChange()" class="bg-slate-100 text-base sm:text-xs font-bold text-slate-700 border border-slate-200 rounded-lg px-2 py-1.5 outline-none focus:ring-2 focus:ring-slate-900">
                         <option value="fee704a4-ff11-43ae-903e-d2f9cf0a9a25">🏪 Noise Urban</option>
                         <option value="cf0674d5-6edd-426b-a5a6-b1f65bba6770">🏪 Neos</option>
                     </select>
@@ -204,7 +242,7 @@
             <div class="relative mb-3">
                 <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
                 <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Buscar prenda o estampado (ej. CLOTHING 07)..." 
-                    class="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-10 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-sm transition-all">
+                    class="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-10 py-2.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-sm transition-all">
                 <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
@@ -570,37 +608,78 @@
         let currentFilteredList = [];
 
         // ==========================================================
-        // COMPORTAMIENTO DE APLICACIÓN NATIVA: BLOQUEO DE ZOOM MÓVIL
+        // COMPORTAMIENTO DE APLICACIÓN NATIVA: BLOQUEO DE ZOOM MÓVIL Y BAMBOLEO LATERAL
         // ==========================================================
-        document.addEventListener('gesturestart', function(e) {
+        // 1. Bloqueo de pinch-to-zoom nativo en iOS Safari
+        window.addEventListener('gesturestart', function(e) {
             if (!e.target.closest('#imageModal')) {
                 e.preventDefault();
             }
         }, { passive: false });
 
-        document.addEventListener('gesturechange', function(e) {
+        window.addEventListener('gesturechange', function(e) {
             if (!e.target.closest('#imageModal')) {
                 e.preventDefault();
             }
         }, { passive: false });
 
-        document.addEventListener('gestureend', function(e) {
+        window.addEventListener('gestureend', function(e) {
             if (!e.target.closest('#imageModal')) {
                 e.preventDefault();
             }
         }, { passive: false });
 
-        // Prevenir doble toque accidental que dispare zoom fuera de campos editables o lupa
+        // 2. Control estricto de eventos táctiles:
+        // - Bloquea pinch-to-zoom multi-touch (2 o más dedos) fuera del modal de foto
+        // - Bloquea bamboleo / rebote horizontal (desplazamiento lateral no deseado)
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        window.addEventListener('touchstart', function(e) {
+            if (e.touches && e.touches.length > 1) {
+                if (!e.target.closest('#imageModal')) {
+                    e.preventDefault();
+                }
+            } else if (e.touches && e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        }, { passive: false });
+
+        window.addEventListener('touchmove', function(e) {
+            if (e.touches && e.touches.length > 1) {
+                if (!e.target.closest('#imageModal')) {
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            // Un solo dedo: permitir scroll horizontal en pestañas (.overflow-x-auto) o en el visor de foto
+            if (e.target.closest('.overflow-x-auto, #imageModal')) {
+                return;
+            }
+
+            // Si el usuario arrastra hacia los lados fuera de contenedores permitidos, bloquear el desvío horizontal
+            if (e.touches && e.touches.length === 1) {
+                const diffX = Math.abs(e.touches[0].clientX - touchStartX);
+                const diffY = Math.abs(e.touches[0].clientY - touchStartY);
+                if (diffX > diffY && diffX > 6) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+
+        // 3. Prevenir doble toque accidental que dispare zoom (double-tap to zoom)
         let lastTouchEndTimestamp = 0;
-        document.addEventListener('touchend', function(e) {
+        window.addEventListener('touchend', function(e) {
             const now = Date.now();
-            if (now - lastTouchEndTimestamp <= 300) {
-                if (!e.target.closest('input, textarea, select, #imageModal, button')) {
+            if (now - lastTouchEndTimestamp <= 320) {
+                if (!e.target.closest('#imageModal, button, input, textarea, select, a')) {
                     e.preventDefault();
                 }
             }
             lastTouchEndTimestamp = now;
-        }, false);
+        }, { passive: false });
 
         // ==========================================================
         // PALETA VISUAL DE COLORES Y RANKING DE TALLAS
@@ -1179,7 +1258,7 @@
                                     -
                                 </button>
                                 <input type="number" min="0" value="${physStock}" onfocus="this.select()" onchange="setVariantStock('${v.id}', '${item.id}', this.value)" 
-                                    class="w-12 h-9 text-center text-sm font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-xs transition-all">
+                                    class="w-12 h-9 text-center text-base font-black bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-xs transition-all">
                                 <button onclick="stepVariantStock('${v.id}', '${item.id}', 1)" class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-slate-100 active:bg-slate-200 border border-slate-300 text-slate-800 font-black text-lg flex items-center justify-center shadow-xs transition-colors">
                                     +
                                 </button>
