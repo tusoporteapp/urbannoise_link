@@ -117,7 +117,7 @@
         #qr-reader video {
             width: 100% !important;
             height: 100% !important;
-            object-fit: contain !important;
+            object-fit: cover !important;
             background: #020617;
             border-radius: 0.75rem !important;
         }
@@ -572,8 +572,9 @@
 
                 <!-- Estado del Escaneo -->
                 <div id="scannerStatusBadge" class="mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-[11px] font-bold">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <span id="scannerStatusDot" class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
                     <span id="scannerStatusText">Iniciando escáner...</span>
+                    <button type="button" id="retryScannerBtn" onclick="openBarcodeScanner()" class="hidden text-[11px] text-indigo-600 hover:text-indigo-800 font-bold underline ml-1 cursor-pointer">Reintentar</button>
                 </div>
 
                 <p class="text-[10px] text-slate-400 text-center mt-1.5 px-2 leading-tight">
@@ -2491,7 +2492,7 @@
         }
 
         // ==========================================================
-        // 10. LECTOR DE CÓDIGO DE BARRAS / SKU CON CÁMARA
+        // 10. LECTOR DE CÓDIGO DE BARRAS / SKU CON CÁMARA (MULTIMOTOR)
         // ==========================================================
         let html5QrCodeScanner = null;
         let isScannerRunning = false;
@@ -2504,6 +2505,9 @@
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
                 if (!AudioCtx) return;
                 const ctx = new AudioCtx();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
+                }
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.type = "sine";
@@ -2526,20 +2530,46 @@
             if (window.lucide) lucide.createIcons();
 
             const statusText = document.getElementById('scannerStatusText');
-            if (statusText) statusText.textContent = "Iniciando cámara...";
+            const statusBadge = document.getElementById('scannerStatusBadge');
+            const retryBtn = document.getElementById('retryScannerBtn');
+            if (retryBtn) retryBtn.classList.add('hidden');
+            if (statusText) statusText.textContent = "Iniciando cámara trasera...";
+            if (statusBadge) {
+                statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-800 rounded-full text-[11px] font-bold";
+            }
+
+            // Ocultar botones flotantes de lente y linterna mientras inicia
+            const switchBtn = document.getElementById('switchCameraBtn');
+            const torchBtn = document.getElementById('toggleTorchBtn');
+            if (switchBtn) switchBtn.classList.add('hidden');
+            if (torchBtn) torchBtn.classList.add('hidden');
 
             try {
                 if (typeof Html5Qrcode === 'undefined') {
                     throw new Error("Librería de lectura de códigos no disponible. Recarga la página.");
                 }
 
-                // Si ya había un escáner activo, detenerlo limpiamente
-                if (html5QrCodeScanner && isScannerRunning) {
-                    try { await html5QrCodeScanner.stop(); } catch(e){}
+                // 1. Limpieza absoluta de cualquier instancia previa
+                if (html5QrCodeScanner) {
+                    try {
+                        if (isScannerRunning) {
+                            await html5QrCodeScanner.stop();
+                        }
+                    } catch(e) {}
+                    try {
+                        await html5QrCodeScanner.clear();
+                    } catch(e) {}
                     isScannerRunning = false;
+                    html5QrCodeScanner = null;
                 }
 
-                // Configurar formatos explícitamente (enfocados en prendas Loyverse Code-128, EAN y QR)
+                const qrReaderEl = document.getElementById('qr-reader');
+                if (qrReaderEl) qrReaderEl.innerHTML = '';
+
+                // Esperar un ciclo de render para que el contenedor tenga tamaño real
+                await new Promise(r => setTimeout(r, 60));
+
+                // 2. Instanciar Html5Qrcode configurado con ZXing nativo (useBarCodeDetectorIfSupported: false para 1D estable)
                 const formats = [
                     Html5QrcodeSupportedFormats.CODE_128,
                     Html5QrcodeSupportedFormats.CODE_39,
@@ -2555,51 +2585,54 @@
                 html5QrCodeScanner = new Html5Qrcode("qr-reader", {
                     formatsToSupport: formats,
                     experimentalFeatures: {
-                        useBarCodeDetectorIfSupported: true
+                        useBarCodeDetectorIfSupported: false // ZXing decodifica Code-128 con alta precisión
                     },
                     verbose: false
                 });
 
-                // Listar cámaras disponibles para permitir alternar lentes (evita el lente ultra-wide 0.5x borroso en iPhone)
-                try {
-                    const cameras = await Html5Qrcode.getCameras();
-                    if (cameras && cameras.length > 0) {
-                        availableCameras = cameras;
-                        // Filtrar traseras
-                        const backCams = cameras.filter(c => {
-                            const lbl = (c.label || '').toLowerCase();
-                            return lbl.includes('back') || lbl.includes('rear') || lbl.includes('trasera') || lbl.includes('environment');
-                        });
-                        // Preferir cámara trasera estándar 1x que NO diga ultra-wide / 0.5x
-                        const sharpBackCam = backCams.find(c => {
-                            const lbl = (c.label || '').toLowerCase();
-                            return !lbl.includes('wide') && !lbl.includes('0.5') && !lbl.includes('ultra');
-                        }) || backCams[0] || cameras[cameras.length - 1];
-
-                        const idx = availableCameras.findIndex(c => c.id === sharpBackCam.id);
-                        currentCameraIndex = idx !== -1 ? idx : 0;
-                    }
-                } catch(camErr) {
-                    console.warn("No se pudieron listar cámaras:", camErr);
-                }
-
-                const switchBtn = document.getElementById('switchCameraBtn');
-                if (switchBtn) {
-                    if (availableCameras.length > 1) switchBtn.classList.remove('hidden');
-                    else switchBtn.classList.add('hidden');
-                }
-
+                // 3. Iniciar stream de video con cámara trasera por defecto
                 await startCameraStream();
 
             } catch (err) {
                 console.error("Error al acceder a la cámara:", err);
-                if (statusText) statusText.textContent = "Cámara no disponible";
-                showToast("Cámara no disponible", "Verifica los permisos o usa '📸 Foto Nítida'.", "alert-triangle");
+                handleCameraError(err);
             }
         }
 
-        async function startCameraStream() {
+        function handleCameraError(err) {
             const statusText = document.getElementById('scannerStatusText');
+            const statusBadge = document.getElementById('scannerStatusBadge');
+            const retryBtn = document.getElementById('retryScannerBtn');
+            if (retryBtn) retryBtn.classList.remove('hidden');
+
+            if (statusBadge) {
+                statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-rose-50 border border-rose-200 text-rose-800 rounded-full text-[11px] font-bold";
+            }
+
+            const errStr = String(err && (err.name || err.message || err)).toLowerCase();
+            let msg = "No se pudo iniciar la cámara";
+            let advice = "Usa '📸 Foto Nítida' o escribe el SKU manualmente abajo.";
+
+            if (errStr.includes('notallowed') || errStr.includes('permission')) {
+                msg = "Permiso de cámara denegado";
+                advice = "Permite el acceso a la cámara en los ajustes del navegador o pulsa '📸 Foto Nítida'.";
+            } else if (errStr.includes('notfound') || errStr.includes('devicesnotfound')) {
+                msg = "No se detectó cámara trasera";
+                advice = "Tu dispositivo no reporta una cámara disponible.";
+            } else if (errStr.includes('notreadable') || errStr.includes('trackstart') || errStr.includes('busy')) {
+                msg = "Cámara en uso por otra app";
+                advice = "Cierra otras pestañas o aplicaciones que usen la cámara y pulsa Reintentar.";
+            }
+
+            if (statusText) statusText.textContent = msg;
+            showToast(msg, advice, "alert-triangle");
+        }
+
+        async function startCameraStream(preferredCameraId = null) {
+            const statusText = document.getElementById('scannerStatusText');
+            const statusBadge = document.getElementById('scannerStatusBadge');
+            const retryBtn = document.getElementById('retryScannerBtn');
+            if (retryBtn) retryBtn.classList.add('hidden');
             if (!html5QrCodeScanner) return;
 
             if (isScannerRunning) {
@@ -2607,23 +2640,19 @@
                 isScannerRunning = false;
             }
 
-            // Configuración optimizada para lectura horizontal rápida
+            // Escaneo de marco completo en alta resolución y enfoque continuo
             const config = {
                 fps: 20,
-                qrbox: function(viewfinderWidth, viewfinderHeight) {
-                    const w = Math.floor(viewfinderWidth * 0.94);
-                    const h = Math.floor(viewfinderHeight * 0.65);
-                    return { width: Math.max(w, 280), height: Math.max(h, 150) };
-                },
-                disableFlip: false
+                disableFlip: false,
+                videoConstraints: {
+                    facingMode: "environment",
+                    width: { min: 640, ideal: 1280, max: 1920 },
+                    height: { min: 480, ideal: 720, max: 1080 },
+                    focusMode: { ideal: "continuous" }
+                }
             };
 
-            let cameraConfig;
-            if (availableCameras.length > 0 && availableCameras[currentCameraIndex]) {
-                cameraConfig = availableCameras[currentCameraIndex].id;
-            } else {
-                cameraConfig = { facingMode: "environment" };
-            }
+            const cameraConfig = preferredCameraId || { facingMode: "environment" };
 
             try {
                 await html5QrCodeScanner.start(
@@ -2633,23 +2662,44 @@
                     onBarcodeScanFailure
                 );
                 isScannerRunning = true;
-                if (statusText) statusText.textContent = "Apunta al código (15-25 cm)...";
+
+                if (statusText) statusText.textContent = "🟢 Apunta al código de barras o SKU...";
+                if (statusBadge) {
+                    statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-[11px] font-bold";
+                }
+
+                // Una vez con permisos activos, listar cámaras para el selector de lentes
+                try {
+                    const cameras = await Html5Qrcode.getCameras();
+                    if (cameras && cameras.length > 1) {
+                        availableCameras = cameras;
+                        const switchBtn = document.getElementById('switchCameraBtn');
+                        if (switchBtn) switchBtn.classList.remove('hidden');
+                    }
+                } catch(e) {
+                    console.warn("No se pudieron listar cámaras adicionales:", e);
+                }
+
                 checkTorchAvailability();
+
             } catch (err) {
-                console.warn("Fallo con cámara específica, probando facingMode genérico:", err);
+                console.warn("Fallo con config primaria, intentando facingMode básico:", err);
+                // Fallback ultra-compatible sin constraints avanzadas
                 try {
                     await html5QrCodeScanner.start(
                         { facingMode: "environment" },
-                        config,
+                        { fps: 15, disableFlip: false },
                         onBarcodeScannedSuccess,
                         onBarcodeScanFailure
                     );
                     isScannerRunning = true;
-                    if (statusText) statusText.textContent = "Apunta al código (15-25 cm)...";
+                    if (statusText) statusText.textContent = "🟢 Apunta al código de barras o SKU...";
+                    if (statusBadge) {
+                        statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-[11px] font-bold";
+                    }
                     checkTorchAvailability();
                 } catch (fallbackErr) {
-                    console.error("Error iniciando stream:", fallbackErr);
-                    if (statusText) statusText.textContent = "Error al iniciar stream";
+                    console.error("Fallo definitivo iniciando cámara:", fallbackErr);
                     throw fallbackErr;
                 }
             }
@@ -2662,10 +2712,11 @@
             const statusText = document.getElementById('scannerStatusText');
             if (statusText) statusText.textContent = "Cambiando cámara...";
             try {
-                await startCameraStream();
+                await startCameraStream(cam.id);
                 showToast("Cámara Cambiada", cam.label || `Lente ${currentCameraIndex + 1}`, "camera");
             } catch (e) {
                 console.error("Error cambiando de lente:", e);
+                handleCameraError(e);
             }
         }
 
@@ -2693,8 +2744,8 @@
             const torchBtn = document.getElementById('toggleTorchBtn');
             if (!torchBtn) return;
             try {
-                const capabilities = html5QrCodeScanner.getRunningTrackCapabilities();
-                if (capabilities && capabilities.torch) {
+                const capabilities = html5QrCodeScanner.getRunningTrackCameraCapabilities();
+                if (capabilities && capabilities.torchFeature && capabilities.torchFeature().isSupported()) {
                     torchBtn.classList.remove('hidden');
                 } else {
                     torchBtn.classList.remove('hidden');
@@ -2708,15 +2759,30 @@
             const modal = document.getElementById('barcodeScannerModal');
             if (modal) modal.classList.add('hidden');
 
-            if (html5QrCodeScanner && isScannerRunning) {
+            if (html5QrCodeScanner) {
                 try {
-                    await html5QrCodeScanner.stop();
+                    if (isScannerRunning) {
+                        await html5QrCodeScanner.stop();
+                    }
                 } catch (e) {
                     console.warn("Aviso al detener el escáner:", e);
                 }
+                try {
+                    await html5QrCodeScanner.clear();
+                } catch(e) {}
                 isScannerRunning = false;
+                html5QrCodeScanner = null;
             }
+
+            const qrReaderEl = document.getElementById('qr-reader');
+            if (qrReaderEl) qrReaderEl.innerHTML = '';
+
             isTorchOn = false;
+            const torchBtn = document.getElementById('toggleTorchBtn');
+            if (torchBtn) {
+                torchBtn.classList.remove('bg-amber-400', 'text-slate-900');
+                torchBtn.classList.add('bg-slate-900/80', 'text-white');
+            }
         }
 
         function onBarcodeScanFailure(error) {
@@ -2724,7 +2790,7 @@
         }
 
         function onBarcodeScannedSuccess(decodedText, decodedResult) {
-            const rawCode = (decodedText || '').trim();
+            const rawCode = (decodedText || '').trim().replace(/[\r\n]+/g, '');
             if (!rawCode) return;
 
             // 1. Sonido Beep y Vibración háptica en móvil
@@ -2762,13 +2828,14 @@
                 if (matchedItem) break;
             }
 
-            // B. Si no hubo exacta, buscar por dígitos de SKU (ej. el código contiene el SKU 11517)
+            // B. Si no hubo exacta, buscar por SKU o si el código contiene los dígitos
             if (!matchedItem && digitsOnly.length >= 3) {
                 for (const item of fullCatalog) {
                     for (const v of (item.variants || [])) {
                         const vSku = (v.sku || '').trim().toLowerCase();
                         const vBar = (v.barcode || '').trim().toLowerCase();
-                        if ((vSku && vSku === digitsOnly) || (vBar && vBar.includes(digitsOnly))) {
+                        if ((vSku && (vSku === digitsOnly || digitsOnly.startsWith(vSku) || vSku.startsWith(digitsOnly))) ||
+                            (vBar && (vBar.includes(digitsOnly) || digitsOnly.includes(vBar)))) {
                             matchedItem = item;
                             matchedVariant = v;
                             break;
@@ -2832,56 +2899,105 @@
             }
         }
 
-        async function scanBarcodeFromFile(input) {
-            if (!input.files || input.files.length === 0) return;
-            const file = input.files[0];
-
-            const statusText = document.getElementById('scannerStatusText');
-            if (statusText) statusText.textContent = "Analizando imagen de la prenda...";
-
-            // Detener la cámara en vivo para liberar la CPU
-            if (html5QrCodeScanner && isScannerRunning) {
-                try { await html5QrCodeScanner.stop(); } catch(e){}
-                isScannerRunning = false;
+        async function decodeBarcodeFromImageFile(file) {
+            // 1. Probar BarcodeDetector nativo si el navegador lo soporta
+            if ('BarcodeDetector' in window) {
+                try {
+                    const detector = new BarcodeDetector({
+                        formats: ['code_128', 'code_39', 'code_93', 'ean_13', 'ean_8', 'upc_a', 'upc_e', 'qr_code']
+                    });
+                    const bmp = await createImageBitmap(file);
+                    const codes = await detector.detect(bmp);
+                    if (codes && codes.length > 0 && codes[0].rawValue) {
+                        return codes[0].rawValue;
+                    }
+                } catch(e) {
+                    console.warn("BarcodeDetector error en foto:", e);
+                }
             }
 
-            let decodedCode = null;
+            // 2. Pre-escalar imagen a resolución óptima (máx 1200px) para evitar agotar memoria
+            const scaledBlob = await new Promise((resolve) => {
+                const img = new Image();
+                const url = URL.createObjectURL(file);
+                img.onload = () => {
+                    URL.revokeObjectURL(url);
+                    const maxDim = 1200;
+                    let w = img.naturalWidth || img.width;
+                    let h = img.naturalHeight || img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) {
+                            h = Math.round((h * maxDim) / w);
+                            w = maxDim;
+                        } else {
+                            w = Math.round((w * maxDim) / h);
+                            h = maxDim;
+                        }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    canvas.toBlob((blob) => resolve(blob), 'image/jpeg', 0.92);
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    resolve(file);
+                };
+                img.src = url;
+            });
 
-            // 1. Decodificación principal con Html5Qrcode
+            const targetFile = scaledBlob instanceof Blob ? new File([scaledBlob], "scan.jpg", { type: "image/jpeg" }) : file;
+
+            // 3. Probar ZXing vía contenedor temporal aislado
             try {
-                if (!html5QrCodeScanner) {
-                    html5QrCodeScanner = new Html5Qrcode("qr-reader", {
+                if (typeof Html5Qrcode !== 'undefined') {
+                    const tempReaderId = "temp-qr-file-reader";
+                    let tempDiv = document.getElementById(tempReaderId);
+                    if (!tempDiv) {
+                        tempDiv = document.createElement('div');
+                        tempDiv.id = tempReaderId;
+                        tempDiv.style.display = 'none';
+                        document.body.appendChild(tempDiv);
+                    }
+                    const fileScanner = new Html5Qrcode(tempReaderId, {
                         formatsToSupport: [
                             Html5QrcodeSupportedFormats.CODE_128,
                             Html5QrcodeSupportedFormats.CODE_39,
+                            Html5QrcodeSupportedFormats.CODE_93,
+                            Html5QrcodeSupportedFormats.CODABAR,
                             Html5QrcodeSupportedFormats.EAN_13,
                             Html5QrcodeSupportedFormats.EAN_8,
                             Html5QrcodeSupportedFormats.UPC_A,
                             Html5QrcodeSupportedFormats.UPC_E,
                             Html5QrcodeSupportedFormats.QR_CODE
-                        ]
+                        ],
+                        verbose: false
                     });
+                    const res = await fileScanner.scanFile(targetFile, false);
+                    try { await fileScanner.clear(); } catch(e){}
+                    if (res) return res;
                 }
-                decodedCode = await html5QrCodeScanner.scanFile(file, true);
-            } catch (zxingErr) {
-                console.warn("Html5Qrcode scanFile no detectó código, probando Quagga2:", zxingErr);
+            } catch(e) {
+                console.warn("ZXing scanFile no detectó:", e);
             }
 
-            // 2. Motor de respaldo Quagga2 especializado en 1D
-            if (!decodedCode && typeof Quagga !== 'undefined') {
+            // 4. Probar Quagga2 especializado en 1D Code-128
+            if (typeof Quagga !== 'undefined') {
                 try {
-                    const objectUrl = URL.createObjectURL(file);
-                    decodedCode = await new Promise((resolve) => {
+                    const objUrl = URL.createObjectURL(targetFile);
+                    const quaggaCode = await new Promise((resolve) => {
                         Quagga.decodeSingle({
-                            src: objectUrl,
+                            src: objUrl,
                             numOfWorkers: 0,
-                            inputStream: { size: 1280 },
+                            inputStream: { size: 1000 },
                             decoder: {
                                 readers: ["code_128_reader", "ean_reader", "code_39_reader", "upc_reader"]
                             },
                             locate: true
-                        }, function(result) {
-                            URL.revokeObjectURL(objectUrl);
+                        }, (result) => {
+                            URL.revokeObjectURL(objUrl);
                             if (result && result.codeResult && result.codeResult.code) {
                                 resolve(result.codeResult.code);
                             } else {
@@ -2889,19 +3005,56 @@
                             }
                         });
                     });
-                } catch (quaggaErr) {
-                    console.warn("Quagga2 fallo en decodeSingle:", quaggaErr);
+                    if (quaggaCode) return quaggaCode;
+                } catch(e) {
+                    console.warn("Quagga decodeSingle error:", e);
                 }
             }
 
-            input.value = "";
+            return null;
+        }
 
-            if (decodedCode) {
-                onBarcodeScannedSuccess(decodedCode, null);
-            } else {
-                if (statusText) statusText.textContent = "No se detectó código";
-                showToast("Código no detectado", "Asegúrate de que la foto tenga buena luz y se vean bien las líneas del código.", "alert-triangle");
-                startCameraStream();
+        async function scanBarcodeFromFile(input) {
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+
+            const statusText = document.getElementById('scannerStatusText');
+            const statusBadge = document.getElementById('scannerStatusBadge');
+            if (statusText) statusText.textContent = "Procesando foto en alta resolución...";
+            if (statusBadge) {
+                statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800 rounded-full text-[11px] font-bold";
+            }
+
+            // Detener temporalmente el escáner de cámara en vivo para liberar memoria
+            if (html5QrCodeScanner && isScannerRunning) {
+                try { await html5QrCodeScanner.stop(); } catch(e){}
+                isScannerRunning = false;
+            }
+
+            try {
+                const decodedCode = await decodeBarcodeFromImageFile(file);
+                input.value = "";
+
+                if (decodedCode) {
+                    onBarcodeScannedSuccess(decodedCode, null);
+                } else {
+                    if (statusText) statusText.textContent = "No se detectó código";
+                    if (statusBadge) {
+                        statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-800 rounded-full text-[11px] font-bold";
+                    }
+                    showToast("Código no detectado", "Asegúrate de que la foto tenga buena luz y se vean nítidas las líneas del código.", "alert-triangle");
+                    if (html5QrCodeScanner) {
+                        startCameraStream();
+                    }
+                }
+            } catch (err) {
+                console.error("Error al procesar archivo:", err);
+                input.value = "";
+                if (statusText) statusText.textContent = "Error al procesar foto";
+                showToast("Error", "No se pudo procesar la imagen seleccionada.", "alert-triangle");
+                if (html5QrCodeScanner) {
+                    startCameraStream();
+                }
             }
         }
 
@@ -2916,7 +3069,6 @@
             input.value = '';
             onBarcodeScannedSuccess(val, null);
         }
-
         // ==========================================================
         // 11. GENERADOR DE INFORMES INTELIGENTE EN PDF (INVENTARIO Y VENTAS)
         // ==========================================================
