@@ -105,14 +105,10 @@
         /* Estilos del Lector de Código de Barras / SKU */
         #qr-reader {
             width: 100% !important;
-            border: none !important;
-            background: #020617;
-        }
-        #qr-reader {
-            width: 100% !important;
             height: 100% !important;
             border: none !important;
             background: #020617;
+            position: relative;
         }
         #qr-reader video {
             width: 100% !important;
@@ -120,6 +116,17 @@
             object-fit: cover !important;
             background: #020617;
             border-radius: 0.75rem !important;
+            transition: filter 0.2s ease;
+        }
+        /* Filtros Ópticos Anti-Reflejo para Etiquetas Blancas de Urbannoise */
+        .scanner-filter-contrast video {
+            filter: grayscale(100%) contrast(165%) brightness(0.82) !important;
+        }
+        .scanner-filter-invert video {
+            filter: invert(100%) grayscale(100%) contrast(150%) brightness(0.88) !important;
+        }
+        .scanner-filter-normal video {
+            filter: none !important;
         }
         #qr-reader__scan_region {
             border: none !important;
@@ -544,19 +551,48 @@
                 </button>
             </div>
 
-            <!-- Visor de la Cámara -->
+            <!-- Visor de la Cámara con Máscara Anti-Reflejo -->
             <div class="p-3 sm:p-4 flex flex-col items-center">
-                <div class="relative w-full aspect-[4/3] max-w-[340px] bg-slate-950 rounded-2xl overflow-hidden shadow-inner border border-slate-800 flex items-center justify-center">
+                <div class="relative w-full aspect-[4/3] max-w-[340px] bg-slate-950 rounded-2xl overflow-hidden shadow-2xl border border-slate-800 flex items-center justify-center">
                     <!-- Contenedor donde Html5Qrcode monta el stream de video -->
-                    <div id="qr-reader" class="w-full h-full"></div>
+                    <div id="qr-reader" class="w-full h-full scanner-filter-contrast"></div>
 
-                    <!-- Cuadro y Línea Láser Animada Optimizada para Códigos Horizontales 1D -->
-                    <div id="scannerOverlayGuide" class="pointer-events-none absolute inset-x-4 inset-y-6 border-2 border-dashed border-emerald-400/80 rounded-xl overflow-hidden">
-                        <div class="animate-laser"></div>
+                    <!-- Máscara de Ranura de Enfoque (Aperture Mask): Bloquea 65% del deslumbramiento blanco exterior -->
+                    <div class="pointer-events-none absolute inset-0 flex flex-col justify-between z-5">
+                        <!-- Franja Superior Oscura -->
+                        <div class="w-full h-[22%] bg-slate-950/70 backdrop-blur-2xs transition-all"></div>
+                        
+                        <!-- Ranura Central de Enfoque de Código (proporción óptima para etiquetas Urbannoise) -->
+                        <div class="w-full h-[56%] relative flex items-center justify-center px-4">
+                            <!-- Cuadro de Enfoque con Esquinas Verdes Reforzadas -->
+                            <div class="w-full h-full border-2 border-emerald-400/90 rounded-xl relative shadow-[0_0_20px_rgba(16,185,129,0.35)] overflow-hidden">
+                                <!-- Esquinas reforzadas -->
+                                <span class="absolute top-0 left-0 w-3.5 h-3.5 border-t-[3px] border-l-[3px] border-emerald-300"></span>
+                                <span class="absolute top-0 right-0 w-3.5 h-3.5 border-t-[3px] border-r-[3px] border-emerald-300"></span>
+                                <span class="absolute bottom-0 left-0 w-3.5 h-3.5 border-b-[3px] border-l-[3px] border-emerald-300"></span>
+                                <span class="absolute bottom-0 right-0 w-3.5 h-3.5 border-b-[3px] border-r-[3px] border-emerald-300"></span>
+                                <!-- Línea Láser Animada Optimizada -->
+                                <div class="animate-laser"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Franja Inferior Oscura con Guía -->
+                        <div class="w-full h-[22%] bg-slate-950/70 backdrop-blur-2xs transition-all flex items-center justify-center">
+                            <span class="text-[9px] text-emerald-300/90 font-black uppercase tracking-wider flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                Centra el código de barra en la franja
+                            </span>
+                        </div>
                     </div>
 
-                    <!-- Controles Flotantes sobre la Cámara (Cambiar Cámara & Linterna) -->
-                    <div class="absolute top-2 right-2 flex items-center gap-1.5 z-10">
+                    <!-- Controles Flotantes sobre la Cámara (Filtro Anti-Luz, Cambiar Lente & Linterna) -->
+                    <div class="absolute top-2.5 right-2.5 flex items-center gap-1.5 z-20">
+                        <!-- Botón selector de filtro: B/N Alto Contraste / Invertido / Normal -->
+                        <button type="button" id="toggleScannerFilterBtn" onclick="cycleScannerFilter()" title="Modo anti-reflejo (B/N, Invertido, Normal)"
+                            class="px-2 py-1 rounded-xl bg-emerald-700 hover:bg-emerald-600 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-emerald-400/40 transition-all cursor-pointer shadow-md">
+                            <span id="filterModeIcon">⚡</span>
+                            <span id="filterModeText" class="text-[10px]">B/N Pro</span>
+                        </button>
                         <button type="button" id="switchCameraBtn" onclick="switchCamera()" title="Cambiar lente (1x, Ultra-Wide, etc.)"
                             class="hidden px-2 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-900 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-white/20 transition-all cursor-pointer shadow-md">
                             <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
@@ -2492,13 +2528,60 @@
         }
 
         // ==========================================================
-        // 10. LECTOR DE CÓDIGO DE BARRAS / SKU CON CÁMARA (MULTIMOTOR)
+        // 10. LECTOR DE CÓDIGO DE BARRAS / SKU CON CÁMARA (MULTIMOTOR + ANTI-REFLEJO)
         // ==========================================================
         let html5QrCodeScanner = null;
         let isScannerRunning = false;
         let availableCameras = [];
         let currentCameraIndex = 0;
         let isTorchOn = false;
+        let currentScannerFilter = localStorage.getItem('urbannoise_scanner_filter') || 'contrast'; // 'contrast', 'invert', 'normal'
+
+        function applyScannerFilterToUI() {
+            const qrReaderEl = document.getElementById('qr-reader');
+            const filterBtn = document.getElementById('toggleScannerFilterBtn');
+            const filterIcon = document.getElementById('filterModeIcon');
+            const filterText = document.getElementById('filterModeText');
+
+            if (qrReaderEl) {
+                qrReaderEl.classList.remove('scanner-filter-contrast', 'scanner-filter-invert', 'scanner-filter-normal');
+                qrReaderEl.classList.add(`scanner-filter-${currentScannerFilter}`);
+            }
+
+            if (filterBtn && filterIcon && filterText) {
+                if (currentScannerFilter === 'contrast') {
+                    filterIcon.textContent = '⚡';
+                    filterText.textContent = 'B/N Pro';
+                    filterBtn.title = 'Filtro activo: Blanco y negro de alto contraste (Anti-deslumbramiento)';
+                    filterBtn.className = 'px-2 py-1 rounded-xl bg-emerald-700 hover:bg-emerald-600 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-emerald-400/40 transition-all cursor-pointer shadow-md';
+                } else if (currentScannerFilter === 'invert') {
+                    filterIcon.textContent = '🌙';
+                    filterText.textContent = 'Invertido';
+                    filterBtn.title = 'Filtro activo: Invertido / Negativo (Convierte etiqueta blanca en negra)';
+                    filterBtn.className = 'px-2 py-1 rounded-xl bg-purple-700 hover:bg-purple-600 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-purple-400/40 transition-all cursor-pointer shadow-md';
+                } else {
+                    filterIcon.textContent = '☀️';
+                    filterText.textContent = 'Normal';
+                    filterBtn.title = 'Filtro activo: Color normal';
+                    filterBtn.className = 'px-2 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-900 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-white/20 transition-all cursor-pointer shadow-md';
+                }
+            }
+        }
+
+        function cycleScannerFilter() {
+            if (currentScannerFilter === 'contrast') {
+                currentScannerFilter = 'invert';
+                showToast("Filtro: Invertido", "Modo oscuro para etiquetas muy brillantes o con reflejo.", "moon");
+            } else if (currentScannerFilter === 'invert') {
+                currentScannerFilter = 'normal';
+                showToast("Filtro: Normal", "Cámara a todo color sin filtros.", "sun");
+            } else {
+                currentScannerFilter = 'contrast';
+                showToast("Filtro: B/N Alto Contraste", "Reduce deslumbramiento y resalta las barras negras.", "zap");
+            }
+            localStorage.setItem('urbannoise_scanner_filter', currentScannerFilter);
+            applyScannerFilterToUI();
+        }
 
         function playBeepSound() {
             try {
@@ -2528,6 +2611,8 @@
             if (!modal) return;
             modal.classList.remove('hidden');
             if (window.lucide) lucide.createIcons();
+
+            applyScannerFilterToUI();
 
             const statusText = document.getElementById('scannerStatusText');
             const statusBadge = document.getElementById('scannerStatusBadge');
@@ -2668,6 +2753,8 @@
                     statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-[11px] font-bold";
                 }
 
+                applyScannerFilterToUI();
+
                 // Una vez con permisos activos, listar cámaras para el selector de lentes
                 try {
                     const cameras = await Html5Qrcode.getCameras();
@@ -2679,6 +2766,25 @@
                 } catch(e) {
                     console.warn("No se pudieron listar cámaras adicionales:", e);
                 }
+
+                // Intentar reducir exposición para evitar sobreexposición en etiquetas blancas reflectantes
+                setTimeout(async () => {
+                    try {
+                        const videoEl = document.querySelector('#qr-reader video');
+                        if (videoEl && videoEl.srcObject) {
+                            const track = videoEl.srcObject.getVideoTracks()[0];
+                            if (track && track.getCapabilities) {
+                                const caps = track.getCapabilities();
+                                if (caps.exposureCompensation) {
+                                    const targetComp = Math.max(caps.exposureCompensation.min, -0.8);
+                                    await track.applyConstraints({
+                                        advanced: [{ exposureCompensation: targetComp }]
+                                    });
+                                }
+                            }
+                        }
+                    } catch(e) {}
+                }, 300);
 
                 checkTorchAvailability();
 
@@ -2697,6 +2803,7 @@
                     if (statusBadge) {
                         statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-[11px] font-bold";
                     }
+                    applyScannerFilterToUI();
                     checkTorchAvailability();
                 } catch (fallbackErr) {
                     console.error("Fallo definitivo iniciando cámara:", fallbackErr);
@@ -2807,9 +2914,9 @@
                 selectAuditCategory('ALL');
             }
 
-            // 4. Búsqueda inteligente en fullCatalog
+            // 4. Búsqueda inteligente en fullCatalog (código de barra ej: 11025L/XLCa, o SKU ej: 11025)
             const codeLower = rawCode.toLowerCase();
-            const digitsOnly = rawCode.replace(/\D/g, ''); // ej. "11517UNe" -> "11517"
+            const digitsOnly = rawCode.replace(/\D/g, ''); // ej. "11025L/XLCa" -> "11025"
 
             let matchedItem = null;
             let matchedVariant = null;
@@ -2828,7 +2935,7 @@
                 if (matchedItem) break;
             }
 
-            // B. Si no hubo exacta, buscar por SKU o si el código contiene los dígitos
+            // B. Si no hubo exacta, buscar por SKU o si el código contiene/empieza con los dígitos del SKU
             if (!matchedItem && digitsOnly.length >= 3) {
                 for (const item of fullCatalog) {
                     for (const v of (item.variants || [])) {
@@ -2900,7 +3007,7 @@
         }
 
         async function decodeBarcodeFromImageFile(file) {
-            // 1. Probar BarcodeDetector nativo si el navegador lo soporta
+            // 1. Probar BarcodeDetector nativo si está soportado en navegador
             if ('BarcodeDetector' in window) {
                 try {
                     const detector = new BarcodeDetector({
@@ -2916,8 +3023,8 @@
                 }
             }
 
-            // 2. Pre-escalar imagen a resolución óptima (máx 1200px) para evitar agotar memoria
-            const scaledBlob = await new Promise((resolve) => {
+            // 2. Pre-escalar imagen a resolución óptima (máx 1200px) con binarización y doble polaridad (Normal + Invertido)
+            const { normalBlob, invertedBlob } = await new Promise((resolve) => {
                 const img = new Image();
                 const url = URL.createObjectURL(file);
                 img.onload = () => {
@@ -2934,23 +3041,53 @@
                             h = maxDim;
                         }
                     }
-                    const canvas = document.createElement('canvas');
-                    canvas.width = w;
-                    canvas.height = h;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, w, h);
-                    canvas.toBlob((blob) => resolve(blob), 'image/jpeg', 0.92);
+
+                    // Canvas 1: Grayscale con Contraste aumentado (anti-reflejos)
+                    const canvas1 = document.createElement('canvas');
+                    canvas1.width = w;
+                    canvas1.height = h;
+                    const ctx1 = canvas1.getContext('2d');
+                    ctx1.drawImage(img, 0, 0, w, h);
+                    const imgData1 = ctx1.getImageData(0, 0, w, h);
+                    const d1 = imgData1.data;
+                    for (let i = 0; i < d1.length; i += 4) {
+                        const gray = 0.299 * d1[i] + 0.587 * d1[i+1] + 0.114 * d1[i+2];
+                        const contrasted = Math.min(255, Math.max(0, (gray - 128) * 1.45 + 128));
+                        d1[i] = contrasted;
+                        d1[i+1] = contrasted;
+                        d1[i+2] = contrasted;
+                    }
+                    ctx1.putImageData(imgData1, 0, 0);
+
+                    // Canvas 2: Invertido (para etiquetas blancas con reflejo extremo)
+                    const canvas2 = document.createElement('canvas');
+                    canvas2.width = w;
+                    canvas2.height = h;
+                    const ctx2 = canvas2.getContext('2d');
+                    const imgData2 = ctx2.createImageData(w, h);
+                    const d2 = imgData2.data;
+                    for (let i = 0; i < d1.length; i += 4) {
+                        d2[i] = 255 - d1[i];
+                        d2[i+1] = 255 - d1[i+1];
+                        d2[i+2] = 255 - d1[i+2];
+                        d2[i+3] = 255;
+                    }
+                    ctx2.putImageData(imgData2, 0, 0);
+
+                    canvas1.toBlob((b1) => {
+                        canvas2.toBlob((b2) => {
+                            resolve({ normalBlob: b1, invertedBlob: b2 });
+                        }, 'image/jpeg', 0.92);
+                    }, 'image/jpeg', 0.92);
                 };
                 img.onerror = () => {
                     URL.revokeObjectURL(url);
-                    resolve(file);
+                    resolve({ normalBlob: file, invertedBlob: null });
                 };
                 img.src = url;
             });
 
-            const targetFile = scaledBlob instanceof Blob ? new File([scaledBlob], "scan.jpg", { type: "image/jpeg" }) : file;
-
-            // 3. Probar ZXing vía contenedor temporal aislado
+            // 3. Probar ZXing vía Html5Qrcode con pass normal e invertido
             try {
                 if (typeof Html5Qrcode !== 'undefined') {
                     const tempReaderId = "temp-qr-file-reader";
@@ -2975,37 +3112,60 @@
                         ],
                         verbose: false
                     });
-                    const res = await fileScanner.scanFile(targetFile, false);
-                    try { await fileScanner.clear(); } catch(e){}
-                    if (res) return res;
+
+                    // Intento 1: Normal optimizado
+                    const targetFile1 = normalBlob instanceof Blob ? new File([normalBlob], "scan.jpg", { type: "image/jpeg" }) : file;
+                    try {
+                        const res1 = await fileScanner.scanFile(targetFile1, false);
+                        await fileScanner.clear();
+                        if (res1) return res1;
+                    } catch(e1) {}
+
+                    // Intento 2: Invertido
+                    if (invertedBlob instanceof Blob) {
+                        try {
+                            const targetFile2 = new File([invertedBlob], "scan_inv.jpg", { type: "image/jpeg" });
+                            const res2 = await fileScanner.scanFile(targetFile2, false);
+                            await fileScanner.clear();
+                            if (res2) return res2;
+                        } catch(e2) {}
+                    }
                 }
             } catch(e) {
-                console.warn("ZXing scanFile no detectó:", e);
+                console.warn("ZXing scanFile error:", e);
             }
 
-            // 4. Probar Quagga2 especializado en 1D Code-128
+            // 4. Probar Quagga2 con pass normal e invertido
             if (typeof Quagga !== 'undefined') {
-                try {
-                    const objUrl = URL.createObjectURL(targetFile);
-                    const quaggaCode = await new Promise((resolve) => {
-                        Quagga.decodeSingle({
-                            src: objUrl,
-                            numOfWorkers: 0,
-                            inputStream: { size: 1000 },
-                            decoder: {
-                                readers: ["code_128_reader", "ean_reader", "code_39_reader", "upc_reader"]
-                            },
-                            locate: true
-                        }, (result) => {
-                            URL.revokeObjectURL(objUrl);
-                            if (result && result.codeResult && result.codeResult.code) {
-                                resolve(result.codeResult.code);
-                            } else {
-                                resolve(null);
-                            }
-                        });
+                const testQuagga = (blob) => new Promise((resolve) => {
+                    const objUrl = URL.createObjectURL(blob);
+                    Quagga.decodeSingle({
+                        src: objUrl,
+                        numOfWorkers: 0,
+                        inputStream: { size: 1000 },
+                        decoder: {
+                            readers: ["code_128_reader", "ean_reader", "code_39_reader", "upc_reader"]
+                        },
+                        locate: true
+                    }, (result) => {
+                        URL.revokeObjectURL(objUrl);
+                        if (result && result.codeResult && result.codeResult.code) {
+                            resolve(result.codeResult.code);
+                        } else {
+                            resolve(null);
+                        }
                     });
-                    if (quaggaCode) return quaggaCode;
+                });
+
+                try {
+                    if (normalBlob) {
+                        const qRes1 = await testQuagga(normalBlob);
+                        if (qRes1) return qRes1;
+                    }
+                    if (invertedBlob) {
+                        const qRes2 = await testQuagga(invertedBlob);
+                        if (qRes2) return qRes2;
+                    }
                 } catch(e) {
                     console.warn("Quagga decodeSingle error:", e);
                 }
@@ -3020,7 +3180,7 @@
 
             const statusText = document.getElementById('scannerStatusText');
             const statusBadge = document.getElementById('scannerStatusBadge');
-            if (statusText) statusText.textContent = "Procesando foto en alta resolución...";
+            if (statusText) statusText.textContent = "Analizando etiqueta (doble polaridad)...";
             if (statusBadge) {
                 statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800 rounded-full text-[11px] font-bold";
             }
