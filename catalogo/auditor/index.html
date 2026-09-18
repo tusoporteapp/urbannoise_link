@@ -558,7 +558,7 @@
                     <div id="qr-reader" class="w-full h-full scanner-filter-contrast"></div>
 
                     <!-- Máscara de Ranura de Enfoque (Aperture Mask): Bloquea 65% del deslumbramiento blanco exterior -->
-                    <div class="pointer-events-none absolute inset-0 flex flex-col justify-between z-5">
+                    <div class="pointer-events-none absolute inset-0 flex flex-col justify-between z-10">
                         <!-- Franja Superior Oscura -->
                         <div class="w-full h-[22%] bg-slate-950/70 backdrop-blur-2xs transition-all"></div>
                         
@@ -2694,19 +2694,27 @@
                 statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-rose-50 border border-rose-200 text-rose-800 rounded-full text-[11px] font-bold";
             }
 
-            const errStr = String(err && (err.name || err.message || err)).toLowerCase();
-            let msg = "No se pudo iniciar la cámara";
-            let advice = "Usa '📸 Foto Nítida' o escribe el SKU manualmente abajo.";
+            const errName = err ? (err.name || '') : '';
+            const errMsg = err ? (err.message || String(err)) : '';
+            const errStr = (errName + ' ' + errMsg).toLowerCase();
 
-            if (errStr.includes('notallowed') || errStr.includes('permission')) {
-                msg = "Permiso de cámara denegado";
-                advice = "Permite el acceso a la cámara en los ajustes del navegador o pulsa '📸 Foto Nítida'.";
+            console.error("Detalles de error de cámara:", { name: errName, message: errMsg, err });
+
+            let msg = "No se pudo iniciar la cámara";
+            let advice = "Usa '📸 Foto Nítida' o escribe el SKU abajo.";
+
+            if (errStr.includes('notallowed') || errStr.includes('permission') || errStr.includes('denied')) {
+                msg = "Permiso de cámara bloqueado";
+                advice = "Toca el candado 🔒 en la barra del navegador y permite la Cámara.";
             } else if (errStr.includes('notfound') || errStr.includes('devicesnotfound')) {
-                msg = "No se detectó cámara trasera";
+                msg = "Cámara trasera no encontrada";
                 advice = "Tu dispositivo no reporta una cámara disponible.";
             } else if (errStr.includes('notreadable') || errStr.includes('trackstart') || errStr.includes('busy')) {
                 msg = "Cámara en uso por otra app";
-                advice = "Cierra otras pestañas o aplicaciones que usen la cámara y pulsa Reintentar.";
+                advice = "Cierra otras pestañas o apps que usen la cámara y pulsa Reintentar.";
+            } else if (errStr.includes('overconstrained')) {
+                msg = "Resolución no soportada";
+                advice = "Pulsa Reintentar para abrir en modo compatible.";
             }
 
             if (statusText) statusText.textContent = msg;
@@ -2725,16 +2733,10 @@
                 isScannerRunning = false;
             }
 
-            // Escaneo de marco completo en alta resolución y enfoque continuo
+            // Configuración 100% compatible con iPhone (Safari) y Android (Chrome) sin restricciones forzadas
             const config = {
-                fps: 20,
-                disableFlip: false,
-                videoConstraints: {
-                    facingMode: "environment",
-                    width: { min: 640, ideal: 1280, max: 1920 },
-                    height: { min: 480, ideal: 720, max: 1080 },
-                    focusMode: { ideal: "continuous" }
-                }
+                fps: 15,
+                disableFlip: false
             };
 
             const cameraConfig = preferredCameraId || { facingMode: "environment" };
@@ -2767,31 +2769,44 @@
                     console.warn("No se pudieron listar cámaras adicionales:", e);
                 }
 
-                // Intentar reducir exposición para evitar sobreexposición en etiquetas blancas reflectantes
-                setTimeout(async () => {
-                    try {
-                        const videoEl = document.querySelector('#qr-reader video');
-                        if (videoEl && videoEl.srcObject) {
-                            const track = videoEl.srcObject.getVideoTracks()[0];
-                            if (track && track.getCapabilities) {
-                                const caps = track.getCapabilities();
-                                if (caps.exposureCompensation) {
-                                    const targetComp = Math.max(caps.exposureCompensation.min, -0.8);
-                                    await track.applyConstraints({
-                                        advanced: [{ exposureCompensation: targetComp }]
-                                    });
-                                }
-                            }
-                        }
-                    } catch(e) {}
-                }, 300);
-
                 checkTorchAvailability();
 
             } catch (err) {
-                console.warn("Fallo con config primaria, intentando facingMode básico:", err);
-                // Fallback ultra-compatible sin constraints avanzadas
+                console.warn("Fallo al iniciar cámara, intentando recrear instancia limpia:", err);
+                
+                // Si falló (por ejemplo, con preferredCameraId o estado sucio), reiniciar instancia de Html5Qrcode desde cero
                 try {
+                    if (html5QrCodeScanner) {
+                        try { await html5QrCodeScanner.stop(); } catch(e){}
+                        try { await html5QrCodeScanner.clear(); } catch(e){}
+                        isScannerRunning = false;
+                        html5QrCodeScanner = null;
+                    }
+
+                    const qrReaderEl = document.getElementById('qr-reader');
+                    if (qrReaderEl) qrReaderEl.innerHTML = '';
+
+                    await new Promise(r => setTimeout(r, 60));
+
+                    const formats = [
+                        Html5QrcodeSupportedFormats.CODE_128,
+                        Html5QrcodeSupportedFormats.CODE_39,
+                        Html5QrcodeSupportedFormats.CODE_93,
+                        Html5QrcodeSupportedFormats.CODABAR,
+                        Html5QrcodeSupportedFormats.EAN_13,
+                        Html5QrcodeSupportedFormats.EAN_8,
+                        Html5QrcodeSupportedFormats.UPC_A,
+                        Html5QrcodeSupportedFormats.UPC_E,
+                        Html5QrcodeSupportedFormats.QR_CODE
+                    ];
+
+                    html5QrCodeScanner = new Html5Qrcode("qr-reader", {
+                        formatsToSupport: formats,
+                        experimentalFeatures: { useBarCodeDetectorIfSupported: false },
+                        verbose: false
+                    });
+
+                    // Intento infalible con facingMode nativo
                     await html5QrCodeScanner.start(
                         { facingMode: "environment" },
                         { fps: 15, disableFlip: false },
@@ -2799,12 +2814,14 @@
                         onBarcodeScanFailure
                     );
                     isScannerRunning = true;
+
                     if (statusText) statusText.textContent = "🟢 Apunta al código de barras o SKU...";
                     if (statusBadge) {
                         statusBadge.className = "mt-2.5 flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-[11px] font-bold";
                     }
                     applyScannerFilterToUI();
                     checkTorchAvailability();
+
                 } catch (fallbackErr) {
                     console.error("Fallo definitivo iniciando cámara:", fallbackErr);
                     throw fallbackErr;
