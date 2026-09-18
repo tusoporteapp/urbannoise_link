@@ -1318,7 +1318,7 @@
                     const item = fullCatalog.find(it => (it.variants || []).some(v => v.id === vId));
                     if (item) {
                         const v = (item.variants || []).find(v => v.id === vId);
-                        const sys = Math.max(0, parseInt(v.stock, 10) || 0);
+                        const sys = parseInt(v.stock, 10) || 0;
                         // Solo conservar si el usuario contó físicamente algo distinto a Loyverse
                         if (physicalCounts[vId] !== sys) {
                             cleanedCounts[vId] = physicalCounts[vId];
@@ -1370,7 +1370,7 @@
                 let itemHasAnyStock = false;
 
                 (item.variants || []).forEach(v => {
-                    const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const sysStock = parseInt(v.stock, 10) || 0;
                     const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
                     totalSystemUnits += sysStock;
                     totalPhysicalUnits += physStock;
@@ -1482,12 +1482,12 @@
                 // Filtro por condiciones especiales
                 const isNoPhoto = !item.image || item.image.includes('LOGO_WEB.png') || (item.images && item.images.length === 0);
                 const hasDiff = (item.variants || []).some(v => {
-                    const sys = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const sys = parseInt(v.stock, 10) || 0;
                     const phys = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sys;
                     return phys !== sys;
                 });
                 const hasStockInStore = (item.variants || []).some(v => {
-                    const sys = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const sys = parseInt(v.stock, 10) || 0;
                     const phys = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sys;
                     return phys > 0 || sys > 0;
                 });
@@ -1574,7 +1574,7 @@
                 let groupPhysTotal = 0;
 
                 const groupRowsHtml = groupVariants.map(v => {
-                    const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const sysStock = parseInt(v.stock, 10) || 0;
                     const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
                     const diff = physStock - sysStock;
                     
@@ -1583,6 +1583,7 @@
                     groupSysTotal += sysStock;
                     groupPhysTotal += physStock;
                     if (diff !== 0) itemDiffCount++;
+                    if (sysStock < 0) itemHasNegativeVar = true;
 
                     let badgeClass = "bg-slate-100 text-slate-600 border border-slate-200";
                     let badgeText = "✓ OK";
@@ -1607,7 +1608,7 @@
                                         <span class="text-xs font-black text-slate-800 uppercase tracking-tight truncate">${v.color || 'Único'}</span>
                                     </div>
                                     <span class="text-[11px] text-slate-500 font-medium truncate mt-0.5">
-                                        Loyverse: <strong class="text-slate-900 font-bold">${sysStock}</strong>
+                                        Loyverse: <strong class="${sysStock < 0 ? 'text-rose-600 font-black' : 'text-slate-900 font-bold'}">${sysStock}</strong>${sysStock < 0 ? ' <span class="text-[9px] px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-700 font-black border border-rose-200">⚠️ En Negativo</span>' : ''}
                                         ${v.sku ? `<span class="text-slate-400 font-normal ml-1">• SKU: <span class="font-mono text-slate-700 font-semibold">${v.sku}</span></span>` : ''}
                                     </span>
                                 </div>
@@ -1702,7 +1703,7 @@
                             </div>
                             <h3 class="text-sm sm:text-base font-black text-slate-900 truncate leading-tight" title="${item.title}">${item.title}</h3>
                             <div class="flex items-center gap-2 text-xs text-slate-500 mt-1 font-medium">
-                                <span>Loyverse: <strong class="text-slate-900 font-bold">${itemTotalSys}</strong></span>
+                                <span>Loyverse: <strong class="text-slate-900 font-bold">${itemTotalSys}</strong></span>${itemHasNegativeVar ? ' <span class="text-[9px] px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-800 font-extrabold border border-rose-200">⚠️ Incluye negativos</span>' : ''}
                                 <span>•</span>
                                 <span>Físico: <strong class="${itemTotalPhys === itemTotalSys ? 'text-emerald-700 font-bold' : 'text-amber-700 font-black'}">${itemTotalPhys}</strong></span>
                             </div>
@@ -1764,7 +1765,7 @@
         function stepVariantStock(variantId, itemId, delta) {
             const item = fullCatalog.find(i => i.id === itemId);
             const variant = item ? (item.variants || []).find(v => v.id === variantId) : null;
-            const sys = variant ? Math.max(0, parseInt(variant.stock, 10) || 0) : 0;
+            const sys = variant ? (parseInt(variant.stock, 10) || 0) : 0;
             const current = physicalCounts[variantId] !== undefined ? physicalCounts[variantId] : sys;
             const updated = Math.max(0, current + delta);
             physicalCounts[variantId] = updated;
@@ -2187,7 +2188,7 @@
             fullCatalog.forEach(item => {
                 let hasCounted = false;
                 (item.variants || []).forEach(v => {
-                    const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                    const sysStock = parseInt(v.stock, 10) || 0;
                     const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
                     if (physicalCounts[v.id] !== undefined) hasCounted = true;
 
@@ -2312,7 +2313,7 @@
                         : (itemCat === targetCat);
                     if (matches) {
                         (item.variants || []).forEach(v => {
-                            const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                            const sysStock = parseInt(v.stock, 10) || 0;
                             const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
                             inventoryLevels.push({
                                 variant_id: v.id,
@@ -2325,7 +2326,7 @@
                 // ALL_STORE
                 fullCatalog.forEach(item => {
                     (item.variants || []).forEach(v => {
-                        const sysStock = Math.max(0, parseInt(v.stock, 10) || 0);
+                        const sysStock = parseInt(v.stock, 10) || 0;
                         const physStock = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sysStock;
                         inventoryLevels.push({
                             variant_id: v.id,
@@ -3065,7 +3066,7 @@
                     if (isAudited) auditedItemsCount++;
 
                     (item.variants || []).forEach(v => {
-                        const sys = Math.max(0, parseInt(v.stock, 10) || 0);
+                        const sys = parseInt(v.stock, 10) || 0;
                         const phys = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sys;
                         const diff = phys - sys;
 
