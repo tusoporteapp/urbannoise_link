@@ -881,6 +881,43 @@
     </div>
 
     <!-- ========================================================== -->
+    <!-- MODAL: DIAGNÓSTICO INTELIGENTE DE SALDOS NEGATIVOS         -->
+    <!-- ========================================================== -->
+    <div id="negativeDiagnosticsModal" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm p-3 sm:p-4">
+        <div class="w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-2xl fade-in max-h-[92vh] flex flex-col">
+            
+            <!-- Cabecera -->
+            <div class="flex items-start justify-between pb-3 border-b border-slate-100 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black text-slate-900 leading-tight">Diagnóstico de Saldo Negativo</h3>
+                        <p id="diagModalSubtitle" class="text-xs text-slate-500 mt-0.5 font-medium">Investigando origen del descuadre en Loyverse...</p>
+                    </div>
+                </div>
+                <button onclick="closeNegativeDiagnosticsModal()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Contenido con Scroll -->
+            <div id="diagModalBody" class="py-3 text-xs text-slate-600 space-y-3 overflow-y-auto min-h-0 flex-1">
+                <!-- Se inyecta dinámicamente -->
+            </div>
+
+            <!-- Footer / Acciones Rápidas -->
+            <div id="diagModalFooter" class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2 shrink-0">
+                <button onclick="closeNegativeDiagnosticsModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+                    Cerrar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
     <!-- JAVASCRIPT: LÓGICA ULTRA-RÁPIDA Y ERGONÓMICA               -->
     <!-- ========================================================== -->
     <script>
@@ -1609,7 +1646,7 @@
                                         <span class="text-xs font-black text-slate-800 uppercase tracking-tight truncate">${v.color || 'Único'}</span>
                                     </div>
                                     <span class="text-[11px] text-slate-500 font-medium truncate mt-0.5">
-                                        Loyverse: <strong class="${sysStock < 0 ? 'text-rose-600 font-black' : 'text-slate-900 font-bold'}">${sysStock}</strong>${sysStock < 0 ? ' <span class="text-[9px] px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-700 font-black border border-rose-200">⚠️ En Negativo</span>' : ''}
+                                        Loyverse: <strong class="${sysStock < 0 ? 'text-rose-600 font-black' : 'text-slate-900 font-bold'}">${sysStock}</strong>${sysStock < 0 ? ` <button type="button" onclick="event.stopPropagation(); openNegativeDiagnosticsModal('${v.id}', '${item.id}', '${v.size || ''}', '${v.color || ''}', ${sysStock}, '${encodeURIComponent(item.title || '')}')" class="text-[9px] px-1.5 py-0.5 rounded-md bg-rose-100 hover:bg-rose-200 active:scale-95 text-rose-800 font-extrabold border border-rose-300 transition-all cursor-pointer inline-flex items-center gap-0.5 shadow-2xs" title="Toca para diagnosticar por qué está en negativo"><span>⚠️ Negativo 🔍</span></button>` : ''}
                                         ${v.sku ? `<span class="text-slate-400 font-normal ml-1">• SKU: <span class="font-mono text-slate-700 font-semibold">${v.sku}</span></span>` : ''}
                                     </span>
                                 </div>
@@ -1704,7 +1741,7 @@
                             </div>
                             <h3 class="text-sm sm:text-base font-black text-slate-900 truncate leading-tight" title="${item.title}">${item.title}</h3>
                             <div class="flex items-center gap-2 text-xs text-slate-500 mt-1 font-medium">
-                                <span>Loyverse: <strong class="text-slate-900 font-bold">${itemTotalSys}</strong></span>${itemHasNegativeVar ? ' <span class="text-[9px] px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-800 font-extrabold border border-rose-200">⚠️ Incluye negativos</span>' : ''}
+                                <span>Loyverse: <strong class="text-slate-900 font-bold">${itemTotalSys}</strong></span>${itemHasNegativeVar ? ` <button type="button" onclick="event.stopPropagation(); inspectItemFirstNegative('${item.id}')" class="text-[9px] px-1.5 py-0.5 rounded-md bg-rose-100 hover:bg-rose-200 active:scale-95 text-rose-800 font-extrabold border border-rose-300 transition-all cursor-pointer inline-flex items-center gap-0.5 shadow-2xs" title="Toca para ver el diagnóstico de por qué tiene negativos"><span>⚠️ Incluye negativos 🔍</span></button>` : ''}
                                 <span>•</span>
                                 <span>Físico: <strong class="${itemTotalPhys === itemTotalSys ? 'text-emerald-700 font-bold' : 'text-amber-700 font-black'}">${itemTotalPhys}</strong></span>
                             </div>
@@ -3523,6 +3560,249 @@
             }
 
             return inventoryPart + salesPart + recommendPart;
+        }
+
+        // ==========================================================
+        // DIAGNÓSTICO INTELIGENTE DE SALDOS NEGATIVOS EN LOYVERSE
+        // ==========================================================
+        let activeDiagData = null;
+
+        function inspectItemFirstNegative(itemId) {
+            const item = fullCatalog.find(i => i.id === itemId);
+            if (!item) return;
+            const negVar = (item.variants || []).find(v => {
+                const sys = parseInt(v.stock, 10) || 0;
+                return sys < 0;
+            });
+            if (negVar) {
+                openNegativeDiagnosticsModal(
+                    negVar.id,
+                    item.id,
+                    negVar.size || '',
+                    negVar.color || '',
+                    parseInt(negVar.stock, 10) || 0,
+                    encodeURIComponent(item.title || '')
+                );
+            }
+        }
+
+        async function openNegativeDiagnosticsModal(variantId, itemId, size, color, currentStock, itemTitleRaw) {
+            const itemTitle = decodeURIComponent(itemTitleRaw || 'Prenda');
+            const modal = document.getElementById('negativeDiagnosticsModal');
+            const bodyEl = document.getElementById('diagModalBody');
+            const subtitleEl = document.getElementById('diagModalSubtitle');
+            
+            if (!modal || !bodyEl) return;
+            modal.classList.remove('hidden');
+
+            const storeName = selectedStoreId === 'cf0674d5-6edd-426b-a5a6-b1f65bba6770' ? 'Neos' : 'Noise Urban';
+            if (subtitleEl) {
+                subtitleEl.textContent = `${itemTitle} • Talla ${size || 'U'} • ${color || 'Color Único'} (Tienda: ${storeName})`;
+            }
+
+            bodyEl.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-10 text-center space-y-3">
+                    <div class="w-10 h-10 border-3 border-rose-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-sm font-black text-slate-800">Rastreando movimientos en Loyverse...</p>
+                    <p class="text-xs text-slate-500 max-w-xs leading-relaxed">Analizando tickets de venta, cajeros y ediciones de inventario para esta talla.</p>
+                </div>
+            `;
+
+            try {
+                const url = `/api/negative_diagnostics?variant_id=${encodeURIComponent(variantId)}&store_id=${encodeURIComponent(selectedStoreId)}&item_id=${encodeURIComponent(itemId || '')}`;
+                const res = await fetch(url);
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error || 'Error al consultar Loyverse');
+                }
+
+                const data = await res.json();
+                activeDiagData = data;
+                renderNegativeDiagnosticsContent(data, { itemId, variantId, size, color, currentStock, itemTitle, storeName });
+
+            } catch (err) {
+                bodyEl.innerHTML = `
+                    <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-center space-y-2">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-lg">⚠️</div>
+                        <h4 class="text-sm font-black text-rose-900">No se pudo obtener el diagnóstico</h4>
+                        <p class="text-xs text-rose-700">${err.message || 'Error de conexión con el servidor'}</p>
+                        <button onclick="openNegativeDiagnosticsModal('${variantId}', '${itemId}', '${size}', '${color}', ${currentStock}, '${encodeURIComponent(itemTitle)}')" class="mt-2 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs transition-colors cursor-pointer">
+                            Reintentar
+                        </button>
+                    </div>
+                `;
+            }
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeNegativeDiagnosticsModal() {
+            const modal = document.getElementById('negativeDiagnosticsModal');
+            if (modal) modal.classList.add('hidden');
+            activeDiagData = null;
+        }
+
+        function renderNegativeDiagnosticsContent(data, meta) {
+            const bodyEl = document.getElementById('diagModalBody');
+            if (!bodyEl) return;
+
+            const diag = data.diagnosis || {};
+            const isSale = diag.verdict === 'VENTA_REGISTRADA';
+            const stockVal = data.current_stock !== undefined ? data.current_stock : meta.currentStock;
+
+            let formattedDate = 'Fecha desconocida';
+            if (diag.event_date) {
+                try {
+                    const d = new Date(diag.event_date);
+                    formattedDate = d.toLocaleString('es-CO', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric', 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: true 
+                    });
+                } catch(e) {
+                    formattedDate = diag.event_date;
+                }
+            }
+
+            bodyEl.innerHTML = `
+                <!-- Ficha del Producto y Saldo -->
+                <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3">
+                    <div class="min-w-0 flex-1">
+                        <h4 class="text-sm font-black text-slate-900 truncate">${meta.itemTitle}</h4>
+                        <div class="flex items-center gap-2 text-xs text-slate-600 mt-0.5 font-medium flex-wrap">
+                            <span class="px-2 py-0.5 bg-white border border-slate-200 rounded-md font-bold text-slate-800">Talla ${meta.size || 'Única'}</span>
+                            <span class="px-2 py-0.5 bg-white border border-slate-200 rounded-md font-bold text-slate-800">${meta.color || 'Color Único'}</span>
+                            <span class="text-slate-400 font-mono text-[11px]">${meta.storeName}</span>
+                        </div>
+                    </div>
+                    <div class="shrink-0 text-right">
+                        <span class="text-[10px] uppercase font-black text-slate-400 block tracking-wider">Saldo Loyverse</span>
+                        <span class="text-lg font-black text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-xl border border-rose-200 inline-block mt-0.5 shadow-2xs">${stockVal}</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Principal: Causa y Veredicto -->
+                <div class="p-4 rounded-2xl border ${isSale ? 'bg-rose-50/70 border-rose-200' : 'bg-amber-50/70 border-amber-200'} space-y-2.5">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-lg ${isSale ? 'bg-rose-600 text-white' : 'bg-amber-600 text-white'} flex items-center justify-center font-bold text-sm shadow-2xs">
+                            ${isSale ? '🛍️' : '✏️'}
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-black ${isSale ? 'text-rose-700' : 'text-amber-800'} tracking-wider block">Causa del Negativo</span>
+                            <h5 class="text-sm font-black text-slate-900 leading-tight">${diag.verdict_title || 'Movimiento Detectado'}</h5>
+                        </div>
+                    </div>
+
+                    <p class="text-xs ${isSale ? 'text-rose-900' : 'text-amber-950'} font-medium leading-relaxed bg-white/70 p-2.5 rounded-xl border border-${isSale ? 'rose' : 'amber'}-200/60">
+                        ${diag.explanation}
+                    </p>
+
+                    <!-- Detalle de la Operación -->
+                    <div class="grid grid-cols-2 gap-2 text-[11px] pt-1">
+                        <div class="bg-white p-2 rounded-xl border border-slate-200/80">
+                            <span class="text-slate-400 block text-[10px] font-bold">Fecha y Hora Exacta</span>
+                            <strong class="text-slate-900 font-extrabold">${formattedDate}</strong>
+                        </div>
+                        <div class="bg-white p-2 rounded-xl border border-slate-200/80">
+                            <span class="text-slate-400 block text-[10px] font-bold">Responsable / Cajero</span>
+                            <strong class="text-slate-900 font-extrabold">${diag.employee || 'Cajero'}</strong>
+                        </div>
+                        <div class="bg-white p-2 rounded-xl border border-slate-200/80">
+                            <span class="text-slate-400 block text-[10px] font-bold">Punto de Venta / Canal</span>
+                            <strong class="text-slate-900 font-extrabold truncate block" title="${diag.pos_device || ''}">${diag.pos_device || 'Mostrador'}</strong>
+                        </div>
+                        <div class="bg-white p-2 rounded-xl border border-slate-200/80">
+                            <span class="text-slate-400 block text-[10px] font-bold">${isSale ? 'Ticket / Recibo' : 'Tipo de Acción'}</span>
+                            <strong class="${isSale ? 'text-indigo-600 font-black' : 'text-slate-900 font-bold'}">${diag.receipt_number ? '#' + diag.receipt_number : 'Ajuste Manual'}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificación: ¿Auditor vs Loyverse? -->
+                <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    </div>
+                    <div class="text-[11px] leading-relaxed">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <strong class="text-emerald-950 font-black text-xs">Origen Certificado:</strong>
+                            <span class="px-1.5 py-0.2 rounded bg-emerald-200/90 text-emerald-950 font-black text-[10px]">${diag.origin_label || 'Loyverse Directo'}</span>
+                        </div>
+                        <p class="text-emerald-900 mt-1 font-medium">
+                            <strong>✅ Auditor Urbannoise Descartado:</strong> La app del Auditor cuenta con una regla estricta de no-negatividad (<code class="bg-emerald-100 text-emerald-950 px-1 py-0.5 rounded font-mono font-bold">Math.max(0, ...)</code>) que prohíbe técnicamente registrar o subir inventarios bajo cero a Loyverse. El negativo se produjo <strong>directamente en ${isSale ? 'la caja de Loyverse al vender sin stock' : 'el panel de Loyverse'}</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Botón de Acción: Calibrar a 0 ahora -->
+                <div class="pt-2">
+                    <button id="btnCalibrateZero" onclick="executeCalibrateToZero('${meta.variantId}', '${meta.itemId}')" class="w-full py-3 px-4 rounded-2xl bg-slate-900 hover:bg-black active:scale-[0.98] text-white font-black text-xs flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                        <span>Calibrar esta talla a 0 en Loyverse ahora</span>
+                    </button>
+                    <span class="text-[10px] text-slate-400 text-center block mt-1">Elimina el saldo negativo en Loyverse y actualiza la tarjeta instantáneamente.</span>
+                </div>
+            `;
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function executeCalibrateToZero(variantId, itemId) {
+            const btn = document.getElementById('btnCalibrateZero');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Actualizando Loyverse...</span>`;
+            }
+
+            try {
+                const pin = sessionStorage.getItem('urbannoise_audit_pin') || ADMIN_PIN;
+                const payload = {
+                    action: 'calibrate_to_zero',
+                    variant_id: variantId,
+                    store_id: selectedStoreId,
+                    item_id: itemId,
+                    pin: pin
+                };
+
+                const res = await fetch('/api/negative_diagnostics', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+                if (!res.ok || !data.success) {
+                    throw new Error(data.error || 'Error al calibrar en Loyverse');
+                }
+
+                // Actualizar localmente en memoria
+                const item = fullCatalog.find(i => i.id === itemId);
+                if (item) {
+                    const v = (item.variants || []).find(v => v.id === variantId);
+                    if (v) v.stock = 0;
+                }
+                if (physicalCounts[variantId] !== undefined && physicalCounts[variantId] < 0) {
+                    physicalCounts[variantId] = 0;
+                }
+
+                showToast('¡Inventario Calibrado!', 'La talla se actualizó a 0 en Loyverse exitosamente.', 'success');
+                closeNegativeDiagnosticsModal();
+
+                // Refrescar tarjetas
+                applyFilters();
+
+            } catch (err) {
+                alert('No se pudo calibrar: ' + err.message);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Calibrar esta talla a 0 en Loyverse ahora</span>`;
+                    if (window.lucide) lucide.createIcons();
+                }
+            }
         }
 </script>
 </body>
