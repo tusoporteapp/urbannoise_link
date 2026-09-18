@@ -270,6 +270,23 @@
                 </div>
             </div>
 
+            <!-- Fila 2.5: Interruptor para Ocultar Prendas Agotadas (Stock 0) -->
+            <div class="flex items-center justify-between gap-2 mb-2 p-1.5 px-2.5 bg-white border border-slate-200 rounded-xl shadow-2xs">
+                <button type="button" id="toggleHideZeroStockBtn" onclick="toggleHideZeroStock()" 
+                        class="flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-slate-900 transition-colors cursor-pointer group select-none">
+                    <div id="hideZeroStockSwitch" class="w-8 h-4.5 bg-emerald-600 rounded-full transition-colors relative flex items-center p-0.5">
+                        <div id="hideZeroStockKnob" class="w-3.5 h-3.5 bg-white rounded-full transition-transform transform translate-x-3.5 shadow-2xs"></div>
+                    </div>
+                    <span class="flex items-center gap-1.5">
+                        <span id="hideZeroStockIcon">📦</span>
+                        <span>Ocultar agotadas (0 stock)</span>
+                    </span>
+                </button>
+                <span id="hideZeroStockBadge" class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 font-extrabold border border-emerald-200 truncate">
+                    Cargando prendas...
+                </span>
+            </div>
+
             <!-- Fila 3: Buscador Instantáneo + Lector de Código de Barras / SKU -->
             <div class="relative mb-2">
                 <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
@@ -929,6 +946,7 @@
         let currentCategoryFilter = 'ALL';
         let activeCameraItemId = null;
         let selectedStoreId = "fee704a4-ff11-43ae-903e-d2f9cf0a9a25"; // Tienda Noise Urban
+        let hideZeroStock = localStorage.getItem('urbannoise_hide_zero_stock') !== 'false'; // Predeterminado: true
         
         // Paginación en memoria para rendimiento ultra-fluido (60 FPS)
         let currentRenderedCount = 0;
@@ -1161,6 +1179,13 @@
             // Agrupar categorías EXACTAS de Loyverse según las prendas de la tienda actual
             const catMap = {};
             fullCatalog.forEach(item => {
+                const hasStock = (item.variants || []).some(v => {
+                    const sys = parseInt(v.stock, 10) || 0;
+                    const phys = physicalCounts[v.id] !== undefined ? physicalCounts[v.id] : sys;
+                    return phys > 0 || sys > 0;
+                });
+                if (hideZeroStock && !hasStock) return;
+
                 const cat = (item.category || item.rawCategory || 'Sin Categoría').trim();
                 catMap[cat] = (catMap[cat] || 0) + 1;
             });
@@ -1366,6 +1391,7 @@
                 saveLocalCounts();
 
                 loader.classList.add('hidden');
+                updateHideZeroStockUI();
                 updateAuditCategoryBanner();
                 updateMetrics();
                 renderDynamicLoyverseCategoryPills();
@@ -1425,17 +1451,32 @@
                 if (auditedItemIds.has(item.id)) totalAuditedItems++;
             });
 
+            const itemsZeroStock = Math.max(0, targetItems.length - itemsWithStock);
+            
+            // Actualizar badge del toggle de ocultar agotadas
+            const hideBadgeEl = document.getElementById('hideZeroStockBadge');
+            if (hideBadgeEl) {
+                if (hideZeroStock) {
+                    hideBadgeEl.className = "text-[10px] px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 font-extrabold border border-emerald-200 truncate";
+                    hideBadgeEl.textContent = `${itemsWithStock} con stock (${itemsZeroStock} agotadas)`;
+                } else {
+                    hideBadgeEl.className = "text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-bold border border-slate-200 truncate";
+                    hideBadgeEl.textContent = `Mostrando todas (${targetItems.length})`;
+                }
+            }
+
             // Actualizar tarjetas de métricas
-            document.getElementById('statTotalItems').textContent = targetItems.length;
+            const activeItemsCount = hideZeroStock ? itemsWithStock : targetItems.length;
+            document.getElementById('statTotalItems').textContent = activeItemsCount;
             document.getElementById('statSystemUnits').textContent = totalSystemUnits;
             document.getElementById('statPhysicalUnits').textContent = totalPhysicalUnits;
             document.getElementById('statDiffVariants').textContent = totalDiffVariants;
 
             // Actualizar barra de progreso
-            const totalCount = targetItems.length || 1;
+            const totalCount = activeItemsCount || 1;
             const pct = Math.round((totalAuditedItems / totalCount) * 100);
-            document.getElementById('progressBar').style.width = `${pct}%`;
-            document.getElementById('progressText').textContent = `${totalAuditedItems} / ${targetItems.length} prendas (${pct}%)`;
+            document.getElementById('progressBar').style.width = `${Math.min(100, pct)}%`;
+            document.getElementById('progressText').textContent = `${totalAuditedItems} / ${activeItemsCount} prendas (${pct}%)`;
 
             // Actualizar pestañas
             document.getElementById('countTabALL').textContent = targetItems.length;
@@ -1529,6 +1570,11 @@
                     return phys > 0 || sys > 0;
                 });
                 const isPending = !auditedItemIds.has(item.id);
+
+                // Si el usuario activó "Ocultar prendas agotadas" y no está realizando una búsqueda textual específica
+                if (hideZeroStock && !query && !hasStockInStore) {
+                    return false;
+                }
 
                 if (currentCategoryFilter === 'ALL') return true;
                 if (currentCategoryFilter === 'WITH_STOCK') return hasStockInStore;
@@ -3560,6 +3606,39 @@
             }
 
             return inventoryPart + salesPart + recommendPart;
+        }
+
+        // ==========================================================
+        // CONTROL: OCULTAR PRENDAS AGOTADAS (STOCK 0)
+        // ==========================================================
+        function toggleHideZeroStock() {
+            hideZeroStock = !hideZeroStock;
+            localStorage.setItem('urbannoise_hide_zero_stock', hideZeroStock ? 'true' : 'false');
+            updateHideZeroStockUI();
+            updateMetrics();
+            renderDynamicLoyverseCategoryPills();
+            applyFilters();
+            
+            const storeName = selectedStoreId === 'cf0674d5-6edd-426b-a5a6-b1f65bba6770' ? 'Neos' : 'Noise Urban';
+            if (hideZeroStock) {
+                showToast("Filtro Activo", "Ocultando prendas agotadas para " + storeName + ".", "check");
+            } else {
+                showToast("Filtro Desactivado", "Mostrando todo el catálogo para " + storeName + ".", "check");
+            }
+        }
+
+        function updateHideZeroStockUI() {
+            const sw = document.getElementById('hideZeroStockSwitch');
+            const knob = document.getElementById('hideZeroStockKnob');
+            if (sw && knob) {
+                if (hideZeroStock) {
+                    sw.className = "w-8 h-4.5 bg-emerald-600 rounded-full transition-colors relative flex items-center p-0.5";
+                    knob.className = "w-3.5 h-3.5 bg-white rounded-full transition-transform transform translate-x-3.5 shadow-2xs";
+                } else {
+                    sw.className = "w-8 h-4.5 bg-slate-300 rounded-full transition-colors relative flex items-center p-0.5";
+                    knob.className = "w-3.5 h-3.5 bg-white rounded-full transition-transform transform translate-x-0 shadow-2xs";
+                }
+            }
         }
 
         // ==========================================================
