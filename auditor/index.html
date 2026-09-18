@@ -551,12 +551,17 @@
                         <div class="animate-laser"></div>
                     </div>
 
-                    <!-- Controles Flotantes sobre la Cámara (Cambiar Cámara & Linterna) -->
+                    <!-- Controles Flotantes sobre la Cámara (Cambiar Cámara, Zoom & Linterna) -->
                     <div class="absolute top-2 right-2 flex items-center gap-1.5 z-10">
                         <button type="button" id="switchCameraBtn" onclick="switchCamera()" title="Cambiar lente (1x, Ultra-Wide, etc.)"
                             class="hidden px-2 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-900 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-white/20 transition-all cursor-pointer shadow-md">
                             <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
                             <span class="text-[10px]">Lente</span>
+                        </button>
+                        <button type="button" id="toggleZoomBtn" onclick="toggleZoom()" title="Zoom 2x / 1x para acercar el código"
+                            class="px-2 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-900 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-white/20 transition-all cursor-pointer shadow-md">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                            <span class="text-[10px]" id="zoomBtnText">1x</span>
                         </button>
                         <button type="button" id="toggleTorchBtn" onclick="toggleTorch()" title="Encender / Apagar Linterna"
                             class="hidden px-2 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-900 active:scale-95 text-white backdrop-blur-xs text-xs font-bold flex items-center gap-1 border border-white/20 transition-all cursor-pointer shadow-md">
@@ -2558,7 +2563,7 @@
 
                 await startCameraStream();
 
-                // DESPUÉS de que el stream haya iniciado (permisos confirmados), listar cámaras para alternar lentes
+                // DESPUÉS de que el stream haya iniciado (permisos confirmados), listar cámaras para seleccionar la 1x principal
                 try {
                     const cameras = await Html5Qrcode.getCameras();
                     if (cameras && cameras.length > 0) {
@@ -2567,13 +2572,24 @@
                             const lbl = (c.label || '').toLowerCase();
                             return lbl.includes('back') || lbl.includes('rear') || lbl.includes('trasera') || lbl.includes('environment');
                         });
+                        
+                        // Seleccionar la cámara principal 1x (descartando ultra-wide 0.5x que aleja y empequeñece las prendas)
                         const sharpBackCam = backCams.find(c => {
                             const lbl = (c.label || '').toLowerCase();
-                            return !lbl.includes('wide') && !lbl.includes('0.5') && !lbl.includes('ultra');
-                        }) || backCams[0] || cameras[cameras.length - 1];
+                            const isUltra = lbl.includes('ultra') || lbl.includes('0.5') || lbl.includes('0,5');
+                            const isTele = lbl.includes('tele') || lbl.includes('3x') || lbl.includes('5x');
+                            return !isUltra && !isTele;
+                        }) || backCams.find(c => {
+                            const lbl = (c.label || '').toLowerCase();
+                            return !lbl.includes('ultra') && !lbl.includes('0.5');
+                        }) || backCams[0] || cameras[0];
 
                         const idx = availableCameras.findIndex(c => c.id === sharpBackCam.id);
-                        if (idx !== -1) currentCameraIndex = idx;
+                        if (idx !== -1 && idx !== currentCameraIndex) {
+                            currentCameraIndex = idx;
+                            // Reiniciar de inmediato con la cámara 1x principal
+                            await startCameraStream();
+                        }
                     }
                 } catch(camErr) {
                     console.warn("No se pudieron listar cámaras secundarias:", camErr);
@@ -2601,17 +2617,26 @@
                 isScannerRunning = false;
             }
 
-            // Escaneo de marco completo sin restricciones de recorte para capturar Code-128 largos e inclinados
+            // 15 FPS permite mayor tiempo de exposición por cuadro (más luz, menos ruido en las líneas)
             const config = {
-                fps: 20,
+                fps: 15,
                 disableFlip: false
             };
 
+            // Solicitamos resolución Full HD ideal (1080p o 720p) para que el código tenga 3x más píxeles a distancia
             let cameraConfig;
             if (availableCameras.length > 0 && availableCameras[currentCameraIndex]) {
-                cameraConfig = availableCameras[currentCameraIndex].id;
+                cameraConfig = {
+                    deviceId: { exact: availableCameras[currentCameraIndex].id },
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 }
+                };
             } else {
-                cameraConfig = { facingMode: "environment" };
+                cameraConfig = {
+                    facingMode: "environment",
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 }
+                };
             }
 
             try {
@@ -2624,8 +2649,11 @@
                 isScannerRunning = true;
                 if (statusText) statusText.textContent = "Apunta al código (15-25 cm)...";
                 checkTorchAvailability();
+                if (currentZoom > 1) {
+                    await applyZoomConstraints(currentZoom);
+                }
             } catch (err) {
-                console.warn("Fallo con cámara específica, probando facingMode genérico:", err);
+                console.warn("Fallo con cámara Full HD, probando configuración básica:", err);
                 try {
                     await html5QrCodeScanner.start(
                         { facingMode: "environment" },
@@ -2636,11 +2664,57 @@
                     isScannerRunning = true;
                     if (statusText) statusText.textContent = "Apunta al código (15-25 cm)...";
                     checkTorchAvailability();
+                    if (currentZoom > 1) {
+                        await applyZoomConstraints(currentZoom);
+                    }
                 } catch (fallbackErr) {
                     console.error("Error iniciando stream:", fallbackErr);
                     if (statusText) statusText.textContent = "Error al iniciar stream";
                     throw fallbackErr;
                 }
+            }
+        }
+
+        let currentZoom = 1;
+
+        async function toggleZoom() {
+            if (!html5QrCodeScanner || !isScannerRunning) return;
+            currentZoom = currentZoom === 1 ? 2 : 1;
+            const zoomBtn = document.getElementById('toggleZoomBtn');
+            const zoomText = document.getElementById('zoomBtnText');
+            if (zoomText) zoomText.textContent = `${currentZoom}x`;
+            if (zoomBtn) {
+                zoomBtn.classList.toggle('bg-amber-400', currentZoom > 1);
+                zoomBtn.classList.toggle('text-slate-900', currentZoom > 1);
+                zoomBtn.classList.toggle('bg-slate-900/80', currentZoom === 1);
+                zoomBtn.classList.toggle('text-white', currentZoom === 1);
+            }
+            await applyZoomConstraints(currentZoom);
+            showToast("Zoom " + currentZoom + "x", currentZoom === 2 ? "Acercamiento 2x activado" : "Zoom normal 1x", "zoom-in");
+        }
+
+        async function applyZoomConstraints(zoomVal) {
+            try {
+                const capabilities = html5QrCodeScanner.getRunningTrackCapabilities ? html5QrCodeScanner.getRunningTrackCapabilities() : null;
+                if (capabilities && capabilities.zoom) {
+                    const maxZ = capabilities.zoom.max || 3;
+                    const minZ = capabilities.zoom.min || 1;
+                    const targetZ = zoomVal === 2 ? Math.min(2.0, maxZ) : minZ;
+                    await html5QrCodeScanner.applyVideoConstraints({
+                        advanced: [{ zoom: targetZ }]
+                    });
+                    return;
+                }
+            } catch(e) {
+                console.warn("Zoom por hardware no disponible, usando zoom visual:", e);
+            }
+
+            // Fallback visual fluido
+            const videoEl = document.querySelector('#qr-reader video');
+            if (videoEl) {
+                videoEl.style.transform = zoomVal === 2 ? 'scale(1.75)' : 'scale(1)';
+                videoEl.style.transformOrigin = 'center center';
+                videoEl.style.transition = 'transform 0.25s ease';
             }
         }
 
@@ -2652,7 +2726,12 @@
             if (statusText) statusText.textContent = "Cambiando cámara...";
             try {
                 await startCameraStream();
-                showToast("Cámara Cambiada", cam.label || `Lente ${currentCameraIndex + 1}`, "camera");
+                const cleanLabel = (cam.label || `Lente ${currentCameraIndex + 1}`)
+                    .replace(/camera/gi, 'Cám.')
+                    .replace(/back/gi, 'Trasera')
+                    .replace(/wide/gi, 'Gran Angular')
+                    .replace(/ultra/gi, 'Ultra');
+                showToast("Lente Cambiado", cleanLabel, "camera");
             } catch (e) {
                 console.error("Error cambiando de lente:", e);
             }
@@ -2706,6 +2785,16 @@
                 isScannerRunning = false;
             }
             isTorchOn = false;
+            currentZoom = 1;
+            const zoomText = document.getElementById('zoomBtnText');
+            if (zoomText) zoomText.textContent = "1x";
+            const zoomBtn = document.getElementById('toggleZoomBtn');
+            if (zoomBtn) {
+                zoomBtn.classList.remove('bg-amber-400', 'text-slate-900');
+                zoomBtn.classList.add('bg-slate-900/80', 'text-white');
+            }
+            const videoEl = document.querySelector('#qr-reader video');
+            if (videoEl) videoEl.style.transform = 'scale(1)';
         }
 
         function onBarcodeScanFailure(error) {
